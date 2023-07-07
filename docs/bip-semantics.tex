@@ -1,0 +1,214 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{mathpartir}
+\begin{document}
+\section*{Atomic Components}
+\subsection*{Formal syntax}
+Let $V$ be a set of variables, $X$ a set of clocks and $\mathcal{E}(V)$ the set of expressions where variables are in
+$V$. \\
+A \textbf{clock constraint} over $V \cup X$ is a conjunction of atomic constraints of the form
+$x \sim n$ or $x - y \sim n$ with $x,y \in X, \sim \in \{\leq, <, \geq, >\}$ and $n \in \mathcal{E}(V)$ an integer
+expression. \\
+A \textbf{guard} over $V \cup X$ is a (possibly empty) conjunction of atomic guard of the form $c$ or $b$ or $c \vee b$
+with $c$ a clock constraint and $b \in \mathcal{E}(V)$ a boolean expression. We write $\mathcal{G}(V, X)$ to denote the
+set of guards over $V \cup X$ and
+$\mathcal{G}(V) = \mathcal{G}(V, \emptyset)$. \\
+An \textbf{invariant} over $V \cup X$ is defined as a guard where $\sim$ is restricted to $\{\leq, <\}$. We write
+$\mathcal{I}(V, X)$ to denote the set of invariants over $V \cup X$. \\
+An \textbf{update} on $V \cup X$ is a sequence of assignments of the form $x = n$ or $v = e$ or $f(p)$ with
+$x \in X, n \in \mathcal{E}(V)$ an integer expression, $v \in V, e \in \mathcal{E}(V)$, $p$ a list of variables in $V$
+and $f$ a function that can assign values to variables in $p$. We write $\mathcal{F}(V,X)$ to denote the set of updates
+on $V \cup X$ and $\mathcal{F}(V) = \mathcal{F}(V,\emptyset)$.\\
+A \textbf{port} is a pair $\langle p, x_p \rangle$, denoted $p$, where:
+\begin{itemize}
+  \item $p$ is an identifier,
+  \item $x_p$ is a set of variables.
+\end{itemize}
+An \textbf{atomic component} is a tuple $A = \langle V_A, X_A, P_A, L_A, l_A^0, T_A, I_A \rangle$ where:
+\begin{itemize}
+  \item $V_A$ is a finite set of variables with $v_0$ the initial value of $v$ for each $v \in V_A$,
+  \item $X_A$ is a finite set of clocks,
+  \item $P_A$ is a finite set of ports with $x_p \subseteq V_A$ for each $p \in P_A$,
+  \item $L_A$ is a finite set of locations,
+  \item $l_A^0 \in L_A$ is the initial location,
+  \item $T_A$ is a finite set of transitions, each transition is a tuple $\langle l, p, g, f, l', u \rangle$ with
+        $l,l' \in L_A, p \in P_A, f \in \mathcal{F}(V_A, X_A)$, $u \in \{e,l\}$ an urgency ($e$ for eager and $l$ for
+        lazy) and $g \in \mathcal{G}(V_A, X_A)$ if $u = l$ and $g \in \mathcal{G}(V_A)$ otherwise,
+  \item $I_A: L_A \to \mathcal{I}(V_A,X_A)$ is a function that assigns an invariant to each location.
+\end{itemize}
+We denote by $\mathcal{T}(A,p)=\{\langle l, p', g, f, l',u \rangle \in T_{A} \:\vert\: p'=p\}$ the set of transitions
+of $p$ in $A$.
+\subsection*{Semantics}
+A \textbf{valuation} $v: V \cup X \to \mathcal{D}$ is a function mapping variables in $V$ and clocks in $X$ to their
+domain, we denote by $\mathcal{D}$ the union of these domains.
+For $\delta \in \mathbb{R}^+, v+\delta$ is defined as $(v+\delta) (x) =
+  \begin{cases}
+    v(x)          & \text{if $x \in V$} \\
+    v(x) + \delta & \text{if $x \in X$}
+  \end{cases}.$
+For $f \in \mathcal{F}(V, X), f(v)$ is the valuation $v$ updated by $f$. \\
+For two functions $v: X \to Y$ and $v': X' \to Y'$, the \textbf{substitution function} noted
+$v/v': X \cup X' \to Y \cup Y'$ is defined as $(v/v') (x) =
+  \begin{cases}
+    v'(x) & \text{if } x \in X'             \\
+    v(x)  & \text{if } x \in X \setminus X'
+  \end{cases}$. \\
+For a function $f: X \to Y$ and a set $X' \subseteq X$, the \textbf{restriction} of $f$ to $X'$ noted
+$f \vert_{X'}: X' \to Y$ is defined as $f \vert_{X'}(x) = f(x)$ for $x \in X'$.\\
+The semantics of an atomic component $A$ is a LTS $\langle Q_A, q_A^0, \Sigma_A, \xrightarrow{}_A \rangle$ where:
+\begin{itemize}
+  \item $Q_A$ is a set of states of the form $\langle l, v \rangle$ with $l \in L_A$ and
+        $v \in \mathcal{D}^{V_A \cup X_A}$ a valuation of variables and clocks of $A$,
+  \item $q_A^0$ is the initial state $\langle l^0, v_0 \rangle$ with $v_0(x) = x_0$ for each $x \in V_A$ and
+        $v_0(x) = 0$ for each $x \in X_A$,
+  \item $\Sigma_A$ is the set of labels of the form $d$ or $\langle p, v_p, u \rangle$ with
+        $d \in \mathbb{R}^{+*}, p \in P_A$, $v_p \in \mathcal{D}^{x_p}$ a valuation of variables of the port $p$ and
+        $u \in \{e,l\}$ an urgency
+  \item $\xrightarrow{}_A$ is the transition relation defined by the rules:
+        \begin{mathpar}
+          \inferrule[port]{
+            \langle l, p, g, f, l', u \rangle \in T_A \\
+            v \vDash g \\
+            v' = f(v/v_p)~(1)\\
+            v' \vDash I_A(l')
+          } {
+            \langle l, v \rangle \xrightarrow{\langle p, v_p, u \rangle}_A \langle l', v' \rangle
+          }
+        \end{mathpar}
+        $(1)$ $v'$ is the valuation $v$ updated by $v_p$ then by $f$
+        \begin{mathpar}
+          \inferrule[delay]{
+            v' = v+\delta \\
+            v' \vDash I_A(l) \\
+            \neg \bigl(\exists q \in Q_A, \exists p \in P_A, \exists v_p \in \mathcal{D}^{x_p}:
+            \langle l, v \rangle \xrightarrow{\langle p, v_p, e \rangle}_A q\bigr)~(2)
+          } {
+            \langle l, v \rangle \xrightarrow{\delta}_A \langle l, v' \rangle
+          }
+        \end{mathpar}
+        $(2)$ expresses that there is no port transition from $\langle l, v \rangle$ with an eager urgency
+\end{itemize}
+\section*{Composite Components}
+\subsection*{Formal syntax}
+Let $(A_1, \ldots, A_n)$ be a vector of atomic components and $I \subseteq [1,n]$. \\
+A \textbf{connector} is a tuple $\gamma = \langle T_{\gamma}, S_{\gamma}, A_{\gamma} \rangle$ where:
+\begin{itemize}
+  \item $T_{\gamma}$ and $S_{\gamma}$ are two disjoint sets of ports with
+        $T_{\gamma} \cup S_{\gamma} = \{p_i \mid i \in I\}$ and $p_i \in P_{A_i}$ for each $i \in I$, $I$ defines the
+        indices of the atomics components from where the ports of the connector come and there is at most one port per
+        atomic component in the connector,
+  \item $A_{\gamma}$ is a set of actions, each action is a tuple $\langle P, g, f \rangle$ with
+        \begin{itemize}
+          \item $P = \{p_j \mid j \in J\} \subseteq T_{\gamma} \cup S_{\gamma}$ for a $J \subseteq I$ where either
+                $P \cap T_{\gamma} \neq \emptyset$ or $P = T_{\gamma} \cup S_{\gamma}$, $T_{\gamma}$ is a set
+                of trigger ports that can initiate an interaction without synchronizing and $S_{\gamma}$ is a set of
+                synchron ports that needs synchronization with other ports to initiate an interaction,
+          \item $\forall i \in J: \bigl(\exists \langle l, p, g, f, l', u \rangle \in \mathcal{T}(A_i, p_i): u = e
+                  \bigr) \Rightarrow \forall j \in J \setminus \{i\}, \forall \langle l, p, g, f, l', u \rangle \in
+                  \mathcal{T}(A_j, p_j): g \in \mathcal{G}(V_{A_j})$, i.e. if a port has an eager
+                transition then the transitions of the other ports cannot have clocks in their guard,
+          \item $g \in \mathcal{G}(\bigcup_{j \in J} x_{p_j})$,
+          \item $f \in \mathcal{F}(\bigcup_{j \in J} x_{p_j})$.
+        \end{itemize}
+\end{itemize}
+We denote by $\mathcal{A}(\gamma) = \{P \mid \langle P, g ,f \rangle \in A_{\gamma}\}$ the set of \textbf{interactions}
+of $\gamma$. \\
+A \textbf{priority} model $\pi$ is a partial order on a set of connector. \\
+A \textbf{composite component} is tuple $C = \langle (A_1, \ldots, A_n), \Gamma_C, \pi_C \rangle, n \in \mathbb{N}$
+where:
+\begin{itemize}
+  \item $(A_1, \ldots, A_n)$ is a vector of atomic components with the sets in $\{V_{A_i} \mid 1 \leq i \leq n\}$ and
+        $\{X_{A_i} \mid 1 \leq i \leq n\}$ pairwise disjoint,
+  \item $\Gamma_C$ is a set of connectors on $(A_1, \ldots, A_n)$,
+  \item $\pi_C$ a priority model on $\Gamma_C$.
+\end{itemize}
+We denote by $\mathcal{B}(C) = \bigcup_{1 \leq i \leq n} P_{A_i} \setminus \bigcup_{\gamma \in \Gamma_C} T_{\gamma}
+  \cup S_{\gamma}$ the set of \textbf{internal ports} of $C$.
+\subsection*{Semantics}
+The semantics of a composite component $C$ is a LTS $\langle Q_C, q^0_C, \Sigma_C, \xrightarrow{}_C \rangle$ where:
+\begin{itemize}
+  \item $Q_C = \prod_{1 \leq i \leq n} Q_{A_i}$,
+  \item $q^0_C = \langle q^0_{A_1}, \ldots, q^0_{A_n} \rangle$,
+  \item $\Sigma_C = \mathbb{R}^{+*} \cup \bigl(\bigcup_{\gamma \in \Gamma_C} \mathcal{A}(\gamma) \cup \mathcal{B}(C)
+          \bigr) \times \{e,l\}$,
+  \item $\xrightarrow{}_C$ is defined by the rules:
+        \begin{mathpar}
+          \inferrule[internal port]{
+            i \in [1,n] \\
+            p \in \mathcal{B}(C) \cap P_{A_i} \\
+            q_i \xrightarrow{\langle p, v_{\emptyset}, u \rangle}_{A_i} q_i' \\
+            \forall j \in [1,n] \setminus \{i\}: q_j = q_j'
+          } {
+            \langle q_1, \ldots, q_n \rangle \xrightarrow{\langle p, u \rangle}_C \langle q_1', \ldots, q_n' \rangle
+          }
+        \end{mathpar}
+        where $v_{\emptyset}$ is the empty function to $\mathcal{D}$
+        \begin{mathpar}
+          \inferrule[interaction]{
+            I \subseteq [1, n] \\
+            a = \{p_i \mid i \in I \} \wedge p_i \in P_{A_i} \\
+            \exists \gamma \in \Gamma_C: \langle a, g, f \rangle \in A_{\gamma}\\
+            v \vDash g \\
+            \forall i \in I, \exists u_i \in \{e,l\}: q_i \xrightarrow{\langle p_i, v_i', u_i \rangle}_{A_i} q_i'
+            \wedge v_i' = f \vert_{x_{p_i}}(v)~(3) \\
+            u = \text{$\begin{cases}
+                  e & \text{if } \exists i \in I : u_i = e \\
+                  l & \text{otherwise}
+                \end{cases}$} \\
+            \forall i \not\in I : q_i = q_i' \\
+            \neg \bigl(\exists \gamma' \in \Gamma_C, \exists a' \in \mathcal{A}(\gamma'), \exists u \in \{e,l\},
+            \exists Q \in Q_C: \gamma \prec_{\pi_C} \gamma' \wedge \langle q_1, \ldots, q_n \rangle
+            \xrightarrow{\langle a', u \rangle}_C Q\bigr)~(4) \\
+            \neg \bigl(\exists a' \in \mathcal{A}(\gamma), \exists u \in \{e,l\}, \exists Q \in Q_C: a \subset a'
+            \wedge \langle q_1, \ldots, q_n \rangle \xrightarrow{\langle a', u \rangle}_C Q\bigr)
+            ~(5)
+          } {
+            \langle q_1, \ldots q_n \rangle \xrightarrow{\langle a, u \rangle}_C \langle q_1', \ldots, q_n' \rangle
+          }
+        \end{mathpar}
+        where $v = v_I \vert_{\bigcup_{i \in I} x_{p_i}}$ with $v_I$ defined as $v_I(x) = v_i(x)$ for each
+        $x \in V_{A_i}$ if $i \in I$ and $v_i$ the valuation of $q_i$, it is the valuation of variables of the
+        ports in $a$ \\
+        $(3)$ $v_i'$ is the valuation of variables in $p_i$ updated by $f$ \\
+        $(4)$ and $(5)$ express that there is no interaction with a higher priority or including $a$ from
+        $\langle q_1, \ldots, q_n \rangle$\\
+        \begin{mathpar}
+          \inferrule[delay]{
+            \forall i \in [1, n]: q_i \xrightarrow{\delta}_{A_i} q_i' \\
+            \neg \bigl(\exists p \in \bigcup_{\gamma \in \Gamma_C} \mathcal{A}(\gamma) \cup \mathcal{B}(C),
+            \exists Q \in Q_C: \langle q_1, \ldots, q_n \rangle \xrightarrow{\langle p, e \rangle}_C Q\bigr)~(6)
+          } {
+            \langle q_1, \ldots q_n \rangle \xrightarrow{\delta}_C \langle q_1', \ldots, q_n' \rangle
+          }
+        \end{mathpar}
+        $(6)$ expresses that there is no internal port or interaction transition from
+        $\langle q_1, \ldots q_n \rangle$ with an eager urgency
+\end{itemize}
+\section*{Differences}
+\begin{itemize}
+  \item No hierarchy:
+        \begin{itemize}
+          \item connectors have no exported port
+          \item components have no compound component, exported data and exported port
+        \end{itemize}
+  \item No guard on priorities and only priorities on connectors:
+        \begin{itemize}
+          \item atoms have no priority on ports, export data and merged ports
+          \item priority rules in components are in the form \texttt{I < J} where \texttt{I} and \texttt{J} are in the
+                form \texttt{C:*} or \texttt{*:*} where \texttt{C} is a connector
+        \end{itemize}
+  \item There is no sub-expression in the expressions of the interactions in connectors
+  \item No delayable urgency, invariant from and resume
+  \item Guard and invariant conditions are restricted to the grammar: \\
+        $\begin{aligned}
+            G & ::= c \:\vert\: b \:\vert\: c \vee b \:\vert\: G \wedge G \\
+            c & ::= x \sim n \:\vert\: x - y \sim n \:\vert\: c\wedge c
+          \end{aligned}$ \\
+        where $b$ is a boolean expression, $x,y$ are clocks, $n$ is an integer expression,
+        $\sim \in \{<, \leq, >, \geq \}$ for guards and $\sim \in \{<, \leq \}$ for invariants.
+  \item No internal transition
+  \item No if-then-else statement in actions
+\end{itemize}
+\end{document}
