@@ -1,0 +1,1121 @@
+[comment encoding = UTF-8 /]
+[module behaviorAnalyzer('http://bip2/1.0')/]
+
+[import ujf::verimag::bip::backend::cpp::templates::commonBip /]
+
+[comment
+	/!\ WARNING: sequences of transitions are used to
+    represent atomic execution of either
+	1) a transition with a trigger port followed by one ore more internal transition(s)
+		in this case execution = transition_with_trigger_port (internal_transition)*
+	2) or one ore more internal transition(s) executed from the initial state
+		in this case execution = (internal_transition)*
+/]
+
+[comment
+	DATA ANALYZER
+/]
+
+[query private mayBeCoverable(pn : PetriNet, states : Set(State)) : Boolean =
+	pn.mayBeCoverable(states->asBag())
+/]
+
+[query private mayBeCoverable(pn : PetriNet, states1 : Set(State), states2 : Set(State)) : Boolean =
+	let states : Set(State) = states1->union(states2) in
+		pn.mayBeCoverable(states)
+/]
+
+[query private allSideEffectVariables(atom : AtomType) : Set(DataDeclaration) =
+	if isOptimEnabled('no-side-effect') then
+		Set { }
+	else
+		(atom.internalDataDeclarations
+			->union(atom.dataParameterDeclarations))
+		->select(dd : DataDeclaration | not dd.const)
+	endif
+/]
+
+[query private isNonNativeOperation(expression : Expression) : Boolean =
+	if expression.oclIsKindOf(FunctionCallExpression) then
+		expression.oclAsType(FunctionCallExpression).getPrototypes()
+			->exists(p : FunctionCallPrototype | not p.native)
+	else if expression.oclIsKindOf(BinaryOpExpression) then
+		expression.oclAsType(BinaryOpExpression).getPrototypes()
+			->exists(p : BinaryOpPrototype | not p.native)
+	else if expression.oclIsKindOf(UnaryOpExpression) then
+		expression.oclAsType(UnaryOpExpression).getPrototypes()
+			->exists(p : UnaryOpPrototype | not p.native)
+	else
+		false
+	endif endif endif
+/]
+
+[query private includesNonNativeOperations(expression : Expression) : Boolean =
+	isNonNativeOperation(expression) or
+	expression.eContents(Expression)
+		->exists(e : Expression | includesNonNativeOperations(e))
+/]
+
+[query private mayHaveSideEffect(expression : Expression) : Boolean =
+	includesNonNativeOperations(expression) or
+	expression.getMayWriteVariables()
+		->exists(variable : DataDeclaration | not variable.dataType.native)
+/]
+
+[query private readVariables(anAtomInternalPort : AtomInternalExternalPortDeclaration) : Set(DataDeclaration) =
+	anAtomInternalPort.dataParameters
+		->collect(dataDeclarationReference)->flatten()->asSet()
+/]
+
+[query private writtenVariables(anAtomInternalPort : AtomInternalExternalPortDeclaration) : Set(DataDeclaration) =
+	anAtomInternalPort.dataParameters
+		->select(dp : DataDeclarationReferenceDataParameter | not dp.parameterDeclaration.const)
+		->collect(dataDeclarationReference)->flatten()->asSet()
+/]
+
+[query private readVariablesOfGuard(transition : Transition) : Set(DataDeclaration) =
+	if transition.guard->isEmpty() then
+		Set { }
+	else
+		transition.guard.getMayReadVariables()
+	endif
+/]
+
+[query private readVariables(transition : Transition) : Set(DataDeclaration) =
+	readVariablesOfGuard(transition)
+		->union(transition.actions
+			->iterate(a : Expression ;
+				ret : Set(DataDeclaration) = Set { } |
+					ret->union(a.getMayReadVariables()))
+		)
+		->union(
+			if transition.triggerPort->isEmpty() then
+				Set { }
+			else
+				readVariables(transition.triggerPort)
+			endif
+		)
+/]
+
+[query public writtenVariables(transition : Transition) : Set(DataDeclaration) =
+	let atom : AtomType = transition.eContainer(PetriNet).eContainer(AtomType) in
+		if transition.guard->notEmpty() then
+			transition.guard.getMayWriteVariables()
+		else
+			Set { }
+		endif
+		->union(transition.actions
+			->iterate(a : Expression ;
+				ret : Set(DataDeclaration) = Set { } |
+					ret->union(a.getMayWriteVariables()))
+		)
+		->union(
+			if transition.triggerPort->isEmpty() then
+				Set { }
+			else
+				writtenVariables(transition.triggerPort)
+			endif
+		)
+		->union(
+			if transition.guard->exists(mayHaveSideEffect()) or
+			 transition.actions->exists(mayHaveSideEffect()) then
+				allSideEffectVariables(atom)
+			else
+				Set { }
+			endif
+		)
+/]
+
+[query public writtenVariablesOfActions(transition : Transition) : Set(DataDeclaration) =
+	let atom : AtomType = transition.eContainer(PetriNet).eContainer(AtomType) in
+		transition.actions
+			->iterate(a : Expression ;
+				ret : Set(DataDeclaration) = Set { } |
+					ret->union(a.getMayWriteVariables()))
+		->union(
+			if transition.actions->exists(mayHaveSideEffect()) then
+				allSideEffectVariables(atom)
+			else
+				Set { }
+			endif
+		)
+/]
+
+[query public writtenVariablesOfInit(pn : PetriNet) : Set(DataDeclaration) =
+	let atom : AtomType = pn.eContainer(AtomType) in
+		pn.initialActions
+			->iterate(a : Expression ;
+				ret : Set(DataDeclaration) = Set { } |
+					ret->union(a.getMayWriteVariables()))
+		->union(
+			if pn.initialActions->exists(mayHaveSideEffect()) then
+				allSideEffectVariables(atom)
+			else
+				Set { }
+			endif
+		)
+/]
+
+[query private readVariablesOfGuard(priority : AtomPriorityDeclaration) : Set(DataDeclaration) =
+	if priority.guard->isEmpty() then
+		Set { }
+	else
+		priority.guard.getMayReadVariables()
+	endif
+/]
+
+[query private readClocksOfGuard(priority : AtomPriorityDeclaration) : Set(ClockDeclaration) =
+	if priority.guard->isEmpty() then
+		Set { }
+	else
+		priority.guard.getMayReadClocks()
+	endif
+/]
+
+[comment
+	(not isOptimEnabled('no-side-effect') and (transition.includesFunctionCall() or writtenVariables(transition)->exists(not dataType.native))) or
+	transition.writtenVariables()->includes(aData)
+/]
+
+[query private exportedVariables(port : AtomInternalExternalPortDeclaration) : Set(DataDeclaration) =
+	readVariables(port)
+/]
+
+[query private exportedVariables(transition : Transition) : Set(DataDeclaration) =
+	transition.triggerPort
+		->collect(exportedVariables())
+		->asSet()
+/]
+
+[query public exportedVariables(port : AtomExportPortDeclaration) : Set(DataDeclaration) =
+	port.portDeclarationReferences
+		->iterate(p : AtomInternalPortDeclaration ;
+			ret : Set(DataDeclaration) = Set { } |
+			ret->union(exportedVariables(p)))
+/]
+
+[comment
+	TIME
+/]
+
+[query private readClocksOfGuard(transition : Transition) : Set(ClockDeclaration) =
+	if transition.guard->isEmpty() then
+		Set { }
+	else
+		transition.guard.getMayReadClocks()
+	endif
+/]
+
+[query private readClocks(transition : Transition) : Set(ClockDeclaration) =
+	readClocksOfGuard(transition)
+		->union(transition.actions
+			->iterate(a : Expression ;
+				ret : Set(ClockDeclaration) = Set { } |
+					ret->union(a.getMayReadClocks()))
+		)
+/]
+
+[query public writtenClocks(transition : Transition) : Set(ClockDeclaration) =
+	let atom : AtomType = transition.eContainer(PetriNet).eContainer(AtomType) in
+		if transition.guard->notEmpty() then
+			transition.guard.getMayWriteClocks()
+		else
+			Set { }
+		endif
+		->union(transition.actions
+			->iterate(a : Expression ;
+				ret : Set(ClockDeclaration) = Set { } |
+					ret->union(a.getMayWriteClocks()))
+		)
+/]
+
+[query public readClocks(invariant : AtomInvariant) : Set(ClockDeclaration) =
+	if invariant.guard->isEmpty() then
+		Set { }
+	else
+		invariant.guard.getMayReadClocks()
+	endif
+/]
+
+[query public writtenClocks(invariant : AtomInvariant) : Set(ClockDeclaration) =
+	if invariant.guard->isEmpty() then
+		Set { }
+	else
+		invariant.guard.getMayWriteClocks()
+	endif
+/]
+
+[query public readClocksOfInit(pn : PetriNet) : Set(ClockDeclaration) =
+	let atom : AtomType = pn.eContainer(AtomType) in
+		pn.initialActions
+			->iterate(a : Expression ;
+				ret : Set(ClockDeclaration) = Set { } |
+					ret->union(a.getMayReadClocks()))
+/]
+
+[query public writtenClocksOfInit(pn : PetriNet) : Set(ClockDeclaration) =
+	let atom : AtomType = pn.eContainer(AtomType) in
+		pn.initialActions
+			->iterate(a : Expression ;
+				ret : Set(ClockDeclaration) = Set { } |
+					ret->union(a.getMayWriteClocks()))
+/]
+
+[query public activeClocks(atom : AtomType) : Set(ClockDeclaration) =
+	atom.behavior.transitions
+		->iterate(t : Transition ;
+			ret : Set(ClockDeclaration) =
+				readClocksOfInit(atom.behavior)
+					->union(writtenClocksOfInit(atom.behavior)) |
+			ret->union(readClocks(t))->union(writtenClocks(t)))
+	->union(
+		atom.invariants
+			->iterate(i : AtomInvariant ;
+				ret : Set(ClockDeclaration) = Set { } |
+					readClocks(i)
+						->union(writtenClocks(i)))
+	)
+/]
+
+
+[comment
+	PETRI NET ANALYZER
+/]
+
+[query private sources(execution : Sequence(Transition)) : Set(State) =
+	if execution->isEmpty()  then
+		Set { }
+	else
+		let head : Transition = execution->first() in
+		let pn : PetriNet = head.eContainer(PetriNet) in
+		let tail : Sequence(Transition) =
+			if execution->size() > 1 then
+				execution->subSequence(2, execution->size())
+			else
+				Sequence { }
+			endif in
+		head.sources
+			->union(sources(tail) - head.destinations)
+	endif
+/]
+
+[query private sourcesWithInit(pn : PetriNet, execution : Sequence(Transition)) : Set(State) =
+	sources(execution) - pn.initStates
+/]
+
+[query private destinations(execution : Sequence(Transition)) : Set(State) =
+	if execution->isEmpty() then
+		Set { }
+	else
+		let tail : Transition = execution->last() in
+		let pn : PetriNet = tail.eContainer(PetriNet) in
+		let head : Sequence(Transition) =
+			if execution->size() > 1 then
+				execution->subSequence(1, execution->size() - 1)
+			else
+				Sequence { }
+			endif in
+		tail.destinations
+			->union(destinations(head) - tail.sources)
+	endif
+/]
+
+[query private destinationsWithInit(pn : PetriNet, execution : Sequence(Transition)) : Set(State) =
+	if execution->isEmpty() then
+		pn.initStates
+	else
+		let tail : Transition = execution->last() in
+		let head : Sequence(Transition) =
+			if execution->size() > 1 then
+				execution->subSequence(1, execution->size() - 1)
+			else
+				Sequence { }
+			endif in
+		tail.destinations
+			->union(destinations(head) - tail.sources)
+	endif
+/]
+
+[query private writtenVariables(execution : Sequence(Transition)) : Set(DataDeclaration) =
+	execution
+		->iterate(t : Transition ;
+			ret : Set(DataDeclaration) = Set { } |
+			ret->union(writtenVariables(t))
+		)
+/]
+
+[query private writtenVariablesByActionsForFirst(execution : Sequence(Transition)) : Set(DataDeclaration) =
+	if execution->isEmpty() then
+		Set { }
+	else
+		let head : Transition = execution->first() in
+		let tail : Sequence(Transition) =
+			if execution->size() = 1 then
+				Sequence { }
+			else
+				execution->subSequence(2, execution->size())
+			endif in
+		writtenVariablesOfActions(head)
+			->union(writtenVariables(tail))
+	endif
+/]
+
+[query private writtenClocks(execution : Sequence(Transition)) : Set(ClockDeclaration) =
+	execution
+		->iterate(t : Transition ;
+			ret : Set(ClockDeclaration) = Set { } |
+			ret->union(writtenClocks(t))
+		)
+/]
+
+[query private writtenVariablesWithInit(pn : PetriNet, execution : Sequence(Transition)) : Set(DataDeclaration) =
+	let atom : AtomType = pn.eContainer(AtomType) in
+		execution
+			->iterate(t : Transition ;
+				ret : Set(DataDeclaration) = writtenVariablesOfInit(pn) |
+				ret->union(writtenVariables(t))
+			)
+/]
+
+[query private writtenClocksWithInit(pn : PetriNet, execution : Sequence(Transition)) : Set(ClockDeclaration) =
+	let atom : AtomType = pn.eContainer(AtomType) in
+		execution
+			->iterate(t : Transition ;
+				ret : Set(ClockDeclaration) = writtenClocksOfInit(pn) |
+				ret->union(writtenClocks(t))
+			)
+/]
+
+[query private addedStates(sources : Set(State), destinations : Set(State)) : Set(State) = destinations - sources /]
+
+[query private removedStates(sources : Set(State), destinations : Set(State)) : Set(State) = sources - destinations /]
+
+[query public mayBeEnabledBy(transition : Transition, sources : Set(State), destinations : Set(State), variables : Set(DataDeclaration), clocks : Set(ClockDeclaration)) : Boolean =
+	let pn : PetriNet = transition.eContainer(PetriNet) in
+		if addedStates(sources, destinations)
+			->intersection(transition.sources)
+			->notEmpty() then
+			pn.mayBeCoverable(sources, transition.sources - addedStates(sources, destinations))
+		else if readVariablesOfGuard(transition)
+				->intersection(variables)
+				->notEmpty()
+				or
+				readClocksOfGuard(transition)
+				->intersection(clocks)
+				->notEmpty() then
+			pn.mayBeCoverable(sources, transition.sources)
+		else
+			false
+		endif endif
+/]
+
+[query public mayBeDisabledBy(transition : Transition, sources : Set(State), destinations : Set(State), variables : Set(DataDeclaration), clocks : Set(ClockDeclaration)) : Boolean =
+	let pn : PetriNet = transition.eContainer(PetriNet) in
+		if removedStates(sources, destinations)
+			->intersection(transition.sources)
+			->notEmpty() then
+			pn.mayBeCoverable(sources, transition.sources)
+		else if readVariablesOfGuard(transition)
+				->intersection(variables)
+				->notEmpty() or
+				readClocksOfGuard(transition)
+				->intersection(clocks)
+				->notEmpty() then
+			pn.mayBeCoverable(sources, transition.sources)
+		else
+			false
+		endif endif
+/]
+
+[query private isEnabledBy(transition : Transition, sources : Set(State), destinations : Set(State)) : Boolean =
+	let pn : PetriNet = transition.eContainer(PetriNet) in
+		addedStates(sources, destinations)->includesAll(transition.sources) and
+		transition.guard->isEmpty()
+/]
+
+[query private isDisabledBy(transition : Transition, sources : Set(State), destinations : Set(State)) : Boolean =
+	let pn : PetriNet = transition.eContainer(PetriNet) in
+		removedStates(sources, destinations)
+			->intersection(transition.sources)
+			->notEmpty() and
+		pn.mayBeCoverable(sources, transition.sources)
+/]
+
+[query private mayExecuteAfter(next : Transition, previous : Transition) : Boolean =
+	if next.triggerPort->isEmpty() then
+		if next = previous then
+			previous.destinations->includesAll(next.sources)
+		else
+			mayBeEnabledBy(next, previous.sources, previous.destinations, writtenVariables(previous), writtenClocks(previous))
+		endif
+	else
+		removedStates(previous.sources, previous.destinations)->intersection(next.sources)->isEmpty() and
+		let pn : PetriNet = next.eContainer(PetriNet) in
+			pn.mayBeCoverable(previous.destinations, next.sources)
+	endif
+/]
+
+[query private potentialPredecessorsOfInternalTransition(transition : Transition) : Set(Transition) =
+	let pn : PetriNet = transition.eContainer(PetriNet) in
+		pn.transitions->select(t : Transition | mayExecuteAfter(transition, t))
+/]
+
+[query private backwardPathsHaveCycles(path : Sequence(Transition)) : Boolean =
+	let head : Transition = path->first() in
+		if head.triggerPort->notEmpty() then
+			false
+		else
+			potentialPredecessorsOfInternalTransition(head)
+				->exists(t : Transition |
+					if path->includes(t) then
+						true
+					else
+						backwardPathsHaveCycles(path->insertAt(1, t))
+					endif
+				)
+		endif
+/]
+
+[query private allBackwardPaths(path : Sequence(Transition)) : Set(Sequence(Transition)) =
+	let head : Transition = path->first() in
+		if head.triggerPort->notEmpty() then
+			Set { path }
+		else
+			if enabledDependsOnInitial(head) then
+				Set { path }
+			else
+				Set { }
+			endif
+			->union(
+				potentialPredecessorsOfInternalTransition(head)
+					->iterate(t : Transition ;
+						ret : Set(Sequence(Transition)) = Set { } |
+							ret->union(allBackwardPaths(path->insertAt(1, t)))
+					)
+			)
+		endif
+/]
+
+[query private potentialInternalTransitionsSuccessorOf(transition : Transition) : Set(Transition) =
+	let pn : PetriNet = transition.eContainer(PetriNet) in
+		pn.transitions->select(t : Transition | t.triggerPort->isEmpty() and mayExecuteAfter(t, transition))
+/]
+
+[query private forwardPathsHaveCycles(path : Sequence(Transition)) : Boolean =
+	potentialInternalTransitionsSuccessorOf(path->last())
+		->exists(t : Transition |
+			if path->includes(t) then
+				true
+			else
+				forwardPathsHaveCycles(path->append(t))
+			endif
+		)
+/]
+
+[query private allForwardPaths(path : Sequence(Transition)) : Set(Sequence(Transition)) =
+	let tail : Transition = path->last() in
+	let successors : Set(Transition) =
+		potentialInternalTransitionsSuccessorOf(tail) in
+	let mayStop : Boolean =
+		successors->forAll(t : Transition | not t.isEnabledBy(tail)) or
+		successors->isEmpty() in
+			if mayStop then
+				Set { path }
+			else
+				Set { }
+			endif
+			->union(
+				successors
+					->iterate(t : Transition ;
+						ret : Set(Sequence(Transition)) = Set { } |
+						ret->union(allForwardPaths(path->append(t))))
+					)
+/]
+
+[query private potentialInternalTransitionsInitiallyEnabled(pn : PetriNet) : Set(Transition) =
+	pn.transitions->select(t : Transition | t.triggerPort->isEmpty() and pn.initStates->includesAll(t.sources))
+/]
+
+[query private forwardPathsHaveCycles(pn : PetriNet) : Boolean =
+	potentialInternalTransitionsInitiallyEnabled(pn)
+		->exists(t : Transition |
+			forwardPathsHaveCycles(Sequence { t })
+		)
+/]
+
+[query private allForwardPaths(pn : PetriNet) : Set(Sequence(Transition)) =
+	let successors : Set(Transition) =
+		potentialInternalTransitionsInitiallyEnabled(pn) in
+	let mayStop : Boolean =
+		successors->forAll(t : Transition | not t.isEnabledByInitial()) or
+		successors->isEmpty() in
+			if mayStop then
+				Set { Sequence { } }
+			else
+				Set { }
+			endif
+			->union(
+				successors
+					->iterate(t : Transition ;
+						ret : Set(Sequence(Transition)) = Set { } |
+						ret->union(allForwardPaths(Sequence { t })))
+					)
+/]
+
+
+[comment
+	ATOM PRIORITIES ANALYZER
+/]
+[query public appliesLow(prio : AtomPriorityDeclaration, port : AtomInternalPortDeclaration) : Boolean =
+	let atom : AtomType = prio.eContainer(AtomType) in
+		if prio.low->isEmpty() then
+			port <> prio.high
+		else
+			port = prio.low
+		endif
+/]
+
+[query public appliesHigh(prio : AtomPriorityDeclaration, port : AtomInternalPortDeclaration) : Boolean =
+	let atom : AtomType = prio.eContainer(AtomType) in
+		if prio.high->isEmpty() then
+			port <> prio.low
+		else
+			port = prio.high
+		endif
+/]
+
+[query public appliesLow(prio : AtomPriorityDeclaration) : Set(AtomInternalPortDeclaration) =
+	let atom : AtomType = prio.eContainer(AtomType) in
+		if prio.low->isEmpty() then
+			atom.internalPortDeclarations - Set { prio.high }
+		else
+			Set { prio.low }
+		endif
+/]
+
+[query public appliesHigh(prio : AtomPriorityDeclaration) : Set(AtomInternalPortDeclaration) =
+	let atom : AtomType = prio.eContainer(AtomType) in
+		if prio.high->isEmpty() then
+			atom.internalPortDeclarations - Set { prio.low }
+		else
+			Set { prio.high }
+		endif
+/]
+
+[query private isDominatedBy(dominated : AtomPriorityDeclaration, dominator : AtomPriorityDeclaration) : Boolean =
+	appliesHigh(dominated)
+		->intersection(appliesLow(dominator))
+		->notEmpty()
+/]
+
+[query private dominators(dominated : AtomPriorityDeclaration) : Set(AtomPriorityDeclaration) =
+    let at : AtomType = dominated.eContainer(AtomType) in 
+        at.priorities
+			->select(e : AtomPriorityDeclaration |
+				dominated.isDominatedBy(e))
+/]
+
+[query private dominated(dominator : AtomPriorityDeclaration) : Set(AtomPriorityDeclaration) =
+    let at : AtomType = dominator.eContainer(AtomType) in 
+        at.priorities
+			->select(e:AtomPriorityDeclaration |
+				e.isDominatedBy(dominator))
+/]
+
+[query private lowerPaths(path : Sequence(AtomPriorityDeclaration))  : Set(Sequence(AtomPriorityDeclaration)) =
+	let last : AtomPriorityDeclaration = path->last() in
+		if dominated(last)->isEmpty() then
+			Set { path }
+		else if path->indexOf(last) <> path->size() then
+			Set { path->subSequence(1, path->size() - 1) }
+		else
+			Set { path }
+				->union(
+					dominated(last)
+						->iterate(d : AtomPriorityDeclaration ;
+								ret : Set(Sequence(AtomPriorityDeclaration)) =  Set { } |
+							ret->union(upperPaths(path->append(d))))
+				)
+			->asOrderedSet()
+		endif endif
+/]
+
+[query private upperPaths(path : Sequence(AtomPriorityDeclaration))  : Set(Sequence(AtomPriorityDeclaration)) =
+	let last : AtomPriorityDeclaration = path->last() in
+		if dominators(last)->isEmpty() then
+			Set { path }
+		else if path->indexOf(last) <> path->size() then
+			Set { path->subSequence(1, path->size() - 1) }
+		else
+			Set { path }
+				->union(
+					dominators(last)
+						->iterate(d : AtomPriorityDeclaration ;
+								ret : Set(Sequence(AtomPriorityDeclaration)) =  Set { } |
+							ret->union(upperPaths(path->append(d))))
+				)
+			->asOrderedSet()
+		endif endif
+/]
+
+[query public lowerPaths(dominated : AtomPriorityDeclaration) : Set(Sequence(AtomPriorityDeclaration)) =
+	lowerPaths(Sequence { dominated })
+/]
+
+[query public upperPaths(dominated : AtomPriorityDeclaration) : Set(Sequence(AtomPriorityDeclaration)) =
+	upperPaths(Sequence { dominated })
+/]
+
+[query public lowerPaths(port : AtomInternalExternalPortDeclaration) : Set(Sequence(AtomPriorityDeclaration)) =
+	if port.oclIsKindOf(AtomInternalPortDeclaration) then
+		let atom : AtomType = port.eContainer(AtomType) in
+			atom.priorities
+				->select(p : AtomPriorityDeclaration | p.appliesLow(port.oclAsType(AtomInternalPortDeclaration)))
+				->iterate(p : AtomPriorityDeclaration ;
+						ret : Set(Sequence(AtomPriorityDeclaration)) = Set { } |
+					ret->union(lowerPaths(p)))
+	else
+		Set { }
+	endif
+/]
+
+[query public upperPaths(port : AtomInternalExternalPortDeclaration) : Set(Sequence(AtomPriorityDeclaration)) =
+	if port.oclIsKindOf(AtomInternalPortDeclaration) then
+		let atom : AtomType = port.eContainer(AtomType) in
+			atom.priorities
+				->select(p : AtomPriorityDeclaration | p.appliesLow(port.oclAsType(AtomInternalPortDeclaration)))
+				->iterate(p : AtomPriorityDeclaration ;
+						ret : Set(Sequence(AtomPriorityDeclaration)) = Set { } |
+					ret->union(upperPaths(p)))
+	else
+		Set { }
+	endif
+/]
+
+[query private cycles(path : Sequence(AtomPriorityDeclaration)) : Set(Set(AtomPriorityDeclaration)) =
+	let last : AtomPriorityDeclaration = path->last() in
+	let i : Integer = path->indexOf(last) in
+		if i <> path->size() then
+			Set {
+				path->subSequence(i, path->size() - 1)
+					->asSet()
+			}
+		else if dominators(last)->isEmpty() then
+			Set { }
+		else
+			dominators(last)
+				->iterate(d : AtomPriorityDeclaration ;
+						ret : Set(Set(AtomPriorityDeclaration)) = Set { } |
+					ret->union(cycles(path->append(d))))
+		endif endif
+/]
+
+[query private cycles(priority : AtomPriorityDeclaration) : Set(Set(AtomPriorityDeclaration)) =
+	cycles(Sequence { priority } )
+/]
+
+[query public cycles(atom : AtomType) : Set(Set(AtomPriorityDeclaration)) =
+	atom.priorities
+		->iterate(priority : AtomPriorityDeclaration ;
+				ret : Set(Set(AtomPriorityDeclaration)) = Set { } |
+			ret->union(cycles(priority)))
+/]
+
+
+[comment
+	DIRECT EFFECT OF EXECUTION:
+	MAY AFFECT ENABLEDNESS OF TRANSITIONS AND PRIORITIES
+
+/]
+
+[query private enabledDependsOn(next : Transition, sources : Set(State), destinations : Set(State), variables : Set(DataDeclaration), clocks : Set(ClockDeclaration)) : Boolean =
+	next.mayBeEnabledBy(sources, destinations, variables, clocks) or
+	next.mayBeDisabledBy(sources, destinations, variables, clocks)
+/]
+
+[query public enabledDependsOnInitial(next : Transition) : Boolean =
+	let pn : PetriNet = next.eContainer(PetriNet) in
+	let atom : AtomType = pn.eContainer(AtomType) in
+	let sources : Set(State) = Set { } in
+	let destinations : Set(State) = pn.initStates in
+	let variables : Set(DataDeclaration) = writtenVariablesOfInit(pn) in
+	let clocks : Set(ClockDeclaration) = writtenClocksOfInit(pn) in
+		next.enabledDependsOn(sources, destinations, variables, clocks)
+/]
+
+[query public isEnabledByInitial(next : Transition) : Boolean =
+	let pn : PetriNet = next.eContainer(PetriNet) in
+	let sources : Set(State) = Set { } in
+	let destinations : Set(State) = pn.initStates in
+		next.isEnabledBy(sources, destinations)
+/]
+
+[query public enabledDependsOn(next : Transition, previous : Transition) : Boolean =
+	let sources : Set(State) = previous.sources in
+	let destinations : Set(State) = previous.destinations in
+	let variables : Set(DataDeclaration) = writtenVariables(previous) in
+	let clocks : Set(ClockDeclaration) = writtenClocks(previous) in
+		next.enabledDependsOn(sources, destinations, variables, clocks)
+/]
+
+[query public isEnabledBy(next : Transition, previous : Transition) : Boolean =
+	let sources : Set(State) = previous.sources in
+	let destinations : Set(State) = previous.destinations in
+		next.isEnabledBy(sources, destinations)
+/]
+
+[query public isDisabledBy(next : Transition, previous : Transition) : Boolean =
+	let sources : Set(State) = previous.sources in
+	let destinations : Set(State) = previous.destinations in
+	let variables : Set(DataDeclaration) = writtenVariables(previous) in
+		next.isDisabledBy(sources, destinations)
+/]
+
+[query private enabledDependsOnBackwardPath(next : Transition, path : Sequence(Transition)) : Boolean =
+	let pn : PetriNet = next.eContainer(PetriNet) in
+		if path->first().triggerPort->isEmpty() then
+			let sources : Set(State) = sourcesWithInit(pn, path) in
+			let destinations : Set(State) = destinationsWithInit(pn, path) in
+			let variables : Set(DataDeclaration) = writtenVariablesWithInit(pn, path) in
+			let clocks : Set(ClockDeclaration) = writtenClocksWithInit(pn, path) in
+				next.enabledDependsOn(sources, destinations, variables, clocks)
+		else
+			let sources : Set(State) = sources(path) in
+			let destinations : Set(State) = destinations(path) in
+			let variables : Set(DataDeclaration) = writtenVariables(path) in
+			let clocks : Set(ClockDeclaration) = writtenClocks(path) in
+				next.enabledDependsOn(sources, destinations, variables, clocks)
+		endif
+/]
+
+[query public enabledDependsOnBackwardPaths(next : Transition, previous : Transition) : Boolean =
+	if backwardPathsHaveCycles(Sequence { previous }) then
+		true
+	else
+		let paths : Set(Sequence(Transition)) =
+			allBackwardPaths(Sequence { previous }) in
+				paths->exists(path : Sequence(Transition) |
+					next.enabledDependsOnBackwardPath(path))
+	endif
+/]
+
+[query private isEnabledByBackwardPath(next : Transition, path : Sequence(Transition)) : Boolean =
+	let pn : PetriNet = next.eContainer(PetriNet) in
+		if path->first().triggerPort->isEmpty() then
+			let sources : Set(State) = sourcesWithInit(pn, path) in
+			let destinations : Set(State) = destinationsWithInit(pn, path) in
+				next.isEnabledBy(sources, destinations)
+		else
+			let sources : Set(State) = sources(path) in
+			let destinations : Set(State) = destinations(path) in
+				next.isEnabledBy(sources, destinations)
+		endif
+/]
+
+[query public isEnabledByBackwardPaths(next : Transition, previous : Transition) : Boolean =
+	if backwardPathsHaveCycles(Sequence { previous }) then
+		false
+	else
+		let paths : Set(Sequence(Transition)) =
+			allBackwardPaths(Sequence { previous }) in
+				paths->forAll(path : Sequence(Transition) |
+					next.isEnabledByBackwardPath(path))
+	endif
+/]
+
+[query private isDisabledByBackwardPath(next : Transition, path : Sequence(Transition)) : Boolean =
+	let pn : PetriNet = next.eContainer(PetriNet) in
+		if path->first().triggerPort->isEmpty() then
+			let sources : Set(State) = sourcesWithInit(pn, path) in
+			let destinations : Set(State) = destinationsWithInit(pn, path) in
+				next.isDisabledBy(sources, destinations)
+		else
+			let sources : Set(State) = sources(path) in
+			let destinations : Set(State) = destinations(path) in
+				next.isDisabledBy(sources, destinations)
+		endif
+/]
+
+[query public isDisabledByBackwardPaths(next : Transition, previous : Transition) : Boolean =
+	if backwardPathsHaveCycles(Sequence { previous }) then
+		false
+	else
+		let paths : Set(Sequence(Transition)) =
+			allBackwardPaths(Sequence { previous }) in
+				paths->forAll(path : Sequence(Transition) |
+					next.isDisabledByBackwardPath(path))
+	endif
+/]
+
+[query private enabledDependsOn(prio : AtomPriorityDeclaration, variables : Set(DataDeclaration), clocks : Set(ClockDeclaration)) : Boolean =
+	readVariablesOfGuard(prio)
+		->intersection(variables)
+		->notEmpty()
+	or
+	readClocksOfGuard(prio)
+		->intersection(clocks)
+		->notEmpty()
+/]
+
+[query public enabledDependsOnInitial(prio : AtomPriorityDeclaration) : Boolean =
+	true
+/]
+
+[query public enabledDependsOn(prio : AtomPriorityDeclaration, previous : Transition) : Boolean =
+	let variables : Set(DataDeclaration) = writtenVariables(previous) in
+	let clocks : Set(ClockDeclaration) = writtenClocks(previous) in
+		prio.enabledDependsOn(variables, clocks)
+/]
+
+[query private enabledDependsOnBackwardPathsToPortTransitionsOf(prio : AtomPriorityDeclaration, path : Sequence(Transition)) : Boolean =
+	let atom : AtomType = prio.eContainer(AtomType) in
+	let pn : PetriNet = atom.behavior in
+		if path->first().triggerPort->isEmpty() then
+			let variables : Set(DataDeclaration) = writtenVariablesWithInit(pn, path) in
+			let clocks : Set(ClockDeclaration) = writtenClocksWithInit(pn, path) in
+				prio.enabledDependsOn(variables, clocks)
+		else			
+			let variables : Set(DataDeclaration) = writtenVariables(path) in
+			let clocks : Set(ClockDeclaration) = writtenClocks(path) in
+				prio.enabledDependsOn(variables, clocks)
+		endif
+/]
+
+[query public enabledDependsOnBackwardPathsToPortTransitionsOf(prio : AtomPriorityDeclaration, previous : Transition) : Boolean =
+	if backwardPathsHaveCycles(Sequence { previous }) then
+		true
+	else
+		let paths : Set(Sequence(Transition)) =
+			allBackwardPaths(Sequence { previous }) in
+				paths->exists(path : Sequence(Transition) |
+					prio.enabledDependsOnBackwardPathsToPortTransitionsOf(path))
+	endif
+/]
+
+[comment
+	INDIRECT EFFECT OF EXECUTION:
+	ENABLEDNESS OF TRANSITIONS AND PRIORITIES MAY AFFECT ENABLEDNESS OF PORTS,
+	ACTIVATION OF PRIORITIES
+/]
+
+[query public transitions(port : AtomInternalExternalPortDeclaration) : OrderedSet(Transition) =
+	let atom : AtomType = port.eContainer(AtomType) in
+	let pn : PetriNet = atom.behavior in
+		pn.transitions
+			->select(t : Transition | t.triggerPort = port)
+/]
+
+[query public transitions(port : AtomExportPortDeclaration) : OrderedSet(Transition) =
+	port.portDeclarationReferences
+		->collect(p : AtomInternalPortDeclaration | transitions(p))
+		->asOrderedSet()
+/]
+
+[query public enabledDependsOn(port : AtomInternalExternalPortDeclaration, transitions : Set(Transition)) : Boolean =
+	transitions(port)
+		->intersection(transitions)
+		->notEmpty()
+/]
+
+[query public activeDependsOn(path : Sequence(AtomPriorityDeclaration), transitions : Set(Transition), priorities : Set(AtomPriorityDeclaration)) : Boolean =
+	priorities
+		->intersection(path->asSet())
+		->notEmpty()
+	or
+	appliesHigh(path->last())
+		->exists(p : AtomInternalPortDeclaration | p.enabledDependsOn(transitions))
+/]
+
+[query public disabledByPrioritiesDependsOn(port : AtomInternalExternalPortDeclaration, transitions : Set(Transition), priorities : Set(AtomPriorityDeclaration)) : Boolean =
+	upperPaths(port)
+		->exists(path : Sequence(AtomPriorityDeclaration) |
+			activeDependsOn(path, transitions, priorities))
+	or
+	lowerPaths(port)
+		->exists(path : Sequence(AtomPriorityDeclaration) |
+			activeDependsOn(path, transitions, priorities))
+/]
+
+[query public enabledDependsOn(port : AtomExportPortDeclaration, transitions : Set(Transition), priorities : Set(AtomPriorityDeclaration)) : Boolean =
+	port.portDeclarationReferences
+		->exists(p : AtomInternalPortDeclaration |
+			p.enabledDependsOn(transitions) or
+			p.disabledByPrioritiesDependsOn(transitions, priorities))
+/]
+
+
+[comment
+	EARLY UPDATE
+/]
+
+[query private enabledCannotBeEarlyUpdatedBy(t : Transition, sources : Set(State), destinations : Set(State), variables : Set(DataDeclaration), clocks : Set(ClockDeclaration)) : Boolean =
+	t.enabledDependsOn(sources, destinations, variables, clocks) or
+	exportedVariables(t)
+		->intersection(variables)
+		->notEmpty()
+/]
+
+[query public enabledCannotBeEarlyUpdatedBy(t : Transition, path : Sequence(Transition)) : Boolean =
+	let tail : Sequence(Transition) =
+		if path->size() = 1 then
+			Sequence { }
+		else
+			path->subSequence(2, path->size())
+		endif in
+	let sources : Set(State) = sources(tail) in
+	let destinations : Set(State) = destinations(tail) in
+	let variables : Set(DataDeclaration) = writtenVariablesByActionsForFirst(path) in
+	let clocks : Set(ClockDeclaration) = writtenClocks(path) in
+		enabledCannotBeEarlyUpdatedBy(sources, destinations, variables, clocks)
+/]
+
+[query private enabledCannotBeEarlyUpdatedByWithInit(t : Transition, path : Sequence(Transition)) : Boolean =
+	let pn : PetriNet = t.eContainer(PetriNet) in
+	let sources : Set(State) = sources(path) in
+	let destinations : Set(State) = destinations(path) in
+	let variables : Set(DataDeclaration) = writtenVariablesWithInit(pn, path) in
+	let clocks : Set(ClockDeclaration) = writtenClocksWithInit(pn, path) in
+		enabledCannotBeEarlyUpdatedBy(sources, destinations, variables, clocks)
+/]
+
+[query private enabledCannotBeEarlyUpdatedBy(t : Transition, next : Transition) : Boolean =
+	if forwardPathsHaveCycles(Sequence { next }) then
+		true
+	else
+		allForwardPaths(Sequence { next })
+			->exists(path : Sequence(Transition) |
+				t.enabledCannotBeEarlyUpdatedBy(path))
+	endif
+/]
+
+[query private enabledCannotBeEarlyUpdatedByInitial(t : Transition) : Boolean =
+	let pn : PetriNet = t.eContainer(PetriNet) in
+	let atom : AtomType = pn.eContainer(AtomType) in
+		if forwardPathsHaveCycles(pn) then
+			true
+		else
+			allForwardPaths(pn)
+				->exists(path : Sequence(Transition) |
+					t.enabledCannotBeEarlyUpdatedByWithInit(path))
+	endif
+/]
+
+[query public enabledCannotBeEarlyUpdatedBy(prio : AtomPriorityDeclaration, next : Transition) : Boolean =
+	if forwardPathsHaveCycles(Sequence { next }) or next.resume->notEmpty() then
+		true
+	else
+		let paths : Set(Sequence(Transition)) =
+			allForwardPaths(Sequence { next }) in
+		paths->exists(path : Sequence(Transition) |
+			prio.enabledDependsOn(writtenVariables(path), writtenClocks(path)))
+	endif
+/]
+
+[query public enabledCannotBeEarlyUpdatedByInitial(prio : AtomPriorityDeclaration) : Boolean =
+	let pn : PetriNet = prio.eContainer(AtomType).behavior in
+		if forwardPathsHaveCycles(pn) or pn.initialResume->notEmpty() then
+			true
+		else
+			let paths : Set(Sequence(Transition)) =
+				allForwardPaths(pn) in
+			paths->exists(path : Sequence(Transition) |
+				prio.enabledDependsOn(writtenVariables(path), writtenClocks(path)))
+		endif
+/]
+
+[query public canBeEarlyUpdatedBy(port : AtomExportPortDeclaration, next : Transition) : Boolean =
+	let atom : AtomType = port.eContainer(AtomType) in
+	let pn : PetriNet = atom.behavior in
+	let transitions : Set(Transition) =
+		pn.transitions->select(enabledCannotBeEarlyUpdatedBy(next)) in
+	let priorities : Set(AtomPriorityDeclaration) =
+		atom.priorities->select(enabledCannotBeEarlyUpdatedBy(next)) in
+	not port.enabledDependsOn(transitions, priorities)
+/]
+
+[query public canBeEarlyUpdatedByInitial(port : AtomExportPortDeclaration) : Boolean =
+	let atom : AtomType = port.eContainer(AtomType) in
+	let pn : PetriNet = atom.behavior in
+	let transitions : Set(Transition) =
+		pn.transitions->select(enabledCannotBeEarlyUpdatedByInitial()) in
+	let priorities : Set(AtomPriorityDeclaration) =
+		atom.priorities->select(enabledCannotBeEarlyUpdatedByInitial()) in
+	not port.enabledDependsOn(transitions, priorities)
+/]
+
+[query public hasEarlyUpdate(port : AtomExportPortDeclaration) : Boolean =	
+	let atom : AtomType = port.eContainer(AtomType) in
+	let pn : PetriNet = atom.behavior in
+		port.canBeEarlyUpdatedByInitial() or
+		pn.transitions
+			->exists(t : Transition | port.canBeEarlyUpdatedBy(t))
+/]
+
+[query private exportedPorts(transition : Transition) : Set(AtomExportPortDeclaration) =
+	let atom : AtomType = transition.eContainer(PetriNet).eContainer(AtomType) in
+		atom.exportPortDeclarations
+			->select(p : AtomExportPortDeclaration |
+				p.portDeclarationReferences->includes(transition.triggerPort))
+/]
+
+[query public canBeEarlyUpdatedBy(t : Transition, next : Transition) : Boolean =
+	t.triggerPort->notEmpty() and
+	not t.enabledCannotBeEarlyUpdatedBy(next) and
+	t.exportedPorts()->notEmpty() and
+	t.exportedPorts()
+		->forAll(p : AtomExportPortDeclaration |
+			p.canBeEarlyUpdatedBy(next))
+/]
+
+[query public canBeEarlyUpdatedByInitial(t : Transition) : Boolean =
+	t.triggerPort->notEmpty() and
+	not t.enabledCannotBeEarlyUpdatedByInitial() and
+	t.exportedPorts()->notEmpty() and
+	t.exportedPorts()
+		->forAll(p : AtomExportPortDeclaration |
+			p.canBeEarlyUpdatedByInitial())
+/]
+
+[query private valueCanBeEarlyUpdatedBy(data : AtomInternalDataDeclaration, paths : Set(Sequence(Transition))) : Boolean =
+	paths->forAll(path : Sequence(Transition) |
+		let tail : Sequence(Transition) =
+			if path->size() = 1 then
+				Sequence { }
+			else
+				path->subSequence(2, path->size())
+			endif in
+		writtenVariables(path)->excludes(data)
+	)
+/]
+
+[query public valueCanBeEarlyUpdatedByInitial(data : AtomInternalDataDeclaration) : Boolean =
+	let atom : AtomType = data.eContainer(AtomType) in
+	let pn : PetriNet = atom.behavior in
+		if forwardPathsHaveCycles(pn) then
+			false
+		else
+			writtenVariablesOfInit(pn)->excludes(data)
+			and
+			allForwardPaths(pn)
+				->forAll(path : Sequence(Transition) |
+					writtenVariables(path)->excludes(data))
+	endif
+/]
+
+[query public valueCanBeEarlyUpdatedBy(data : AtomInternalDataDeclaration, next : Transition) : Boolean =
+	if forwardPathsHaveCycles(Sequence { next }) then
+		false
+	else
+		let paths : Set(Sequence(Transition)) =
+			allForwardPaths(Sequence { next }) in
+		valueCanBeEarlyUpdatedBy(data, paths)
+	endif
+/]
+
+[query public hasEarlyUpdate(data : AtomInternalDataDeclaration) : Boolean =	
+	let atom : AtomType = data.eContainer(AtomType) in
+	let pn : PetriNet = atom.behavior in
+		data.valueCanBeEarlyUpdatedByInitial() or
+		pn.transitions
+			->exists(t : Transition | data.valueCanBeEarlyUpdatedBy(t))
+/]
