@@ -23,8 +23,9 @@
     case, a prefix is added to the variable.
 /]
 
-
-
+[query private guard(transition : Transition) : ValuedExpression =
+	transition.guard
+/]
 
 [query public varName(anInternalDecl : AtomInternalExternalPortDeclaration) : String =
     '_iport_decl__' + anInternalDecl.name
@@ -37,6 +38,8 @@
 [query private currentTime(anAtomType : AtomType) : String = 'mTime' /]
 
 [query private atomInvariant(anAtomType : AtomType) : String = 'mInvariant' /]
+
+[query private atomInvariantConstraint(anAtomType : AtomType) : String = 'mInvariantConstraint' /]
 
 [query private atomResume(anAtomType : AtomType) : String = 'mResume' /]
 
@@ -54,6 +57,7 @@
 /]
 [query public getGuardVarName(p : AtomInternalExternalPortDeclaration) : String = '_iport_decl_guard__' + p.name /]
 [query public getGuardAfterPrioVarName(p : AtomInternalExternalPortDeclaration) : String = '_iport_decl_guard_after_prio__' + p.name /]
+[query public getGuardConstraintVarName(p : AtomInternalExternalPortDeclaration) : String = '_iport_decl_guard_constraint__' + p.name /]
 
 [query public hasTimingConstraint(anAtom : AtomType) : Boolean = 
 	anAtom.internalPortDeclarations->exists(p : AtomInternalPortDeclaration | hasTimingConstraint(p)) or
@@ -152,6 +156,11 @@
         '_transguard__' + index(aTransition)
 /]
 
+[query public uniqueConstraintVarName(aTransition : Transition) : String = 
+    let pn : PetriNet = aTransition.eContainer(PetriNet) in
+        '_transguardConstraint__' + index(aTransition)
+/]
+
 [comment
     Returns true if the atom has custom data type for at least one of its data
 /]
@@ -237,6 +246,7 @@
 #include <TimeValue.hpp>
 #include <Interval.hpp>
 #include <Clock.hpp>
+#include <Constraint.hpp>
 
 [for (userInclude : String | anAtomType.getUserIncludes()) before('// User include given in @cpp annotation\n')]
 #include <[userInclude/]>
@@ -269,6 +279,7 @@
 #include <CycleInAtomPrioritiesError.hpp>
 #include <NonDeterministicPetriNetError.hpp>
 #include <NonOneSafePetriNetError.hpp>
+#include <ClockWithNegativeValueError.hpp>
 [/if]
 
 class [cl /] : public Atom {
@@ -284,6 +295,7 @@ private:
 [if (anAtomType.hasTimingConstraint())]
     Interval [decl.getGuardVarName() /];
     Interval [decl.getGuardAfterPrioVarName() /];
+    Constraint [decl.getGuardConstraintVarName() /];
 [/if]
 [/for]
 [for (decl : AtomExternalPortDeclaration | externalPorts(anAtomType)) before ('   // external ports\n')]
@@ -318,14 +330,16 @@ public:
 
     [anAtomType.genCtorProto()/];
     virtual ~[cl /]();
-
+    virtual vector<Constraint> allTimingConstraints() const;
     virtual BipError& execute(PortValue &portValue, const TimeValue &t);
+    virtual BipError& execute(PortValue &portValue);
     virtual BipError& execute(AtomExternalPort &portValue, const TimeValue &t);
     virtual BipError& initialize();
 [if (not disableSerialization)]
     virtual string toString() const;
 [/if]
     const Interval &invariant() const { return [atomInvariant(anAtomType)/]; }
+    const Constraint &invariantConstraint() const { return [atomInvariantConstraint(anAtomType)/]; }
 [if (anAtomType.invariants->exists(i : AtomInvariant | hasTimingConstraint(i)))]
     bool hasInvariant() const { return true; }
 [else]
@@ -338,17 +352,28 @@ public:
       before('    // getters for exported data\n')]
     const [ddecl.dataType.typeName()/] & get_[ddecl.name/]() const;
 [/for]
+
+[for (ddecl : DataDeclaration | anAtomType.allDataDeclarations())
+      before('\n    // getters for component data declarations\n')]
+    [ddecl.dataType.typeName()/] get_[ddecl.name/]() const;
+[/for]
+
 [if (isMarshEnabled())]
     size_t bytesSize() const;
     char* toBytes(char*buf, size_t *len) const;
     bool fromBytes(const char *buf, size_t len);
     bool disposeBytes(const char *buf) const;
 [/if]
+[for (aState : State | anAtomType.behavior.states)]
+    bool at[aState.name/]() const;
+[/for]
+
 protected:
     void setTime(const TimeValue &time);
     TimeValue [currentTime(anAtomType)/];
     Interval [atomResume(anAtomType)/];
     Interval [atomInvariant(anAtomType)/];
+    Constraint [atomInvariantConstraint(anAtomType)/];
 
     BipError& update();
 [if (isOptimEnabled('transitions-update'))]
@@ -373,7 +398,12 @@ protected:
     [/for]
 
     [for (t : Transition | anAtomType.behavior.transitions) before('\n    // enabledness of transitions\n')]
-    [if (hasTimingConstraint(t))]Interval[else]bool[/if] [t.uniqueVarName()/];
+    [if (not hasTimingConstraint(t))]
+    bool [t.uniqueVarName()/];
+    [else]
+    Interval [t.uniqueVarName()/];
+    Constraint [t.uniqueConstraintVarName()/];
+    [/if]
     [/for]
 
 [if (anAtomType.hasTimingConstraint())]
@@ -396,7 +426,6 @@ protected:
     int __previous;
 
 [for (aState : State | anAtomType.behavior.states)]
-    bool at[aState.name/]() const;
     bool to[aState.name/]();
     bool from[aState.name/]();
 [/for]
@@ -405,6 +434,13 @@ protected:
     before('\n// getters\n') separator('\n')]
 inline
 const [ddecl.dataType.typeName()/] & [cl/]::get_[ddecl.name/]() const {
+    return [ddecl.varName()/];
+}
+[/for]
+[for (ddecl : DataDeclaration | anAtomType.allDataDeclarations())
+      before('\n    // getters for component data declarations\n')]
+inline
+[ddecl.dataType.typeName()/] [cl/]::get_[ddecl.name/]() const {
     return [ddecl.varName()/];
 }
 [/for]
@@ -484,12 +520,14 @@ inline bool [cl/]::fromBytes(const char *buf, size_t len) {
     // disable check of previous transition
     __previous = -1;
 
+	BipError *ret = &checkInvariants();
+	if (ret->type() != NO_ERROR) return false;
+
     // execute internal transitions
-    BipError *ret = &executeInternalTransitions();
+    ret = &executeInternalTransitions();
 
     if (ret->type() != NO_ERROR) return false;
-
-    return (update().type() != NO_ERROR);
+	return (update().type() != NO_ERROR);
 }
 
 inline bool [cl/]::disposeBytes(const char *buf) const {
@@ -834,6 +872,7 @@ bool [cl/]::from[aState.name/] () {
 [if (anAtomType.hasTimingConstraint())]
 [for (decl : AtomInternalPortDeclaration | anAtomType.internalPorts(anAtomType)) before('    // link timing constraints to port values\n')]
     [decl.getPVVarName()/].setInterval([decl.getGuardAfterPrioVarName()/]);
+    [decl.getPVVarName()/].setGuard([decl.getGuardConstraintVarName()/]);
 [/for]
 [for (decl : AtomExternalPortDeclaration | anAtomType.externalPorts(anAtomType)) before('    // link timing constraints to external ports\n')]
     [decl.varName()/].setInterval([decl.getGuardAfterPrioVarName()/]);
@@ -865,6 +904,15 @@ bool [cl/]::from[aState.name/] () {
 
 	[/for]
 
+}
+
+vector<Constraint> [cl/]::allTimingConstraints() const {
+    vector<Constraint> ret;
+    
+[for (timingConstraints : BinaryOpExpression | anAtomType.behavior.transitions->collect(getTimingConstraint(guard))->union(anAtomType.invariants->collect(getTimingConstraint(guard))))]
+	ret.push_back([generateExpressionWithoutCastMC(timingConstraints)/]);
+[/for]
+    return ret;
 }
 
 BipError& [cl/]::execute(PortValue &portValue, const TimeValue &t) {
@@ -936,6 +984,61 @@ if ((&[t.triggerPort.oclAsType(AtomInternalPortDeclaration).getPVVarName()/] == 
     return *ret;
 }
 
+BipError& [cl/]::execute(PortValue &portValue) {
+    BipError *ret = &BipError::NoError;
+
+#ifndef NDEBUG
+    bool something_happened = false;
+#endif
+
+    // find the right transitions to execute
+[for (t : Transition | internalPortTransitions(anAtomType)) before('    ') separator(' else ')]
+if ((&[t.triggerPort.oclAsType(AtomInternalPortDeclaration).getPVVarName()/] == &portValue) && [if (hasTimingConstraint())][t.uniqueConstraintVarName()/].hasTimingConstraints()[else][t.uniqueVarName()/][/if]) {
+        // check consistency (enabledness, port values, ...)
+        assert([t.triggerPort.oclAsType(AtomInternalPortDeclaration).varName()/].hasPortValue());
+        assert(&[t.triggerPort.oclAsType(AtomInternalPortDeclaration).varName()/].portValue() == &portValue);
+        [if (hasTimingConstraint())]assert([t.uniqueConstraintVarName()/].constrain());[/if]
+
+        // check at most one transitions is executed
+        assert(!something_happened);
+[if (isOptimEnabled('ports-reset'))]
+
+        // reset ports exporting variables modified by transition execution
+		[for (aep : AtomExportPortDeclaration | anAtomType.exportPortDeclarations)]
+        [if (exportedVariables(aep)->intersection(writtenVariables(t))->notEmpty())]
+        [aep.varName()/].setIsReset(true);
+		[else]
+        [aep.varName()/].setIsReset(false);
+		[/if]
+		[/for]
+[/if]
+        [for (aidd : AtomInternalDataDeclaration | anAtomType.exportedData()) before('\n        // reset exported data\n')]
+[if (isOptimEnabled('ports-reset'))]
+        [if (writtenVariables(t)->includes(aidd))]
+        [aidd.exportedVarName()/].setIsReset(true);
+        [else]
+        [aidd.exportedVarName()/].setIsReset(false);
+		[/if]
+[else]
+        [aidd.exportedVarName()/].setIsReset(true);
+[/if]
+		[/for]
+
+[generateTransitionExecutionMC(t, '        ')/]
+        
+#ifndef NDEBUG
+        something_happened = true;
+#endif
+    }[/for]
+
+    if (ret->type() != NO_ERROR) return *ret;
+
+    // check that at least one transition has been executed
+    assert(something_happened);
+
+    return *ret;
+}
+
 BipError& [cl/]::execute(AtomExternalPort &port, const TimeValue &time) {
     BipError *ret = &BipError::NoError;
 
@@ -992,14 +1095,22 @@ BipError& [cl/]::execute(AtomExternalPort &port, const TimeValue &time) {
 
 BipError& [cl/]::initialize() {
     BipError *ret = &BipError::NoError;
+    
+[for (cd : ClockDeclaration | allClockDeclarations(anAtomType)) before('    // add clocks to DBM\n    if (Clock::hasDbm()) {\n') after('    }')]
+        [cd.varName()/].addToDbm();
+[/for]
 
 [for (decl : AtomInternalPortDeclaration | internalPorts(anAtomType)) before('    // reset status of ports\n')]
     [decl.varName()/].clearPortValue();
 [/for]
 
 [if (anAtomType.hasTimingConstraint())]
-[for (t : Transition | transitions(anAtomType)) before('    // reset status of transitions\n')]
-    [t.uniqueVarName()/] = false;
+
+[for (t : Transition | transitions(anAtomType)) before('    // reset status of transitions\n    if (Clock::hasModelClock()) {\n') after('    }')]
+        [t.uniqueVarName()/] = false;
+[/for]
+[for (t : Transition | transitions(anAtomType)) before('    // reset status of transitions\n    else if (Clock::hasDbm()) {\n') after('    }')]
+	[if (hasTimingConstraint(t))][t.uniqueConstraintVarName()/][else][t.uniqueVarName()/][/if] = false;
 [/for]
 [/if]
 
@@ -1016,11 +1127,16 @@ BipError& [cl/]::initialize() {
     ret = &executeInternalTransitions();
 
     if (ret->type() == NO_ERROR &&
-        !initialHasResume()) {
+        !initialHasResume() && Clock::hasModelClock()) {
         ret = &update();
     }
 
     return *ret;
+}
+
+BipError& [cl/]::checkInvariants() {
+[generateCheckInvariants(anAtomType, '    ')/]
+    return BipError::NoError;
 }
 
 BipError &[cl/]::resume(const TimeValue &t) {
@@ -1045,34 +1161,34 @@ string [cl/]::toString() const {
       if (!first) oss << ", ";
       else {
         first = false;
-        oss << "at ";
+        oss << name() ;
       }
-      oss << "[state.name/]";
+      oss << ".[state.name/]";
     }
     [/for]
 
     [for (dd : DataDeclaration | anAtomType.allDataDeclarations())]
     if (first) first = false;
-    else oss << std::endl;
-    oss << "[dd.name/]=" << [dd.varName()/];
+    oss << ", " << name() << ".[dd.name/] = " << [dd.varName()/];
     [/for]
+    if (Clock::hasModelClock()) {
+        [for (cd : ClockDeclaration | anAtomType.allClockDeclarations())]
+        if (first) first = false;
+        else oss << std::endl;
+        oss << "[cd.name/]=" << [cd.varName()/].time();
+        [/for]
+    
 
-    [for (cd : ClockDeclaration | anAtomType.allClockDeclarations())]
-    if (first) first = false;
-    else oss << std::endl;
-    oss << "[cd.name/]=" << [cd.varName()/].time();
-    [/for]
-
-    [for (i : AtomInvariant | anAtomType.invariants)]
-    if (first) first = false;
-    else oss << std::endl;
-    oss << "[i.name/]=";
-    if ([i.testSources()/])
-      oss << ([i.guard.generateExpression()/]);
-    else
-      oss << "true";
-    [/for]
-
+        [for (i : AtomInvariant | anAtomType.invariants)]
+        if (first) first = false;
+        else oss << std::endl;
+        oss << "[i.name/]=";
+        if ([i.testSources()/])
+          oss << ([i.guard.generateExpression()/]);
+        else
+          oss << "true";
+        [/for]
+    }
     return oss.str(); 
 }
 [/if]
@@ -1114,6 +1230,7 @@ BipError& [cl/]::update() {
 
     return *ret;
 }
+
 [if (isOptimEnabled('transitions-update'))]
 BipError& [cl/]::update_all() {
     BipError *ret = &BipError::NoError;
@@ -1130,6 +1247,7 @@ BipError& [cl/]::update_initial() {
 
     return *ret;
 }
+
 
 [for (previous : Transition | transitions(anAtomType))]
 BipError& [cl/]::update_[index(previous)/]() {
@@ -1352,6 +1470,7 @@ else {
 [/if]
 [/template]
 
+
 [template private generateResetPort(port : AtomInternalExternalPortDeclaration, stableTransitions : Set(Transition)) post(trim()) ]
 INCOMPLETE, MISSING TEMPLATE FOR A SUBTYPE OF 'AtomInternalExternalPortDeclaration'
 [/template]
@@ -1387,8 +1506,12 @@ if ([port.varName()/].isEnabled()) {
 [port.varName()/].setIsEnabled(true);
 [port.getPVVarName()/].setHasResume([if (transition.resume->isEmpty())]false[else]true[/if]);
 [if (hasTimingConstraint(port.eContainer(AtomType)))]
-[port.getGuardVarName()/] = [transition.uniqueVarName()/];
-[port.getGuardAfterPrioVarName()/] = [port.getGuardVarName()/];
+if (Clock::hasModelClock()) {
+    [port.getGuardVarName()/] = [transition.uniqueVarName()/];
+    [port.getGuardAfterPrioVarName()/] = [port.getGuardVarName()/];
+} else if (Clock::hasDbm()) {
+    [port.getGuardConstraintVarName()/] = [if (transition.hasTimingConstraint())][transition.uniqueConstraintVarName()/][else][transition.uniqueVarName()/][/if];
+}
 [port.getPVVarName()/].setUrgency([genUrgency(transition.urgency)/]);
 [/if]
 [/template]
@@ -1422,14 +1545,22 @@ if ([port.varName()/].waiting()) {
 
 [for (t : Transition | enabledTransitions)]
 [if (t.guard->isEmpty())]
+[if (hasTimingConstraint(t))]
+if (Clock::hasModelClock()) {
+    [t.uniqueVarName()/] = true;
+} else if (Clock::hasDbm()) {
+    [t.uniqueConstraintVarName()/] = true;
+}
+[else]
 [t.uniqueVarName()/] = true;
+[/if]
 
 [generateActivatePort(t, t.triggerPort)/]
 [else]
 [t.uniqueVarName()/] = [t.guard.generateExpression()/];
 
 [if (hasTimingConstraint(t))]
-if (![t.uniqueVarName()/].empty()) {
+if ((Clock::hasModelClock() && ![t.uniqueVarName()/].empty()) || (Clock::hasDbm() && [t.uniqueConstraintVarName()/].isSatisfied())) {
 [else]
 if ([t.uniqueVarName()/]) {
 [/if]
@@ -1438,15 +1569,29 @@ if ([t.uniqueVarName()/]) {
 [/if]
 [/for]
 [for (t : Transition | disabledTransitions)]
+[if (hasTimingConstraint(t))]
+if (Clock::hasModelClock()) {
+    [t.uniqueVarName()/] = false;
+} else if (Clock::hasDbm()) {
+    [t.uniqueConstraintVarName()/] = false;
+}
+[else]
 [t.uniqueVarName()/] = false;
+[/if]
 [/for]
 [for (t : Transition | (transitions - enabledTransitions) - disabledTransitions)]
-[t.uniqueVarName()/] = ([t.testSources()/]
+if (Clock::hasModelClock()) {
+    [t.uniqueVarName()/] = ([t.testSources()/]
 [if (t.guard->notEmpty())][t.gtc()/][/if]
             [t.testGuard('&&')/]);
+} else if (Clock::hasDbm()) {
+    [if (hasTimingConstraint(t))][t.uniqueConstraintVarName()/][else][t.uniqueVarName()/][/if] = ([t.testSources()/]
+[if (t.guard->notEmpty())][t.gtc()/][/if]
+            [t.testGuardMC('&&')/]);
+}
 
 [if (hasTimingConstraint(t))]
-if (![t.uniqueVarName()/].empty()) {
+if ((Clock::hasModelClock() && ![t.uniqueVarName()/].empty()) || (Clock::hasDbm() && [t.uniqueConstraintVarName()/].isSatisfied())) {
 [else]
 if ([t.uniqueVarName()/]) {
 [/if]
@@ -1689,8 +1834,7 @@ if (![port.varName()/].isReady()) {
 [tab/][atomResume(atom)/] = Interval(TimeValue::MIN, TimeValue::MAX);
 [/if]
 [/if]
-
-[generateCheckInvariants(atom, tab)/]
+[tab/]ret = &checkInvariants();
 [/template]
 
 [template private generateTransitionExecution(t : Transition, tab : String) {
@@ -1734,23 +1878,67 @@ if (![port.varName()/].isReady()) {
 [tab/][atomResume(atom)/] = Interval(TimeValue::MIN, TimeValue::MAX);
 [/if]
 [/if]
+[tab/]ret = &checkInvariants();
+[/template]
 
-[generateCheckInvariants(t.eContainer(PetriNet).eContainer(AtomType), tab)/]
+[template private generateTransitionExecutionMC(t : Transition, tab : String) {
+	atom : AtomType = t.eContainer(PetriNet).eContainer(AtomType);
+}]
+[tab/]// the transition should be enabled by places
+[tab/]assert([t.testSources()/]);
+[for (ts : State | t.sources) before('\n' + tab + '// update input places\n')]
+[tab/]from[ts.name/]();
+[/for]
+
+[tab/]// check one-safetyness
+[tab/]if ([for (s : State | t.destinations) separator(' || ')]at[s.name/]()[/for]) {
+[tab/]    NonOneSafePetriNetError *r = new NonOneSafePetriNetError(*this);
+[tab/]    [if (t.triggerPort->notEmpty())][if (t.triggerPort.oclIsKindOf(AtomInternalPortDeclaration))]r->setPort([t.triggerPort.varName() /]);[/if][/if]
+[tab/]    return *r;
+[tab/]}
+[for (ts : State | t.destinations) before('\n' + tab + '// update output places\n')]
+[tab/]to[ts.name/]();
+[/for]
+
+[tab/]// record the index of the latest executed transition
+[tab/]__previous = [t.eContainer(PetriNet).transitions->indexOf(t)/];
+[if (isOptimEnabled('early-update') and t.triggerPort->notEmpty())]
+
+[tab/]// early update of ports and variables
+[tab/][generateEarlyUpdate(t.eContainer(PetriNet).eContainer(AtomType), t)/]
+[/if]
+[for (exp : Expression | t.actions)
+	before('\n' + tab + '// execute transition actions\n')
+	after('\n' + tab + '// end of execute transition actions\n')]
+[exp.gtc()/]
+[tab/][exp.generateExpression()/];
+[/for]
+[t.gtc()/]
+
+[tab/]ret = &checkInvariants();
 [/template]
 
 [template private generateCheckInvariants(anAtomType : AtomType, tab : String)]
 [if (anAtomType.invariants->exists(i : AtomInvariant | hasTimingConstraint(i)))]
 [tab/]// reset global atom invariant to true
-[tab/][atomInvariant(anAtomType)/] = Interval(TimeValue::MIN, TimeValue::MAX);
+[tab/]if (Clock::hasModelClock()) {
+[tab/]    [atomInvariant(anAtomType)/] = Interval(TimeValue::MIN, TimeValue::MAX);
+[tab/]} else if (Clock::hasDbm()) {
+[tab/]    [atomInvariantConstraint(anAtomType)/] = true;
+[tab/]}
 [/if]
 [for (invariant : AtomInvariant | anAtomType.invariants) before('\n') separator('\n') after('\n')]
 [tab/]// check invariant '[invariant.name/]'
 [if (invariant.guard->notEmpty())]
 [if (hasTimingConstraint(invariant))]
 [tab/]if ([invariant.testSources()/]) {
-[tab/]    [atomInvariant(anAtomType)/] &= ([invariant.guard.generateExpression()/]);
+[tab/]    if (Clock::hasModelClock()) {
+[tab/]        [atomInvariant(anAtomType)/] &= ([invariant.guard.generateExpression()/]);
+[tab/]    } else if (Clock::hasDbm()) {
+[tab/]        [atomInvariantConstraint(anAtomType)/] &= ([invariant.guard.generateExpressionMC()/]);
+[tab/]    }
 [tab/]
-[tab/]    if (![atomInvariant(anAtomType)/].in(this->[currentTime(anAtomType)/])) {
+[tab/]    if ((Clock::hasModelClock() && ![atomInvariant(anAtomType)/].in(this->[currentTime(anAtomType)/])) || (Clock::hasDbm() && ![atomInvariantConstraint(anAtomType)/].constrain())) {
 [tab/]        AtomInvariantViolationError *r = new AtomInvariantViolationError("[invariant.name/]", *this);
 [tab/]
 [tab/]        return *r;
@@ -1766,7 +1954,6 @@ if (![port.varName()/].isReady()) {
 [/if]
 [/for]
 [/template]
-
 
 [template public generateCMakeBody(anAtomType : AtomType) post(trim())]
 [for (extra_src : String | anAtomType.getUserExtraSrc())
@@ -1862,6 +2049,10 @@ true
 [if (aTransition.guard->notEmpty())] [aPrefix/] ([aTransition.guard.generateExpression()/])[/if]
 [/template]
 
+[template private testGuardMC(aTransition : Transition, aPrefix : String) post(trim())]
+[if (aTransition.guard->notEmpty())] [aPrefix/] ([aTransition.guard.generateExpressionMC()/])[/if]
+[/template]
+
 [template private genUrgency(u : Urgency) ? (u <> null)]
 [if (u = Urgency::lazy)]LAZY[elseif (u = Urgency::delayable)]
 DELAYABLE[elseif (u = Urgency::eager)]
@@ -1928,7 +2119,7 @@ LAZY
 [ddecl.exportedVarName()/]([ddecl.exportedVarName()/])[/for][for (cdpd : ComponentDataParameterDeclaration | anAtomType.dataParameterDeclarations) before(', ') separator(', ')]
 [cdpd.varName()/]([cdpd.varName()/])[/for][for (dd : AtomInternalDataDeclaration | anAtomType.internalDataDeclarations->select(d : AtomInternalDataDeclaration | not d.value->isEmpty())) before(', ') separator(', ')]
 [dd.varName()/]([dd.value.generateExpression()/])[/for][for (cd : ClockDeclaration | allClockDeclarations(anAtomType)) before(', ') separator(', ')]
-[cd.varName()/](*this)[/for][for (t : Transition | transitions(anAtomType)) before(', ') separator(', ')]
+[cd.varName()/](*this,"[cd.name/]")[/for][for (t : Transition | transitions(anAtomType)) before(', ') separator(', ')]
 [t.uniqueVarName()/](false)[/for][for (p : AtomPriorityDeclaration | anAtomType.priorities) before(', ') separator(', ')]
 [p.pguardVarName()/](false)[/for][for (p : AtomPriorityDeclaration | anAtomType.priorities) before(', ') separator(', ')]
 [p.penabledVarName()/](false)[/for], __previous(-1)

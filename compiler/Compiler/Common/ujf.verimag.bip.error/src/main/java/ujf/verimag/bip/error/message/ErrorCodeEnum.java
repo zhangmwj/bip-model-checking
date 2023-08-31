@@ -113,6 +113,7 @@ public enum ErrorCodeEnum {
     ambiguousFunctionCall,
     matchingFunctionCallWithoutReturnValue,
     invalidUseOfClocksInDo,
+    rhsHasNoClock,
     
     // PetriNet constraints
     checkDuplicatedTriggerPortFromSameState,
@@ -124,6 +125,7 @@ public enum ErrorCodeEnum {
     isNotOneSafe,
     noClocksInUntimedGuard,
     internalTransitionHasNoUrgency,
+    eagerHasNoClockInGuard,
     
     //Share between Atom and Compound constraints and Walker
     referencedPortsHaveTheSameType,
@@ -141,6 +143,7 @@ public enum ErrorCodeEnum {
     hasCorrectNumberOfPortParameters,
     connectorDeclarationHasnoDuplicatedPortReferenceParameter,
     connectorHasExportPortBound,
+    eagerInteractionHasNoClocksInGuards,
 
 //    hasCorrectTypeForPortParameters,
     onPortInConnectorParameters,
@@ -188,6 +191,7 @@ public enum ErrorCodeEnum {
     priorityContradictMaximalProgress,
     uninitializedVariableInAtomInternalDataDeclaration,
     uninitializedVariableInConnectorDataDeclaration,
+    noCompoundDeclarationInCompound,
     
     // Time constraints
     nestedComparisonOnClocks,
@@ -197,7 +201,10 @@ public enum ErrorCodeEnum {
     invalidUseOfMultiplicationOrDivisionOnClocks,
     comparisonOfMoreThanTwoClocks,
     comparisonOfClocksHavingWrongSign,
-    
+    clocksOnBothSideOfComparison,
+    invalidExpressionOnClocks,
+    invariantComparisonOperator,
+    clocksComparedToConst,
     
     
     // BipPackage constraints

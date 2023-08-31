@@ -415,7 +415,15 @@ public class LoaderErrorStringifier extends AbstractErrorStringifier {
                         cycleTxt,
                         getContext(error)));
                 break;
-
+            case eagerInteractionHasNoClocksInGuards:
+                PortDeclaration portEager = (PortDeclaration) error.getDiagnostic().getData().get(2);
+                PortDeclaration portClocks = (PortDeclaration) error.getDiagnostic().getData().get(3);
+                
+                sb.append(String.format(message,
+                        portEager.getName(), portClocks.getName(),
+                        getContext(error)));
+                break;
+                
             default:
                 sb.append(message + ":\n");
                 sb.append(getContext(error));

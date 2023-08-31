@@ -455,7 +455,6 @@ bip_package
 
 annotated_declaration
     : annotated_const_data_declaration
-    | annotated_extern_data_type
     | annotated_extern_prototype
     | annotated_type_definition
     ;
@@ -529,7 +528,7 @@ places_declaration
     ;
 
 transition_action
-    : LBRACE!  ((statement SEMICOL!)| if_then_else_expression)*  RBRACE!
+    : LBRACE!  (statement SEMICOL!)*  RBRACE!
 
     ;
 
@@ -543,18 +542,16 @@ transition_resume_guard
     
 transition
     : port_transition
-    | internal_transition
     ;
     
 port_transition
     : annotation*
     e=ON port_name=simple_name
-    FROM fromp += simple_name (COMMA fromp += simple_name)*
-    TO     top += simple_name (COMMA top += simple_name)*
+    FROM fromp += simple_name
+    TO     top += simple_name
     (PROVIDED transition_guard)?
     (urgency)?
     (DO transition_action)?
-    (RESUME (transition_resume_guard)?)?
         -> ^(TRANSITION_DECLARATION[$e]
             $port_name
             ^(PLACES[$FROM] $fromp+)
@@ -562,7 +559,6 @@ port_transition
             ^(TRANSITION_GUARD[$PROVIDED] transition_guard)?
             ^(urgency)?
             ^(TRANSITION_ACTION[$DO] transition_action)?
-            ^(RESUME (transition_resume_guard)?)?
             (^(ANNOTATIONS annotation+))?
             )
     ;
@@ -584,9 +580,8 @@ internal_transition
     ;
 
 compound_interaction
-    : simple_name c=COLON (fully_qualified_name (COMMA fully_qualified_name)*|MULT_OP)
-        -> ^(CONNECTOR_INTERACTION simple_name
-                  ^(CONNECTOR_PORT_INTERACTION[$c] fully_qualified_name+)?)
+    : simple_name c=COLON MULT_OP
+        -> ^(CONNECTOR_INTERACTION simple_name)
     ;
 
 compound_interaction_wildcard
@@ -599,20 +594,17 @@ compound_priority_guard
 
 compound_priority_declaration
     : PRIORITY simple_name lci=compound_interaction_wildcard LT_OP hci=compound_interaction_wildcard
-        (PROVIDED compound_priority_guard)?
-            -> ^(COMPOUND_PRIORITY_DECLARATION[$PRIORITY] simple_name $lci $hci
-                    ^(COMPOUND_PRIORITY_GUARD[$PROVIDED] compound_priority_guard)?)
+            -> ^(COMPOUND_PRIORITY_DECLARATION[$PRIORITY] simple_name $lci $hci)
     ;
 
 
 
 initial_transition
     :
-     INITIAL TO simple_name (COMMA simple_name)* (DO transition_action)? (RESUME (transition_resume_guard)?)?
+     INITIAL TO simple_name (DO transition_action)?
         -> ^(INITIAL_TRANSITION_DECLARATION[$INITIAL]
              simple_name+
-             ^(TRANSITION_ACTION[$DO] transition_action)?
-             ^(RESUME (transition_resume_guard)?)?)
+             ^(TRANSITION_ACTION[$DO] transition_action)?)
     ;
 
 atom_priority_guard
@@ -643,15 +635,12 @@ atom_invariant_declaration
     ;
 
 atom_invariant_places
-    : AT place += simple_name (COMMA place += simple_name)*
+    : AT place += simple_name
         -> ^(INVARIANT_AT[$AT] $place+)
-    | FROM place += simple_name (COMMA place += simple_name)*
-        -> ^(INVARIANT_FROM[$FROM] $place+)
     ;
     
 atom_priority_or_invariant_declaration
     : atom_invariant_declaration
-    | atom_priority_declaration
     ;
 
 atom_type_definition
@@ -743,14 +732,12 @@ compound_type_definition
     LPAREN (component_data_params)? RPAREN
     multi_component_or_connector_declaration+
     compound_priority_declaration*
-    export_inner_data_or_port*
     END
 
         -> ^(COMPOUND_TYPE[$COMPOUND] simple_name
             component_data_params?
             ^(COMPONENT_OR_CONNECTOR_DECLARATIONS[$COMPOUND] multi_component_or_connector_declaration+)
             ^(COMPOUND_PRIORITY_DECLARATIONS[$COMPOUND] compound_priority_declaration+)?
-            ^(COMPOUND_EXPORT_DATA_OR_PORT[$COMPOUND] export_inner_data_or_port+)?
         )
     ;
 
@@ -768,8 +755,6 @@ native_data_type_name
     :
     ( i=CT_INT
     | i=CT_BOOL
-    | i=CT_FLOAT
-    | i=CT_STRING
     ) -> ^(NATIVE_DATA_TYPE[$i] $i)
     ;
 
@@ -794,10 +779,8 @@ component_data_params
 
 multi_data_declaration_with_modifiers
     :
-    annotation*
-    e=EXPORT? multi_data_declaration
+    annotation* multi_data_declaration
         -> ^(DATA_DECLARATION_WITH_MODIFIERS
-            ^(DATA_MODIFIERS EXPORT[$e]?)
             multi_data_declaration
             (^(ANNOTATIONS annotation+))?)
     ;
@@ -818,9 +801,8 @@ multi_data_declaration
     ;
 
 multi_clock_declaration
-    : annotation* c=CLOCK simple_name (COMMA simple_name)* (UNIT time_unit)?
+    : annotation* c=CLOCK simple_name (COMMA simple_name)*
         -> ^(CLOCK_DECLARATION[$c]
-            ^(UNIT time_unit)?
             ^(CLOCK_DECLARATION_NAMES[$c] simple_name+))
             (^(ANNOTATIONS annotation+))?
     ;
@@ -837,7 +819,6 @@ time_unit
 
 urgency
     : LAZY
-    | DELAYABLE
     | EAGER
     ;
     
@@ -870,7 +851,7 @@ port_nested_expression
     ;
 
 connector_port_expression
-    : (port_primary_expression | port_nested_expression)+
+    : port_primary_expression+
     ;
 
 port_type_param
@@ -887,25 +868,13 @@ multi_port_declaration_with_modifiers
     annotation*
         (
             EXPORT multi_port_declaration
-            (as_merged=AS simple_name
-                -> ^(PORT_DECLARATION_WITH_MODIFIERS
-                    ^(PORT_MODIFIERS ^(EXPORT_PORT_MERGED[$as_merged] simple_name))
-                    multi_port_declaration
-                    (^(ANNOTATIONS annotation+))?)
-            |
                 -> ^(PORT_DECLARATION_WITH_MODIFIERS
                     ^(PORT_MODIFIERS EXPORT)
                     multi_port_declaration
                     (^(ANNOTATIONS annotation+))?)
-            )
             |  multi_port_declaration
             -> ^(PORT_DECLARATION_WITH_MODIFIERS
                 ^(PORT_MODIFIERS EXPORT?)
-                multi_port_declaration
-                (^(ANNOTATIONS annotation+))?)
-            |  EXTERN multi_port_declaration (as_extern=AS backend_name=STRING)? event_consumption_policy?
-            -> ^(PORT_DECLARATION_WITH_MODIFIERS
-                ^(PORT_MODIFIERS EXTERN ^(AS[$as_extern] $backend_name)? event_consumption_policy?)
                 multi_port_declaration
                 (^(ANNOTATIONS annotation+))?)
         )
@@ -941,7 +910,7 @@ connector_provided_expression
     ;
 
 connector_action
-    : ((statement SEMICOL!)| if_then_else_expression)+
+    : (statement SEMICOL!)+
     ;
 
 connector_resume
@@ -956,12 +925,10 @@ connector_interaction
     annotation*
     o=ON simple_name+
     (p=PROVIDED connector_provided_expression)?
-    (u=UP_ACTION LBRACE upa=connector_action? RBRACE)?
     (d=DOWN_ACTION LBRACE downa=connector_action? RBRACE)?
           -> ^(CONNECTOR_INTERACTION[$o]
               ^(CONNECTOR_INTERACTION_PORTS[$o] simple_name+)
               ^(PROVIDED[$p] connector_provided_expression)?
-              ^(UP_ACTION[$u] $upa?)?
               ^(DOWN_ACTION[$d] $downa?)?
               (^(ANNOTATIONS annotation+))?
               )
@@ -972,18 +939,14 @@ connector_type_definition
     c=CONNECTOR TYPE simple_name
     lp=LPAREN (port_params+=port_type_param (COMMA port_params+=port_type_param)*)  RPAREN
     annotated_multi_data_declaration*
-    annotated_export_port_declaration?
     DEFINE connector_port_expression
-    connector_resume?
     connector_interaction*
     END ->
 
     ^(CONNECTOR_TYPE[$c] simple_name
         ^(PORT_PARAMS[$lp] $port_params+)
         ^(DATA_DECLARATIONS annotated_multi_data_declaration+)?
-        annotated_export_port_declaration?
         ^(DEFINE connector_port_expression)
-        connector_resume?
         ^(CONNECTOR_INTERACTIONS connector_interaction*)?
      )
     ;
@@ -1020,8 +983,6 @@ type_definition
 primary_expression
     : fully_qualified_name
     | INT
-    | FLOAT
-    | STRING
     | TRUE
     | FALSE
     | LPAREN! logical_or_expression RPAREN!
@@ -1030,8 +991,6 @@ primary_expression
 statement
     : assignment_expression
     | postfix_expression
-    | postfix_expression QUOTE
-    	-> ^(QUOTE postfix_expression)
     ;
 
 if_then_else_expression
@@ -1092,7 +1051,7 @@ unary_expression
     ;
 
 postfix_expression
-	: primary_or_function_call_expression ((QUOTE^)?)
+	: primary_or_function_call_expression
 	;
 
 primary_or_function_call_expression

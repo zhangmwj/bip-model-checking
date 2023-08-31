@@ -36,7 +36,7 @@
 	endif
 /]
 
-[query private clocks(expr : Expression) : Set(DirectClockDeclarationReferenceExpression) =
+[query public clocks(expr : Expression) : Set(DirectClockDeclarationReferenceExpression) =
 	expr.getMayReadClocks()
 		->union(expr.getMayWriteClocks())
 /]
@@ -83,6 +83,22 @@
 -([speed(expr.operand)/])
 [/template]
 
+[template private generateClock(anExpression : ValuedExpression) post(trim())]
+#error: expression [anExpression/] is not a clock
+[/template]
+
+[template private generateClock(anExpression : DirectClockDeclarationReferenceExpression) post(trim())]
+[anExpression.clockDeclaration.varName()/]
+[/template]
+
+[template private generateIntExpression(anExpression : ValuedExpression) post(trim())]
+[if (clocks(anExpression)->isEmpty())]
+[generateCast(anExpression.getType(), anExpression.getType().eContainer(BipPackage).getIntDataType(), generateExpressionWithoutCast(anExpression))/]
+[else]
+#error: expression [anExpression/] has clocks
+[/if]
+[/template]
+
 [comment
 The following set of template simply generates back the input expression without
 any modification.
@@ -95,6 +111,10 @@ any modification.
 
 [template public generateExpression(anExpression : AssignmentExpression)
 	? (anExpression.lhs.oclIsKindOf(DirectClockDeclarationReferenceExpression)) post(trim())]
+if ([anExpression.rhs.generateExpression()/] < 0) {
+    ClockWithNegativeValueError *r = new ClockWithNegativeValueError([anExpression.lhs.oclAsType(DirectClockDeclarationReferenceExpression).clockDeclaration.varName()/]);
+    return *r;
+}
 [anExpression.lhs.oclAsType(DirectClockDeclarationReferenceExpression).clockDeclaration.varName()/].resetTo([anExpression.rhs.generateExpression()/])
 [/template]
 
@@ -108,12 +128,31 @@ any modification.
 [/if]
 [/template]
 
+[template public generateExpressionMC(anExpression : AssignmentExpression) ? (clocks(anExpression.rhs)->notEmpty())]
+#error: unsupported assignment for right-hand side expression with clocks [anExpression.rhs/]
+[/template]
+
+[template public generateExpressionMC(anExpression : AssignmentExpression)
+	? ((anExpression.lhs.oclIsKindOf(DirectDataDeclarationReferenceExpression) or
+		anExpression.lhs.oclIsKindOf(SubDataDeclarationReferenceExpression)) and clocks(anExpression.rhs)->isEmpty()) post(trim())]
+[anExpression.lhs.generateExpression() /] = [anExpression.rhs.generateExpression() /]
+[/template]
+
+[template public generateExpressionMC(anExpression : AssignmentExpression)
+	? (anExpression.lhs.oclIsKindOf(DirectClockDeclarationReferenceExpression) and clocks(anExpression.rhs)->isEmpty()) post(trim())]
+[anExpression.lhs.oclAsType(DirectClockDeclarationReferenceExpression).clockDeclaration.varName()/].resetTo([generateIntExpression(anExpression.rhs)/])
+[/template]
+
 [template public generateExpressionWithoutCast(anExpression : DirectDataDeclarationReferenceExpression) post(trim())]
 [anExpression.dataDeclaration.varName()/]
 [/template]
 
 [template public generateExpressionWithoutCast(anExpression : DirectClockDeclarationReferenceExpression) post(trim())]
-[anExpression.clockDeclaration.varName()/].time()
+[anExpression.clockDeclaration.varName()/].time().getTime()
+[/template]
+
+[template public generateExpressionWithoutCastMC(anExpression : DirectClockDeclarationReferenceExpression) post(trim())]
+#error unsupported operation!
 [/template]
 
 [template public generateExpressionWithoutCast(anExpression : BinaryOpExpression)
@@ -140,8 +179,41 @@ generateInterval([speed(anExpression.left)/] - [speed(anExpression.right)/], [ge
 ([anExpression.left.generateExpression() /]) [' ' + anExpression.operator + ' '/] ([anExpression.right.generateExpression() /])
 [/template]
 
+[template public generateExpressionWithoutCastMC(anExpression : BinaryOpExpression)
+	? (inGuard(anExpression) and clocks(anExpression)->notEmpty()) post(trim())]
+[if ((clocks(anExpression.left)->isEmpty() or clocks(anExpression.right)->isEmpty())
+	and Set{BinaryOperators::less_than,
+		BinaryOperators::less_than_or_equal,
+		BinaryOperators::greater_than,
+		BinaryOperators::greater_than_or_equal}->includes(anExpression.operator))]
+Constraint([if (anExpression.left.clocks()->notEmpty())]
+[generateClock(anExpression.left)/], [generateIntExpression(anExpression.right)/][else]
+[generateIntExpression(anExpression.left)/], [generateClock(anExpression.right)/][/if]
+[if (anExpression.operator = BinaryOperators::less_than)], true, true)
+[elseif (anExpression.operator = BinaryOperators::less_than_or_equal)], true, false)
+[elseif (anExpression.operator = BinaryOperators::greater_than)], false, true)
+[elseif (anExpression.operator = BinaryOperators::greater_than_or_equal)], false, false)
+[/if]
+[elseif (anExpression.operator = BinaryOperators::logical_and
+	or (anExpression.operator = BinaryOperators::logical_or 
+		and (clocks(anExpression.left)->isEmpty() or clocks(anExpression.right)->isEmpty())))]
+([anExpression.left.generateExpressionMC() /]) [' ' + anExpression.operator + ' '/] ([anExpression.right.generateExpressionMC() /])
+[else]
+#error: unsupported operator [anExpression.operator /] between clock expressions in a guard!
+[/if]
+[/template]
+
+[template public generateExpressionWithoutCastMC(anExpression : BinaryOpExpression)
+	? (not inGuard(anExpression) and clocks(anExpression)->notEmpty()) post(trim())]
+#error: unsupported operator [anExpression.operator /] with clock
+[/template]
+
 [template public generateExpressionWithoutCast(anExpression : FunctionCallExpression) post(trim())]
 [anExpression.functionName /]([for (ve : ValuedExpression | anExpression.parameters) separator(', ')][ve.generateExpression() /][/for])
+[/template]
+
+[template public generateExpressionWithoutCastMC(anExpression : FunctionCallExpression) ? (clocks(anExpression)->notEmpty())]
+#error: unsupported function call with clock
 [/template]
 
 [template public generateExpressionWithoutCast(anExpression : UnaryOpExpression) ? (anExpression.operator <> UnaryOperators::quote) post(trim())]
@@ -152,6 +224,10 @@ generateInterval([speed(anExpression.left)/] - [speed(anExpression.right)/], [ge
 	? (anExpression.operator = UnaryOperators::quote and
 		anExpression.operand.oclIsKindOf(DirectClockDeclarationReferenceExpression)) post(trim())]
 [anExpression.operand.oclAsType(DirectClockDeclarationReferenceExpression).clockDeclaration.varName()/].speed()
+[/template]
+
+[template public generateExpressionWithoutCastMC(anExpression : UnaryOpExpression) ? (clocks(anExpression)->notEmpty())]
+#error: unsupported operator [anExpression.operator /] with clock
 [/template]
 
 [template public generateExpression(anExpression : IfThenElseExpression) post(trim())]
@@ -203,13 +279,58 @@ for <portdecl>.<datadecl>
 INCOMPLETE, MISSING TEMPLATE FOR A SUBTYPE OF 'ValuedExpression' : [anExpression/]
 [/template]
 
+[template public generateExpressionWithoutCastMC(anExpression : ValuedExpression)]
+[if (clocks(anExpression)->isEmpty())]
+[generateExpressionWithoutCast(anExpression)/]
+[else]
+INCOMPLETE, MISSING TEMPLATE FOR A SUBTYPE OF 'ValuedExpression' : [anExpression/]
+[/if]
+[/template]
+
 [template public generateExpression(anExpression : ValuedExpression)]
 [generateCast(anExpression.getType(), anExpression.getExpectedType(), generateExpressionWithoutCast(anExpression))/]
+[/template]
+
+[template public generateExpressionMC(anExpression : ValuedExpression)]
+[if (clocks(anExpression)->isEmpty())]
+[generateExpression(anExpression)/]
+[else]
+[generateCast(anExpression.getType(), anExpression.getExpectedType(), generateExpressionWithoutCastMC(anExpression))/]
+[/if]
 [/template]
 
 [comment THIS IS THE DEFAULT TEMPLATE THAT SHOULD NEVER BE USED. /]
 [template public generateExpression(anExpression : Expression)]
 INCOMPLETE, MISSING TEMPLATE FOR A SUBTYPE OF 'Expression' [anExpression/]
+[/template]
+
+[template public generateExpressionMC(anExpression : Expression)]
+[if (clocks(anExpression)->isEmpty())]
+[generateExpression(anExpression)/]
+[else]
+INCOMPLETE, MISSING TEMPLATE FOR A SUBTYPE OF 'Expression' [anExpression/]
+[/if]
+[/template]
+
+[query public getTimingConstraint(anExpression : ValuedExpression) : Set (BinaryOpExpression) =
+	if (not anExpression.oclIsUndefined() and clocks(anExpression)->notEmpty() and anExpression.oclIsKindOf(BinaryOpExpression)) then
+		let bOpExp : BinaryOpExpression = anExpression.oclAsType(BinaryOpExpression) in
+		if (Set{BinaryOperators::logical_and, BinaryOperators::logical_or}->includes(bOpExp.operator)) then
+			getTimingConstraint(bOpExp.left)->union(getTimingConstraint(bOpExp.right))
+		else if ((clocks(bOpExp.left)->isEmpty() or clocks(bOpExp.right)->isEmpty())
+				and Set{BinaryOperators::less_than, BinaryOperators::less_than_or_equal, BinaryOperators::greater_than,
+					BinaryOperators::greater_than_or_equal}->includes(bOpExp.operator)) then
+			Set {bOpExp}
+		else
+			Set {}
+		endif endif
+	else
+		Set{}
+	endif
+/]
+
+[template public generateTimingConstraint(anExpression : ValuedExpression)? (not inGuard(anExpression))]
+#error
 [/template]
 
 

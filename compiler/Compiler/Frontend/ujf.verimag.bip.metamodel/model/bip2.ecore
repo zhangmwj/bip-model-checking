@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="bip2"
-    nsURI="http://bip2/1.0" nsPrefix="bip2">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="bip2" nsURI="http://bip2/1.0" nsPrefix="bip2">
   <eClassifiers xsi:type="ecore:EClass" name="PlaceHolder" abstract="true"/>
   <eSubpackages name="ujf" nsURI="http://bip2/ujf/1.0" nsPrefix="bip2.ujf">
     <eClassifiers xsi:type="ecore:EClass" name="PlaceHolder"/>
@@ -98,7 +96,7 @@
           </eClassifiers>
           <eClassifiers xsi:type="ecore:EClass" name="CompoundType" eSuperTypes="#//ujf/verimag/bip/types/ComponentType">
             <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-              <details key="constraints" value="exportedPortsListsSynchronized exportedDataListsSynchronized checkForCyclesInPrioritiesInCompound&#xA;"/>
+              <details key="constraints" value="exportedPortsListsSynchronized exportedDataListsSynchronized checkForCyclesInPrioritiesInCompound noCompoundDeclarationInCompound"/>
             </eAnnotations>
             <eOperations name="getComponentDeclaration" eType="#//ujf/verimag/bip/component/ComponentDeclaration">
               <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -310,7 +308,7 @@
           </eClassifiers>
           <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//ujf/verimag/bip/annotation/AnnotatedElement #//ujf/verimag/bip/time/Guarded #//ujf/verimag/bip/time/Resumed #//ujf/verimag/bip/time/UrgentElement">
             <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-              <details key="constraints" value="hasNoVariableModifiedBetweenProvidedAndDo"/>
+              <details key="constraints" value="hasNoVariableModifiedBetweenProvidedAndDo eagerHasNoClocksInGuard"/>
             </eAnnotations>
             <eStructuralFeatures xsi:type="ecore:EReference" name="sources" lowerBound="1"
                 upperBound="-1" eType="#//ujf/verimag/bip/behavior/State"/>
@@ -365,7 +363,7 @@
             nsPrefix="bip2.ujf.verimag.bip.connector">
           <eClassifiers xsi:type="ecore:EClass" name="ConnectorDeclaration" eSuperTypes="#//ujf/verimag/bip/annotation/AnnotatedElement">
             <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-              <details key="constraints" value="hasCorrectNumberOfPortParameters connectorDeclarationHasnoDuplicatedPortReferenceParameter connectorHasExportPortBound"/>
+              <details key="constraints" value="hasCorrectNumberOfPortParameters connectorDeclarationHasnoDuplicatedPortReferenceParameter connectorHasExportPortBound eagerInteractionHasNoClocksInGuards"/>
             </eAnnotations>
             <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1"
                 eType="#//ujf/verimag/bip/types/ConnectorType"/>
@@ -665,6 +663,7 @@
             <eOperations name="expectedIsConst" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
             <eOperations name="isInConstantContext" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
             <eOperations name="hasSideEffect" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+            <eOperations name="hasClocks" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
           </eClassifiers>
           <eClassifiers xsi:type="ecore:EClass" name="SubDataDeclarationReferenceExpression"
               eSuperTypes="#//ujf/verimag/bip/actionlang/ValuedExpression">
@@ -682,7 +681,7 @@
           </eClassifiers>
           <eClassifiers xsi:type="ecore:EClass" name="AssignmentExpression" eSuperTypes="#//ujf/verimag/bip/actionlang/Expression">
             <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-              <details key="constraints" value="rhsIsADataDeclarationReference hasCorrectConst"/>
+              <details key="constraints" value="rhsIsADataDeclarationReference hasCorrectConst rhsHasNoClock"/>
             </eAnnotations>
             <eStructuralFeatures xsi:type="ecore:EReference" name="lhs" eType="#//ujf/verimag/bip/actionlang/ValuedExpression"
                 containment="true"/>
@@ -930,7 +929,7 @@
           <eClassifiers xsi:type="ecore:EClass" name="Time" eSuperTypes="#//ujf/verimag/bip/types/Type"/>
           <eClassifiers xsi:type="ecore:EClass" name="Guarded" abstract="true" interface="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-              <details key="constraints" value="nestedComparisonOnClocks clocksOnOneSideOfLogicalOr invalidNotEqualOnClocks noClocksInLogicalNot invalidUseOfMultiplicationOrDivisionOnClocks comparisonOfMoreThanTwoClocks comparisonOfClocksHavingWrongSign"/>
+              <details key="constraints" value="checkExpressionGrammar"/>
             </eAnnotations>
             <eStructuralFeatures xsi:type="ecore:EReference" name="guard" eType="#//ujf/verimag/bip/actionlang/ValuedExpression"
                 containment="true"/>
