@@ -27,6 +27,7 @@ public:
   void print() const;
   BipError &computeSuccessors(const State &state);
   const vector<const State *> &successors(const State &state);
+  void printTrace(const State &state);
 
 protected:
   void initDbm();
@@ -52,7 +53,7 @@ protected:
   vector<const Connector *> &highestConnector() { return mHighestConnector; }
   map<const Connector *, vector<const Connector *>> &priorities() { return mPriorities; }
 
-  unordered_map<const State, vector<const State*>, State::hash_all> &successors() { return mSuccessors; }
+  unordered_map<const State, pair<const State *, vector<const State*>>, State::hash_all> &successors() { return mSuccessors; }
 
   Compound &mTop;
 
@@ -66,7 +67,7 @@ protected:
   const State *mInitialState;
   // si vector size == 0 => pas de successors
   // si vector[0] == nullptr => pas encore calculer
-  unordered_map<const State, vector<const State*>, State::hash_all> mSuccessors;
+  unordered_map<const State, pair<const State *,vector<const State*>>, State::hash_all> mSuccessors;
 };
 
 #endif // _BIP_Engine_ModelCheckerEngine_HPP_

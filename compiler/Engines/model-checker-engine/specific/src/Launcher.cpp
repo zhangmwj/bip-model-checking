@@ -77,6 +77,9 @@
 #include <ZoneGraph.hpp>
 #include <ModelChecker.hpp>
 
+vector<string> getPropertiesName();
+bool hasProperty(const string &);
+
 // global method that instanciates the system found in the generated code
 Component* deploy(int argc, char **argv);
 
@@ -152,6 +155,7 @@ int Launcher::initialize() {
   bool zoneGraph = false;
   bool mc = false;
   bool bfs = true;
+  set<string> properties;
 
   int ret = EXIT_SUCCESS;
 
@@ -308,6 +312,35 @@ int Launcher::initialize() {
     else if (option == "--dfs") {
       bfs = false;
     }
+    else if (option == "--check-all") {
+      vector<string> all = getPropertiesName();
+      properties.insert(all.begin(), all.end());
+    }
+    else if (option == "-c" || option == "--check") {
+      // look for an integer argument
+      if (i < mArgc - 1) {
+        ++i;
+        string prop = mArgv[i];
+        if (!hasProperty(prop)) {
+          invalidOption = true;
+          ret = EXIT_FAILURE;
+
+          cout << bipExecutableName << ": invalid argument for '" << option << "', unknown property name" << endl;
+          break;
+        } else {
+          properties.insert(prop);
+        }
+      }
+      else {
+        invalidOption = true;
+        ret = EXIT_FAILURE;
+
+        cout << bipExecutableName << ": missing property name argument for '" << option << "'" << endl;
+        cout << "Try `" << bipExecutableName << " --help' for more information." << endl;
+
+        break;
+      }
+    }
     else {
       invalidOption = true;
       ret = EXIT_FAILURE;
@@ -334,7 +367,11 @@ int Launcher::initialize() {
       if (zoneGraph) {
         mMCScheduler = new ZoneGraph(*mMCEngine);
       } else {
-        mMCScheduler = new ModelChecker(*mMCEngine, bfs);
+        ModelChecker *mc =  new ModelChecker(*mMCEngine, bfs);
+        for (const string &propertyName : properties) {
+          mMCScheduler->addProperty(propertyName);
+        }
+        mMCScheduler = mc;
       }
     } else {
       if (realtime) {
@@ -420,6 +457,8 @@ void Launcher::printHelp(const string &bipExecutableName) {
   cout << " --mc  compute the states visited by model checking" << endl;
   cout << " --bfs             use bfs for model checking (default) " << endl;
   cout << " --dfs             use dfs for model checking" << endl;
+  cout << " --check-all       check all properties" << endl;
+  cout << " -c, --check PROP  check the PROP properties" << endl;
   cout << " --log-variables     displays atoms' variables in the execution trace" << endl;
   cout << " --log-stoch-choice     displays the details of the execution dates planifications for the timed/stochastic interactions/internal/external ports" << endl;
   cout << endl;

@@ -158,7 +158,7 @@ BipError &ModelCheckerEngine::computeInternalSuccessors(const State &state, bool
           if (error2.type() != NO_ERROR) {
             return error2;
           }
-          successors()[state].push_back(s);
+          successors()[state].second.push_back(s);
         }
         break;
       case ATOM_INVARIANT_VIOLATION:
@@ -226,7 +226,7 @@ BipError &ModelCheckerEngine::computeInteractionSuccessors(const State &state, b
                 if (error2.type() != NO_ERROR) {
                   return error2;
                 }
-                successors()[state].push_back(s);
+                successors()[state].second.push_back(s);
               }
               break;
             case ATOM_INVARIANT_VIOLATION:
@@ -284,7 +284,7 @@ BipError &ModelCheckerEngine::getState(const State **state) {
                          std::forward_as_tuple(stateBuffer, stateSize),
                          std::forward_as_tuple());
     if (ret.second) {
-      mSuccessors[ret.first->first].push_back(nullptr);
+      mSuccessors[ret.first->first].second.push_back(nullptr);
     }
     *state = &ret.first->first;
     return BipError::NoError;
@@ -305,7 +305,7 @@ BipError &ModelCheckerEngine::getState(const State **state) {
                          std::forward_as_tuple(stateBuffer, stateSize, stateDbm),
                          std::forward_as_tuple());
     if (ret.second) {
-      mSuccessors[ret.first->first].push_back(nullptr);
+      mSuccessors[ret.first->first].second.push_back(nullptr);
     }
     *state = &ret.first->first;
     return BipError::NoError;
@@ -320,11 +320,11 @@ void ModelCheckerEngine::setState(const State &state) {
 }
 
 const vector<const State *> &ModelCheckerEngine::successors(const State &state) {
-  return successors()[state];
+  return successors()[state].second;
 }
 
 BipError &ModelCheckerEngine::computeSuccessors(const State &state) {
-  vector<const State *> &ret = successors()[state];
+  vector<const State *> &ret = successors()[state].second;
   if (ret.size() == 1 && ret[0] == nullptr) {
     ret.clear();
     bool findEager = false;
@@ -336,6 +336,10 @@ BipError &ModelCheckerEngine::computeSuccessors(const State &state) {
     BipError &externalError = computeInteractionSuccessors(state, findEager);
     if (externalError.type() != NO_ERROR) {
       return externalError;
+    }
+    // update predecessor
+    for (const State *s: mSuccessors[state].second) {
+      mSuccessors[*s].first = &state;
     }
   }
   return BipError::NoError;
@@ -409,5 +413,19 @@ void ModelCheckerEngine::printConstraints() const {
       r = dbm()(i, j);
       cout << iName << " - " << jName << (dbm_rawIsStrict(r) ? " < " : " <= ") << dbm_raw2bound(r) << endl;
     }
+  }
+}
+
+void ModelCheckerEngine::printTrace(const State &state) {
+  vector<const State *> trace;
+  const State *current = &state;
+  while (current != mInitialState) {
+    trace.push_back(current);
+    current = mSuccessors[*current].first;
+  }
+  for (vector<const State *>::const_reverse_iterator it = trace.rbegin(); it != trace.rend(); ++it ) {
+    setState(**it);
+    print();
+    cout << endl;
   }
 }

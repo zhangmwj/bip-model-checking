@@ -1,6 +1,9 @@
 
 #include <ModelChecker.hpp>
 
+prop getProp(string);
+bool isReachability(string);
+
 ModelChecker::ModelChecker(ModelCheckerEngine &engine, bool bfs):
         ModelCheckerScheduler(engine),
         mBfs(bfs) {
@@ -17,7 +20,25 @@ BipError &ModelChecker::run() {
   else fpeek = &list<const State *>::back;
   pop fpop = mBfs ? &list<const State *>::pop_front : &list<const State *>::pop_back;
 
-  return computeMC(fpeek, fpop);
+  if (mProperties.empty())
+    return computeMC(fpeek, fpop);
+  for (string &s : mProperties) {
+    cout << "Check property " << s << endl;
+    const State *state = nullptr;
+    bool reachability = isReachability(s);
+    BipError &error = checkProp(s, reachability, fpeek, fpop, &state);
+    if (error.type() != NO_ERROR) {
+      return error;
+    }
+    if (state == nullptr) {
+      cout << s << " is " << (reachability ? "not" : "") << " satisfied" << endl;
+    } else {
+      cout << s << " is " << (reachability ? "" : "not") << " satisfied" << endl;
+      cout << "Trace :" << endl;
+      engine().printTrace(*state);
+    }
+  }
+  return BipError::NoError;
 }
 
 BipError &ModelChecker::computeMC(peek fpeek, pop fpop) {
