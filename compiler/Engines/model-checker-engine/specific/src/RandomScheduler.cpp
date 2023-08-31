@@ -679,9 +679,7 @@ BipError &RandomScheduler::run() {
   // Lotfi
      if(printVariables) print_vars();
 
-
   while (!deadlock() && !logger().reachedLimit()) {
-
     cout << endl ;
 
     // take a snapshot of the treated notifications
@@ -706,7 +704,6 @@ BipError &RandomScheduler::run() {
 
     // wait for the next event
     bool hasNotifications = waitForNotificationsUntil(wakeUpTime());
-
     if (hasNotifications) {
       continue;
     }
@@ -806,7 +803,6 @@ BipError &RandomScheduler::choose() {
   mChosenInteraction = NULL;
   mChosenInternal = NULL;
   mChosenExternal = NULL;
-
   mWakeUpTime = engine().waitInterval().right();
   mMinCriterion = TimeValue::MAX;
   mNbMinCriterion = 0;
@@ -869,13 +865,11 @@ BipError &RandomScheduler::choose() {
 BipError &RandomScheduler::chooseInteractive() {
   if (interactive()) {
     bool cont = true;
-
     while ((!engine().interactions().empty() || !engine().internals().empty()) && engine().externals().empty() && cont) {
       logger().logEnabled();
       ostringstream oss;
       oss << engine().interactions().size() + engine().internals().size() - 1;
       string message = " -> enter interaction / internal port number (0.." + oss.str() + "), or 'r' for a random choice: ";
-
       logger().log(message);
 
       string str;

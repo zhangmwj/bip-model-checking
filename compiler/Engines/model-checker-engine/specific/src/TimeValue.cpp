@@ -42,7 +42,16 @@ TimeValue::TimeValue() :
   TimeValueItf() {
   /* implement your constructor here */
 }
-TimeValue::TimeValue(int value, TimeUnit unit) {
+
+TimeValue::TimeValue(const int &time) :
+  TimeValueItf(),
+  mTime(time) {
+}
+
+TimeValue::TimeValue(const int &value, TimeUnit unit) :
+  TimeValue(value) {
+}
+  /*
   switch (unit) {
     case NONE:
       setTime((long long) value*1000*1000*1000);
@@ -158,6 +167,7 @@ TimeValue::TimeValue(long long value, TimeUnit unit) {
       assert(false);
   }
 }
+*/
 
 TimeValue::TimeValue(const TimeValue &value) :
   mTime(value.time()) {
@@ -170,8 +180,8 @@ TimeValue::~TimeValue() {
 
 // constants
 const TimeValue TimeValue::ZERO(0);
-const TimeValue TimeValue::MIN(LONG_LONG_MIN);
-const TimeValue TimeValue::MAX(LONG_LONG_MAX);
+const TimeValue TimeValue::MIN(INT_MIN);
+const TimeValue TimeValue::MAX(INT_MAX);
 
 std::ostream &operator<<(std::ostream &o, const TimeValue &time) {
   if (time == TimeValue::MIN) {
@@ -181,6 +191,9 @@ std::ostream &operator<<(std::ostream &o, const TimeValue &time) {
     o << "+INFTY";
   }
   else {
+    o << time.getTime();
+
+    /*
     TimeValue oneNs = TimeValue((long long) 1, NANOSECOND);
     long long nsTime = time / oneNs;
 
@@ -226,6 +239,7 @@ std::ostream &operator<<(std::ostream &o, const TimeValue &time) {
        msDisp == 0 &&
        usDisp == 0 &&
        nsDisp == 0) o << 0;
+    */
   }
 
   return o;

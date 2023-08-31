@@ -58,11 +58,15 @@ class ClockItf {
   virtual double speed() const = 0;
   virtual void resetTo(const TimeValue &time) = 0;
   virtual void setSpeed(const double &speed) = 0;
+  string fullname() const;
 
  protected:
   // protected constructors
   ClockItf();
-  ClockItf(Atom &atom);
+  ClockItf(Atom &atom, const string &name);
+
+  Atom *mAtom;
+  const string mName;
 };
 
 #endif // _BIP_Engine_ClockItf_HPP_

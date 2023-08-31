@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 2.8)
 
-PROJECT(BIP-reference-engine)
+PROJECT(BIP-model-checker-engine)
 
 if(NOT DEFINED VERSION)
-  SET(VERSION "reference")
+  SET(VERSION "model checker")
 endif(NOT DEFINED VERSION)
 
-SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "BIP Reference Engine")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "BIP Model Checker Engine")
 SET(CPACK_PACKAGE_VENDOR "VERIMAG")
 SET(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${VERSION}_${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
 # SET(CPACK_PACKAGE_VERSION_MAJOR "${VERSION}")
@@ -26,7 +26,7 @@ configure_file( engine-version.hpp.in ${CMAKE_BINARY_DIR}/generated/engine-versi
 include_directories( ${CMAKE_BINARY_DIR}/generated/ ) # Make sure it can be included...
 
 # Select flags.
-SET(CMAKE_CXX_FLAGS "-Wall -g -std=c++11")
+SET(CMAKE_CXX_FLAGS "-Wall -g -std=c++17")
 SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 SET(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 SET(CMAKE_CXX_FLAGS_DEBUG  "-O0 -g")
@@ -35,6 +35,7 @@ SET(CMAKE_CXX_FLAGS_PROFILING "-O0 -g -pg")
 
 include_directories("specific/include")
 include_directories("generic/include")
+include_directories("UDBM/include")
 
 SET(GENERIC_HEADER
   # this is the config file that maps abstract types used in engine to
@@ -71,7 +72,7 @@ SET(GENERIC_HEADER
   generic/include/TimeValueItf.hpp
   generic/include/IntervalItf.hpp
   generic/include/ClockItf.hpp
-  generic/include/LauncherItf.hpp)
+  generic/include/LauncherItf.hpp generic/include/ConstraintItf.hpp generic/include/ClockWithNegativeValueErrorItf.hpp)
 
 
 
@@ -105,7 +106,7 @@ SET(GENERIC_SRC
   generic/src/TimeValueItf.cpp
   generic/src/IntervalItf.cpp
   generic/src/ClockItf.cpp
-  generic/src/LauncherItf.cpp)
+  generic/src/LauncherItf.cpp generic/src/ConstraintItf.cpp generic/src/ClockWithNegativeValueErrorItf.cpp)
 
 SET(SPECIFIC_HEADER
   specific/include/Engine.hpp
@@ -151,7 +152,7 @@ SET(SPECIFIC_HEADER
   specific/include/SimulationClock.hpp
   specific/include/RealTimeClock.hpp
   specific/include/Launcher.hpp
-  specific/include/Logger.hpp)
+  specific/include/Logger.hpp specific/include/Constraint.hpp specific/include/ModelCheckerEngine.hpp specific/include/ModelCheckerScheduler.hpp specific/include/ClockWithNegativeValueError.hpp specific/include/ModelChecker.hpp specific/include/ZoneGraph.hpp)
 
 SET(SPECIFIC_SRC
   specific/src/Engine.cpp
@@ -197,7 +198,7 @@ SET(SPECIFIC_SRC
   specific/src/SimulationClock.cpp
   specific/src/RealTimeClock.cpp
   specific/src/Launcher.cpp
-  specific/src/Logger.cpp)
+  specific/src/Logger.cpp specific/src/Constraint.cpp specific/src/ModelCheckerEngine.cpp specific/src/ModelCheckerScheduler.cpp specific/src/ClockWithNegativeValueError.cpp specific/src/ModelChecker.cpp specific/src/ZoneGraph.cpp)
 
 add_library(engine
   ${GENERIC_HEADER}
@@ -225,3 +226,9 @@ install(FILES
 
 install(FILES
   ${GENERIC_HEADER} DESTINATION include/generic)
+
+ install(DIRECTORY
+  UDBM/include/ DESTINATION include/UDBM)
+
+ install(DIRECTORY
+  UDBM/lib/ DESTINATION lib/static)

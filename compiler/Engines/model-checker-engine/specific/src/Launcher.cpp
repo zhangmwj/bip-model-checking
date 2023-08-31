@@ -61,10 +61,12 @@
 
 #include <Engine.hpp>
 #include <ReferenceEngine.hpp>
+#include <ModelCheckerEngine.hpp>
 
 #include <Scheduler.hpp>
 #include <RandomScheduler.hpp>
 #include <Explorer.hpp>
+#include <ModelCheckerScheduler.hpp>
 
 #include <GlobalClock.hpp>
 #include <ModelClock.hpp>
@@ -72,18 +74,22 @@
 #include <SimulationClock.hpp>
 
 #include <engine-version.hpp>
+#include <ZoneGraph.hpp>
+#include <ModelChecker.hpp>
 
 // global method that instanciates the system found in the generated code
 Component* deploy(int argc, char **argv);
 
 // constructors
 Launcher::Launcher(int argc, char **argv, Component &root) :
-  LauncherItf(argc, argv, root),
-  mEngine(NULL),
-  mScheduler(NULL),
-  mLogger(NULL),
-  mPlatformClock(NULL),
-  mModelClock(NULL) {
+        LauncherItf(argc, argv, root),
+        mEngine(NULL),
+        mScheduler(NULL),
+        mLogger(NULL),
+        mPlatformClock(NULL),
+        mModelClock(NULL),
+        mMCEngine(NULL),
+        mMCScheduler(NULL) {
   /* implement your constructor here */
 }
 
@@ -107,6 +113,14 @@ Launcher::~Launcher() {
 
   if (mModelClock != NULL) {
     delete mModelClock;
+  }
+
+  if (mMCEngine != NULL) {
+    delete mMCEngine;
+  }
+
+  if (mMCScheduler != NULL) {
+    delete mMCScheduler;
   }
 }
 
@@ -134,6 +148,10 @@ int Launcher::initialize() {
   bool disable_maximal_progress = false;
   bool relaxed = false;
   TimeValue granularity = TimeValue::ZERO;
+
+  bool zoneGraph = false;
+  bool mc = false;
+  bool bfs = true;
 
   int ret = EXIT_SUCCESS;
 
@@ -278,6 +296,18 @@ int Launcher::initialize() {
       cout << "Print stochastic behavior log option activated" << endl;
       printStochTrace = true;
     }
+    else if (option == "-z" || option == "--zone") {
+      zoneGraph = true;
+    }
+    else if (option == "--mc") {
+      mc = true;
+    }
+    else if (option == "--bfs") {
+      bfs = true;
+    }
+    else if (option == "--dfs") {
+      bfs = false;
+    }
     else {
       invalidOption = true;
       ret = EXIT_FAILURE;
@@ -299,76 +329,100 @@ int Launcher::initialize() {
   }
 
   if (!invalidOption && !help) {
-    if (realtime) {
-      RealTimeClock * rtClock = new RealTimeClock();
-      rtClock->start();
-      mPlatformClock = rtClock;
+    if (zoneGraph || mc /*|| !properties.empty()*/) {
+      mMCEngine = new ModelCheckerEngine(dynamic_cast<Compound &>(root()));
+      if (zoneGraph) {
+        mMCScheduler = new ZoneGraph(*mMCEngine);
+      } else {
+        mMCScheduler = new ModelChecker(*mMCEngine, bfs);
+      }
+    } else {
+      if (realtime) {
+        RealTimeClock *rtClock = new RealTimeClock();
+        rtClock->start();
+        mPlatformClock = rtClock;
 
+      } else {
+        mPlatformClock = new SimulationClock();
+      }
+
+      mModelClock = new ModelClock(*mPlatformClock);
+      mEngine = new ReferenceEngine(dynamic_cast<Compound &>(root()), *mModelClock, disable_maximal_progress);
+
+      if (explore) {
+        mScheduler = new Explorer(*mEngine, granularity, verbose, limit);
+      } else {
+        mLogger = new Logger(*mEngine, cout, verbose, limit);
+        mScheduler = new RandomScheduler(*mEngine, *mPlatformClock, *mLogger, debug, interactive,
+                                         randomSeed, seed,
+                                         asap, first_enabled,
+                                         relaxed);
+      }
     }
-    else {
-      mPlatformClock = new SimulationClock();
+    if (mMCScheduler != NULL) {
+      BipError &error =  mMCScheduler->initialize();
+      if (error.type() != NO_ERROR) {
+        ret = error.type();
+      }
     }
 
-    mModelClock = new ModelClock(*mPlatformClock);
-
-    mEngine = new ReferenceEngine(dynamic_cast<Compound &>(root()), *mModelClock, disable_maximal_progress);
-
-    mScheduler = NULL;
-
-    if (explore) {
-      mScheduler = new Explorer(*mEngine, granularity, verbose, limit);
-    }
-    else {
-      mLogger = new Logger(*mEngine, cout, verbose, limit);
-      mScheduler = new RandomScheduler(*mEngine, *mPlatformClock, *mLogger, debug, interactive,
-        randomSeed, seed,
-        asap, first_enabled,
-        relaxed);
-    }
-
-    BipError &error = mScheduler->initialize();
-
-    if (error.type() != NO_ERROR) {
-      ret = error.type();
+    else if (mScheduler != NULL) {
+      BipError &error =  mScheduler->initialize();
+      if (error.type() != NO_ERROR) {
+        ret = error.type();
+      }
     }
   }
-
   return ret;
 }
 
 int Launcher::launch() {
   int ret = EXIT_SUCCESS;
 
+  if (mScheduler != NULL) {
 //    if(printVariables) cout << "Must print variables" << endl;
     mScheduler->printVariables = printVariables;
     mScheduler->printStochTrace = printStochTrace;
+    BipError &error = mScheduler->run();
 
-  BipError &error = mScheduler->run();
-
-  if (error.type() != NO_ERROR) {
-    ret = error.type();
+    if (error.type() != NO_ERROR) {
+      ret = error.type();
+      delete &error;
+    }
   }
 
+  else if (mMCScheduler != NULL) {
+    BipError &error = mMCScheduler->run();
+
+    if (error.type() != NO_ERROR) {
+      ret = error.type();
+      delete &error;
+    }
+  }
   return ret;
 }
 
 void Launcher::printHelp(const string &bipExecutableName) {
-   cout << "Usage: " << bipExecutableName << " [options]" << endl;
-   cout << endl;
-   cout << "BIP Engine general options:" << endl;
-   cout << " -d, --debug       allows debug of the system, i.e. displays the state of the system" << endl;
-   cout << " --execute         execute a single sequence of interactions (default)" << endl;
-   cout << " --explore         compute all possible sequences of interactions" << endl;
-   cout << " -h, --help        display this help and exit" << endl;
-   cout << " -i, --interactive interactive mode of execution" << endl;
-   cout << " -l, --limit LIMIT limits the execution to LIMIT interactions" << endl;
-   cout << " --seed SEED       set the seed for random to SEED" << endl;
-   cout << " -s, --silent      disables the display of the sequence of enabled/chosen interactions" << endl;
-   cout << " -v, --verbose     enables the display of the sequence of enabled/chosen interactions (default)" << endl;
-   cout << " -V, --version     displays engine version and exits" << endl;
-   cout << " --log-variables     displays atoms' variables in the execution trace" << endl;
-   cout << " --log-stoch-choice     displays the details of the execution dates planifications for the timed/stochastic interactions/internal/external ports" << endl;
-   cout << endl;
-   cout << "BIP Engine semantics options (WARNING: modify the official semantics of BIP!):" << endl;
-   cout << " --disable-maximal-progress    disable the application of maximal progress priorities" << endl;
+  cout << "Usage: " << bipExecutableName << " [options]" << endl;
+  cout << endl;
+  cout << "BIP Engine general options:" << endl;
+  cout << " -d, --debug       allows debug of the system, i.e. displays the state of the system" << endl;
+  cout << " --execute         execute a single sequence of interactions (default)" << endl;
+  cout << " --explore         compute all possible sequences of interactions" << endl;
+  cout << " -h, --help        display this help and exit" << endl;
+  cout << " -i, --interactive interactive mode of execution" << endl;
+  cout << " -l, --limit LIMIT limits the execution to LIMIT interactions" << endl;
+  cout << " --seed SEED       set the seed for random to SEED" << endl;
+  cout << " -s, --silent      disables the display of the sequence of enabled/chosen interactions" << endl;
+  cout << " -v, --verbose     enables the display of the sequence of enabled/chosen interactions (default)" << endl;
+  cout << " -V, --version     displays engine version and exits" << endl;
+  cout << " -z, --zone        compute zone graph" << endl;
+  cout << " --mc  compute the states visited by model checking" << endl;
+  cout << " --bfs             use bfs for model checking (default) " << endl;
+  cout << " --dfs             use dfs for model checking" << endl;
+  cout << " --log-variables     displays atoms' variables in the execution trace" << endl;
+  cout << " --log-stoch-choice     displays the details of the execution dates planifications for the timed/stochastic interactions/internal/external ports" << endl;
+  cout << endl;
+  cout << "BIP Engine semantics options (WARNING: modify the official semantics of BIP!):" << endl;
+  cout << " --disable-maximal-progress    disable the application of maximal progress priorities" << endl;
 }

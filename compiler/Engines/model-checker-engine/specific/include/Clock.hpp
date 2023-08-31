@@ -41,12 +41,15 @@
 #include <ClockItf.hpp>
 #include <TimeValue.hpp>
 #include <GlobalClock.hpp>
+#include <dbm/fed.h>
+#include <dbm/print.h>
+using namespace dbm;
 
 class Clock : public ClockItf {
  public:
   // constructors
   Clock();
-  Clock(Atom &atom);
+  Clock(Atom &atom, const string &name);
   Clock(const Clock &clock);
 
   // destructor
@@ -60,19 +63,46 @@ class Clock : public ClockItf {
 
   static void configureAllClocks(GlobalClock &modelClock);
 
+  static void configureDbm(dbm_t &dbm, vector<const Clock *> &clocks) {
+    mDbm = &dbm;
+    mClocks = &clocks;
+  }
+
+  static bool hasDbm() { return mDbm != NULL; }
+
+  static bool constrainDbm(const vector<constraint_t> &timingConstraints) {
+    return mDbm->constrain(timingConstraints.data(), timingConstraints.size());
+  }
+
+  void addToDbm() {
+    mIndex = mClocks->size() + 2;
+    mClocks->push_back(this);
+  }
+
+  static const dbm_t &dbm() { return *mDbm; }
+  static bool hasModelClock() { return mModelClock != NULL; }
+
  protected:
   GlobalClock &modelClock() const { return *mModelClock; }
-  bool hasModelClock() const { return mModelClock != NULL; }
   void setModelClock(GlobalClock &modelClock) { mModelClock = &modelClock; }
 
+  cindex_t getIndex() const {
+    return mIndex;
+  }
+  friend class ConstraintItf;
   TimeValue mResetTime;
   TimeValue mResetTo;
   double mSpeed;
 
   static GlobalClock *mModelClock;
+  static dbm_t *mDbm;
+  static vector<const Clock *> *mClocks;
+
+  cindex_t mIndex;
 };
 
 inline Clock::Clock(const Clock &clock) :
+  ClockItf(clock),
   mResetTime(clock.mResetTime),
   mResetTo(clock.mResetTo),
   mSpeed(clock.mSpeed) {
@@ -86,10 +116,12 @@ TimeValue Clock::time() const {
 
 inline
 void Clock::resetTo(const TimeValue &time) {
-  assert(hasModelClock());
-
-  mResetTime = modelClock().time();
-  mResetTo = time;
+  if (hasModelClock()) {
+    mResetTime = modelClock().time();
+    mResetTo = time;
+  } else if (hasDbm()) {
+    mDbm->updateValue(mIndex, time.getTime());
+  }
 }
 
 inline

@@ -250,6 +250,22 @@ BipError &InteractionValue::execute(const TimeValue &time) {
   return BipError::NoError;
 }
 
+BipError &InteractionValue::execute() {
+    // executed all connected connectors, atoms or compounds
+    for (unsigned int i = 0; i < ports().size(); ++i) {
+        Port &port = *ports()[i];
+        PortValue &portValue = *portValues()[i];
+
+        assert(port.type() == ATOM_EXPORT);
+        AtomExportPort &atomPort = dynamic_cast<AtomExportPort &>(port);
+        BipError &error = atomPort.holder().execute(portValue);
+        if (error.type() != NO_ERROR) {
+            return error;
+        }
+    }
+
+    return BipError::NoError;
+}
 
 /**
  * \brief Determine if an interaction is defined by a its holding connector.

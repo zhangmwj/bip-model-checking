@@ -44,6 +44,7 @@ using namespace biptypes;
 
 // referenced classes
 class Interval;
+class Constraint;
 
 class PortValueItf {
  public:
@@ -55,7 +56,9 @@ class PortValueItf {
 
   // getters for references
   const Interval &interval() const { return *mInterval; }
+  const Constraint &guard() const { return *mGuard; }
   bool hasInterval() const { return mInterval != NULL; }
+  bool hasGuard() const { return mGuard != NULL; }
 
   // getters for attributes
   Urgency urgency() const { return mUrgency; }
@@ -63,7 +66,9 @@ class PortValueItf {
 
   // setters for references
   void setInterval(const Interval &interval) { mInterval = &interval; }
+  void setGuard(const Constraint &guard) { mGuard = &guard; }
   void clearInterval() { mInterval = NULL; }
+  void clearGuard() { mGuard = NULL; }
 
   // setters for attributes
   void setUrgency(Urgency urgency) { mUrgency = urgency; }
@@ -79,6 +84,7 @@ class PortValueItf {
 
   // references
   const Interval *mInterval;
+  const Constraint *mGuard;
 };
 
 #endif // _BIP_Engine_PortValueItf_HPP_

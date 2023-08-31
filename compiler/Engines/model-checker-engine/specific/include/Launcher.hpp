@@ -42,12 +42,16 @@
 #include <LauncherItf.hpp>
 
 class Engine;
+class ModelCheckerEngine;
 class Scheduler;
+class ModelCheckerScheduler;
 class Logger;
 class Compound;
 class GlobalClock;
 class ModelClock;
 
+#include <dbm/fed.h>
+using namespace dbm;
 class Launcher : public LauncherItf {
  public:
   // constructors
@@ -71,6 +75,8 @@ class Launcher : public LauncherItf {
   Logger *mLogger;
   GlobalClock *mPlatformClock;
   ModelClock *mModelClock;
+  ModelCheckerEngine *mMCEngine;
+  ModelCheckerScheduler *mMCScheduler;
 };
 
 #endif // _BIP_Engine_Launcher_HPP_

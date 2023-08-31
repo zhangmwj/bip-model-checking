@@ -51,6 +51,7 @@ using namespace biptypes;
 #include "AtomInternalPort.hpp"
 #include "AtomExternalPort.hpp"
 #include "Component.hpp"
+#include "Constraint.hpp"
 
 // referenced classes
 class BipError;
@@ -68,9 +69,11 @@ class AtomItf : public virtual ComponentItf {
   // operations
   virtual BipError &initialize() = 0;
   virtual BipError &execute(PortValue &portValue, const TimeValue &time) = 0;
+  virtual BipError &execute(PortValue &portValue) = 0;
   virtual BipError &execute(AtomExternalPort &port, const TimeValue &time) = 0;
   virtual string toString() const = 0;
   virtual const Interval &invariant() const = 0;
+  virtual const Constraint &invariantConstraint() const = 0;
   virtual bool hasInvariant() const = 0;
   virtual BipError &resume(const TimeValue &time) = 0;
   virtual const Interval &resume() const = 0;

@@ -70,7 +70,9 @@ class CompoundItf : public virtual ComponentItf {
   const map<string, CompoundExportPort *> &ports() const { return mPorts; }
   bool hasPorts() const { return !mPorts.empty(); }
   const vector<Priority *> &priorities() const { return mPriorities; }
+  const vector<Priority *> &getPriorities() const { return mPriorities; }
   bool hasPriorities() const { return !mPriorities.empty(); }
+  const map<string, Connector *> &getConnectors() const { return mConnectors; }
   const map<string, Connector *> &connectors() const { return mConnectors; }
   bool hasConnectors() const { return !mConnectors.empty(); }
   const map<string, CompoundExportData *> &data() const { return mData; }

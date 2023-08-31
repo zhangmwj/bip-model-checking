@@ -35,14 +35,19 @@
  */
 
 #include <ClockItf.hpp>
+#include <Atom.hpp>
 
 // constructors
 ClockItf::ClockItf() {
 }
 
-ClockItf::ClockItf(Atom &atom) {
+ClockItf::ClockItf(Atom &atom, const string &name) :
+  mAtom(&atom),
+  mName(name) {
 }
 
 // destructor
 ClockItf::~ClockItf() {
 }
+
+string ClockItf::fullname() const { return mAtom->name() + "." + mName; }

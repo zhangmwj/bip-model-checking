@@ -46,6 +46,7 @@
 #include "CompoundExportData.hpp"
 #include "Connector.hpp"
 #include "Priority.hpp"
+#include "Constraint.hpp"
 
 class InteractionValue;
 class AtomInternalPort;
@@ -66,14 +67,17 @@ class Compound : public virtual ComponentItf, public Component, public CompoundI
   // specific
   virtual BipError &execute(PortValue &portValue, const TimeValue &time);
   BipError &execute(InteractionValue &interactionValue, const TimeValue &time);
+  BipError &execute(InteractionValue &interactionValue);
   virtual BipError &initialize();
+  vector<Constraint> allTimingConstraints() const;
   void initializeAllAtomExternalPorts();
   BipError &update();
   BipError &recursiveUpdate();
-  vector<InteractionValue *> interactions() const;
+  vector<InteractionValue *> interactions(bool MC = false) const;
   virtual vector<AtomInternalPort *> internals() const;
   virtual vector<AtomExternalPort *> allExternals() const;
   Interval invariant() const;
+  const Constraint invariantConstraint() const;
   Interval resume() const;
   BipError &resume(const TimeValue &time);
   bool hasResume() const;

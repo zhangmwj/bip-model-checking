@@ -49,9 +49,12 @@ class TimeValue : public TimeValueItf {
  public:
   // constructors
   TimeValue();
-  TimeValue(int value, TimeUnit unit);
+  TimeValue(const int &value);
+  TimeValue(const int &value, TimeUnit unit);
+  /*
   TimeValue(double value, TimeUnit unit);
   TimeValue(long long value, TimeUnit unit);
+  */
   TimeValue(const TimeValue &value);
 
   // destructor
@@ -79,7 +82,7 @@ class TimeValue : public TimeValueItf {
   TimeValue operator/(int factor) const { TimeValue ret = *this; ret.mTime = ret.mTime / factor; return ret; }
   TimeValue operator/(const double &factor) const { TimeValue ret = *this; ret.mTime = ret.mTime / factor; return ret; }
 
-  long long &getTime() { return mTime; }
+  const int &getTime() const { return mTime; }
   // constants
   static const TimeValue ZERO, MIN, MAX;
 
@@ -88,14 +91,12 @@ class TimeValue : public TimeValueItf {
   friend TimeValue operator*(double factor, const TimeValue &time);
 
  protected:
-  TimeValue(long long time) : TimeValueItf(), mTime(time) { }
+  const int &time() const { return mTime; }
 
-  const long long &time() const { return mTime; }
+  int &time() { return mTime; }
+  void setTime(int time) { mTime = time; }
 
-  long long &time() { return mTime; }
-  void setTime(long long time) { mTime = time; }
-
-  long long mTime;
+  int mTime;
 };
 
 inline TimeValue &TimeValue::operator+=(const TimeValue &value) {
