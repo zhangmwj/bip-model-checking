@@ -86,7 +86,7 @@ public class PortSwitch<T> extends Switch<T> {
      * Checks whether this is a switch for the given package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @parameter ePackage the package in question.
+     * @param ePackage the package in question.
      * @return whether this is a switch for the given package.
      * @generated
      */
@@ -114,14 +114,16 @@ public class PortSwitch<T> extends Switch<T> {
         }
         case PortPackage.SUB_PORT_DECLARATION_REFERENCE: {
             SubPortDeclarationReference subPortDeclarationReference = (SubPortDeclarationReference) theEObject;
-            T result = caseSubPortDeclarationReference(subPortDeclarationReference);
+            T result = caseSubPortDeclarationReference(
+                    subPortDeclarationReference);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
         }
         case PortPackage.PORT_DATA_PARAMETER_DECLARATION: {
             PortDataParameterDeclaration portDataParameterDeclaration = (PortDataParameterDeclaration) theEObject;
-            T result = casePortDataParameterDeclaration(portDataParameterDeclaration);
+            T result = casePortDataParameterDeclaration(
+                    portDataParameterDeclaration);
             if (result == null)
                 result = caseDataDeclaration(portDataParameterDeclaration);
             if (result == null)
@@ -132,7 +134,8 @@ public class PortSwitch<T> extends Switch<T> {
         }
         case PortPackage.PORT_DECLARATION_REFERENCE_PARAMETER: {
             PortDeclarationReferenceParameter portDeclarationReferenceParameter = (PortDeclarationReferenceParameter) theEObject;
-            T result = casePortDeclarationReferenceParameter(portDeclarationReferenceParameter);
+            T result = casePortDeclarationReferenceParameter(
+                    portDeclarationReferenceParameter);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
@@ -168,7 +171,8 @@ public class PortSwitch<T> extends Switch<T> {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseSubPortDeclarationReference(SubPortDeclarationReference object) {
+    public T caseSubPortDeclarationReference(
+            SubPortDeclarationReference object) {
         return null;
     }
 

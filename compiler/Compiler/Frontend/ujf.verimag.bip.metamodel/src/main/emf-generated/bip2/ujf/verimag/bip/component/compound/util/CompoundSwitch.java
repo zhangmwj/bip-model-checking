@@ -87,7 +87,7 @@ public class CompoundSwitch<T> extends Switch<T> {
      * Checks whether this is a switch for the given package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @parameter ePackage the package in question.
+     * @param ePackage the package in question.
      * @return whether this is a switch for the given package.
      * @generated
      */
@@ -108,7 +108,8 @@ public class CompoundSwitch<T> extends Switch<T> {
         switch (classifierID) {
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION: {
             CompoundExportPortDeclaration compoundExportPortDeclaration = (CompoundExportPortDeclaration) theEObject;
-            T result = caseCompoundExportPortDeclaration(compoundExportPortDeclaration);
+            T result = caseCompoundExportPortDeclaration(
+                    compoundExportPortDeclaration);
             if (result == null)
                 result = casePortDeclaration(compoundExportPortDeclaration);
             if (result == null)
@@ -119,7 +120,8 @@ public class CompoundSwitch<T> extends Switch<T> {
         }
         case CompoundPackage.COMPOUND_EXPORT_DATA_DECLARATION: {
             CompoundExportDataDeclaration compoundExportDataDeclaration = (CompoundExportDataDeclaration) theEObject;
-            T result = caseCompoundExportDataDeclaration(compoundExportDataDeclaration);
+            T result = caseCompoundExportDataDeclaration(
+                    compoundExportDataDeclaration);
             if (result == null)
                 result = caseDataDeclaration(compoundExportDataDeclaration);
             if (result == null)

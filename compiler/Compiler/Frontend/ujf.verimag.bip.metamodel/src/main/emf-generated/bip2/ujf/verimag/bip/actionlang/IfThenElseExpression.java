@@ -46,12 +46,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.IfThenElseExpression#getCondition <em>Condition</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.IfThenElseExpression#getThen <em>Then</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.IfThenElseExpression#getElse <em>Else</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.actionlang.ActionlangPackage#getIfThenElseExpression()
  * @model

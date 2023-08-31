@@ -52,8 +52,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PriorityFactoryImpl extends EFactoryImpl implements
-        PriorityFactory {
+public class PriorityFactoryImpl extends EFactoryImpl
+        implements PriorityFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -63,7 +63,7 @@ public class PriorityFactoryImpl extends EFactoryImpl implements
     public static PriorityFactory init() {
         try {
             PriorityFactory thePriorityFactory = (PriorityFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/priority/1.0");
+                    .getEFactory(PriorityPackage.eNS_URI);
             if (thePriorityFactory != null) {
                 return thePriorityFactory;
             }
@@ -108,6 +108,7 @@ public class PriorityFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public CompoundPriorityDeclaration createCompoundPriorityDeclaration() {
         CompoundPriorityDeclarationImpl compoundPriorityDeclaration = new CompoundPriorityDeclarationImpl();
         return compoundPriorityDeclaration;
@@ -118,6 +119,7 @@ public class PriorityFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInteraction createConnectorInteraction() {
         ConnectorInteractionImpl connectorInteraction = new ConnectorInteractionImpl();
         return connectorInteraction;
@@ -128,6 +130,7 @@ public class PriorityFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomPriorityDeclaration createAtomPriorityDeclaration() {
         AtomPriorityDeclarationImpl atomPriorityDeclaration = new AtomPriorityDeclarationImpl();
         return atomPriorityDeclaration;
@@ -138,6 +141,7 @@ public class PriorityFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PriorityPackage getPriorityPackage() {
         return (PriorityPackage) getEPackage();
     }

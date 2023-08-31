@@ -57,16 +57,16 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.time.impl.ClockDeclarationImpl#getUnit <em>Unit</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.time.impl.ClockDeclarationImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class ClockDeclarationImpl extends AnnotatedElementImpl implements
-        ClockDeclaration {
+public class ClockDeclarationImpl extends AnnotatedElementImpl
+        implements ClockDeclaration {
     /**
      * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
      * <!-- begin-user-doc -->
@@ -121,6 +121,7 @@ public class ClockDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Time getUnit() {
         if (unit != null && ((EObject) unit).eIsProxy()) {
             InternalEObject oldUnit = (InternalEObject) unit;
@@ -128,7 +129,8 @@ public class ClockDeclarationImpl extends AnnotatedElementImpl implements
             if (unit != oldUnit) {
                 if (eNotificationRequired())
                     eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-                            TimePackage.CLOCK_DECLARATION__UNIT, oldUnit, unit));
+                            TimePackage.CLOCK_DECLARATION__UNIT, oldUnit,
+                            unit));
             }
         }
         return unit;
@@ -148,6 +150,7 @@ public class ClockDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setUnit(Time newUnit) {
         Time oldUnit = unit;
         unit = newUnit;
@@ -161,6 +164,7 @@ public class ClockDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -170,6 +174,7 @@ public class ClockDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -243,8 +248,8 @@ public class ClockDeclarationImpl extends AnnotatedElementImpl implements
         case TimePackage.CLOCK_DECLARATION__UNIT:
             return unit != null;
         case TimePackage.CLOCK_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         }
         return super.eIsSet(featureID);
     }
@@ -259,7 +264,7 @@ public class ClockDeclarationImpl extends AnnotatedElementImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

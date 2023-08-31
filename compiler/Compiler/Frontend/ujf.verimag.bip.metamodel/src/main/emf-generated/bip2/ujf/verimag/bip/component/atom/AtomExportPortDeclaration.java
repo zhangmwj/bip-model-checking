@@ -49,17 +49,17 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.AtomExportPortDeclaration#getPortDeclarationReferences <em>Port Declaration References</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.component.atom.AtomPackage#getAtomExportPortDeclaration()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='referencedPortsHaveTheSameType noDuplicatedPortReference'"
  * @generated
  */
-public interface AtomExportPortDeclaration extends PortDeclaration,
-        AnnotatedElement {
+public interface AtomExportPortDeclaration
+        extends PortDeclaration, AnnotatedElement {
     /**
      * Returns the value of the '<em><b>Port Declaration References</b></em>' reference list.
      * The list contents are of type {@link bip2.ujf.verimag.bip.component.atom.AtomInternalPortDeclaration}.

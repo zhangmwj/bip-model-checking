@@ -71,10 +71,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.data.impl.DataTypeImpl#getBackendName <em>Backend Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -123,6 +123,7 @@ public class DataTypeImpl extends TypeImpl implements DataType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getBackendName() {
         return backendName;
     }
@@ -132,6 +133,7 @@ public class DataTypeImpl extends TypeImpl implements DataType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setBackendName(String newBackendName) {
         String oldBackendName = backendName;
         backendName = newBackendName;
@@ -211,7 +213,7 @@ public class DataTypeImpl extends TypeImpl implements DataType {
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (backendName: ");
         result.append(backendName);
         result.append(')');

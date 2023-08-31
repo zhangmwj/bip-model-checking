@@ -62,6 +62,7 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.CompoundPriorityInstanceImpl#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.CompoundPriorityInstanceImpl#getLowConnector <em>Low Connector</em>}</li>
@@ -69,7 +70,6 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.CompoundPriorityInstanceImpl#getLowPorts <em>Low Ports</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.CompoundPriorityInstanceImpl#getHighPorts <em>High Ports</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -146,15 +146,15 @@ public class CompoundPriorityInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public CompoundPriorityDeclaration getDeclaration() {
         if (declaration != null && ((EObject) declaration).eIsProxy()) {
             InternalEObject oldDeclaration = (InternalEObject) declaration;
-            declaration = (CompoundPriorityDeclaration) eResolveProxy(oldDeclaration);
+            declaration = (CompoundPriorityDeclaration) eResolveProxy(
+                    oldDeclaration);
             if (declaration != oldDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             InstancePackage.COMPOUND_PRIORITY_INSTANCE__DECLARATION,
                             oldDeclaration, declaration));
             }
@@ -176,6 +176,7 @@ public class CompoundPriorityInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDeclaration(CompoundPriorityDeclaration newDeclaration) {
         CompoundPriorityDeclaration oldDeclaration = declaration;
         declaration = newDeclaration;
@@ -190,15 +191,14 @@ public class CompoundPriorityInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInstance getLowConnector() {
         if (lowConnector != null && ((EObject) lowConnector).eIsProxy()) {
             InternalEObject oldLowConnector = (InternalEObject) lowConnector;
             lowConnector = (ConnectorInstance) eResolveProxy(oldLowConnector);
             if (lowConnector != oldLowConnector) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             InstancePackage.COMPOUND_PRIORITY_INSTANCE__LOW_CONNECTOR,
                             oldLowConnector, lowConnector));
             }
@@ -220,6 +220,7 @@ public class CompoundPriorityInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setLowConnector(ConnectorInstance newLowConnector) {
         ConnectorInstance oldLowConnector = lowConnector;
         lowConnector = newLowConnector;
@@ -234,15 +235,14 @@ public class CompoundPriorityInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInstance getHighConnector() {
         if (highConnector != null && ((EObject) highConnector).eIsProxy()) {
             InternalEObject oldHighConnector = (InternalEObject) highConnector;
             highConnector = (ConnectorInstance) eResolveProxy(oldHighConnector);
             if (highConnector != oldHighConnector) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             InstancePackage.COMPOUND_PRIORITY_INSTANCE__HIGH_CONNECTOR,
                             oldHighConnector, highConnector));
             }
@@ -264,6 +264,7 @@ public class CompoundPriorityInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setHighConnector(ConnectorInstance newHighConnector) {
         ConnectorInstance oldHighConnector = highConnector;
         highConnector = newHighConnector;
@@ -278,6 +279,7 @@ public class CompoundPriorityInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<PortInstance> getLowPorts() {
         if (lowPorts == null) {
             lowPorts = new EObjectResolvingEList<PortInstance>(
@@ -292,6 +294,7 @@ public class CompoundPriorityInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<PortInstance> getHighPorts() {
         if (highPorts == null) {
             highPorts = new EObjectResolvingEList<PortInstance>(

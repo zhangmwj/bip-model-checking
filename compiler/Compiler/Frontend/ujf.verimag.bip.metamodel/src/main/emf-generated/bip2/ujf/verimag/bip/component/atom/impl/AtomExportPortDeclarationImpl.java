@@ -78,6 +78,7 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomExportPortDeclarationImpl#getPortType <em>Port Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomExportPortDeclarationImpl#getName <em>Name</em>}</li>
@@ -85,7 +86,6 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomExportPortDeclarationImpl#getBipAnnotations <em>Bip Annotations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomExportPortDeclarationImpl#getPortDeclarationReferences <em>Port Declaration References</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -175,15 +175,14 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortType getPortType() {
         if (portType != null && ((EObject) portType).eIsProxy()) {
             InternalEObject oldPortType = (InternalEObject) portType;
             portType = (PortType) eResolveProxy(oldPortType);
             if (portType != oldPortType) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             AtomPackage.ATOM_EXPORT_PORT_DECLARATION__PORT_TYPE,
                             oldPortType, portType));
             }
@@ -205,6 +204,7 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setPortType(PortType newPortType) {
         PortType oldPortType = portType;
         portType = newPortType;
@@ -219,6 +219,7 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -228,6 +229,7 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -242,6 +244,7 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataDeclarationReferenceDataParameter> getDataParameters() {
         if (dataParameters == null) {
             dataParameters = new EObjectContainmentEList<DataDeclarationReferenceDataParameter>(
@@ -256,6 +259,7 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EMap<String, BipAnnotation> getBipAnnotations() {
         if (bipAnnotations == null) {
             bipAnnotations = new EcoreEMap<String, BipAnnotation>(
@@ -271,11 +275,11 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomInternalPortDeclaration> getPortDeclarationReferences() {
         if (portDeclarationReferences == null) {
             portDeclarationReferences = new EObjectResolvingEList<AtomInternalPortDeclaration>(
-                    AtomInternalPortDeclaration.class,
-                    this,
+                    AtomInternalPortDeclaration.class, this,
                     AtomPackage.ATOM_EXPORT_PORT_DECLARATION__PORT_DECLARATION_REFERENCES);
         }
         return portDeclarationReferences;
@@ -302,11 +306,11 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case AtomPackage.ATOM_EXPORT_PORT_DECLARATION__DATA_PARAMETERS:
-            return ((InternalEList<?>) getDataParameters()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getDataParameters())
+                    .basicRemove(otherEnd, msgs);
         case AtomPackage.ATOM_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS:
-            return ((InternalEList<?>) getBipAnnotations()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getBipAnnotations())
+                    .basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -355,16 +359,16 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
             return;
         case AtomPackage.ATOM_EXPORT_PORT_DECLARATION__DATA_PARAMETERS:
             getDataParameters().clear();
-            getDataParameters()
-                    .addAll((Collection<? extends DataDeclarationReferenceDataParameter>) newValue);
+            getDataParameters().addAll(
+                    (Collection<? extends DataDeclarationReferenceDataParameter>) newValue);
             return;
         case AtomPackage.ATOM_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS:
             ((EStructuralFeature.Setting) getBipAnnotations()).set(newValue);
             return;
         case AtomPackage.ATOM_EXPORT_PORT_DECLARATION__PORT_DECLARATION_REFERENCES:
             getPortDeclarationReferences().clear();
-            getPortDeclarationReferences()
-                    .addAll((Collection<? extends AtomInternalPortDeclaration>) newValue);
+            getPortDeclarationReferences().addAll(
+                    (Collection<? extends AtomInternalPortDeclaration>) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -408,8 +412,8 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
         case AtomPackage.ATOM_EXPORT_PORT_DECLARATION__PORT_TYPE:
             return portType != null;
         case AtomPackage.ATOM_EXPORT_PORT_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case AtomPackage.ATOM_EXPORT_PORT_DECLARATION__DATA_PARAMETERS:
             return dataParameters != null && !dataParameters.isEmpty();
         case AtomPackage.ATOM_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS:
@@ -427,7 +431,8 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * @generated
      */
     @Override
-    public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+    public int eBaseStructuralFeatureID(int derivedFeatureID,
+            Class<?> baseClass) {
         if (baseClass == AnnotatedElement.class) {
             switch (derivedFeatureID) {
             case AtomPackage.ATOM_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS:
@@ -445,7 +450,8 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * @generated
      */
     @Override
-    public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+    public int eDerivedStructuralFeatureID(int baseFeatureID,
+            Class<?> baseClass) {
         if (baseClass == AnnotatedElement.class) {
             switch (baseFeatureID) {
             case AnnotationPackage.ANNOTATED_ELEMENT__BIP_ANNOTATIONS:
@@ -467,7 +473,7 @@ public class AtomExportPortDeclarationImpl extends AnnotatedEObjectImpl
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

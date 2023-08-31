@@ -69,18 +69,18 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.ConnectorInstanceImpl#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.ConnectorInstanceImpl#getSubDataInstances <em>Sub Data Instances</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.ConnectorInstanceImpl#getPortParamInstances <em>Port Param Instances</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.ConnectorInstanceImpl#getExportedPort <em>Exported Port</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class ConnectorInstanceImpl extends AnnotatedEObjectImpl implements
-        ConnectorInstance {
+public class ConnectorInstanceImpl extends AnnotatedEObjectImpl
+        implements ConnectorInstance {
     /**
      * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' reference.
      * <!-- begin-user-doc -->
@@ -145,6 +145,7 @@ public class ConnectorInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorDeclaration getDeclaration() {
         if (declaration != null && ((EObject) declaration).eIsProxy()) {
             InternalEObject oldDeclaration = (InternalEObject) declaration;
@@ -173,6 +174,7 @@ public class ConnectorInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDeclaration(ConnectorDeclaration newDeclaration) {
         ConnectorDeclaration oldDeclaration = declaration;
         declaration = newDeclaration;
@@ -187,6 +189,7 @@ public class ConnectorInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataInstance> getSubDataInstances() {
         if (subDataInstances == null) {
             subDataInstances = new EObjectContainmentEList<DataInstance>(
@@ -201,6 +204,7 @@ public class ConnectorInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<PortInstance> getPortParamInstances() {
         if (portParamInstances == null) {
             portParamInstances = new EObjectResolvingEList<PortInstance>(
@@ -215,6 +219,7 @@ public class ConnectorInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorPortInstance getExportedPort() {
         return exportedPort;
     }
@@ -246,23 +251,20 @@ public class ConnectorInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setExportedPort(ConnectorPortInstance newExportedPort) {
         if (newExportedPort != exportedPort) {
             NotificationChain msgs = null;
             if (exportedPort != null)
-                msgs = ((InternalEObject) exportedPort)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - InstancePackage.CONNECTOR_INSTANCE__EXPORTED_PORT,
-                                null, msgs);
+                msgs = ((InternalEObject) exportedPort).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - InstancePackage.CONNECTOR_INSTANCE__EXPORTED_PORT,
+                        null, msgs);
             if (newExportedPort != null)
-                msgs = ((InternalEObject) newExportedPort)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - InstancePackage.CONNECTOR_INSTANCE__EXPORTED_PORT,
-                                null, msgs);
+                msgs = ((InternalEObject) newExportedPort).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - InstancePackage.CONNECTOR_INSTANCE__EXPORTED_PORT,
+                        null, msgs);
             msgs = basicSetExportedPort(newExportedPort, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -296,8 +298,8 @@ public class ConnectorInstanceImpl extends AnnotatedEObjectImpl implements
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case InstancePackage.CONNECTOR_INSTANCE__SUB_DATA_INSTANCES:
-            return ((InternalEList<?>) getSubDataInstances()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getSubDataInstances())
+                    .basicRemove(otherEnd, msgs);
         case InstancePackage.CONNECTOR_INSTANCE__EXPORTED_PORT:
             return basicSetExportedPort(null, msgs);
         }
@@ -340,13 +342,13 @@ public class ConnectorInstanceImpl extends AnnotatedEObjectImpl implements
             return;
         case InstancePackage.CONNECTOR_INSTANCE__SUB_DATA_INSTANCES:
             getSubDataInstances().clear();
-            getSubDataInstances().addAll(
-                    (Collection<? extends DataInstance>) newValue);
+            getSubDataInstances()
+                    .addAll((Collection<? extends DataInstance>) newValue);
             return;
         case InstancePackage.CONNECTOR_INSTANCE__PORT_PARAM_INSTANCES:
             getPortParamInstances().clear();
-            getPortParamInstances().addAll(
-                    (Collection<? extends PortInstance>) newValue);
+            getPortParamInstances()
+                    .addAll((Collection<? extends PortInstance>) newValue);
             return;
         case InstancePackage.CONNECTOR_INSTANCE__EXPORTED_PORT:
             setExportedPort((ConnectorPortInstance) newValue);

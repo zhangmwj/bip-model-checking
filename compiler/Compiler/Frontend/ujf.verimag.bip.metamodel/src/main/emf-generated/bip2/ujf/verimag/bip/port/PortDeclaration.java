@@ -53,12 +53,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.port.PortDeclaration#getPortType <em>Port Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.PortDeclaration#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.PortDeclaration#getDataParameters <em>Data Parameters</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.port.PortPackage#getPortDeclaration()
  * @model interface="true" abstract="true"

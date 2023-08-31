@@ -59,16 +59,16 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.annotation.impl.BipAnnotationImpl#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.annotation.impl.BipAnnotationImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class BipAnnotationImpl extends AnnotatedEObjectImpl implements
-        BipAnnotation {
+public class BipAnnotationImpl extends AnnotatedEObjectImpl
+        implements BipAnnotation {
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -123,6 +123,7 @@ public class BipAnnotationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -132,6 +133,7 @@ public class BipAnnotationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -145,6 +147,7 @@ public class BipAnnotationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EMap<String, String> getParameters() {
         if (parameters == null) {
             parameters = new EcoreEMap<String, String>(
@@ -235,8 +238,8 @@ public class BipAnnotationImpl extends AnnotatedEObjectImpl implements
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case AnnotationPackage.BIP_ANNOTATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case AnnotationPackage.BIP_ANNOTATION__PARAMETERS:
             return parameters != null && !parameters.isEmpty();
         }
@@ -253,7 +256,7 @@ public class BipAnnotationImpl extends AnnotatedEObjectImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

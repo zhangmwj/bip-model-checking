@@ -46,17 +46,17 @@ import bip2.ujf.verimag.bip.data.DataDeclaration;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.DirectDataDeclarationReferenceExpression#getDataDeclaration <em>Data Declaration</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.actionlang.ActionlangPackage#getDirectDataDeclarationReferenceExpression()
  * @model
  * @generated
  */
-public interface DirectDataDeclarationReferenceExpression extends
-        ValuedExpression {
+public interface DirectDataDeclarationReferenceExpression
+        extends ValuedExpression {
     /**
      * Returns the value of the '<em><b>Data Declaration</b></em>' reference.
      * <!-- begin-user-doc -->

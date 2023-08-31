@@ -59,11 +59,11 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.annotation.impl.StringToAnnotationMapEntryImpl#getTypedKey <em>Key</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.annotation.impl.StringToAnnotationMapEntryImpl#getTypedValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -181,19 +181,15 @@ public class StringToAnnotationMapEntryImpl extends AnnotatedEObjectImpl
         if (newValue != value) {
             NotificationChain msgs = null;
             if (value != null)
-                msgs = ((InternalEObject) value)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - AnnotationPackage.STRING_TO_ANNOTATION_MAP_ENTRY__VALUE,
-                                null, msgs);
+                msgs = ((InternalEObject) value).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - AnnotationPackage.STRING_TO_ANNOTATION_MAP_ENTRY__VALUE,
+                        null, msgs);
             if (newValue != null)
-                msgs = ((InternalEObject) newValue)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - AnnotationPackage.STRING_TO_ANNOTATION_MAP_ENTRY__VALUE,
-                                null, msgs);
+                msgs = ((InternalEObject) newValue).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - AnnotationPackage.STRING_TO_ANNOTATION_MAP_ENTRY__VALUE,
+                        null, msgs);
             msgs = basicSetTypedValue(newValue, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -279,8 +275,8 @@ public class StringToAnnotationMapEntryImpl extends AnnotatedEObjectImpl
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case AnnotationPackage.STRING_TO_ANNOTATION_MAP_ENTRY__KEY:
-            return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT
-                    .equals(key);
+            return KEY_EDEFAULT == null ? key != null
+                    : !KEY_EDEFAULT.equals(key);
         case AnnotationPackage.STRING_TO_ANNOTATION_MAP_ENTRY__VALUE:
             return value != null;
         }
@@ -297,7 +293,7 @@ public class StringToAnnotationMapEntryImpl extends AnnotatedEObjectImpl
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (key: ");
         result.append(key);
         result.append(')');
@@ -316,6 +312,7 @@ public class StringToAnnotationMapEntryImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public int getHash() {
         if (hash == -1) {
             Object theKey = getKey();
@@ -329,6 +326,7 @@ public class StringToAnnotationMapEntryImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setHash(int hash) {
         this.hash = hash;
     }
@@ -338,6 +336,7 @@ public class StringToAnnotationMapEntryImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getKey() {
         return getTypedKey();
     }
@@ -347,6 +346,7 @@ public class StringToAnnotationMapEntryImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setKey(String key) {
         setTypedKey(key);
     }
@@ -356,6 +356,7 @@ public class StringToAnnotationMapEntryImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public BipAnnotation getValue() {
         return getTypedValue();
     }
@@ -365,6 +366,7 @@ public class StringToAnnotationMapEntryImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public BipAnnotation setValue(BipAnnotation value) {
         BipAnnotation oldValue = getValue();
         setTypedValue(value);

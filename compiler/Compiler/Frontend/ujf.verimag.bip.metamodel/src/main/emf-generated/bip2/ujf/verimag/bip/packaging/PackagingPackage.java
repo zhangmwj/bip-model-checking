@@ -119,7 +119,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BIP_PACKAGE__NAME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+    int BIP_PACKAGE__NAME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Atom Types</b></em>' containment reference list.
@@ -128,7 +129,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BIP_PACKAGE__ATOM_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
+    int BIP_PACKAGE__ATOM_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Compound Types</b></em>' containment reference list.
@@ -137,7 +139,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BIP_PACKAGE__COMPOUND_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+    int BIP_PACKAGE__COMPOUND_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 2;
 
     /**
      * The feature id for the '<em><b>Connector Types</b></em>' containment reference list.
@@ -146,7 +149,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BIP_PACKAGE__CONNECTOR_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
+    int BIP_PACKAGE__CONNECTOR_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 3;
 
     /**
      * The feature id for the '<em><b>Port Types</b></em>' containment reference list.
@@ -155,7 +159,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BIP_PACKAGE__PORT_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 4;
+    int BIP_PACKAGE__PORT_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 4;
 
     /**
      * The feature id for the '<em><b>Data Types</b></em>' containment reference list.
@@ -164,7 +169,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BIP_PACKAGE__DATA_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 5;
+    int BIP_PACKAGE__DATA_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 5;
 
     /**
      * The feature id for the '<em><b>Used packages</b></em>' reference list.
@@ -173,7 +179,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BIP_PACKAGE__USED_PACKAGES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 6;
+    int BIP_PACKAGE__USED_PACKAGES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 6;
 
     /**
      * The feature id for the '<em><b>Const Data</b></em>' containment reference list.
@@ -182,7 +189,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BIP_PACKAGE__CONST_DATA = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 7;
+    int BIP_PACKAGE__CONST_DATA = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 7;
 
     /**
      * The feature id for the '<em><b>Prototypes</b></em>' containment reference list.
@@ -191,7 +199,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BIP_PACKAGE__PROTOTYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 8;
+    int BIP_PACKAGE__PROTOTYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 8;
 
     /**
      * The number of structural features of the '<em>Bip Package</em>' class.
@@ -200,7 +209,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BIP_PACKAGE_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 9;
+    int BIP_PACKAGE_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 9;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.packaging.impl.BipPackageSetImpl <em>Bip Package Set</em>}' class.
@@ -292,7 +302,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONST_DATA_DECLARATION_FEATURE_COUNT = DataPackage.EXPLICIT_DATA_DECLARATION_FEATURE_COUNT + 0;
+    int CONST_DATA_DECLARATION_FEATURE_COUNT = DataPackage.EXPLICIT_DATA_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.packaging.impl.PrototypeImpl <em>Prototype</em>}' class.
@@ -320,7 +331,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROTOTYPE__PARAMETER_DECLARATIONS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+    int PROTOTYPE__PARAMETER_DECLARATIONS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Return Type</b></em>' reference.
@@ -329,7 +341,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROTOTYPE__RETURN_TYPE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
+    int PROTOTYPE__RETURN_TYPE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Native</b></em>' attribute.
@@ -338,7 +351,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROTOTYPE__NATIVE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+    int PROTOTYPE__NATIVE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 2;
 
     /**
      * The feature id for the '<em><b>Const</b></em>' attribute.
@@ -347,7 +361,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROTOTYPE__CONST = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
+    int PROTOTYPE__CONST = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 3;
 
     /**
      * The number of structural features of the '<em>Prototype</em>' class.
@@ -356,7 +371,8 @@ public interface PackagingPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROTOTYPE_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 4;
+    int PROTOTYPE_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 4;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.packaging.impl.FunctionCallPrototypeImpl <em>Function Call Prototype</em>}' class.

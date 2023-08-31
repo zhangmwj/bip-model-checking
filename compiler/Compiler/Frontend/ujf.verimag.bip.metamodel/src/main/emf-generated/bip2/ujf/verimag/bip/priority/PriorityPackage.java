@@ -118,7 +118,8 @@ public interface PriorityPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_PRIORITY_DECLARATION__LOW = TimePackage.GUARDED_FEATURE_COUNT + 0;
+    int COMPOUND_PRIORITY_DECLARATION__LOW = TimePackage.GUARDED_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>High</b></em>' containment reference.
@@ -127,7 +128,8 @@ public interface PriorityPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_PRIORITY_DECLARATION__HIGH = TimePackage.GUARDED_FEATURE_COUNT + 1;
+    int COMPOUND_PRIORITY_DECLARATION__HIGH = TimePackage.GUARDED_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -136,7 +138,8 @@ public interface PriorityPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_PRIORITY_DECLARATION__NAME = TimePackage.GUARDED_FEATURE_COUNT + 2;
+    int COMPOUND_PRIORITY_DECLARATION__NAME = TimePackage.GUARDED_FEATURE_COUNT
+            + 2;
 
     /**
      * The number of structural features of the '<em>Compound Priority Declaration</em>' class.
@@ -145,7 +148,8 @@ public interface PriorityPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_PRIORITY_DECLARATION_FEATURE_COUNT = TimePackage.GUARDED_FEATURE_COUNT + 3;
+    int COMPOUND_PRIORITY_DECLARATION_FEATURE_COUNT = TimePackage.GUARDED_FEATURE_COUNT
+            + 3;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.priority.impl.ConnectorInteractionImpl <em>Connector Interaction</em>}' class.
@@ -237,7 +241,8 @@ public interface PriorityPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_PRIORITY_DECLARATION_FEATURE_COUNT = TimePackage.GUARDED_FEATURE_COUNT + 3;
+    int ATOM_PRIORITY_DECLARATION_FEATURE_COUNT = TimePackage.GUARDED_FEATURE_COUNT
+            + 3;
 
     /**
      * Returns the meta object for class '{@link bip2.ujf.verimag.bip.priority.CompoundPriorityDeclaration <em>Compound Priority Declaration</em>}'.

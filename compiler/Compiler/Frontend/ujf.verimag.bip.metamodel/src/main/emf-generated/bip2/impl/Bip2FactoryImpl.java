@@ -62,7 +62,7 @@ public class Bip2FactoryImpl extends EFactoryImpl implements Bip2Factory {
     public static Bip2Factory init() {
         try {
             Bip2Factory theBip2Factory = (Bip2Factory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/1.0");
+                    .getEFactory(Bip2Package.eNS_URI);
             if (theBip2Factory != null) {
                 return theBip2Factory;
             }
@@ -101,6 +101,7 @@ public class Bip2FactoryImpl extends EFactoryImpl implements Bip2Factory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Bip2Package getBip2Package() {
         return (Bip2Package) getEPackage();
     }

@@ -73,6 +73,7 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.AtomInstanceImpl#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.AtomInstanceImpl#getExportedPorts <em>Exported Ports</em>}</li>
@@ -80,12 +81,11 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.AtomInstanceImpl#getInternalPorts <em>Internal Ports</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.AtomInstanceImpl#getExternalPorts <em>External Ports</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class AtomInstanceImpl extends AnnotatedEObjectImpl implements
-        AtomInstance {
+public class AtomInstanceImpl extends AnnotatedEObjectImpl
+        implements AtomInstance {
     /**
      * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' reference.
      * <!-- begin-user-doc -->
@@ -160,6 +160,7 @@ public class AtomInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ComponentDeclaration getDeclaration() {
         if (declaration != null && ((EObject) declaration).eIsProxy()) {
             InternalEObject oldDeclaration = (InternalEObject) declaration;
@@ -188,6 +189,7 @@ public class AtomInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDeclaration(ComponentDeclaration newDeclaration) {
         ComponentDeclaration oldDeclaration = declaration;
         declaration = newDeclaration;
@@ -202,6 +204,7 @@ public class AtomInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ExportedPortInstance> getExportedPorts() {
         if (exportedPorts == null) {
             exportedPorts = new EObjectContainmentEList<ExportedPortInstance>(
@@ -216,6 +219,7 @@ public class AtomInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataInstance> getSubDataInstances() {
         if (subDataInstances == null) {
             subDataInstances = new EObjectContainmentEList<DataInstance>(
@@ -230,6 +234,7 @@ public class AtomInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomInternalPortInstance> getInternalPorts() {
         if (internalPorts == null) {
             internalPorts = new EObjectContainmentEList<AtomInternalPortInstance>(
@@ -244,6 +249,7 @@ public class AtomInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomExternalPortInstance> getExternalPorts() {
         if (externalPorts == null) {
             externalPorts = new EObjectContainmentEList<AtomExternalPortInstance>(
@@ -314,17 +320,17 @@ public class AtomInstanceImpl extends AnnotatedEObjectImpl implements
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case InstancePackage.ATOM_INSTANCE__EXPORTED_PORTS:
-            return ((InternalEList<?>) getExportedPorts()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getExportedPorts()).basicRemove(otherEnd,
+                    msgs);
         case InstancePackage.ATOM_INSTANCE__SUB_DATA_INSTANCES:
-            return ((InternalEList<?>) getSubDataInstances()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getSubDataInstances())
+                    .basicRemove(otherEnd, msgs);
         case InstancePackage.ATOM_INSTANCE__INTERNAL_PORTS:
-            return ((InternalEList<?>) getInternalPorts()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getInternalPorts()).basicRemove(otherEnd,
+                    msgs);
         case InstancePackage.ATOM_INSTANCE__EXTERNAL_PORTS:
-            return ((InternalEList<?>) getExternalPorts()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getExternalPorts()).basicRemove(otherEnd,
+                    msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -372,8 +378,8 @@ public class AtomInstanceImpl extends AnnotatedEObjectImpl implements
             return;
         case InstancePackage.ATOM_INSTANCE__SUB_DATA_INSTANCES:
             getSubDataInstances().clear();
-            getSubDataInstances().addAll(
-                    (Collection<? extends DataInstance>) newValue);
+            getSubDataInstances()
+                    .addAll((Collection<? extends DataInstance>) newValue);
             return;
         case InstancePackage.ATOM_INSTANCE__INTERNAL_PORTS:
             getInternalPorts().clear();

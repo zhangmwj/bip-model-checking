@@ -58,16 +58,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorInteractionNestedDefinitionImpl#getSubInteractions <em>Sub Interactions</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class ConnectorInteractionNestedDefinitionImpl extends
-        ConnectorInteractionDefinitionImpl implements
-        ConnectorInteractionNestedDefinition {
+public class ConnectorInteractionNestedDefinitionImpl
+        extends ConnectorInteractionDefinitionImpl
+        implements ConnectorInteractionNestedDefinition {
     /**
      * The cached value of the '{@link #getSubInteractions() <em>Sub Interactions</em>}' containment reference list.
      * <!-- begin-user-doc -->
@@ -102,11 +102,11 @@ public class ConnectorInteractionNestedDefinitionImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ConnectorInteractionDefinition> getSubInteractions() {
         if (subInteractions == null) {
             subInteractions = new EObjectContainmentEList<ConnectorInteractionDefinition>(
-                    ConnectorInteractionDefinition.class,
-                    this,
+                    ConnectorInteractionDefinition.class, this,
                     ConnectorPackage.CONNECTOR_INTERACTION_NESTED_DEFINITION__SUB_INTERACTIONS);
         }
         return subInteractions;
@@ -122,8 +122,8 @@ public class ConnectorInteractionNestedDefinitionImpl extends
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectorPackage.CONNECTOR_INTERACTION_NESTED_DEFINITION__SUB_INTERACTIONS:
-            return ((InternalEList<?>) getSubInteractions()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getSubInteractions())
+                    .basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -153,8 +153,8 @@ public class ConnectorInteractionNestedDefinitionImpl extends
         switch (featureID) {
         case ConnectorPackage.CONNECTOR_INTERACTION_NESTED_DEFINITION__SUB_INTERACTIONS:
             getSubInteractions().clear();
-            getSubInteractions()
-                    .addAll((Collection<? extends ConnectorInteractionDefinition>) newValue);
+            getSubInteractions().addAll(
+                    (Collection<? extends ConnectorInteractionDefinition>) newValue);
             return;
         }
         super.eSet(featureID, newValue);

@@ -246,7 +246,8 @@ public interface PortPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PORT_DATA_PARAMETER_DECLARATION_FEATURE_COUNT = DataPackage.DATA_DECLARATION_FEATURE_COUNT + 0;
+    int PORT_DATA_PARAMETER_DECLARATION_FEATURE_COUNT = DataPackage.DATA_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.port.impl.PortDeclarationReferenceParameterImpl <em>Declaration Reference Parameter</em>}' class.

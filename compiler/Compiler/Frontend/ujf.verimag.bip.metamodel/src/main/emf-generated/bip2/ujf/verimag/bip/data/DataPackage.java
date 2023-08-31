@@ -192,7 +192,8 @@ public interface DataPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATA_DECLARATION__DATA_TYPE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+    int DATA_DECLARATION__DATA_TYPE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -201,7 +202,8 @@ public interface DataPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATA_DECLARATION__NAME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
+    int DATA_DECLARATION__NAME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -210,7 +212,8 @@ public interface DataPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATA_DECLARATION__VALUE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+    int DATA_DECLARATION__VALUE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 2;
 
     /**
      * The feature id for the '<em><b>Const</b></em>' attribute.
@@ -219,7 +222,8 @@ public interface DataPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATA_DECLARATION__CONST = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
+    int DATA_DECLARATION__CONST = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 3;
 
     /**
      * The number of structural features of the '<em>Declaration</em>' class.
@@ -228,7 +232,8 @@ public interface DataPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATA_DECLARATION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 4;
+    int DATA_DECLARATION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 4;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.data.ExplicitDataDeclaration <em>Explicit Data Declaration</em>}' class.
@@ -292,7 +297,8 @@ public interface DataPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXPLICIT_DATA_DECLARATION_FEATURE_COUNT = DATA_DECLARATION_FEATURE_COUNT + 0;
+    int EXPLICIT_DATA_DECLARATION_FEATURE_COUNT = DATA_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.data.impl.SubDataDeclarationReferenceImpl <em>Sub Data Declaration Reference</em>}' class.
@@ -412,7 +418,8 @@ public interface DataPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATA_DECLARATION_REFERENCE_DATA_PARAMETER__DATA_DECLARATION_REFERENCE = DATA_PARAMETER_FEATURE_COUNT + 0;
+    int DATA_DECLARATION_REFERENCE_DATA_PARAMETER__DATA_DECLARATION_REFERENCE = DATA_PARAMETER_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Declaration Reference Data Parameter</em>' class.
@@ -421,7 +428,8 @@ public interface DataPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATA_DECLARATION_REFERENCE_DATA_PARAMETER_FEATURE_COUNT = DATA_PARAMETER_FEATURE_COUNT + 1;
+    int DATA_DECLARATION_REFERENCE_DATA_PARAMETER_FEATURE_COUNT = DATA_PARAMETER_FEATURE_COUNT
+            + 1;
 
     /**
      * Returns the meta object for class '{@link bip2.ujf.verimag.bip.data.DataType <em>Type</em>}'.

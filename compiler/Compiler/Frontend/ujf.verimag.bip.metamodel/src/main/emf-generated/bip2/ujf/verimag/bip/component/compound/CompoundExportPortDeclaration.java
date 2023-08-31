@@ -48,17 +48,17 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.compound.CompoundExportPortDeclaration#getPortDeclarationReferences <em>Port Declaration References</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.component.compound.CompoundPackage#getCompoundExportPortDeclaration()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='referencedPortsHaveTheSameType noDuplicatedPortReference'"
  * @generated
  */
-public interface CompoundExportPortDeclaration extends PortDeclaration,
-        AnnotatedElement {
+public interface CompoundExportPortDeclaration
+        extends PortDeclaration, AnnotatedElement {
     /**
      * Returns the value of the '<em><b>Port Declaration References</b></em>' containment reference list.
      * The list contents are of type {@link bip2.ujf.verimag.bip.port.SubPortDeclarationReference}.

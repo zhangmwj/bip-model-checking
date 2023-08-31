@@ -43,10 +43,10 @@ package bip2.ujf.verimag.bip.packaging;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.FunctionCallPrototype#getFunctionName <em>Function Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.packaging.PackagingPackage#getFunctionCallPrototype()
  * @model

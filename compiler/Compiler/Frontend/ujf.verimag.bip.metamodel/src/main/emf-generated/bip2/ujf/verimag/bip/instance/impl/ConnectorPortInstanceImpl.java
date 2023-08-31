@@ -60,16 +60,16 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.ConnectorPortInstanceImpl#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.ConnectorPortInstanceImpl#getDataParamInstances <em>Data Param Instances</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class ConnectorPortInstanceImpl extends AnnotatedEObjectImpl implements
-        ConnectorPortInstance {
+public class ConnectorPortInstanceImpl extends AnnotatedEObjectImpl
+        implements ConnectorPortInstance {
     /**
      * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' reference.
      * <!-- begin-user-doc -->
@@ -113,15 +113,14 @@ public class ConnectorPortInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortDeclaration getDeclaration() {
         if (declaration != null && ((EObject) declaration).eIsProxy()) {
             InternalEObject oldDeclaration = (InternalEObject) declaration;
             declaration = (PortDeclaration) eResolveProxy(oldDeclaration);
             if (declaration != oldDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             InstancePackage.CONNECTOR_PORT_INSTANCE__DECLARATION,
                             oldDeclaration, declaration));
             }
@@ -143,6 +142,7 @@ public class ConnectorPortInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDeclaration(PortDeclaration newDeclaration) {
         PortDeclaration oldDeclaration = declaration;
         declaration = newDeclaration;
@@ -157,11 +157,11 @@ public class ConnectorPortInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataInstance> getDataParamInstances() {
         if (dataParamInstances == null) {
             dataParamInstances = new EObjectResolvingEList<DataInstance>(
-                    DataInstance.class,
-                    this,
+                    DataInstance.class, this,
                     InstancePackage.CONNECTOR_PORT_INSTANCE__DATA_PARAM_INSTANCES);
         }
         return dataParamInstances;
@@ -199,8 +199,8 @@ public class ConnectorPortInstanceImpl extends AnnotatedEObjectImpl implements
             return;
         case InstancePackage.CONNECTOR_PORT_INSTANCE__DATA_PARAM_INSTANCES:
             getDataParamInstances().clear();
-            getDataParamInstances().addAll(
-                    (Collection<? extends DataInstance>) newValue);
+            getDataParamInstances()
+                    .addAll((Collection<? extends DataInstance>) newValue);
             return;
         }
         super.eSet(featureID, newValue);

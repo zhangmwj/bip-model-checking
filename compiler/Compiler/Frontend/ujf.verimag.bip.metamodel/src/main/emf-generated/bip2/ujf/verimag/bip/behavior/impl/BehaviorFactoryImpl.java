@@ -53,8 +53,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class BehaviorFactoryImpl extends EFactoryImpl implements
-        BehaviorFactory {
+public class BehaviorFactoryImpl extends EFactoryImpl
+        implements BehaviorFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -64,7 +64,7 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements
     public static BehaviorFactory init() {
         try {
             BehaviorFactory theBehaviorFactory = (BehaviorFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/behavior/1.0");
+                    .getEFactory(BehaviorPackage.eNS_URI);
             if (theBehaviorFactory != null) {
                 return theBehaviorFactory;
             }
@@ -111,6 +111,7 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PetriNet createPetriNet() {
         PetriNetImpl petriNet = new PetriNetImpl();
         return petriNet;
@@ -121,6 +122,7 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public State createState() {
         StateImpl state = new StateImpl();
         return state;
@@ -131,6 +133,7 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Transition createTransition() {
         TransitionImpl transition = new TransitionImpl();
         return transition;
@@ -141,6 +144,7 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public InternalTransition createInternalTransition() {
         InternalTransitionImpl internalTransition = new InternalTransitionImpl();
         return internalTransition;
@@ -151,6 +155,7 @@ public class BehaviorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public BehaviorPackage getBehaviorPackage() {
         return (BehaviorPackage) getEPackage();
     }

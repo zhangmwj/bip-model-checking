@@ -52,8 +52,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class CompoundFactoryImpl extends EFactoryImpl implements
-        CompoundFactory {
+public class CompoundFactoryImpl extends EFactoryImpl
+        implements CompoundFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -63,7 +63,7 @@ public class CompoundFactoryImpl extends EFactoryImpl implements
     public static CompoundFactory init() {
         try {
             CompoundFactory theCompoundFactory = (CompoundFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/component/compound/1.0");
+                    .getEFactory(CompoundPackage.eNS_URI);
             if (theCompoundFactory != null) {
                 return theCompoundFactory;
             }
@@ -106,6 +106,7 @@ public class CompoundFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public CompoundExportPortDeclaration createCompoundExportPortDeclaration() {
         CompoundExportPortDeclarationImpl compoundExportPortDeclaration = new CompoundExportPortDeclarationImpl();
         return compoundExportPortDeclaration;
@@ -116,6 +117,7 @@ public class CompoundFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public CompoundExportDataDeclaration createCompoundExportDataDeclaration() {
         CompoundExportDataDeclarationImpl compoundExportDataDeclaration = new CompoundExportDataDeclarationImpl();
         return compoundExportDataDeclaration;
@@ -126,6 +128,7 @@ public class CompoundFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public CompoundPackage getCompoundPackage() {
         return (CompoundPackage) getEPackage();
     }

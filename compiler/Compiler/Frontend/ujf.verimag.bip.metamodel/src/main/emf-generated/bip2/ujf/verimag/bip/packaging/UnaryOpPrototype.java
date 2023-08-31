@@ -45,10 +45,10 @@ import bip2.ujf.verimag.bip.actionlang.UnaryOperators;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.UnaryOpPrototype#getOperator <em>Operator</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.packaging.PackagingPackage#getUnaryOpPrototype()
  * @model

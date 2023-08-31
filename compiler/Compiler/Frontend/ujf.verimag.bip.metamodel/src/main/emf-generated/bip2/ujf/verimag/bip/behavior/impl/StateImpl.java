@@ -54,10 +54,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.impl.StateImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -106,6 +106,7 @@ public class StateImpl extends AnnotatedEObjectImpl implements State {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -115,6 +116,7 @@ public class StateImpl extends AnnotatedEObjectImpl implements State {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -176,8 +178,8 @@ public class StateImpl extends AnnotatedEObjectImpl implements State {
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case BehaviorPackage.STATE__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         }
         return super.eIsSet(featureID);
     }
@@ -192,7 +194,7 @@ public class StateImpl extends AnnotatedEObjectImpl implements State {
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

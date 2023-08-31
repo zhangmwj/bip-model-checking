@@ -72,10 +72,10 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.PortTypeImpl#getDataParameterDeclarations <em>Data Parameter Declarations</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -114,6 +114,7 @@ public class PortTypeImpl extends TypeImpl implements PortType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<PortDataParameterDeclaration> getDataParameterDeclarations() {
         if (dataParameterDeclarations == null) {
             dataParameterDeclarations = new EObjectContainmentEList<PortDataParameterDeclaration>(
@@ -128,7 +129,8 @@ public class PortTypeImpl extends TypeImpl implements PortType {
      * <!-- end-user-doc -->
      * @generated NOT
      */
-    public PortDataParameterDeclaration getDataParameterDeclaration(String name) {
+    public PortDataParameterDeclaration getDataParameterDeclaration(
+            String name) {
         for (PortDataParameterDeclaration pdpd : getDataParameterDeclarations()) {
             if (pdpd.getName().equals(name)) {
                 return pdpd;
@@ -178,8 +180,8 @@ public class PortTypeImpl extends TypeImpl implements PortType {
         switch (featureID) {
         case TypesPackage.PORT_TYPE__DATA_PARAMETER_DECLARATIONS:
             getDataParameterDeclarations().clear();
-            getDataParameterDeclarations()
-                    .addAll((Collection<? extends PortDataParameterDeclaration>) newValue);
+            getDataParameterDeclarations().addAll(
+                    (Collection<? extends PortDataParameterDeclaration>) newValue);
             return;
         }
         super.eSet(featureID, newValue);

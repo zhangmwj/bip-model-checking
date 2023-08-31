@@ -53,6 +53,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.PetriNet#getStates <em>States</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.PetriNet#getInitStates <em>Init States</em>}</li>
@@ -60,7 +61,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link bip2.ujf.verimag.bip.behavior.PetriNet#getInitialActions <em>Initial Actions</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.PetriNet#getInitialResume <em>Initial Resume</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.behavior.BehaviorPackage#getPetriNet()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='checkIllFormed checkUninitializedVariablesOfPetriNet checkUninitializedVariablesExportedByPortOfAtom checkUninitializedVariablesExportedAtom'"

@@ -122,8 +122,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ConnectorPackageImpl extends EPackageImpl implements
-        ConnectorPackage {
+public class ConnectorPackageImpl extends EPackageImpl
+        implements ConnectorPackage {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -208,7 +208,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
 
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-     * 
+     *
      * <p>This method is used to initialize {@link ConnectorPackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
@@ -224,76 +224,105 @@ public class ConnectorPackageImpl extends EPackageImpl implements
                     .getEPackage(ConnectorPackage.eNS_URI);
 
         // Obtain or create and register package
-        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (EPackage.Registry.INSTANCE
-                .get(eNS_URI) instanceof ConnectorPackageImpl ? EPackage.Registry.INSTANCE
-                .get(eNS_URI) : new ConnectorPackageImpl());
+        Object registeredConnectorPackage = EPackage.Registry.INSTANCE
+                .get(eNS_URI);
+        ConnectorPackageImpl theConnectorPackage = registeredConnectorPackage instanceof ConnectorPackageImpl
+                ? (ConnectorPackageImpl) registeredConnectorPackage
+                : new ConnectorPackageImpl();
 
         isInited = true;
 
         // Obtain or create and register interdependencies
-        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) instanceof Bip2PackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) : Bip2Package.eINSTANCE);
-        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) instanceof UjfPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) : UjfPackage.eINSTANCE);
-        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) instanceof VerimagPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) : VerimagPackage.eINSTANCE);
-        BipPackageImpl theBipPackage = (BipPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) instanceof BipPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) : BipPackage.eINSTANCE);
-        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) instanceof TypesPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) : TypesPackage.eINSTANCE);
-        DataPackageImpl theDataPackage = (DataPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(DataPackage.eNS_URI) instanceof DataPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(DataPackage.eNS_URI) : DataPackage.eINSTANCE);
-        PortPackageImpl thePortPackage = (PortPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) instanceof PortPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) : PortPackage.eINSTANCE);
-        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI) instanceof BehaviorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI)
+        Object registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(Bip2Package.eNS_URI);
+        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (registeredPackage instanceof Bip2PackageImpl
+                ? registeredPackage
+                : Bip2Package.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(UjfPackage.eNS_URI);
+        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (registeredPackage instanceof UjfPackageImpl
+                ? registeredPackage
+                : UjfPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(VerimagPackage.eNS_URI);
+        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (registeredPackage instanceof VerimagPackageImpl
+                ? registeredPackage
+                : VerimagPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BipPackage.eNS_URI);
+        BipPackageImpl theBipPackage = (BipPackageImpl) (registeredPackage instanceof BipPackageImpl
+                ? registeredPackage
+                : BipPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TypesPackage.eNS_URI);
+        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (registeredPackage instanceof TypesPackageImpl
+                ? registeredPackage
+                : TypesPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(DataPackage.eNS_URI);
+        DataPackageImpl theDataPackage = (DataPackageImpl) (registeredPackage instanceof DataPackageImpl
+                ? registeredPackage
+                : DataPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PortPackage.eNS_URI);
+        PortPackageImpl thePortPackage = (PortPackageImpl) (registeredPackage instanceof PortPackageImpl
+                ? registeredPackage
+                : PortPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BehaviorPackage.eNS_URI);
+        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (registeredPackage instanceof BehaviorPackageImpl
+                ? registeredPackage
                 : BehaviorPackage.eINSTANCE);
-        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI) instanceof PriorityPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PriorityPackage.eNS_URI);
+        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (registeredPackage instanceof PriorityPackageImpl
+                ? registeredPackage
                 : PriorityPackage.eINSTANCE);
-        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ComponentPackage.eNS_URI);
+        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (registeredPackage instanceof ComponentPackageImpl
+                ? registeredPackage
                 : ComponentPackage.eINSTANCE);
-        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) instanceof AtomPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) : AtomPackage.eINSTANCE);
-        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI) instanceof CompoundPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AtomPackage.eNS_URI);
+        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (registeredPackage instanceof AtomPackageImpl
+                ? registeredPackage
+                : AtomPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(CompoundPackage.eNS_URI);
+        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (registeredPackage instanceof CompoundPackageImpl
+                ? registeredPackage
                 : CompoundPackage.eINSTANCE);
-        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PackagingPackage.eNS_URI) instanceof PackagingPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PackagingPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PackagingPackage.eNS_URI);
+        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (registeredPackage instanceof PackagingPackageImpl
+                ? registeredPackage
                 : PackagingPackage.eINSTANCE);
-        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ActionlangPackage.eNS_URI) instanceof ActionlangPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ActionlangPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ActionlangPackage.eNS_URI);
+        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (registeredPackage instanceof ActionlangPackageImpl
+                ? registeredPackage
                 : ActionlangPackage.eINSTANCE);
-        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(InstancePackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI);
+        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (registeredPackage instanceof InstancePackageImpl
+                ? registeredPackage
                 : InstancePackage.eINSTANCE);
-        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI) instanceof AnnotationPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AnnotationPackage.eNS_URI);
+        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (registeredPackage instanceof AnnotationPackageImpl
+                ? registeredPackage
                 : AnnotationPackage.eINSTANCE);
-        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(InvariantPackage.eNS_URI) instanceof InvariantPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(InvariantPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(InvariantPackage.eNS_URI);
+        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (registeredPackage instanceof InvariantPackageImpl
+                ? registeredPackage
                 : InvariantPackage.eINSTANCE);
-        TimePackageImpl theTimePackage = (TimePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) instanceof TimePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) : TimePackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TimePackage.eNS_URI);
+        TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
+                ? registeredPackage
+                : TimePackage.eINSTANCE);
 
         // Create package meta-data objects
         theConnectorPackage.createPackageContents();
@@ -340,6 +369,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
         // Register package validator
         EValidator.Registry.INSTANCE.put(theConnectorPackage,
                 new EValidator.Descriptor() {
+                    @Override
                     public EValidator getEValidator() {
                         return ConnectorValidator.INSTANCE;
                     }
@@ -359,6 +389,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConnectorDeclaration() {
         return connectorDeclarationEClass;
     }
@@ -368,6 +399,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorDeclaration_Type() {
         return (EReference) connectorDeclarationEClass.getEStructuralFeatures()
                 .get(0);
@@ -378,6 +410,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getConnectorDeclaration_Name() {
         return (EAttribute) connectorDeclarationEClass.getEStructuralFeatures()
                 .get(2);
@@ -388,6 +421,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorDeclaration_PortParameters() {
         return (EReference) connectorDeclarationEClass.getEStructuralFeatures()
                 .get(1);
@@ -398,6 +432,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConnectorPortParameterDeclaration() {
         return connectorPortParameterDeclarationEClass;
     }
@@ -407,6 +442,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConnectorExportedPortDeclaration() {
         return connectorExportedPortDeclarationEClass;
     }
@@ -416,6 +452,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConnectorDataDeclaration() {
         return connectorDataDeclarationEClass;
     }
@@ -425,6 +462,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConnectorInteractionAction() {
         return connectorInteractionActionEClass;
     }
@@ -434,6 +472,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorInteractionAction_OnPorts() {
         return (EReference) connectorInteractionActionEClass
                 .getEStructuralFeatures().get(0);
@@ -444,6 +483,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorInteractionAction_Up() {
         return (EReference) connectorInteractionActionEClass
                 .getEStructuralFeatures().get(1);
@@ -454,6 +494,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorInteractionAction_Down() {
         return (EReference) connectorInteractionActionEClass
                 .getEStructuralFeatures().get(2);
@@ -464,6 +505,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConnectorInteractionDefinition() {
         return connectorInteractionDefinitionEClass;
     }
@@ -473,6 +515,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getConnectorInteractionDefinition_Quoted() {
         return (EAttribute) connectorInteractionDefinitionEClass
                 .getEStructuralFeatures().get(0);
@@ -483,6 +526,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConnectorInteractionPortReference() {
         return connectorInteractionPortReferenceEClass;
     }
@@ -492,6 +536,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorInteractionPortReference_Port() {
         return (EReference) connectorInteractionPortReferenceEClass
                 .getEStructuralFeatures().get(0);
@@ -502,6 +547,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConnectorInteractionNestedDefinition() {
         return connectorInteractionNestedDefinitionEClass;
     }
@@ -511,6 +557,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorInteractionNestedDefinition_SubInteractions() {
         return (EReference) connectorInteractionNestedDefinitionEClass
                 .getEStructuralFeatures().get(0);
@@ -521,6 +568,7 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorFactory getConnectorFactory() {
         return (ConnectorFactory) getEFactoryInstance();
     }
@@ -553,13 +601,17 @@ public class ConnectorPackageImpl extends EPackageImpl implements
         createEAttribute(connectorDeclarationEClass,
                 CONNECTOR_DECLARATION__NAME);
 
-        connectorPortParameterDeclarationEClass = createEClass(CONNECTOR_PORT_PARAMETER_DECLARATION);
+        connectorPortParameterDeclarationEClass = createEClass(
+                CONNECTOR_PORT_PARAMETER_DECLARATION);
 
-        connectorExportedPortDeclarationEClass = createEClass(CONNECTOR_EXPORTED_PORT_DECLARATION);
+        connectorExportedPortDeclarationEClass = createEClass(
+                CONNECTOR_EXPORTED_PORT_DECLARATION);
 
-        connectorDataDeclarationEClass = createEClass(CONNECTOR_DATA_DECLARATION);
+        connectorDataDeclarationEClass = createEClass(
+                CONNECTOR_DATA_DECLARATION);
 
-        connectorInteractionActionEClass = createEClass(CONNECTOR_INTERACTION_ACTION);
+        connectorInteractionActionEClass = createEClass(
+                CONNECTOR_INTERACTION_ACTION);
         createEReference(connectorInteractionActionEClass,
                 CONNECTOR_INTERACTION_ACTION__ON_PORTS);
         createEReference(connectorInteractionActionEClass,
@@ -567,15 +619,18 @@ public class ConnectorPackageImpl extends EPackageImpl implements
         createEReference(connectorInteractionActionEClass,
                 CONNECTOR_INTERACTION_ACTION__DOWN);
 
-        connectorInteractionDefinitionEClass = createEClass(CONNECTOR_INTERACTION_DEFINITION);
+        connectorInteractionDefinitionEClass = createEClass(
+                CONNECTOR_INTERACTION_DEFINITION);
         createEAttribute(connectorInteractionDefinitionEClass,
                 CONNECTOR_INTERACTION_DEFINITION__QUOTED);
 
-        connectorInteractionPortReferenceEClass = createEClass(CONNECTOR_INTERACTION_PORT_REFERENCE);
+        connectorInteractionPortReferenceEClass = createEClass(
+                CONNECTOR_INTERACTION_PORT_REFERENCE);
         createEReference(connectorInteractionPortReferenceEClass,
                 CONNECTOR_INTERACTION_PORT_REFERENCE__PORT);
 
-        connectorInteractionNestedDefinitionEClass = createEClass(CONNECTOR_INTERACTION_NESTED_DEFINITION);
+        connectorInteractionNestedDefinitionEClass = createEClass(
+                CONNECTOR_INTERACTION_NESTED_DEFINITION);
         createEReference(connectorInteractionNestedDefinitionEClass,
                 CONNECTOR_INTERACTION_NESTED_DEFINITION__SUB_INTERACTIONS);
     }
@@ -623,24 +678,24 @@ public class ConnectorPackageImpl extends EPackageImpl implements
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        connectorDeclarationEClass.getESuperTypes().add(
-                theAnnotationPackage.getAnnotatedElement());
-        connectorPortParameterDeclarationEClass.getESuperTypes().add(
-                thePortPackage.getPortDeclaration());
-        connectorExportedPortDeclarationEClass.getESuperTypes().add(
-                thePortPackage.getPortDeclaration());
-        connectorExportedPortDeclarationEClass.getESuperTypes().add(
-                theAnnotationPackage.getAnnotatedElement());
-        connectorDataDeclarationEClass.getESuperTypes().add(
-                theDataPackage.getExplicitDataDeclaration());
-        connectorInteractionActionEClass.getESuperTypes().add(
-                theAnnotationPackage.getAnnotatedElement());
-        connectorInteractionActionEClass.getESuperTypes().add(
-                theTimePackage.getGuarded());
-        connectorInteractionPortReferenceEClass.getESuperTypes().add(
-                this.getConnectorInteractionDefinition());
-        connectorInteractionNestedDefinitionEClass.getESuperTypes().add(
-                this.getConnectorInteractionDefinition());
+        connectorDeclarationEClass.getESuperTypes()
+                .add(theAnnotationPackage.getAnnotatedElement());
+        connectorPortParameterDeclarationEClass.getESuperTypes()
+                .add(thePortPackage.getPortDeclaration());
+        connectorExportedPortDeclarationEClass.getESuperTypes()
+                .add(thePortPackage.getPortDeclaration());
+        connectorExportedPortDeclarationEClass.getESuperTypes()
+                .add(theAnnotationPackage.getAnnotatedElement());
+        connectorDataDeclarationEClass.getESuperTypes()
+                .add(theDataPackage.getExplicitDataDeclaration());
+        connectorInteractionActionEClass.getESuperTypes()
+                .add(theAnnotationPackage.getAnnotatedElement());
+        connectorInteractionActionEClass.getESuperTypes()
+                .add(theTimePackage.getGuarded());
+        connectorInteractionPortReferenceEClass.getESuperTypes()
+                .add(this.getConnectorInteractionDefinition());
+        connectorInteractionNestedDefinitionEClass.getESuperTypes()
+                .add(this.getConnectorInteractionDefinition());
 
         // Initialize classes and features; add operations and parameters
         initEClass(connectorDeclarationEClass, ConnectorDeclaration.class,
@@ -670,8 +725,8 @@ public class ConnectorPackageImpl extends EPackageImpl implements
 
         initEClass(connectorExportedPortDeclarationEClass,
                 ConnectorExportedPortDeclaration.class,
-                "ConnectorExportedPortDeclaration", !IS_ABSTRACT,
-                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+                "ConnectorExportedPortDeclaration", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(connectorDataDeclarationEClass,
                 ConnectorDataDeclaration.class, "ConnectorDataDeclaration",
@@ -691,9 +746,9 @@ public class ConnectorPackageImpl extends EPackageImpl implements
                 IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getConnectorInteractionAction_Down(),
-                theActionlangPackage.getExpression(), null, "down", null, 0,
-                -1, ConnectorInteractionAction.class, !IS_TRANSIENT,
-                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                theActionlangPackage.getExpression(), null, "down", null, 0, -1,
+                ConnectorInteractionAction.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectorInteractionDefinitionEClass,
@@ -711,11 +766,10 @@ public class ConnectorPackageImpl extends EPackageImpl implements
                 "ConnectorInteractionPortReference", !IS_ABSTRACT,
                 !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getConnectorInteractionPortReference_Port(),
-                this.getConnectorPortParameterDeclaration(), null, "port",
-                null, 1, 1, ConnectorInteractionPortReference.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-                IS_ORDERED);
+                this.getConnectorPortParameterDeclaration(), null, "port", null,
+                1, 1, ConnectorInteractionPortReference.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectorInteractionNestedDefinitionEClass,
                 ConnectorInteractionNestedDefinition.class,
@@ -742,18 +796,12 @@ public class ConnectorPackageImpl extends EPackageImpl implements
      */
     protected void createEcoreAnnotations() {
         String source = "http://www.eclipse.org/emf/2002/Ecore";
-        addAnnotation(
-                connectorDeclarationEClass,
-                source,
-                new String[] {
-                        "constraints",
-                        "hasCorrectNumberOfPortParameters connectorDeclarationHasnoDuplicatedPortReferenceParameter connectorHasExportPortBound" });
-        addAnnotation(
-                connectorInteractionActionEClass,
-                source,
-                new String[] {
-                        "constraints",
-                        "onPortInConnectorParameters upDoesNotContainExternalSubDataRefOnLHSAssignments connectorActionNotEmpty noUpIfNoExportedPort triggerPortsValidWrtDefine missingUpForExportedPort hasNoVariableModifiedBetweenUpAndDown checkUninitializedVariablesOfConnectorInteractionAction checkUninitializedVariablesExportedByPortOfConnector" });
+        addAnnotation(connectorDeclarationEClass, source, new String[] {
+                "constraints",
+                "hasCorrectNumberOfPortParameters connectorDeclarationHasnoDuplicatedPortReferenceParameter connectorHasExportPortBound eagerInteractionHasNoClocksInGuards" });
+        addAnnotation(connectorInteractionActionEClass, source, new String[] {
+                "constraints",
+                "onPortInConnectorParameters upDoesNotContainExternalSubDataRefOnLHSAssignments connectorActionNotEmpty noUpIfNoExportedPort triggerPortsValidWrtDefine missingUpForExportedPort hasNoVariableModifiedBetweenUpAndDown checkUninitializedVariablesOfConnectorInteractionAction checkUninitializedVariablesExportedByPortOfConnector" });
     }
 
 } //ConnectorPackageImpl

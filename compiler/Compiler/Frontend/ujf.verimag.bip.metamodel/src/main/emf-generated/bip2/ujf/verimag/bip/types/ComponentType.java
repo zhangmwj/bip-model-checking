@@ -50,12 +50,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.types.ComponentType#getExportedPortDeclarations <em>Exported Port Declarations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.ComponentType#getExportedDataDeclarations <em>Exported Data Declarations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.ComponentType#getDataParameterDeclarations <em>Data Parameter Declarations</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.types.TypesPackage#getComponentType()
  * @model interface="true" abstract="true"

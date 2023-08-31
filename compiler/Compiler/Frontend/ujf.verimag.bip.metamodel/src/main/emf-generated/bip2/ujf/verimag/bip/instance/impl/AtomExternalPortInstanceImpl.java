@@ -64,11 +64,11 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.AtomExternalPortInstanceImpl#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.AtomExternalPortInstanceImpl#getDataParamInstances <em>Data Param Instances</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -118,15 +118,14 @@ public class AtomExternalPortInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortDeclaration getDeclaration() {
         if (declaration != null && ((EObject) declaration).eIsProxy()) {
             InternalEObject oldDeclaration = (InternalEObject) declaration;
             declaration = (PortDeclaration) eResolveProxy(oldDeclaration);
             if (declaration != oldDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             InstancePackage.ATOM_EXTERNAL_PORT_INSTANCE__DECLARATION,
                             oldDeclaration, declaration));
             }
@@ -148,6 +147,7 @@ public class AtomExternalPortInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDeclaration(PortDeclaration newDeclaration) {
         PortDeclaration oldDeclaration = declaration;
         declaration = newDeclaration;
@@ -162,11 +162,11 @@ public class AtomExternalPortInstanceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataInstance> getDataParamInstances() {
         if (dataParamInstances == null) {
             dataParamInstances = new EObjectResolvingEList<DataInstance>(
-                    DataInstance.class,
-                    this,
+                    DataInstance.class, this,
                     InstancePackage.ATOM_EXTERNAL_PORT_INSTANCE__DATA_PARAM_INSTANCES);
         }
         return dataParamInstances;
@@ -204,8 +204,8 @@ public class AtomExternalPortInstanceImpl extends AnnotatedEObjectImpl
             return;
         case InstancePackage.ATOM_EXTERNAL_PORT_INSTANCE__DATA_PARAM_INSTANCES:
             getDataParamInstances().clear();
-            getDataParamInstances().addAll(
-                    (Collection<? extends DataInstance>) newValue);
+            getDataParamInstances()
+                    .addAll((Collection<? extends DataInstance>) newValue);
             return;
         }
         super.eSet(featureID, newValue);

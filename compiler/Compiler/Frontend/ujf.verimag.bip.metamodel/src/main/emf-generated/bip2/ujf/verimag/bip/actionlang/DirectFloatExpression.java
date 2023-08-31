@@ -43,10 +43,10 @@ package bip2.ujf.verimag.bip.actionlang;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.DirectFloatExpression#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.actionlang.ActionlangPackage#getDirectFloatExpression()
  * @model

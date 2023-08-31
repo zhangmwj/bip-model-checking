@@ -43,17 +43,17 @@ package bip2.ujf.verimag.bip.connector;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.connector.ConnectorInteractionPortReference#getPort <em>Port</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.connector.ConnectorPackage#getConnectorInteractionPortReference()
  * @model
  * @generated
  */
-public interface ConnectorInteractionPortReference extends
-        ConnectorInteractionDefinition {
+public interface ConnectorInteractionPortReference
+        extends ConnectorInteractionDefinition {
     /**
      * Returns the value of the '<em><b>Port</b></em>' reference.
      * <!-- begin-user-doc -->

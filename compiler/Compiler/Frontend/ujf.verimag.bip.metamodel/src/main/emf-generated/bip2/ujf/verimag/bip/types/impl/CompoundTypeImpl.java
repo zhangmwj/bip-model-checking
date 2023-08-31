@@ -171,6 +171,7 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<PortDeclaration> getExportedPortDeclarations() {
         if (exportedPortDeclarations == null) {
             exportedPortDeclarations = new EObjectResolvingEList<PortDeclaration>(
@@ -185,6 +186,7 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataDeclaration> getExportedDataDeclarations() {
         if (exportedDataDeclarations == null) {
             exportedDataDeclarations = new EObjectResolvingEList<DataDeclaration>(
@@ -199,6 +201,7 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ComponentDataParameterDeclaration> getDataParameterDeclarations() {
         if (dataParameterDeclarations == null) {
             dataParameterDeclarations = new EObjectContainmentEList<ComponentDataParameterDeclaration>(
@@ -213,6 +216,7 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ComponentDeclaration> getComponentDeclarations() {
         if (componentDeclarations == null) {
             componentDeclarations = new EObjectContainmentEList<ComponentDeclaration>(
@@ -227,6 +231,7 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ConnectorDeclaration> getConnectorDeclarations() {
         if (connectorDeclarations == null) {
             connectorDeclarations = new EObjectContainmentEList<ConnectorDeclaration>(
@@ -241,6 +246,7 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<CompoundExportPortDeclaration> getExportPortDeclarations() {
         if (exportPortDeclarations == null) {
             exportPortDeclarations = new EObjectContainmentEList<CompoundExportPortDeclaration>(
@@ -255,6 +261,7 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<CompoundExportDataDeclaration> getExportDataDeclarations() {
         if (exportDataDeclarations == null) {
             exportDataDeclarations = new EObjectContainmentEList<CompoundExportDataDeclaration>(
@@ -269,6 +276,7 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<CompoundPriorityDeclaration> getPriorities() {
         if (priorities == null) {
             priorities = new EObjectContainmentEList<CompoundPriorityDeclaration>(
@@ -394,11 +402,11 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
             return ((InternalEList<?>) getDataParameterDeclarations())
                     .basicRemove(otherEnd, msgs);
         case TypesPackage.COMPOUND_TYPE__COMPONENT_DECLARATIONS:
-            return ((InternalEList<?>) getComponentDeclarations()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getComponentDeclarations())
+                    .basicRemove(otherEnd, msgs);
         case TypesPackage.COMPOUND_TYPE__CONNECTOR_DECLARATIONS:
-            return ((InternalEList<?>) getConnectorDeclarations()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getConnectorDeclarations())
+                    .basicRemove(otherEnd, msgs);
         case TypesPackage.COMPOUND_TYPE__EXPORT_PORT_DECLARATIONS:
             return ((InternalEList<?>) getExportPortDeclarations())
                     .basicRemove(otherEnd, msgs);
@@ -451,18 +459,18 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
         switch (featureID) {
         case TypesPackage.COMPOUND_TYPE__EXPORTED_PORT_DECLARATIONS:
             getExportedPortDeclarations().clear();
-            getExportedPortDeclarations().addAll(
-                    (Collection<? extends PortDeclaration>) newValue);
+            getExportedPortDeclarations()
+                    .addAll((Collection<? extends PortDeclaration>) newValue);
             return;
         case TypesPackage.COMPOUND_TYPE__EXPORTED_DATA_DECLARATIONS:
             getExportedDataDeclarations().clear();
-            getExportedDataDeclarations().addAll(
-                    (Collection<? extends DataDeclaration>) newValue);
+            getExportedDataDeclarations()
+                    .addAll((Collection<? extends DataDeclaration>) newValue);
             return;
         case TypesPackage.COMPOUND_TYPE__DATA_PARAMETER_DECLARATIONS:
             getDataParameterDeclarations().clear();
-            getDataParameterDeclarations()
-                    .addAll((Collection<? extends ComponentDataParameterDeclaration>) newValue);
+            getDataParameterDeclarations().addAll(
+                    (Collection<? extends ComponentDataParameterDeclaration>) newValue);
             return;
         case TypesPackage.COMPOUND_TYPE__COMPONENT_DECLARATIONS:
             getComponentDeclarations().clear();
@@ -476,18 +484,18 @@ public class CompoundTypeImpl extends TypeImpl implements CompoundType {
             return;
         case TypesPackage.COMPOUND_TYPE__EXPORT_PORT_DECLARATIONS:
             getExportPortDeclarations().clear();
-            getExportPortDeclarations()
-                    .addAll((Collection<? extends CompoundExportPortDeclaration>) newValue);
+            getExportPortDeclarations().addAll(
+                    (Collection<? extends CompoundExportPortDeclaration>) newValue);
             return;
         case TypesPackage.COMPOUND_TYPE__EXPORT_DATA_DECLARATIONS:
             getExportDataDeclarations().clear();
-            getExportDataDeclarations()
-                    .addAll((Collection<? extends CompoundExportDataDeclaration>) newValue);
+            getExportDataDeclarations().addAll(
+                    (Collection<? extends CompoundExportDataDeclaration>) newValue);
             return;
         case TypesPackage.COMPOUND_TYPE__PRIORITIES:
             getPriorities().clear();
-            getPriorities()
-                    .addAll((Collection<? extends CompoundPriorityDeclaration>) newValue);
+            getPriorities().addAll(
+                    (Collection<? extends CompoundPriorityDeclaration>) newValue);
             return;
         }
         super.eSet(featureID, newValue);

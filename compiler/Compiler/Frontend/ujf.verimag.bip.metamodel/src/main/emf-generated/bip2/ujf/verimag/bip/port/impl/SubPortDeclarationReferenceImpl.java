@@ -61,12 +61,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.port.impl.SubPortDeclarationReferenceImpl#getForwardPortDeclaration <em>Forward Port Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.impl.SubPortDeclarationReferenceImpl#getComponentDeclaration <em>Component Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.impl.SubPortDeclarationReferenceImpl#getConnectorDeclaration <em>Connector Declaration</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -126,16 +126,16 @@ public class SubPortDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortDeclaration getForwardPortDeclaration() {
         if (forwardPortDeclaration != null
                 && ((EObject) forwardPortDeclaration).eIsProxy()) {
             InternalEObject oldForwardPortDeclaration = (InternalEObject) forwardPortDeclaration;
-            forwardPortDeclaration = (PortDeclaration) eResolveProxy(oldForwardPortDeclaration);
+            forwardPortDeclaration = (PortDeclaration) eResolveProxy(
+                    oldForwardPortDeclaration);
             if (forwardPortDeclaration != oldForwardPortDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             PortPackage.SUB_PORT_DECLARATION_REFERENCE__FORWARD_PORT_DECLARATION,
                             oldForwardPortDeclaration, forwardPortDeclaration));
             }
@@ -157,14 +157,13 @@ public class SubPortDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setForwardPortDeclaration(
             PortDeclaration newForwardPortDeclaration) {
         PortDeclaration oldForwardPortDeclaration = forwardPortDeclaration;
         forwardPortDeclaration = newForwardPortDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     PortPackage.SUB_PORT_DECLARATION_REFERENCE__FORWARD_PORT_DECLARATION,
                     oldForwardPortDeclaration, forwardPortDeclaration));
     }
@@ -174,16 +173,16 @@ public class SubPortDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ComponentDeclaration getComponentDeclaration() {
         if (componentDeclaration != null
                 && ((EObject) componentDeclaration).eIsProxy()) {
             InternalEObject oldComponentDeclaration = (InternalEObject) componentDeclaration;
-            componentDeclaration = (ComponentDeclaration) eResolveProxy(oldComponentDeclaration);
+            componentDeclaration = (ComponentDeclaration) eResolveProxy(
+                    oldComponentDeclaration);
             if (componentDeclaration != oldComponentDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             PortPackage.SUB_PORT_DECLARATION_REFERENCE__COMPONENT_DECLARATION,
                             oldComponentDeclaration, componentDeclaration));
             }
@@ -205,14 +204,13 @@ public class SubPortDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setComponentDeclaration(
             ComponentDeclaration newComponentDeclaration) {
         ComponentDeclaration oldComponentDeclaration = componentDeclaration;
         componentDeclaration = newComponentDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     PortPackage.SUB_PORT_DECLARATION_REFERENCE__COMPONENT_DECLARATION,
                     oldComponentDeclaration, componentDeclaration));
     }
@@ -222,16 +220,16 @@ public class SubPortDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorDeclaration getConnectorDeclaration() {
         if (connectorDeclaration != null
                 && ((EObject) connectorDeclaration).eIsProxy()) {
             InternalEObject oldConnectorDeclaration = (InternalEObject) connectorDeclaration;
-            connectorDeclaration = (ConnectorDeclaration) eResolveProxy(oldConnectorDeclaration);
+            connectorDeclaration = (ConnectorDeclaration) eResolveProxy(
+                    oldConnectorDeclaration);
             if (connectorDeclaration != oldConnectorDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             PortPackage.SUB_PORT_DECLARATION_REFERENCE__CONNECTOR_DECLARATION,
                             oldConnectorDeclaration, connectorDeclaration));
             }
@@ -253,14 +251,13 @@ public class SubPortDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setConnectorDeclaration(
             ConnectorDeclaration newConnectorDeclaration) {
         ConnectorDeclaration oldConnectorDeclaration = connectorDeclaration;
         connectorDeclaration = newConnectorDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     PortPackage.SUB_PORT_DECLARATION_REFERENCE__CONNECTOR_DECLARATION,
                     oldConnectorDeclaration, connectorDeclaration));
     }

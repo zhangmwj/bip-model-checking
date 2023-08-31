@@ -83,8 +83,6 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Valued Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -216,12 +214,14 @@ public abstract class ValuedExpressionImpl extends AnnotatedEObjectImpl
                     assert (functionCall.getParameters().size() == prototype
                             .getParameterDeclarations().size());
 
-                    for (int i = 0; i < functionCall.getParameters().size(); i++) {
+                    for (int i = 0; i < functionCall.getParameters()
+                            .size(); i++) {
                         if (this == functionCall.getParameters().get(i)) {
                             ret = prototype.getParameterDeclarations().get(i)
                                     .getType();
                             break;
-                        } else if (i == functionCall.getParameters().size() - 1) {
+                        } else if (i == functionCall.getParameters().size()
+                                - 1) {
                             assert (false);
                         }
                     }
@@ -232,7 +232,8 @@ public abstract class ValuedExpressionImpl extends AnnotatedEObjectImpl
             } else if (container instanceof AssignmentExpression) {
                 AssignmentExpression assignment = (AssignmentExpression) container;
 
-                if (this == assignment.getLhs() || this == assignment.getRhs()) {
+                if (this == assignment.getLhs()
+                        || this == assignment.getRhs()) {
                     ret = assignment.getLhs().getType();
                 } else
                     assert (false);
@@ -273,8 +274,8 @@ public abstract class ValuedExpressionImpl extends AnnotatedEObjectImpl
             } else if (container instanceof ConnectorInteractionAction) {
                 ConnectorInteractionAction interaction = (ConnectorInteractionAction) container;
 
-                assert (interaction.getUp().contains(this) || interaction
-                        .getDown().contains(this));
+                assert (interaction.getUp().contains(this)
+                        || interaction.getDown().contains(this));
             } else {
                 assert (false);
             }
@@ -350,12 +351,14 @@ public abstract class ValuedExpressionImpl extends AnnotatedEObjectImpl
                     assert (functionCall.getParameters().size() == prototype
                             .getParameterDeclarations().size());
 
-                    for (int i = 0; i < functionCall.getParameters().size(); i++) {
+                    for (int i = 0; i < functionCall.getParameters()
+                            .size(); i++) {
                         if (this == functionCall.getParameters().get(i)) {
                             ret = prototype.getParameterDeclarations().get(i)
                                     .isConst();
                             break;
-                        } else if (i == functionCall.getParameters().size() - 1) {
+                        } else if (i == functionCall.getParameters().size()
+                                - 1) {
                             assert (false);
                         }
                     }
@@ -432,6 +435,16 @@ public abstract class ValuedExpressionImpl extends AnnotatedEObjectImpl
      * @generated NOT
      */
     public boolean hasSideEffect() {
+        return false;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    @Override
+    public boolean hasClocks() {
         return false;
     }
 

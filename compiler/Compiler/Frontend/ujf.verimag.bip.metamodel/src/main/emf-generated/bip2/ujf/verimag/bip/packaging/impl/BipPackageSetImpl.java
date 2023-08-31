@@ -56,15 +56,15 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.BipPackageSetImpl#getPackages <em>Packages</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class BipPackageSetImpl extends AnnotatedEObjectImpl implements
-        BipPackageSet {
+public class BipPackageSetImpl extends AnnotatedEObjectImpl
+        implements BipPackageSet {
     /**
      * The cached value of the '{@link #getPackages() <em>Packages</em>}' reference list.
      * <!-- begin-user-doc -->
@@ -99,6 +99,7 @@ public class BipPackageSetImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<BipPackage> getPackages() {
         if (packages == null) {
             packages = new EObjectResolvingEList<BipPackage>(BipPackage.class,

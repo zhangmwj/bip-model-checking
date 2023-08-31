@@ -61,12 +61,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.data.impl.SubDataDeclarationReferenceImpl#getForwardDataDeclaration <em>Forward Data Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.data.impl.SubDataDeclarationReferenceImpl#getComponentDeclaration <em>Component Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.data.impl.SubDataDeclarationReferenceImpl#getPortDeclaration <em>Port Declaration</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -126,16 +126,16 @@ public class SubDataDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataDeclaration getForwardDataDeclaration() {
         if (forwardDataDeclaration != null
                 && ((EObject) forwardDataDeclaration).eIsProxy()) {
             InternalEObject oldForwardDataDeclaration = (InternalEObject) forwardDataDeclaration;
-            forwardDataDeclaration = (DataDeclaration) eResolveProxy(oldForwardDataDeclaration);
+            forwardDataDeclaration = (DataDeclaration) eResolveProxy(
+                    oldForwardDataDeclaration);
             if (forwardDataDeclaration != oldForwardDataDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             DataPackage.SUB_DATA_DECLARATION_REFERENCE__FORWARD_DATA_DECLARATION,
                             oldForwardDataDeclaration, forwardDataDeclaration));
             }
@@ -157,14 +157,13 @@ public class SubDataDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setForwardDataDeclaration(
             DataDeclaration newForwardDataDeclaration) {
         DataDeclaration oldForwardDataDeclaration = forwardDataDeclaration;
         forwardDataDeclaration = newForwardDataDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     DataPackage.SUB_DATA_DECLARATION_REFERENCE__FORWARD_DATA_DECLARATION,
                     oldForwardDataDeclaration, forwardDataDeclaration));
     }
@@ -174,16 +173,16 @@ public class SubDataDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ComponentDeclaration getComponentDeclaration() {
         if (componentDeclaration != null
                 && ((EObject) componentDeclaration).eIsProxy()) {
             InternalEObject oldComponentDeclaration = (InternalEObject) componentDeclaration;
-            componentDeclaration = (ComponentDeclaration) eResolveProxy(oldComponentDeclaration);
+            componentDeclaration = (ComponentDeclaration) eResolveProxy(
+                    oldComponentDeclaration);
             if (componentDeclaration != oldComponentDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             DataPackage.SUB_DATA_DECLARATION_REFERENCE__COMPONENT_DECLARATION,
                             oldComponentDeclaration, componentDeclaration));
             }
@@ -205,14 +204,13 @@ public class SubDataDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setComponentDeclaration(
             ComponentDeclaration newComponentDeclaration) {
         ComponentDeclaration oldComponentDeclaration = componentDeclaration;
         componentDeclaration = newComponentDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     DataPackage.SUB_DATA_DECLARATION_REFERENCE__COMPONENT_DECLARATION,
                     oldComponentDeclaration, componentDeclaration));
     }
@@ -222,15 +220,15 @@ public class SubDataDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortDeclaration getPortDeclaration() {
         if (portDeclaration != null && ((EObject) portDeclaration).eIsProxy()) {
             InternalEObject oldPortDeclaration = (InternalEObject) portDeclaration;
-            portDeclaration = (PortDeclaration) eResolveProxy(oldPortDeclaration);
+            portDeclaration = (PortDeclaration) eResolveProxy(
+                    oldPortDeclaration);
             if (portDeclaration != oldPortDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             DataPackage.SUB_DATA_DECLARATION_REFERENCE__PORT_DECLARATION,
                             oldPortDeclaration, portDeclaration));
             }
@@ -252,13 +250,12 @@ public class SubDataDeclarationReferenceImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setPortDeclaration(PortDeclaration newPortDeclaration) {
         PortDeclaration oldPortDeclaration = portDeclaration;
         portDeclaration = newPortDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     DataPackage.SUB_DATA_DECLARATION_REFERENCE__PORT_DECLARATION,
                     oldPortDeclaration, portDeclaration));
     }

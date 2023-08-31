@@ -45,10 +45,10 @@ import ujf.verimag.bip.metamodel.AnnotatedEObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.time.Resumed#getResume <em>Resume</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.time.TimePackage#getResumed()
  * @model

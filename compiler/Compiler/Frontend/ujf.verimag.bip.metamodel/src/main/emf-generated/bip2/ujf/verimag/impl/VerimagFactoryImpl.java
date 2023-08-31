@@ -62,7 +62,7 @@ public class VerimagFactoryImpl extends EFactoryImpl implements VerimagFactory {
     public static VerimagFactory init() {
         try {
             VerimagFactory theVerimagFactory = (VerimagFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/1.0");
+                    .getEFactory(VerimagPackage.eNS_URI);
             if (theVerimagFactory != null) {
                 return theVerimagFactory;
             }
@@ -103,6 +103,7 @@ public class VerimagFactoryImpl extends EFactoryImpl implements VerimagFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PlaceHolder createPlaceHolder() {
         PlaceHolderImpl placeHolder = new PlaceHolderImpl();
         return placeHolder;
@@ -113,6 +114,7 @@ public class VerimagFactoryImpl extends EFactoryImpl implements VerimagFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public VerimagPackage getVerimagPackage() {
         return (VerimagPackage) getEPackage();
     }

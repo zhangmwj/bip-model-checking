@@ -62,13 +62,13 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.port.impl.PortDataParameterDeclarationImpl#getDataType <em>Data Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.impl.PortDataParameterDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.impl.PortDataParameterDeclarationImpl#getValue <em>Value</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.impl.PortDataParameterDeclarationImpl#isConst <em>Const</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -153,15 +153,14 @@ public class PortDataParameterDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataType getDataType() {
         if (dataType != null && ((EObject) dataType).eIsProxy()) {
             InternalEObject oldDataType = (InternalEObject) dataType;
             dataType = (DataType) eResolveProxy(oldDataType);
             if (dataType != oldDataType) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             PortPackage.PORT_DATA_PARAMETER_DECLARATION__DATA_TYPE,
                             oldDataType, dataType));
             }
@@ -183,6 +182,7 @@ public class PortDataParameterDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDataType(DataType newDataType) {
         DataType oldDataType = dataType;
         dataType = newDataType;
@@ -197,6 +197,7 @@ public class PortDataParameterDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -206,6 +207,7 @@ public class PortDataParameterDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -220,6 +222,7 @@ public class PortDataParameterDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getValue() {
         return value;
     }
@@ -251,23 +254,20 @@ public class PortDataParameterDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setValue(ValuedExpression newValue) {
         if (newValue != value) {
             NotificationChain msgs = null;
             if (value != null)
-                msgs = ((InternalEObject) value)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PortPackage.PORT_DATA_PARAMETER_DECLARATION__VALUE,
-                                null, msgs);
+                msgs = ((InternalEObject) value).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - PortPackage.PORT_DATA_PARAMETER_DECLARATION__VALUE,
+                        null, msgs);
             if (newValue != null)
-                msgs = ((InternalEObject) newValue)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PortPackage.PORT_DATA_PARAMETER_DECLARATION__VALUE,
-                                null, msgs);
+                msgs = ((InternalEObject) newValue).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - PortPackage.PORT_DATA_PARAMETER_DECLARATION__VALUE,
+                        null, msgs);
             msgs = basicSetValue(newValue, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -282,6 +282,7 @@ public class PortDataParameterDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean isConst() {
         return const_;
     }
@@ -291,6 +292,7 @@ public class PortDataParameterDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setConst(boolean newConst) {
         boolean oldConst = const_;
         const_ = newConst;
@@ -396,8 +398,8 @@ public class PortDataParameterDeclarationImpl extends AnnotatedElementImpl
         case PortPackage.PORT_DATA_PARAMETER_DECLARATION__DATA_TYPE:
             return dataType != null;
         case PortPackage.PORT_DATA_PARAMETER_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case PortPackage.PORT_DATA_PARAMETER_DECLARATION__VALUE:
             return value != null;
         case PortPackage.PORT_DATA_PARAMETER_DECLARATION__CONST:
@@ -416,7 +418,7 @@ public class PortDataParameterDeclarationImpl extends AnnotatedElementImpl
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(", const: ");

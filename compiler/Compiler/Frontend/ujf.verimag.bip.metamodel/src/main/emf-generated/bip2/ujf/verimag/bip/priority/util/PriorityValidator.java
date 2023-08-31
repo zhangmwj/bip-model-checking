@@ -190,49 +190,34 @@ public class PriorityValidator extends EObjectValidator {
                 (EObject) compoundPriorityDeclaration, diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryDataValueConforms(
-                    (EObject) compoundPriorityDeclaration, diagnostics, context);
+                    (EObject) compoundPriorityDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryReferenceIsContained(
-                    (EObject) compoundPriorityDeclaration, diagnostics, context);
+                    (EObject) compoundPriorityDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryBidirectionalReferenceIsPaired(
-                    (EObject) compoundPriorityDeclaration, diagnostics, context);
+                    (EObject) compoundPriorityDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryProxyResolves(
-                    (EObject) compoundPriorityDeclaration, diagnostics, context);
+                    (EObject) compoundPriorityDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_UniqueID((EObject) compoundPriorityDeclaration,
                     diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique(
-                    (EObject) compoundPriorityDeclaration, diagnostics, context);
+                    (EObject) compoundPriorityDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique(
-                    (EObject) compoundPriorityDeclaration, diagnostics, context);
+                    (EObject) compoundPriorityDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_nestedComparisonOnClocks(
+            result &= timeValidator.validateGuarded_checkExpressionGrammar(
                     compoundPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_clocksOnOneSideOfLogicalOr(
-                    compoundPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_invalidNotEqualOnClocks(
-                    compoundPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_noClocksInLogicalNot(
-                    compoundPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_invalidUseOfMultiplicationOrDivisionOnClocks(
-                            compoundPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfMoreThanTwoClocks(
-                            compoundPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfClocksHavingWrongSign(
-                            compoundPriorityDeclaration, diagnostics, context);
         if (result || diagnostics != null)
             result &= timeValidator.validateGuardedUntimed_noClocksInGuard(
                     compoundPriorityDeclaration, diagnostics, context);
@@ -257,26 +242,20 @@ public class PriorityValidator extends EObjectValidator {
     public boolean validateCompoundPriorityDeclaration_compoundPriorityHasAtMostOneWildcard(
             CompoundPriorityDeclaration compoundPriorityDeclaration,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
-        boolean ok = !((compoundPriorityDeclaration.getHigh() == null) && (compoundPriorityDeclaration
-                .getLow() == null));
+        boolean ok = !((compoundPriorityDeclaration.getHigh() == null)
+                && (compoundPriorityDeclaration.getLow() == null));
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "compoundPriorityHasAtMostOneWildcard",
-                                        getObjectLabel(
-                                                compoundPriorityDeclaration,
-                                                context) },
-                                new Object[] {
-                                        compoundPriorityDeclaration,
-                                        ErrorCodeEnum.compoundPriorityHasAtMostOneWildcard },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "compoundPriorityHasAtMostOneWildcard",
+                                getObjectLabel(compoundPriorityDeclaration,
+                                        context) },
+                        new Object[] { compoundPriorityDeclaration,
+                                ErrorCodeEnum.compoundPriorityHasAtMostOneWildcard },
+                        context));
             }
             return false;
         }
@@ -302,7 +281,8 @@ public class PriorityValidator extends EObjectValidator {
             CompoundType holder = (CompoundType) connector.eContainer();
 
             // check all connectors involved in parameters of connector declarations
-            for (ConnectorDeclaration decl : holder.getConnectorDeclarations()) {
+            for (ConnectorDeclaration decl : holder
+                    .getConnectorDeclarations()) {
                 for (PortDeclarationReferenceParameter portRef : decl
                         .getPortParameters()) {
                     SubPortDeclarationReference subPortRef = portRef
@@ -339,21 +319,16 @@ public class PriorityValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "compoundPriorityInvolvesOnlyTopLevelConnectors",
-                                        getObjectLabel(
-                                                compoundPriorityDeclaration,
-                                                context) },
-                                new Object[] {
-                                        compoundPriorityDeclaration,
-                                        ErrorCodeEnum.compoundPriorityInvolvesOnlyTopLevelConnectors },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] {
+                                "compoundPriorityInvolvesOnlyTopLevelConnectors",
+                                getObjectLabel(compoundPriorityDeclaration,
+                                        context) },
+                        new Object[] { compoundPriorityDeclaration,
+                                ErrorCodeEnum.compoundPriorityInvolvesOnlyTopLevelConnectors },
+                        context));
             }
             return false;
         }
@@ -373,8 +348,9 @@ public class PriorityValidator extends EObjectValidator {
 
         if (compoundPriorityDeclaration.getLow() != null
                 && compoundPriorityDeclaration.getHigh() != null) {
-            if (compoundPriorityDeclaration.getLow().getConnectorDeclaration() == compoundPriorityDeclaration
-                    .getHigh().getConnectorDeclaration()) {
+            if (compoundPriorityDeclaration.getLow()
+                    .getConnectorDeclaration() == compoundPriorityDeclaration
+                            .getHigh().getConnectorDeclaration()) {
                 boolean inclusion = true;
 
                 for (SubPortDeclarationReference portRef : compoundPriorityDeclaration
@@ -385,10 +361,12 @@ public class PriorityValidator extends EObjectValidator {
                             .getHigh().getPortDeclarationReferences()) {
                         if (portRef.getComponentDeclaration() == targetPortRef
                                 .getComponentDeclaration()
-                                && portRef.getConnectorDeclaration() == targetPortRef
-                                        .getConnectorDeclaration()
-                                && portRef.getForwardPortDeclaration() == targetPortRef
-                                        .getForwardPortDeclaration()) {
+                                && portRef
+                                        .getConnectorDeclaration() == targetPortRef
+                                                .getConnectorDeclaration()
+                                && portRef
+                                        .getForwardPortDeclaration() == targetPortRef
+                                                .getForwardPortDeclaration()) {
                             found = true;
                             break;
                         }
@@ -401,11 +379,10 @@ public class PriorityValidator extends EObjectValidator {
                 }
 
                 // if low interaction is strictly included in high interaction, max progress is duplicated
-                if (inclusion
-                        && compoundPriorityDeclaration.getLow()
-                                .getPortDeclarationReferences().size() < compoundPriorityDeclaration
-                                .getHigh().getPortDeclarationReferences()
-                                .size()) {
+                if (inclusion && compoundPriorityDeclaration.getLow()
+                        .getPortDeclarationReferences()
+                        .size() < compoundPriorityDeclaration.getHigh()
+                                .getPortDeclarationReferences().size()) {
                     ok = false;
                 }
             }
@@ -413,21 +390,15 @@ public class PriorityValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.WARNING,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "priorityDuplicateMaximalProgress",
-                                        getObjectLabel(
-                                                compoundPriorityDeclaration,
-                                                context) },
-                                new Object[] {
-                                        compoundPriorityDeclaration,
-                                        ErrorCodeEnum.priorityDuplicateMaximalProgress },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "priorityDuplicateMaximalProgress",
+                                getObjectLabel(compoundPriorityDeclaration,
+                                        context) },
+                        new Object[] { compoundPriorityDeclaration,
+                                ErrorCodeEnum.priorityDuplicateMaximalProgress },
+                        context));
             }
             return false;
         }
@@ -506,8 +477,8 @@ public class PriorityValidator extends EObjectValidator {
 
                 if (spdr.getComponentDeclaration() != null) {
                     if (spdr_other.getComponentDeclaration() != null) {
-                        if (spdr_other.getComponentDeclaration().equals(
-                                spdr.getComponentDeclaration())
+                        if (spdr_other.getComponentDeclaration()
+                                .equals(spdr.getComponentDeclaration())
                                 && spdr_other.getForwardPortDeclaration()
                                         .equals(spdr
                                                 .getForwardPortDeclaration())) {
@@ -517,8 +488,8 @@ public class PriorityValidator extends EObjectValidator {
                     }
                 } else if (spdr.getConnectorDeclaration() != null) {
                     if (spdr_other.getConnectorDeclaration() != null) {
-                        if (spdr_other.getConnectorDeclaration().equals(
-                                spdr.getConnectorDeclaration())
+                        if (spdr_other.getConnectorDeclaration()
+                                .equals(spdr.getConnectorDeclaration())
                                 && spdr_other.getForwardPortDeclaration()
                                         .equals(spdr
                                                 .getForwardPortDeclaration())) {
@@ -540,20 +511,15 @@ public class PriorityValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "portReferencesOnCorrectConnectorDeclaration",
-                                        getObjectLabel(connectorInteraction,
-                                                context) },
-                                new Object[] {
-                                        connectorInteraction,
-                                        ErrorCodeEnum.portReferencesOnCorrectConnectorDeclaration },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] {
+                                "portReferencesOnCorrectConnectorDeclaration",
+                                getObjectLabel(connectorInteraction, context) },
+                        new Object[] { connectorInteraction,
+                                ErrorCodeEnum.portReferencesOnCorrectConnectorDeclaration },
+                        context));
             }
             return false;
         }
@@ -588,20 +554,15 @@ public class PriorityValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "noDuplicatedPortReferenceInConnectorInteraction",
-                                        getObjectLabel(connectorInteraction,
-                                                context) },
-                                new Object[] {
-                                        connectorInteraction,
-                                        ErrorCodeEnum.noDuplicatedPortReferenceInConnectorInteraction },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] {
+                                "noDuplicatedPortReferenceInConnectorInteraction",
+                                getObjectLabel(connectorInteraction, context) },
+                        new Object[] { connectorInteraction,
+                                ErrorCodeEnum.noDuplicatedPortReferenceInConnectorInteraction },
+                        context));
             }
             return false;
         }
@@ -699,35 +660,14 @@ public class PriorityValidator extends EObjectValidator {
             result &= validate_UniqueID((EObject) atomPriorityDeclaration,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_EveryKeyUnique(
-                    (EObject) atomPriorityDeclaration, diagnostics, context);
+            result &= validate_EveryKeyUnique((EObject) atomPriorityDeclaration,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique(
                     (EObject) atomPriorityDeclaration, diagnostics, context);
         if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_nestedComparisonOnClocks(
+            result &= timeValidator.validateGuarded_checkExpressionGrammar(
                     atomPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_clocksOnOneSideOfLogicalOr(
-                    atomPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_invalidNotEqualOnClocks(
-                    atomPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_noClocksInLogicalNot(
-                    atomPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_invalidUseOfMultiplicationOrDivisionOnClocks(
-                            atomPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfMoreThanTwoClocks(
-                            atomPriorityDeclaration, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfClocksHavingWrongSign(
-                            atomPriorityDeclaration, diagnostics, context);
         if (result || diagnostics != null)
             result &= timeValidator.validateGuardedUntimed_noClocksInGuard(
                     atomPriorityDeclaration, diagnostics, context);
@@ -746,25 +686,20 @@ public class PriorityValidator extends EObjectValidator {
     public boolean validateAtomPriorityDeclaration_atomPriorityHasAtMostOneWildcard(
             AtomPriorityDeclaration atomPriorityDeclaration,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
-        boolean ok = !(atomPriorityDeclaration.getLow() == null && atomPriorityDeclaration
-                .getHigh() == null);
+        boolean ok = !(atomPriorityDeclaration.getLow() == null
+                && atomPriorityDeclaration.getHigh() == null);
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "atomPriorityHasAtMostOneWildcard",
-                                        getObjectLabel(atomPriorityDeclaration,
-                                                context) },
-                                new Object[] {
-                                        atomPriorityDeclaration,
-                                        ErrorCodeEnum.atomPriorityHasAtMostOneWildcard },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "atomPriorityHasAtMostOneWildcard",
+                                getObjectLabel(atomPriorityDeclaration,
+                                        context) },
+                        new Object[] { atomPriorityDeclaration,
+                                ErrorCodeEnum.atomPriorityHasAtMostOneWildcard },
+                        context));
             }
             return false;
         }

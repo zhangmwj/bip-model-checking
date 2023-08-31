@@ -56,16 +56,16 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.annotation.impl.StringToStringMapEntryImpl#getTypedKey <em>Key</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.annotation.impl.StringToStringMapEntryImpl#getTypedValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl implements
-        BasicEMap.Entry<String, String> {
+public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl
+        implements BasicEMap.Entry<String, String> {
     /**
      * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -232,11 +232,11 @@ public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl implements
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case AnnotationPackage.STRING_TO_STRING_MAP_ENTRY__KEY:
-            return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT
-                    .equals(key);
+            return KEY_EDEFAULT == null ? key != null
+                    : !KEY_EDEFAULT.equals(key);
         case AnnotationPackage.STRING_TO_STRING_MAP_ENTRY__VALUE:
-            return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT
-                    .equals(value);
+            return VALUE_EDEFAULT == null ? value != null
+                    : !VALUE_EDEFAULT.equals(value);
         }
         return super.eIsSet(featureID);
     }
@@ -251,7 +251,7 @@ public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (key: ");
         result.append(key);
         result.append(", value: ");
@@ -272,6 +272,7 @@ public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public int getHash() {
         if (hash == -1) {
             Object theKey = getKey();
@@ -285,6 +286,7 @@ public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setHash(int hash) {
         this.hash = hash;
     }
@@ -294,6 +296,7 @@ public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getKey() {
         return getTypedKey();
     }
@@ -303,6 +306,7 @@ public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setKey(String key) {
         setTypedKey(key);
     }
@@ -312,6 +316,7 @@ public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getValue() {
         return getTypedValue();
     }
@@ -321,6 +326,7 @@ public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String setValue(String value) {
         String oldValue = getValue();
         setTypedValue(value);
@@ -335,8 +341,8 @@ public class StringToStringMapEntryImpl extends AnnotatedEObjectImpl implements
     @SuppressWarnings("unchecked")
     public EMap<String, String> getEMap() {
         EObject container = eContainer();
-        return container == null ? null : (EMap<String, String>) container
-                .eGet(eContainmentFeature());
+        return container == null ? null
+                : (EMap<String, String>) container.eGet(eContainmentFeature());
     }
 
 } //StringToStringMapEntryImpl

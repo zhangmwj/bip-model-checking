@@ -132,8 +132,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ActionlangPackageImpl extends EPackageImpl implements
-        ActionlangPackage {
+public class ActionlangPackageImpl extends EPackageImpl
+        implements ActionlangPackage {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -281,7 +281,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
 
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-     * 
+     *
      * <p>This method is used to initialize {@link ActionlangPackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
@@ -297,76 +297,105 @@ public class ActionlangPackageImpl extends EPackageImpl implements
                     .getEPackage(ActionlangPackage.eNS_URI);
 
         // Obtain or create and register package
-        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (EPackage.Registry.INSTANCE
-                .get(eNS_URI) instanceof ActionlangPackageImpl ? EPackage.Registry.INSTANCE
-                .get(eNS_URI) : new ActionlangPackageImpl());
+        Object registeredActionlangPackage = EPackage.Registry.INSTANCE
+                .get(eNS_URI);
+        ActionlangPackageImpl theActionlangPackage = registeredActionlangPackage instanceof ActionlangPackageImpl
+                ? (ActionlangPackageImpl) registeredActionlangPackage
+                : new ActionlangPackageImpl();
 
         isInited = true;
 
         // Obtain or create and register interdependencies
-        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) instanceof Bip2PackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) : Bip2Package.eINSTANCE);
-        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) instanceof UjfPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) : UjfPackage.eINSTANCE);
-        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) instanceof VerimagPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) : VerimagPackage.eINSTANCE);
-        BipPackageImpl theBipPackage = (BipPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) instanceof BipPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) : BipPackage.eINSTANCE);
-        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) instanceof TypesPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) : TypesPackage.eINSTANCE);
-        DataPackageImpl theDataPackage = (DataPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(DataPackage.eNS_URI) instanceof DataPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(DataPackage.eNS_URI) : DataPackage.eINSTANCE);
-        PortPackageImpl thePortPackage = (PortPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) instanceof PortPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) : PortPackage.eINSTANCE);
-        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI) instanceof BehaviorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI)
+        Object registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(Bip2Package.eNS_URI);
+        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (registeredPackage instanceof Bip2PackageImpl
+                ? registeredPackage
+                : Bip2Package.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(UjfPackage.eNS_URI);
+        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (registeredPackage instanceof UjfPackageImpl
+                ? registeredPackage
+                : UjfPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(VerimagPackage.eNS_URI);
+        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (registeredPackage instanceof VerimagPackageImpl
+                ? registeredPackage
+                : VerimagPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BipPackage.eNS_URI);
+        BipPackageImpl theBipPackage = (BipPackageImpl) (registeredPackage instanceof BipPackageImpl
+                ? registeredPackage
+                : BipPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TypesPackage.eNS_URI);
+        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (registeredPackage instanceof TypesPackageImpl
+                ? registeredPackage
+                : TypesPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(DataPackage.eNS_URI);
+        DataPackageImpl theDataPackage = (DataPackageImpl) (registeredPackage instanceof DataPackageImpl
+                ? registeredPackage
+                : DataPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PortPackage.eNS_URI);
+        PortPackageImpl thePortPackage = (PortPackageImpl) (registeredPackage instanceof PortPackageImpl
+                ? registeredPackage
+                : PortPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BehaviorPackage.eNS_URI);
+        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (registeredPackage instanceof BehaviorPackageImpl
+                ? registeredPackage
                 : BehaviorPackage.eINSTANCE);
-        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI) instanceof PriorityPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PriorityPackage.eNS_URI);
+        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (registeredPackage instanceof PriorityPackageImpl
+                ? registeredPackage
                 : PriorityPackage.eINSTANCE);
-        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ConnectorPackage.eNS_URI) instanceof ConnectorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ConnectorPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ConnectorPackage.eNS_URI);
+        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (registeredPackage instanceof ConnectorPackageImpl
+                ? registeredPackage
                 : ConnectorPackage.eINSTANCE);
-        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ComponentPackage.eNS_URI);
+        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (registeredPackage instanceof ComponentPackageImpl
+                ? registeredPackage
                 : ComponentPackage.eINSTANCE);
-        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) instanceof AtomPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) : AtomPackage.eINSTANCE);
-        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI) instanceof CompoundPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AtomPackage.eNS_URI);
+        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (registeredPackage instanceof AtomPackageImpl
+                ? registeredPackage
+                : AtomPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(CompoundPackage.eNS_URI);
+        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (registeredPackage instanceof CompoundPackageImpl
+                ? registeredPackage
                 : CompoundPackage.eINSTANCE);
-        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PackagingPackage.eNS_URI) instanceof PackagingPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PackagingPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PackagingPackage.eNS_URI);
+        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (registeredPackage instanceof PackagingPackageImpl
+                ? registeredPackage
                 : PackagingPackage.eINSTANCE);
-        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(InstancePackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI);
+        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (registeredPackage instanceof InstancePackageImpl
+                ? registeredPackage
                 : InstancePackage.eINSTANCE);
-        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI) instanceof AnnotationPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AnnotationPackage.eNS_URI);
+        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (registeredPackage instanceof AnnotationPackageImpl
+                ? registeredPackage
                 : AnnotationPackage.eINSTANCE);
-        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(InvariantPackage.eNS_URI) instanceof InvariantPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(InvariantPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(InvariantPackage.eNS_URI);
+        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (registeredPackage instanceof InvariantPackageImpl
+                ? registeredPackage
                 : InvariantPackage.eINSTANCE);
-        TimePackageImpl theTimePackage = (TimePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) instanceof TimePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) : TimePackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TimePackage.eNS_URI);
+        TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
+                ? registeredPackage
+                : TimePackage.eINSTANCE);
 
         // Create package meta-data objects
         theActionlangPackage.createPackageContents();
@@ -413,6 +442,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
         // Register package validator
         EValidator.Registry.INSTANCE.put(theActionlangPackage,
                 new EValidator.Descriptor() {
+                    @Override
                     public EValidator getEValidator() {
                         return ActionlangValidator.INSTANCE;
                     }
@@ -432,6 +462,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getBinaryOpExpression() {
         return binaryOpExpressionEClass;
     }
@@ -441,6 +472,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getBinaryOpExpression_Operator() {
         return (EAttribute) binaryOpExpressionEClass.getEStructuralFeatures()
                 .get(0);
@@ -451,6 +483,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBinaryOpExpression_Left() {
         return (EReference) binaryOpExpressionEClass.getEStructuralFeatures()
                 .get(1);
@@ -461,6 +494,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBinaryOpExpression_Right() {
         return (EReference) binaryOpExpressionEClass.getEStructuralFeatures()
                 .get(2);
@@ -471,6 +505,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getUnaryOpExpression() {
         return unaryOpExpressionEClass;
     }
@@ -480,6 +515,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getUnaryOpExpression_Operator() {
         return (EAttribute) unaryOpExpressionEClass.getEStructuralFeatures()
                 .get(0);
@@ -490,6 +526,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getUnaryOpExpression_Operand() {
         return (EReference) unaryOpExpressionEClass.getEStructuralFeatures()
                 .get(1);
@@ -500,6 +537,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getValuedExpression() {
         return valuedExpressionEClass;
     }
@@ -509,6 +547,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getSubDataDeclarationReferenceExpression() {
         return subDataDeclarationReferenceExpressionEClass;
     }
@@ -518,6 +557,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getSubDataDeclarationReferenceExpression_SubDataDeclarationRef() {
         return (EReference) subDataDeclarationReferenceExpressionEClass
                 .getEStructuralFeatures().get(0);
@@ -528,6 +568,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDirectDataDeclarationReferenceExpression() {
         return directDataDeclarationReferenceExpressionEClass;
     }
@@ -537,6 +578,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getDirectDataDeclarationReferenceExpression_DataDeclaration() {
         return (EReference) directDataDeclarationReferenceExpressionEClass
                 .getEStructuralFeatures().get(0);
@@ -547,6 +589,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getAssignmentExpression() {
         return assignmentExpressionEClass;
     }
@@ -556,6 +599,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getAssignmentExpression_Lhs() {
         return (EReference) assignmentExpressionEClass.getEStructuralFeatures()
                 .get(0);
@@ -566,6 +610,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getAssignmentExpression_Rhs() {
         return (EReference) assignmentExpressionEClass.getEStructuralFeatures()
                 .get(1);
@@ -576,6 +621,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getFunctionCallExpression() {
         return functionCallExpressionEClass;
     }
@@ -585,6 +631,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getFunctionCallExpression_Parameters() {
         return (EReference) functionCallExpressionEClass
                 .getEStructuralFeatures().get(0);
@@ -595,6 +642,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getFunctionCallExpression_FunctionName() {
         return (EAttribute) functionCallExpressionEClass
                 .getEStructuralFeatures().get(1);
@@ -605,6 +653,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getExpression() {
         return expressionEClass;
     }
@@ -614,6 +663,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getValuedReferenceExpression() {
         return valuedReferenceExpressionEClass;
     }
@@ -623,6 +673,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getValuedReferenceExpression_ExpressionReference() {
         return (EReference) valuedReferenceExpressionEClass
                 .getEStructuralFeatures().get(0);
@@ -633,6 +684,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDirectBooleanExpression() {
         return directBooleanExpressionEClass;
     }
@@ -642,6 +694,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getDirectBooleanExpression_Value() {
         return (EAttribute) directBooleanExpressionEClass
                 .getEStructuralFeatures().get(0);
@@ -652,6 +705,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getIfThenElseExpression() {
         return ifThenElseExpressionEClass;
     }
@@ -661,6 +715,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getIfThenElseExpression_Condition() {
         return (EReference) ifThenElseExpressionEClass.getEStructuralFeatures()
                 .get(0);
@@ -671,6 +726,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getIfThenElseExpression_Then() {
         return (EReference) ifThenElseExpressionEClass.getEStructuralFeatures()
                 .get(1);
@@ -681,6 +737,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getIfThenElseExpression_Else() {
         return (EReference) ifThenElseExpressionEClass.getEStructuralFeatures()
                 .get(2);
@@ -691,6 +748,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDirectIntegerExpression() {
         return directIntegerExpressionEClass;
     }
@@ -700,6 +758,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getDirectIntegerExpression_Value() {
         return (EAttribute) directIntegerExpressionEClass
                 .getEStructuralFeatures().get(0);
@@ -710,6 +769,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDirectFloatExpression() {
         return directFloatExpressionEClass;
     }
@@ -719,9 +779,10 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getDirectFloatExpression_Value() {
-        return (EAttribute) directFloatExpressionEClass
-                .getEStructuralFeatures().get(0);
+        return (EAttribute) directFloatExpressionEClass.getEStructuralFeatures()
+                .get(0);
     }
 
     /**
@@ -729,6 +790,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDirectStringExpression() {
         return directStringExpressionEClass;
     }
@@ -738,6 +800,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getDirectStringExpression_Value() {
         return (EAttribute) directStringExpressionEClass
                 .getEStructuralFeatures().get(0);
@@ -748,6 +811,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDirectClockDeclarationReferenceExpression() {
         return directClockDeclarationReferenceExpressionEClass;
     }
@@ -757,6 +821,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getDirectClockDeclarationReferenceExpression_ClockDeclaration() {
         return (EReference) directClockDeclarationReferenceExpressionEClass
                 .getEStructuralFeatures().get(0);
@@ -767,6 +832,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EEnum getBinaryOperators() {
         return binaryOperatorsEEnum;
     }
@@ -776,6 +842,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EEnum getUnaryOperators() {
         return unaryOperatorsEEnum;
     }
@@ -785,6 +852,7 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ActionlangFactory getActionlangFactory() {
         return (ActionlangFactory) getEFactoryInstance();
     }
@@ -816,22 +884,27 @@ public class ActionlangPackageImpl extends EPackageImpl implements
         createEReference(binaryOpExpressionEClass, BINARY_OP_EXPRESSION__RIGHT);
 
         unaryOpExpressionEClass = createEClass(UNARY_OP_EXPRESSION);
-        createEAttribute(unaryOpExpressionEClass, UNARY_OP_EXPRESSION__OPERATOR);
+        createEAttribute(unaryOpExpressionEClass,
+                UNARY_OP_EXPRESSION__OPERATOR);
         createEReference(unaryOpExpressionEClass, UNARY_OP_EXPRESSION__OPERAND);
 
         valuedExpressionEClass = createEClass(VALUED_EXPRESSION);
 
-        subDataDeclarationReferenceExpressionEClass = createEClass(SUB_DATA_DECLARATION_REFERENCE_EXPRESSION);
+        subDataDeclarationReferenceExpressionEClass = createEClass(
+                SUB_DATA_DECLARATION_REFERENCE_EXPRESSION);
         createEReference(subDataDeclarationReferenceExpressionEClass,
                 SUB_DATA_DECLARATION_REFERENCE_EXPRESSION__SUB_DATA_DECLARATION_REF);
 
-        directDataDeclarationReferenceExpressionEClass = createEClass(DIRECT_DATA_DECLARATION_REFERENCE_EXPRESSION);
+        directDataDeclarationReferenceExpressionEClass = createEClass(
+                DIRECT_DATA_DECLARATION_REFERENCE_EXPRESSION);
         createEReference(directDataDeclarationReferenceExpressionEClass,
                 DIRECT_DATA_DECLARATION_REFERENCE_EXPRESSION__DATA_DECLARATION);
 
         assignmentExpressionEClass = createEClass(ASSIGNMENT_EXPRESSION);
-        createEReference(assignmentExpressionEClass, ASSIGNMENT_EXPRESSION__LHS);
-        createEReference(assignmentExpressionEClass, ASSIGNMENT_EXPRESSION__RHS);
+        createEReference(assignmentExpressionEClass,
+                ASSIGNMENT_EXPRESSION__LHS);
+        createEReference(assignmentExpressionEClass,
+                ASSIGNMENT_EXPRESSION__RHS);
 
         functionCallExpressionEClass = createEClass(FUNCTION_CALL_EXPRESSION);
         createEReference(functionCallExpressionEClass,
@@ -841,7 +914,8 @@ public class ActionlangPackageImpl extends EPackageImpl implements
 
         expressionEClass = createEClass(EXPRESSION);
 
-        valuedReferenceExpressionEClass = createEClass(VALUED_REFERENCE_EXPRESSION);
+        valuedReferenceExpressionEClass = createEClass(
+                VALUED_REFERENCE_EXPRESSION);
         createEReference(valuedReferenceExpressionEClass,
                 VALUED_REFERENCE_EXPRESSION__EXPRESSION_REFERENCE);
 
@@ -869,7 +943,8 @@ public class ActionlangPackageImpl extends EPackageImpl implements
         createEAttribute(directStringExpressionEClass,
                 DIRECT_STRING_EXPRESSION__VALUE);
 
-        directClockDeclarationReferenceExpressionEClass = createEClass(DIRECT_CLOCK_DECLARATION_REFERENCE_EXPRESSION);
+        directClockDeclarationReferenceExpressionEClass = createEClass(
+                DIRECT_CLOCK_DECLARATION_REFERENCE_EXPRESSION);
         createEReference(directClockDeclarationReferenceExpressionEClass,
                 DIRECT_CLOCK_DECLARATION_REFERENCE_EXPRESSION__CLOCK_DECLARATION);
 
@@ -917,31 +992,31 @@ public class ActionlangPackageImpl extends EPackageImpl implements
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        binaryOpExpressionEClass.getESuperTypes().add(
-                this.getValuedExpression());
+        binaryOpExpressionEClass.getESuperTypes()
+                .add(this.getValuedExpression());
         unaryOpExpressionEClass.getESuperTypes()
                 .add(this.getValuedExpression());
         valuedExpressionEClass.getESuperTypes().add(this.getExpression());
-        subDataDeclarationReferenceExpressionEClass.getESuperTypes().add(
-                this.getValuedExpression());
-        directDataDeclarationReferenceExpressionEClass.getESuperTypes().add(
-                this.getValuedExpression());
+        subDataDeclarationReferenceExpressionEClass.getESuperTypes()
+                .add(this.getValuedExpression());
+        directDataDeclarationReferenceExpressionEClass.getESuperTypes()
+                .add(this.getValuedExpression());
         assignmentExpressionEClass.getESuperTypes().add(this.getExpression());
-        functionCallExpressionEClass.getESuperTypes().add(
-                this.getValuedExpression());
-        valuedReferenceExpressionEClass.getESuperTypes().add(
-                this.getValuedExpression());
-        directBooleanExpressionEClass.getESuperTypes().add(
-                this.getValuedExpression());
+        functionCallExpressionEClass.getESuperTypes()
+                .add(this.getValuedExpression());
+        valuedReferenceExpressionEClass.getESuperTypes()
+                .add(this.getValuedExpression());
+        directBooleanExpressionEClass.getESuperTypes()
+                .add(this.getValuedExpression());
         ifThenElseExpressionEClass.getESuperTypes().add(this.getExpression());
-        directIntegerExpressionEClass.getESuperTypes().add(
-                this.getValuedExpression());
-        directFloatExpressionEClass.getESuperTypes().add(
-                this.getValuedExpression());
-        directStringExpressionEClass.getESuperTypes().add(
-                this.getValuedExpression());
-        directClockDeclarationReferenceExpressionEClass.getESuperTypes().add(
-                this.getValuedExpression());
+        directIntegerExpressionEClass.getESuperTypes()
+                .add(this.getValuedExpression());
+        directFloatExpressionEClass.getESuperTypes()
+                .add(this.getValuedExpression());
+        directStringExpressionEClass.getESuperTypes()
+                .add(this.getValuedExpression());
+        directClockDeclarationReferenceExpressionEClass.getESuperTypes()
+                .add(this.getValuedExpression());
 
         // Initialize classes and features; add operations and parameters
         initEClass(binaryOpExpressionEClass, BinaryOpExpression.class,
@@ -952,11 +1027,11 @@ public class ActionlangPackageImpl extends EPackageImpl implements
                 BinaryOpExpression.class, !IS_TRANSIENT, !IS_VOLATILE,
                 IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
-        initEReference(getBinaryOpExpression_Left(),
-                this.getValuedExpression(), null, "left", null, 1, 1,
-                BinaryOpExpression.class, !IS_TRANSIENT, !IS_VOLATILE,
-                IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getBinaryOpExpression_Left(), this.getValuedExpression(),
+                null, "left", null, 1, 1, BinaryOpExpression.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
         initEReference(getBinaryOpExpression_Right(),
                 this.getValuedExpression(), null, "right", null, 1, 1,
                 BinaryOpExpression.class, !IS_TRANSIENT, !IS_VOLATILE,
@@ -1006,6 +1081,9 @@ public class ActionlangPackageImpl extends EPackageImpl implements
 
         addEOperation(valuedExpressionEClass, ecorePackage.getEBoolean(),
                 "hasSideEffect", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(valuedExpressionEClass, ecorePackage.getEBoolean(),
+                "hasClocks", 1, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(subDataDeclarationReferenceExpressionEClass,
                 SubDataDeclarationReferenceExpression.class,
@@ -1060,8 +1138,8 @@ public class ActionlangPackageImpl extends EPackageImpl implements
                 IS_ORDERED);
 
         addEOperation(functionCallExpressionEClass,
-                thePackagingPackage.getFunctionCallPrototype(),
-                "getPrototypes", 0, -1, IS_UNIQUE, IS_ORDERED);
+                thePackagingPackage.getFunctionCallPrototype(), "getPrototypes",
+                0, -1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(expressionEClass, Expression.class, "Expression",
                 IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1105,9 +1183,9 @@ public class ActionlangPackageImpl extends EPackageImpl implements
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(directBooleanExpressionEClass,
-                DirectBooleanExpression.class, "DirectBooleanExpression",
-                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(directBooleanExpressionEClass, DirectBooleanExpression.class,
+                "DirectBooleanExpression", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getDirectBooleanExpression_Value(),
                 ecorePackage.getEBoolean(), "value", null, 0, 1,
                 DirectBooleanExpression.class, !IS_TRANSIENT, !IS_VOLATILE,
@@ -1133,9 +1211,9 @@ public class ActionlangPackageImpl extends EPackageImpl implements
                 !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
 
-        initEClass(directIntegerExpressionEClass,
-                DirectIntegerExpression.class, "DirectIntegerExpression",
-                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(directIntegerExpressionEClass, DirectIntegerExpression.class,
+                "DirectIntegerExpression", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getDirectIntegerExpression_Value(),
                 ecorePackage.getEInt(), "value", null, 1, 1,
                 DirectIntegerExpression.class, !IS_TRANSIENT, !IS_VOLATILE,
@@ -1214,24 +1292,22 @@ public class ActionlangPackageImpl extends EPackageImpl implements
      */
     protected void createEcoreAnnotations() {
         String source = "http://www.eclipse.org/emf/2002/Ecore";
-        addAnnotation(binaryOpExpressionEClass, source, new String[] {
-                "constraints", "hasOneMatchingPrototype" });
-        addAnnotation(unaryOpExpressionEClass, source, new String[] {
-                "constraints", "hasOneMatchingPrototype" });
+        addAnnotation(binaryOpExpressionEClass, source,
+                new String[] { "constraints", "hasOneMatchingPrototype" });
+        addAnnotation(unaryOpExpressionEClass, source,
+                new String[] { "constraints", "hasOneMatchingPrototype" });
         addAnnotation(valuedExpressionEClass, source, new String[] {
                 "constraints",
                 "hasCorrectType hasCorrectConst noSideEffectInGuards" });
-        addAnnotation(
-                subDataDeclarationReferenceExpressionEClass,
-                source,
+        addAnnotation(subDataDeclarationReferenceExpressionEClass, source,
                 new String[] { "constraints",
                         "dataIsExportedInComponent dataRefInConnectorActionToInvolvedPort" });
-        addAnnotation(assignmentExpressionEClass, source,
-                new String[] { "constraints",
-                        "rhsIsADataDeclarationReference hasCorrectConst" });
-        addAnnotation(functionCallExpressionEClass, source, new String[] {
+        addAnnotation(assignmentExpressionEClass, source, new String[] {
                 "constraints",
-                "hasOneMatchingPrototype hasValueInValuedContext" });
+                "rhsIsADataDeclarationReference hasCorrectConst rhsHasNoClock" });
+        addAnnotation(functionCallExpressionEClass, source,
+                new String[] { "constraints",
+                        "hasOneMatchingPrototype hasValueInValuedContext" });
         addAnnotation(directClockDeclarationReferenceExpressionEClass, source,
                 new String[] { "constraints", "invalidUseOfClocksInDo" });
     }

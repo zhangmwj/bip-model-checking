@@ -44,10 +44,10 @@ package bip2.ujf.verimag.bip.data;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.data.DataDeclarationReferenceDataParameter#getDataDeclarationReference <em>Data Declaration Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.data.DataPackage#getDataDeclarationReferenceDataParameter()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='hasCorrectType hasCorrectConst'"

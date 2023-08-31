@@ -52,8 +52,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentFactoryImpl extends EFactoryImpl implements
-        ComponentFactory {
+public class ComponentFactoryImpl extends EFactoryImpl
+        implements ComponentFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -63,7 +63,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
     public static ComponentFactory init() {
         try {
             ComponentFactory theComponentFactory = (ComponentFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/component/1.0");
+                    .getEFactory(ComponentPackage.eNS_URI);
             if (theComponentFactory != null) {
                 return theComponentFactory;
             }
@@ -106,6 +106,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ComponentDeclaration createComponentDeclaration() {
         ComponentDeclarationImpl componentDeclaration = new ComponentDeclarationImpl();
         return componentDeclaration;
@@ -116,6 +117,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ComponentDataParameterDeclaration createComponentDataParameterDeclaration() {
         ComponentDataParameterDeclarationImpl componentDataParameterDeclaration = new ComponentDataParameterDeclarationImpl();
         return componentDataParameterDeclaration;
@@ -126,6 +128,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ComponentPackage getComponentPackage() {
         return (ComponentPackage) getEPackage();
     }

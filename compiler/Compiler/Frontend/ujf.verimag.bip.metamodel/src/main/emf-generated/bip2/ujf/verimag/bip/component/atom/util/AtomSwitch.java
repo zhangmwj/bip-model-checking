@@ -90,7 +90,7 @@ public class AtomSwitch<T> extends Switch<T> {
      * Checks whether this is a switch for the given package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @parameter ePackage the package in question.
+     * @param ePackage the package in question.
      * @return whether this is a switch for the given package.
      * @generated
      */
@@ -111,20 +111,25 @@ public class AtomSwitch<T> extends Switch<T> {
         switch (classifierID) {
         case AtomPackage.ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION: {
             AtomInternalExternalPortDeclaration atomInternalExternalPortDeclaration = (AtomInternalExternalPortDeclaration) theEObject;
-            T result = caseAtomInternalExternalPortDeclaration(atomInternalExternalPortDeclaration);
+            T result = caseAtomInternalExternalPortDeclaration(
+                    atomInternalExternalPortDeclaration);
             if (result == null)
-                result = casePortDeclaration(atomInternalExternalPortDeclaration);
+                result = casePortDeclaration(
+                        atomInternalExternalPortDeclaration);
             if (result == null)
-                result = caseAnnotatedElement(atomInternalExternalPortDeclaration);
+                result = caseAnnotatedElement(
+                        atomInternalExternalPortDeclaration);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
         }
         case AtomPackage.ATOM_INTERNAL_PORT_DECLARATION: {
             AtomInternalPortDeclaration atomInternalPortDeclaration = (AtomInternalPortDeclaration) theEObject;
-            T result = caseAtomInternalPortDeclaration(atomInternalPortDeclaration);
+            T result = caseAtomInternalPortDeclaration(
+                    atomInternalPortDeclaration);
             if (result == null)
-                result = caseAtomInternalExternalPortDeclaration(atomInternalPortDeclaration);
+                result = caseAtomInternalExternalPortDeclaration(
+                        atomInternalPortDeclaration);
             if (result == null)
                 result = casePortDeclaration(atomInternalPortDeclaration);
             if (result == null)
@@ -135,9 +140,11 @@ public class AtomSwitch<T> extends Switch<T> {
         }
         case AtomPackage.ATOM_EXTERNAL_PORT_DECLARATION: {
             AtomExternalPortDeclaration atomExternalPortDeclaration = (AtomExternalPortDeclaration) theEObject;
-            T result = caseAtomExternalPortDeclaration(atomExternalPortDeclaration);
+            T result = caseAtomExternalPortDeclaration(
+                    atomExternalPortDeclaration);
             if (result == null)
-                result = caseAtomInternalExternalPortDeclaration(atomExternalPortDeclaration);
+                result = caseAtomInternalExternalPortDeclaration(
+                        atomExternalPortDeclaration);
             if (result == null)
                 result = casePortDeclaration(atomExternalPortDeclaration);
             if (result == null)
@@ -148,9 +155,11 @@ public class AtomSwitch<T> extends Switch<T> {
         }
         case AtomPackage.ATOM_INTERNAL_DATA_DECLARATION: {
             AtomInternalDataDeclaration atomInternalDataDeclaration = (AtomInternalDataDeclaration) theEObject;
-            T result = caseAtomInternalDataDeclaration(atomInternalDataDeclaration);
+            T result = caseAtomInternalDataDeclaration(
+                    atomInternalDataDeclaration);
             if (result == null)
-                result = caseExplicitDataDeclaration(atomInternalDataDeclaration);
+                result = caseExplicitDataDeclaration(
+                        atomInternalDataDeclaration);
             if (result == null)
                 result = caseDataDeclaration(atomInternalDataDeclaration);
             if (result == null)
@@ -202,7 +211,8 @@ public class AtomSwitch<T> extends Switch<T> {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseAtomInternalPortDeclaration(AtomInternalPortDeclaration object) {
+    public T caseAtomInternalPortDeclaration(
+            AtomInternalPortDeclaration object) {
         return null;
     }
 
@@ -217,7 +227,8 @@ public class AtomSwitch<T> extends Switch<T> {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseAtomExternalPortDeclaration(AtomExternalPortDeclaration object) {
+    public T caseAtomExternalPortDeclaration(
+            AtomExternalPortDeclaration object) {
         return null;
     }
 
@@ -232,7 +243,8 @@ public class AtomSwitch<T> extends Switch<T> {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseAtomInternalDataDeclaration(AtomInternalDataDeclaration object) {
+    public T caseAtomInternalDataDeclaration(
+            AtomInternalDataDeclaration object) {
         return null;
     }
 

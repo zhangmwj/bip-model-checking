@@ -70,6 +70,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomInternalDataDeclarationImpl#getDataType <em>Data Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomInternalDataDeclarationImpl#getName <em>Name</em>}</li>
@@ -77,7 +78,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomInternalDataDeclarationImpl#isConst <em>Const</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomInternalDataDeclarationImpl#isExported <em>Exported</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -187,15 +187,14 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataType getDataType() {
         if (dataType != null && ((EObject) dataType).eIsProxy()) {
             InternalEObject oldDataType = (InternalEObject) dataType;
             dataType = (DataType) eResolveProxy(oldDataType);
             if (dataType != oldDataType) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__DATA_TYPE,
                             oldDataType, dataType));
             }
@@ -217,6 +216,7 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDataType(DataType newDataType) {
         DataType oldDataType = dataType;
         dataType = newDataType;
@@ -231,6 +231,7 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -240,6 +241,7 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -254,6 +256,7 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getValue() {
         return value;
     }
@@ -270,8 +273,8 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
         if (eNotificationRequired()) {
             ENotificationImpl notification = new ENotificationImpl(this,
                     Notification.SET,
-                    AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__VALUE,
-                    oldValue, newValue);
+                    AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__VALUE, oldValue,
+                    newValue);
             if (msgs == null)
                 msgs = notification;
             else
@@ -285,30 +288,27 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setValue(ValuedExpression newValue) {
         if (newValue != value) {
             NotificationChain msgs = null;
             if (value != null)
-                msgs = ((InternalEObject) value)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__VALUE,
-                                null, msgs);
+                msgs = ((InternalEObject) value).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__VALUE,
+                        null, msgs);
             if (newValue != null)
-                msgs = ((InternalEObject) newValue)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__VALUE,
-                                null, msgs);
+                msgs = ((InternalEObject) newValue).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__VALUE,
+                        null, msgs);
             msgs = basicSetValue(newValue, msgs);
             if (msgs != null)
                 msgs.dispatch();
         } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__VALUE,
-                    newValue, newValue));
+                    AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__VALUE, newValue,
+                    newValue));
     }
 
     /**
@@ -316,6 +316,7 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean isConst() {
         return const_;
     }
@@ -325,13 +326,14 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setConst(boolean newConst) {
         boolean oldConst = const_;
         const_ = newConst;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__CONST,
-                    oldConst, const_));
+                    AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__CONST, oldConst,
+                    const_));
     }
 
     /**
@@ -339,6 +341,7 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean isExported() {
         return exported;
     }
@@ -348,6 +351,7 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setExported(boolean newExported) {
         boolean oldExported = exported;
         exported = newExported;
@@ -461,8 +465,8 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
         case AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__DATA_TYPE:
             return dataType != null;
         case AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__VALUE:
             return value != null;
         case AtomPackage.ATOM_INTERNAL_DATA_DECLARATION__CONST:
@@ -483,7 +487,7 @@ public class AtomInternalDataDeclarationImpl extends AnnotatedElementImpl
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(", const: ");

@@ -49,13 +49,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.Prototype#getParameterDeclarations <em>Parameter Declarations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.Prototype#getReturnType <em>Return Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.Prototype#isNative <em>Native</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.Prototype#isConst <em>Const</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.packaging.PackagingPackage#getPrototype()
  * @model abstract="true"

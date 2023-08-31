@@ -55,6 +55,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.types.ConnectorType#getExportedPortDeclaration <em>Exported Port Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.ConnectorType#getDataDeclarations <em>Data Declarations</em>}</li>
@@ -63,7 +64,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link bip2.ujf.verimag.bip.types.ConnectorType#getPorts <em>Ports</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.ConnectorType#isAsyncResume <em>Async Resume</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.types.TypesPackage#getConnectorType()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='interactionDefinedIfExportPortWithData noDuplicatedInteractionAction checkDownWhenNoDataInConnectorPort missingInteractionIfExportPortWithData checkUninitializedVariablesInConnectorDataDeclaration'"

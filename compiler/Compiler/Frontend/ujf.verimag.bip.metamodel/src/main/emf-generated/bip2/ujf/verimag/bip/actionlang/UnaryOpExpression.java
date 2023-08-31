@@ -47,11 +47,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.UnaryOpExpression#getOperator <em>Operator</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.UnaryOpExpression#getOperand <em>Operand</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.actionlang.ActionlangPackage#getUnaryOpExpression()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='hasOneMatchingPrototype'"

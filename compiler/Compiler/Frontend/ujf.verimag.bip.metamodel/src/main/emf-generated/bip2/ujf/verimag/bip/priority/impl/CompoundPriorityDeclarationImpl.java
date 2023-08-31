@@ -59,13 +59,13 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.priority.impl.CompoundPriorityDeclarationImpl#getGuard <em>Guard</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.priority.impl.CompoundPriorityDeclarationImpl#getLow <em>Low</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.priority.impl.CompoundPriorityDeclarationImpl#getHigh <em>High</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.priority.impl.CompoundPriorityDeclarationImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -145,6 +145,7 @@ public class CompoundPriorityDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInteraction getLow() {
         return low;
     }
@@ -176,23 +177,20 @@ public class CompoundPriorityDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setLow(ConnectorInteraction newLow) {
         if (newLow != low) {
             NotificationChain msgs = null;
             if (low != null)
-                msgs = ((InternalEObject) low)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__LOW,
-                                null, msgs);
+                msgs = ((InternalEObject) low).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__LOW,
+                        null, msgs);
             if (newLow != null)
-                msgs = ((InternalEObject) newLow)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__LOW,
-                                null, msgs);
+                msgs = ((InternalEObject) newLow).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__LOW,
+                        null, msgs);
             msgs = basicSetLow(newLow, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -207,6 +205,7 @@ public class CompoundPriorityDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInteraction getHigh() {
         return high;
     }
@@ -238,23 +237,20 @@ public class CompoundPriorityDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setHigh(ConnectorInteraction newHigh) {
         if (newHigh != high) {
             NotificationChain msgs = null;
             if (high != null)
-                msgs = ((InternalEObject) high)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__HIGH,
-                                null, msgs);
+                msgs = ((InternalEObject) high).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__HIGH,
+                        null, msgs);
             if (newHigh != null)
-                msgs = ((InternalEObject) newHigh)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__HIGH,
-                                null, msgs);
+                msgs = ((InternalEObject) newHigh).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__HIGH,
+                        null, msgs);
             msgs = basicSetHigh(newHigh, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -269,6 +265,7 @@ public class CompoundPriorityDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getGuard() {
         return guard;
     }
@@ -300,23 +297,20 @@ public class CompoundPriorityDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setGuard(ValuedExpression newGuard) {
         if (newGuard != guard) {
             NotificationChain msgs = null;
             if (guard != null)
-                msgs = ((InternalEObject) guard)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__GUARD,
-                                null, msgs);
+                msgs = ((InternalEObject) guard).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__GUARD,
+                        null, msgs);
             if (newGuard != null)
-                msgs = ((InternalEObject) newGuard)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__GUARD,
-                                null, msgs);
+                msgs = ((InternalEObject) newGuard).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - PriorityPackage.COMPOUND_PRIORITY_DECLARATION__GUARD,
+                        null, msgs);
             msgs = basicSetGuard(newGuard, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -331,6 +325,7 @@ public class CompoundPriorityDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -340,6 +335,7 @@ public class CompoundPriorityDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -451,8 +447,8 @@ public class CompoundPriorityDeclarationImpl extends AnnotatedEObjectImpl
         case PriorityPackage.COMPOUND_PRIORITY_DECLARATION__HIGH:
             return high != null;
         case PriorityPackage.COMPOUND_PRIORITY_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         }
         return super.eIsSet(featureID);
     }
@@ -467,7 +463,7 @@ public class CompoundPriorityDeclarationImpl extends AnnotatedEObjectImpl
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

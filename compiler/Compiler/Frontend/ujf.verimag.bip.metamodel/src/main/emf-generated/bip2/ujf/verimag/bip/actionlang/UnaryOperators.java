@@ -91,14 +91,15 @@ public enum UnaryOperators implements Enumerator {
      * @generated
      * @ordered
      */
-    BWISE_NOT(3, "bwise_not", "~"), /**
-                                     * The '<em><b>Quote</b></em>' literal object.
-                                     * <!-- begin-user-doc -->
-                                     * <!-- end-user-doc -->
-                                     * @see #QUOTE_VALUE
-                                     * @generated
-                                     * @ordered
-                                     */
+    BWISE_NOT(3, "bwise_not", "~"),
+    /**
+     * The '<em><b>Quote</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #QUOTE_VALUE
+     * @generated
+     * @ordered
+     */
     QUOTE(4, "quote", "\'");
 
     /**
@@ -198,6 +199,8 @@ public enum UnaryOperators implements Enumerator {
      * Returns the '<em><b>Unary Operators</b></em>' literal with the specified literal value.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @param literal the literal.
+     * @return the matching enumerator or <code>null</code>.
      * @generated
      */
     public static UnaryOperators get(String literal) {
@@ -214,6 +217,8 @@ public enum UnaryOperators implements Enumerator {
      * Returns the '<em><b>Unary Operators</b></em>' literal with the specified name.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @param name the name.
+     * @return the matching enumerator or <code>null</code>.
      * @generated
      */
     public static UnaryOperators getByName(String name) {
@@ -230,6 +235,8 @@ public enum UnaryOperators implements Enumerator {
      * Returns the '<em><b>Unary Operators</b></em>' literal with the specified integer value.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @param value the integer value.
+     * @return the matching enumerator or <code>null</code>.
      * @generated
      */
     public static UnaryOperators get(int value) {
@@ -286,6 +293,7 @@ public enum UnaryOperators implements Enumerator {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public int getValue() {
         return value;
     }
@@ -295,6 +303,7 @@ public enum UnaryOperators implements Enumerator {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -304,6 +313,7 @@ public enum UnaryOperators implements Enumerator {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getLiteral() {
         return literal;
     }

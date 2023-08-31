@@ -46,11 +46,11 @@ import ujf.verimag.bip.metamodel.AnnotatedEObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.annotation.BipAnnotation#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.annotation.BipAnnotation#getParameters <em>Parameters</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.annotation.AnnotationPackage#getBipAnnotation()
  * @model
@@ -96,7 +96,7 @@ public interface BipAnnotation extends AnnotatedEObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Parameters</em>' map.
      * @see bip2.ujf.verimag.bip.annotation.AnnotationPackage#getBipAnnotation_Parameters()
-     * @model mapType="bip2.ujf.verimag.bip.annotation.StringToStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
+     * @model mapType="bip2.ujf.verimag.bip.annotation.StringToStringMapEntry&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString&gt;"
      * @generated
      */
     EMap<String, String> getParameters();

@@ -46,12 +46,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.AtomInstance#getSubDataInstances <em>Sub Data Instances</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.AtomInstance#getInternalPorts <em>Internal Ports</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.AtomInstance#getExternalPorts <em>External Ports</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.instance.InstancePackage#getAtomInstance()
  * @model

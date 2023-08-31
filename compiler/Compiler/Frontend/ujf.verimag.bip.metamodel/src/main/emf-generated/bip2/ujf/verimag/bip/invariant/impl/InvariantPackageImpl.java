@@ -126,8 +126,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InvariantPackageImpl extends EPackageImpl implements
-        InvariantPackage {
+public class InvariantPackageImpl extends EPackageImpl
+        implements InvariantPackage {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -170,7 +170,7 @@ public class InvariantPackageImpl extends EPackageImpl implements
 
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-     * 
+     *
      * <p>This method is used to initialize {@link InvariantPackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
@@ -186,76 +186,105 @@ public class InvariantPackageImpl extends EPackageImpl implements
                     .getEPackage(InvariantPackage.eNS_URI);
 
         // Obtain or create and register package
-        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (EPackage.Registry.INSTANCE
-                .get(eNS_URI) instanceof InvariantPackageImpl ? EPackage.Registry.INSTANCE
-                .get(eNS_URI) : new InvariantPackageImpl());
+        Object registeredInvariantPackage = EPackage.Registry.INSTANCE
+                .get(eNS_URI);
+        InvariantPackageImpl theInvariantPackage = registeredInvariantPackage instanceof InvariantPackageImpl
+                ? (InvariantPackageImpl) registeredInvariantPackage
+                : new InvariantPackageImpl();
 
         isInited = true;
 
         // Obtain or create and register interdependencies
-        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) instanceof Bip2PackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) : Bip2Package.eINSTANCE);
-        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) instanceof UjfPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) : UjfPackage.eINSTANCE);
-        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) instanceof VerimagPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) : VerimagPackage.eINSTANCE);
-        BipPackageImpl theBipPackage = (BipPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) instanceof BipPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) : BipPackage.eINSTANCE);
-        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) instanceof TypesPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) : TypesPackage.eINSTANCE);
-        DataPackageImpl theDataPackage = (DataPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(DataPackage.eNS_URI) instanceof DataPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(DataPackage.eNS_URI) : DataPackage.eINSTANCE);
-        PortPackageImpl thePortPackage = (PortPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) instanceof PortPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) : PortPackage.eINSTANCE);
-        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI) instanceof BehaviorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI)
+        Object registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(Bip2Package.eNS_URI);
+        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (registeredPackage instanceof Bip2PackageImpl
+                ? registeredPackage
+                : Bip2Package.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(UjfPackage.eNS_URI);
+        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (registeredPackage instanceof UjfPackageImpl
+                ? registeredPackage
+                : UjfPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(VerimagPackage.eNS_URI);
+        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (registeredPackage instanceof VerimagPackageImpl
+                ? registeredPackage
+                : VerimagPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BipPackage.eNS_URI);
+        BipPackageImpl theBipPackage = (BipPackageImpl) (registeredPackage instanceof BipPackageImpl
+                ? registeredPackage
+                : BipPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TypesPackage.eNS_URI);
+        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (registeredPackage instanceof TypesPackageImpl
+                ? registeredPackage
+                : TypesPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(DataPackage.eNS_URI);
+        DataPackageImpl theDataPackage = (DataPackageImpl) (registeredPackage instanceof DataPackageImpl
+                ? registeredPackage
+                : DataPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PortPackage.eNS_URI);
+        PortPackageImpl thePortPackage = (PortPackageImpl) (registeredPackage instanceof PortPackageImpl
+                ? registeredPackage
+                : PortPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BehaviorPackage.eNS_URI);
+        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (registeredPackage instanceof BehaviorPackageImpl
+                ? registeredPackage
                 : BehaviorPackage.eINSTANCE);
-        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI) instanceof PriorityPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PriorityPackage.eNS_URI);
+        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (registeredPackage instanceof PriorityPackageImpl
+                ? registeredPackage
                 : PriorityPackage.eINSTANCE);
-        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ConnectorPackage.eNS_URI) instanceof ConnectorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ConnectorPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ConnectorPackage.eNS_URI);
+        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (registeredPackage instanceof ConnectorPackageImpl
+                ? registeredPackage
                 : ConnectorPackage.eINSTANCE);
-        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ComponentPackage.eNS_URI);
+        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (registeredPackage instanceof ComponentPackageImpl
+                ? registeredPackage
                 : ComponentPackage.eINSTANCE);
-        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) instanceof AtomPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) : AtomPackage.eINSTANCE);
-        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI) instanceof CompoundPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AtomPackage.eNS_URI);
+        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (registeredPackage instanceof AtomPackageImpl
+                ? registeredPackage
+                : AtomPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(CompoundPackage.eNS_URI);
+        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (registeredPackage instanceof CompoundPackageImpl
+                ? registeredPackage
                 : CompoundPackage.eINSTANCE);
-        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PackagingPackage.eNS_URI) instanceof PackagingPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PackagingPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PackagingPackage.eNS_URI);
+        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (registeredPackage instanceof PackagingPackageImpl
+                ? registeredPackage
                 : PackagingPackage.eINSTANCE);
-        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ActionlangPackage.eNS_URI) instanceof ActionlangPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ActionlangPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ActionlangPackage.eNS_URI);
+        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (registeredPackage instanceof ActionlangPackageImpl
+                ? registeredPackage
                 : ActionlangPackage.eINSTANCE);
-        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(InstancePackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI);
+        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (registeredPackage instanceof InstancePackageImpl
+                ? registeredPackage
                 : InstancePackage.eINSTANCE);
-        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI) instanceof AnnotationPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AnnotationPackage.eNS_URI);
+        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (registeredPackage instanceof AnnotationPackageImpl
+                ? registeredPackage
                 : AnnotationPackage.eINSTANCE);
-        TimePackageImpl theTimePackage = (TimePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) instanceof TimePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) : TimePackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TimePackage.eNS_URI);
+        TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
+                ? registeredPackage
+                : TimePackage.eINSTANCE);
 
         // Create package meta-data objects
         theInvariantPackage.createPackageContents();
@@ -302,6 +331,7 @@ public class InvariantPackageImpl extends EPackageImpl implements
         // Register package validator
         EValidator.Registry.INSTANCE.put(theInvariantPackage,
                 new EValidator.Descriptor() {
+                    @Override
                     public EValidator getEValidator() {
                         return InvariantValidator.INSTANCE;
                     }
@@ -321,6 +351,7 @@ public class InvariantPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getInvariant() {
         return invariantEClass;
     }
@@ -330,6 +361,7 @@ public class InvariantPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getInvariant_Name() {
         return (EAttribute) invariantEClass.getEStructuralFeatures().get(0);
     }
@@ -339,6 +371,7 @@ public class InvariantPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getAtomInvariant() {
         return atomInvariantEClass;
     }
@@ -348,6 +381,7 @@ public class InvariantPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getAtomInvariant_ExactState() {
         return (EAttribute) atomInvariantEClass.getEStructuralFeatures().get(0);
     }
@@ -357,6 +391,7 @@ public class InvariantPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getAtomInvariant_Sources() {
         return (EReference) atomInvariantEClass.getEStructuralFeatures().get(1);
     }
@@ -366,6 +401,7 @@ public class InvariantPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public InvariantFactory getInvariantFactory() {
         return (InvariantFactory) getEFactoryInstance();
     }
@@ -435,8 +471,8 @@ public class InvariantPackageImpl extends EPackageImpl implements
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        invariantEClass.getESuperTypes().add(
-                theAnnotationPackage.getAnnotatedElement());
+        invariantEClass.getESuperTypes()
+                .add(theAnnotationPackage.getAnnotatedElement());
         invariantEClass.getESuperTypes().add(theTimePackage.getGuarded());
         atomInvariantEClass.getESuperTypes().add(this.getInvariant());
 
@@ -452,14 +488,13 @@ public class InvariantPackageImpl extends EPackageImpl implements
                 !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getAtomInvariant_ExactState(),
                 ecorePackage.getEBoolean(), "exactState", null, 1, 1,
-                AtomInvariant.class, !IS_TRANSIENT, !IS_VOLATILE,
-                IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-                IS_ORDERED);
+                AtomInvariant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getAtomInvariant_Sources(),
                 theBehaviorPackage.getState(), null, "sources", null, 0, -1,
-                AtomInvariant.class, !IS_TRANSIENT, !IS_VOLATILE,
-                IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+                AtomInvariant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         // Create annotations
         // http://www.eclipse.org/emf/2002/Ecore
@@ -474,8 +509,8 @@ public class InvariantPackageImpl extends EPackageImpl implements
      */
     protected void createEcoreAnnotations() {
         String source = "http://www.eclipse.org/emf/2002/Ecore";
-        addAnnotation(atomInvariantEClass, source, new String[] {
-                "constraints", "fakeConstraint" });
+        addAnnotation(atomInvariantEClass, source,
+                new String[] { "constraints", "fakeConstraint" });
     }
 
 } //InvariantPackageImpl

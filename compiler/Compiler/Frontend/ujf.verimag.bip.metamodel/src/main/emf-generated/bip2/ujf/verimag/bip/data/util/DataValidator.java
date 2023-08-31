@@ -128,8 +128,8 @@ public class DataValidator extends EObjectValidator {
         case DataPackage.DATA_TYPE:
             return validateDataType((DataType) value, diagnostics, context);
         case DataPackage.DATA_DECLARATION:
-            return validateDataDeclaration((DataDeclaration) value,
-                    diagnostics, context);
+            return validateDataDeclaration((DataDeclaration) value, diagnostics,
+                    context);
         case DataPackage.EXPLICIT_DATA_DECLARATION:
             return validateExplicitDataDeclaration(
                     (ExplicitDataDeclaration) value, diagnostics, context);
@@ -199,8 +199,8 @@ public class DataValidator extends EObjectValidator {
             result &= validate_UniqueID((EObject) explicitDataDeclaration,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_EveryKeyUnique(
-                    (EObject) explicitDataDeclaration, diagnostics, context);
+            result &= validate_EveryKeyUnique((EObject) explicitDataDeclaration,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique(
                     (EObject) explicitDataDeclaration, diagnostics, context);
@@ -222,17 +222,13 @@ public class DataValidator extends EObjectValidator {
         if (explicitDataDeclaration.isConst()
                 && explicitDataDeclaration.getValue() == null) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
+                diagnostics.add(
+                        createDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, 0,
                                 "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "uninitializedConstData",
+                                new Object[] { "uninitializedConstData",
                                         getObjectLabel(explicitDataDeclaration,
-                                                context) }, new Object[] {
-                                        explicitDataDeclaration,
+                                                context) },
+                                new Object[] { explicitDataDeclaration,
                                         ErrorCodeEnum.uninitializedConstData },
                                 context));
             }
@@ -256,25 +252,31 @@ public class DataValidator extends EObjectValidator {
                 (EObject) subDataDeclarationReference, diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryDataValueConforms(
-                    (EObject) subDataDeclarationReference, diagnostics, context);
+                    (EObject) subDataDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryReferenceIsContained(
-                    (EObject) subDataDeclarationReference, diagnostics, context);
+                    (EObject) subDataDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryBidirectionalReferenceIsPaired(
-                    (EObject) subDataDeclarationReference, diagnostics, context);
+                    (EObject) subDataDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryProxyResolves(
-                    (EObject) subDataDeclarationReference, diagnostics, context);
+                    (EObject) subDataDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_UniqueID((EObject) subDataDeclarationReference,
                     diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique(
-                    (EObject) subDataDeclarationReference, diagnostics, context);
+                    (EObject) subDataDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique(
-                    (EObject) subDataDeclarationReference, diagnostics, context);
+                    (EObject) subDataDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validateSubDataDeclarationReference_hasOneDeclaration(
                     subDataDeclarationReference, diagnostics, context);
@@ -297,17 +299,15 @@ public class DataValidator extends EObjectValidator {
         c += subDataDeclarationReference.getPortDeclaration() != null ? 1 : 0;
         if (c != 1) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
-                        new Object[] {
-                                "hasOneDeclaration",
+                        new Object[] { "hasOneDeclaration",
                                 getObjectLabel(subDataDeclarationReference,
-                                        context) }, new Object[] {
-                                subDataDeclarationReference,
-                                ErrorCodeEnum.hasOneDeclaration }, context));
+                                        context) },
+                        new Object[] { subDataDeclarationReference,
+                                ErrorCodeEnum.hasOneDeclaration },
+                        context));
             }
             return false;
         }
@@ -370,10 +370,12 @@ public class DataValidator extends EObjectValidator {
                     diagnostics, context);
         if (result || diagnostics != null)
             result &= validateDataDeclarationReferenceDataParameter_hasCorrectType(
-                    dataDeclarationReferenceDataParameter, diagnostics, context);
+                    dataDeclarationReferenceDataParameter, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validateDataDeclarationReferenceDataParameter_hasCorrectConst(
-                    dataDeclarationReferenceDataParameter, diagnostics, context);
+                    dataDeclarationReferenceDataParameter, diagnostics,
+                    context);
         return result;
     }
 
@@ -394,24 +396,20 @@ public class DataValidator extends EObjectValidator {
         assert (referenceDataType == dataDeclarationReferenceDataParameter
                 .getType());
 
-        if (!(referenceDataType.isKindOf(parameterDataType) && parameterDataType
-                .isKindOf(referenceDataType))) {
+        if (!(referenceDataType.isKindOf(parameterDataType)
+                && parameterDataType.isKindOf(referenceDataType))) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "hasCorrectType",
-                                        getObjectLabel(
-                                                dataDeclarationReferenceDataParameter,
-                                                context) }, new Object[] {
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "hasCorrectType",
+                                getObjectLabel(
                                         dataDeclarationReferenceDataParameter,
-                                        ErrorCodeEnum.hasIncorrectType,
-                                        parameterDataType, referenceDataType },
-                                context));
+                                        context) },
+                        new Object[] { dataDeclarationReferenceDataParameter,
+                                ErrorCodeEnum.hasIncorrectType,
+                                parameterDataType, referenceDataType },
+                        context));
             }
             return false;
         }
@@ -434,18 +432,16 @@ public class DataValidator extends EObjectValidator {
 
         if (!parameterIsConst && referenceIsConst) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
-                        new Object[] {
-                                "hasIncorrectConst",
+                        new Object[] { "hasIncorrectConst",
                                 getObjectLabel(
                                         dataDeclarationReferenceDataParameter,
-                                        context) }, new Object[] {
-                                dataDeclarationReferenceDataParameter,
-                                ErrorCodeEnum.hasIncorrectConst }, context));
+                                        context) },
+                        new Object[] { dataDeclarationReferenceDataParameter,
+                                ErrorCodeEnum.hasIncorrectConst },
+                        context));
             }
             return false;
         }

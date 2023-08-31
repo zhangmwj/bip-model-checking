@@ -67,16 +67,16 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.priority.impl.ConnectorInteractionImpl#getConnectorDeclaration <em>Connector Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.priority.impl.ConnectorInteractionImpl#getPortDeclarationReferences <em>Port Declaration References</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class ConnectorInteractionImpl extends AnnotatedEObjectImpl implements
-        ConnectorInteraction {
+public class ConnectorInteractionImpl extends AnnotatedEObjectImpl
+        implements ConnectorInteraction {
     /**
      * The cached value of the '{@link #getConnectorDeclaration() <em>Connector Declaration</em>}' reference.
      * <!-- begin-user-doc -->
@@ -121,16 +121,16 @@ public class ConnectorInteractionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorDeclaration getConnectorDeclaration() {
         if (connectorDeclaration != null
                 && ((EObject) connectorDeclaration).eIsProxy()) {
             InternalEObject oldConnectorDeclaration = (InternalEObject) connectorDeclaration;
-            connectorDeclaration = (ConnectorDeclaration) eResolveProxy(oldConnectorDeclaration);
+            connectorDeclaration = (ConnectorDeclaration) eResolveProxy(
+                    oldConnectorDeclaration);
             if (connectorDeclaration != oldConnectorDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             PriorityPackage.CONNECTOR_INTERACTION__CONNECTOR_DECLARATION,
                             oldConnectorDeclaration, connectorDeclaration));
             }
@@ -152,14 +152,13 @@ public class ConnectorInteractionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setConnectorDeclaration(
             ConnectorDeclaration newConnectorDeclaration) {
         ConnectorDeclaration oldConnectorDeclaration = connectorDeclaration;
         connectorDeclaration = newConnectorDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     PriorityPackage.CONNECTOR_INTERACTION__CONNECTOR_DECLARATION,
                     oldConnectorDeclaration, connectorDeclaration));
     }
@@ -169,11 +168,11 @@ public class ConnectorInteractionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<SubPortDeclarationReference> getPortDeclarationReferences() {
         if (portDeclarationReferences == null) {
             portDeclarationReferences = new EObjectContainmentEList<SubPortDeclarationReference>(
-                    SubPortDeclarationReference.class,
-                    this,
+                    SubPortDeclarationReference.class, this,
                     PriorityPackage.CONNECTOR_INTERACTION__PORT_DECLARATION_REFERENCES);
         }
         return portDeclarationReferences;
@@ -227,8 +226,8 @@ public class ConnectorInteractionImpl extends AnnotatedEObjectImpl implements
             return;
         case PriorityPackage.CONNECTOR_INTERACTION__PORT_DECLARATION_REFERENCES:
             getPortDeclarationReferences().clear();
-            getPortDeclarationReferences()
-                    .addAll((Collection<? extends SubPortDeclarationReference>) newValue);
+            getPortDeclarationReferences().addAll(
+                    (Collection<? extends SubPortDeclarationReference>) newValue);
             return;
         }
         super.eSet(featureID, newValue);

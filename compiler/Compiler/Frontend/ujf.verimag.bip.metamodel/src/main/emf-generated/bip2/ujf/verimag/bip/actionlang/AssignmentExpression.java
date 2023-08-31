@@ -45,14 +45,14 @@ package bip2.ujf.verimag.bip.actionlang;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.AssignmentExpression#getLhs <em>Lhs</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.AssignmentExpression#getRhs <em>Rhs</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.actionlang.ActionlangPackage#getAssignmentExpression()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='rhsIsADataDeclarationReference hasCorrectConst'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='rhsIsADataDeclarationReference hasCorrectConst rhsHasNoClock'"
  * @generated
  */
 public interface AssignmentExpression extends Expression {

@@ -62,6 +62,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.BipPackage#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.BipPackage#getAtomTypes <em>Atom Types</em>}</li>
@@ -73,7 +74,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link bip2.ujf.verimag.bip.packaging.BipPackage#getConstData <em>Const Data</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.BipPackage#getPrototypes <em>Prototypes</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.packaging.PackagingPackage#getBipPackage()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='checkForCyclesInSubTyping'"

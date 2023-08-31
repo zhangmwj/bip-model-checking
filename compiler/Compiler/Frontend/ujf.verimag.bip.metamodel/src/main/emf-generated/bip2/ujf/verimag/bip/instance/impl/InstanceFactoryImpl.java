@@ -53,8 +53,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InstanceFactoryImpl extends EFactoryImpl implements
-        InstanceFactory {
+public class InstanceFactoryImpl extends EFactoryImpl
+        implements InstanceFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -64,7 +64,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
     public static InstanceFactory init() {
         try {
             InstanceFactory theInstanceFactory = (InstanceFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/instance/1.0");
+                    .getEFactory(InstancePackage.eNS_URI);
             if (theInstanceFactory != null) {
                 return theInstanceFactory;
             }
@@ -121,6 +121,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInstance createConnectorInstance() {
         ConnectorInstanceImpl connectorInstance = new ConnectorInstanceImpl();
         return connectorInstance;
@@ -131,6 +132,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ExportedPortInstance createExportedPortInstance() {
         ExportedPortInstanceImpl exportedPortInstance = new ExportedPortInstanceImpl();
         return exportedPortInstance;
@@ -141,6 +143,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomInternalPortInstance createAtomInternalPortInstance() {
         AtomInternalPortInstanceImpl atomInternalPortInstance = new AtomInternalPortInstanceImpl();
         return atomInternalPortInstance;
@@ -151,6 +154,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomExternalPortInstance createAtomExternalPortInstance() {
         AtomExternalPortInstanceImpl atomExternalPortInstance = new AtomExternalPortInstanceImpl();
         return atomExternalPortInstance;
@@ -161,6 +165,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorPortInstance createConnectorPortInstance() {
         ConnectorPortInstanceImpl connectorPortInstance = new ConnectorPortInstanceImpl();
         return connectorPortInstance;
@@ -171,6 +176,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataInstance createDataInstance() {
         DataInstanceImpl dataInstance = new DataInstanceImpl();
         return dataInstance;
@@ -181,6 +187,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public CompoundPriorityInstance createCompoundPriorityInstance() {
         CompoundPriorityInstanceImpl compoundPriorityInstance = new CompoundPriorityInstanceImpl();
         return compoundPriorityInstance;
@@ -191,6 +198,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomInstance createAtomInstance() {
         AtomInstanceImpl atomInstance = new AtomInstanceImpl();
         return atomInstance;
@@ -201,6 +209,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public CompoundInstance createCompoundInstance() {
         CompoundInstanceImpl compoundInstance = new CompoundInstanceImpl();
         return compoundInstance;
@@ -211,6 +220,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public InstancePackage getInstancePackage() {
         return (InstancePackage) getEPackage();
     }

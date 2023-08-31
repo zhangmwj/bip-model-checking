@@ -53,6 +53,7 @@ import bip2.ujf.verimag.bip.actionlang.UnaryOpExpression;
 import bip2.ujf.verimag.bip.actionlang.UnaryOperators;
 import bip2.ujf.verimag.bip.actionlang.ValuedExpression;
 import bip2.ujf.verimag.bip.behavior.*;
+import bip2.ujf.verimag.bip.time.Urgency;
 import bip2.ujf.verimag.bip.time.util.TimeValidator;
 import bip2.ujf.verimag.bip.component.atom.AtomInternalDataDeclaration;
 import bip2.ujf.verimag.bip.component.atom.AtomInternalExternalPortDeclaration;
@@ -239,8 +240,8 @@ public class BehaviorValidator extends EObjectValidator {
      */
     public boolean validatePetriNet_checkIllFormed(PetriNet petriNet,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
-        boolean noDuplicated = checkDuplicatedTriggerPortFromSameState(
-                petriNet, diagnostics, context);
+        boolean noDuplicated = checkDuplicatedTriggerPortFromSameState(petriNet,
+                diagnostics, context);
         boolean oneSafe = checkOneSafety(petriNet, diagnostics, context);
         boolean noDeadTransition = checkDeadTransitions(petriNet, diagnostics,
                 context);
@@ -320,19 +321,15 @@ public class BehaviorValidator extends EObjectValidator {
                     assert (errorLevels.containsKey(t1));
                     int level = errorLevels.get(t1);
 
-                    diagnostics
-                            .add(createDiagnostic(
-                                    level,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "checkDuplicatedTriggerPortFromSameState",
-                                            getObjectLabel(petriNet, context) },
-                                    new Object[] {
-                                            t1,
-                                            ErrorCodeEnum.checkDuplicatedTriggerPortFromSameState,
-                                            t2 }, context));
+                    diagnostics.add(createDiagnostic(level, DIAGNOSTIC_SOURCE,
+                            0, "_UI_GenericConstraint_diagnostic",
+                            new Object[] {
+                                    "checkDuplicatedTriggerPortFromSameState",
+                                    getObjectLabel(petriNet, context) },
+                            new Object[] { t1,
+                                    ErrorCodeEnum.checkDuplicatedTriggerPortFromSameState,
+                                    t2 },
+                            context));
                 }
             }
             return false;
@@ -356,19 +353,15 @@ public class BehaviorValidator extends EObjectValidator {
             if (diagnostics != null) {
                 // getErrors() = all expressions involving an uninitialized variable
                 for (Expression ref : errors) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "uninitializedVariableOfPetriNet",
-                                            getObjectLabel(ref, context) },
-                                    new Object[] {
-                                            ref,
-                                            ErrorCodeEnum.uninitializedVariableOfPetriNet,
-                                            ref }, context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "uninitializedVariableOfPetriNet",
+                                    getObjectLabel(ref, context) },
+                            new Object[] { ref,
+                                    ErrorCodeEnum.uninitializedVariableOfPetriNet,
+                                    ref },
+                            context));
                 }
             }
             return false;
@@ -396,22 +389,18 @@ public class BehaviorValidator extends EObjectValidator {
                     ret = false;
 
                     if (diagnostics != null) {
-                        diagnostics
-                                .add(createDiagnostic(
-                                        Diagnostic.WARNING,
-                                        DIAGNOSTIC_SOURCE,
-                                        0,
-                                        "_UI_GenericConstraint_diagnostic",
-                                        new Object[] {
-                                                "uninitializedVariableExportedByPortOfAtom",
-                                                getObjectLabel(t, context) },
-                                        new Object[] {
-                                                t,
-                                                ErrorCodeEnum.uninitializedVariableExportedByPortOfAtom,
-                                                t.getTriggerPort(),
-                                                new HashSet<DataDeclaration>(
-                                                        uninitializedVariables) },
-                                        context));
+                        diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                                DIAGNOSTIC_SOURCE, 0,
+                                "_UI_GenericConstraint_diagnostic",
+                                new Object[] {
+                                        "uninitializedVariableExportedByPortOfAtom",
+                                        getObjectLabel(t, context) },
+                                new Object[] { t,
+                                        ErrorCodeEnum.uninitializedVariableExportedByPortOfAtom,
+                                        t.getTriggerPort(),
+                                        new HashSet<DataDeclaration>(
+                                                uninitializedVariables) },
+                                context));
                     }
                 }
             }
@@ -435,19 +424,15 @@ public class BehaviorValidator extends EObjectValidator {
         if (!uninitialized.isEmpty()) {
             if (diagnostics != null) {
                 for (DataDeclaration decl : uninitialized) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "uninitializedVariableExportedByAtom",
-                                            getObjectLabel(decl, context) },
-                                    new Object[] {
-                                            decl,
-                                            ErrorCodeEnum.uninitializedVariableExportedByAtom },
-                                    context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] {
+                                    "uninitializedVariableExportedByAtom",
+                                    getObjectLabel(decl, context) },
+                            new Object[] { decl,
+                                    ErrorCodeEnum.uninitializedVariableExportedByAtom },
+                            context));
                 }
             }
             return false;
@@ -485,11 +470,8 @@ public class BehaviorValidator extends EObjectValidator {
                         : Diagnostic.ERROR;
 
                 if (diagnostics != null) {
-                    diagnostics.add(createDiagnostic(
-                            level,
-                            DIAGNOSTIC_SOURCE,
-                            0,
-                            "_UI_GenericConstraint_diagnostic",
+                    diagnostics.add(createDiagnostic(level, DIAGNOSTIC_SOURCE,
+                            0, "_UI_GenericConstraint_diagnostic",
                             new Object[] { "checkOneSafety",
                                     getObjectLabel(state, context) },
                             new Object[] { state, ErrorCodeEnum.isNotOneSafe },
@@ -529,38 +511,20 @@ public class BehaviorValidator extends EObjectValidator {
             result &= validate_UniqueID((EObject) transition, diagnostics,
                     context);
         if (result || diagnostics != null)
-            result &= validate_EveryKeyUnique((EObject) transition,
-                    diagnostics, context);
+            result &= validate_EveryKeyUnique((EObject) transition, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique((EObject) transition,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_nestedComparisonOnClocks(
+            result &= timeValidator.validateGuarded_checkExpressionGrammar(
                     transition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_clocksOnOneSideOfLogicalOr(
-                    transition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_invalidNotEqualOnClocks(
-                    transition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_noClocksInLogicalNot(
-                    transition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_invalidUseOfMultiplicationOrDivisionOnClocks(
-                            transition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfMoreThanTwoClocks(transition,
-                            diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfClocksHavingWrongSign(
-                            transition, diagnostics, context);
         if (result || diagnostics != null)
             result &= validateTransition_hasNoVariableModifiedBetweenProvidedAndDo(
                     transition, diagnostics, context);
+        if (result || diagnostics != null)
+            result &= validateTransition_eagerHasNoClocksInGuard(transition,
+                    diagnostics, context);
         return result;
     }
 
@@ -596,34 +560,16 @@ public class BehaviorValidator extends EObjectValidator {
             result &= validate_EveryKeyUnique((EObject) internalTransition,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_EveryMapEntryUnique(
-                    (EObject) internalTransition, diagnostics, context);
+            result &= validate_EveryMapEntryUnique((EObject) internalTransition,
+                    diagnostics, context);
         if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_nestedComparisonOnClocks(
+            result &= timeValidator.validateGuarded_checkExpressionGrammar(
                     internalTransition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_clocksOnOneSideOfLogicalOr(
-                    internalTransition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_invalidNotEqualOnClocks(
-                    internalTransition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_noClocksInLogicalNot(
-                    internalTransition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_invalidUseOfMultiplicationOrDivisionOnClocks(
-                            internalTransition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfMoreThanTwoClocks(
-                            internalTransition, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfClocksHavingWrongSign(
-                            internalTransition, diagnostics, context);
         if (result || diagnostics != null)
             result &= validateTransition_hasNoVariableModifiedBetweenProvidedAndDo(
+                    internalTransition, diagnostics, context);
+        if (result || diagnostics != null)
+            result &= validateTransition_eagerHasNoClocksInGuard(
                     internalTransition, diagnostics, context);
         if (result || diagnostics != null)
             result &= timeValidator.validateGuardedUntimed_noClocksInGuard(
@@ -647,8 +593,8 @@ public class BehaviorValidator extends EObjectValidator {
             if (diagnostics != null) {
                 diagnostics.add(createDiagnostic(Diagnostic.ERROR,
                         DIAGNOSTIC_SOURCE, 0,
-                        "_UI_GenericConstraint_diagnostic", new Object[] {
-                                "internalTransitionHasNoTriggerPort",
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "internalTransitionHasNoTriggerPort",
                                 getObjectLabel(internalTransition, context) },
                         new Object[] { internalTransition }, context));
             }
@@ -670,8 +616,8 @@ public class BehaviorValidator extends EObjectValidator {
             if (diagnostics != null) {
                 diagnostics.add(createDiagnostic(Diagnostic.WARNING,
                         DIAGNOSTIC_SOURCE, 0,
-                        "_UI_GenericConstraint_diagnostic", new Object[] {
-                                "internalTransitionHasNoUrgency",
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "internalTransitionHasNoUrgency",
                                 getObjectLabel(internalTransition, context) },
                         new Object[] { internalTransition,
                                 ErrorCodeEnum.internalTransitionHasNoUrgency },
@@ -689,24 +635,31 @@ public class BehaviorValidator extends EObjectValidator {
      * @return true if declaration is involved in expression
      * @generated NOT
      */
-    private boolean isUsedIn(DataDeclaration declaration, Expression expression) {
+    private boolean isUsedIn(DataDeclaration declaration,
+            Expression expression) {
         if (expression instanceof AssignmentExpression) {
             AssignmentExpression assignment = (AssignmentExpression) expression;
 
-            assert (assignment.getLhs() instanceof DirectDataDeclarationReferenceExpression || assignment
-                    .getLhs() instanceof SubDataDeclarationReferenceExpression);
+            assert (assignment
+                    .getLhs() instanceof DirectDataDeclarationReferenceExpression
+                    || assignment
+                            .getLhs() instanceof SubDataDeclarationReferenceExpression);
 
-            if (assignment.getLhs() instanceof DirectDataDeclarationReferenceExpression) {
+            if (assignment
+                    .getLhs() instanceof DirectDataDeclarationReferenceExpression) {
                 DirectDataDeclarationReferenceExpression ref = (DirectDataDeclarationReferenceExpression) assignment
                         .getLhs();
 
                 return isUsedIn(ref.getDataDeclaration(), assignment.getRhs());
-            } else if (assignment.getLhs() instanceof SubDataDeclarationReferenceExpression) {
+            } else if (assignment
+                    .getLhs() instanceof SubDataDeclarationReferenceExpression) {
                 SubDataDeclarationReferenceExpression ref = (SubDataDeclarationReferenceExpression) assignment
                         .getLhs();
 
-                return isUsedIn(ref.getSubDataDeclarationRef()
-                        .getForwardDataDeclaration(), assignment.getRhs());
+                return isUsedIn(
+                        ref.getSubDataDeclarationRef()
+                                .getForwardDataDeclaration(),
+                        assignment.getRhs());
             }
         } else if (expression instanceof FunctionCallExpression) {
             FunctionCallExpression functionCall = (FunctionCallExpression) expression;
@@ -804,21 +757,50 @@ public class BehaviorValidator extends EObjectValidator {
         if (!errors.isEmpty()) {
             if (diagnostics != null) {
                 for (Expression ref : errors) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "variableModifiedBetweenProvidedAndDo",
-                                            getObjectLabel(ref, context) },
-                                    new Object[] {
-                                            ref,
-                                            ErrorCodeEnum.variableModifiedBetweenProvidedAndDo,
-                                            transition.getTriggerPort() },
-                                    context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] {
+                                    "variableModifiedBetweenProvidedAndDo",
+                                    getObjectLabel(ref, context) },
+                            new Object[] { ref,
+                                    ErrorCodeEnum.variableModifiedBetweenProvidedAndDo,
+                                    transition.getTriggerPort() },
+                            context));
                 }
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Validates the eagerHasNoClocksInGuard constraint of '<em>Transition</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean validateTransition_eagerHasNoClocksInGuard(
+            Transition transition, DiagnosticChain diagnostics,
+            Map<Object, Object> context) {
+        boolean ok = true;
+        if (transition.getUrgency() == Urgency.EAGER) {
+            if (transition.getGuard() != null) {
+                if (transition.getGuard().hasClocks()) {
+                    ok = false;
+                }
+            }
+        }
+        if (!ok) {
+            if (diagnostics != null) {
+                diagnostics.add(
+                        createDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, 0,
+                                "_UI_GenericConstraint_diagnostic",
+                                new Object[] { "eagerHasNoClocksInGuard",
+                                        getObjectLabel(transition, context) },
+                                new Object[] { transition,
+                                        ErrorCodeEnum.eagerHasNoClockInGuard },
+                                context));
             }
             return false;
         }
@@ -839,16 +821,13 @@ public class BehaviorValidator extends EObjectValidator {
             if (!petriNet.mayBeCoverable(transition.getSources())) {
                 ok = false;
                 if (diagnostics != null) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] { "deadCode",
-                                            getObjectLabel(transition, context) },
-                                    new Object[] { transition,
-                                            ErrorCodeEnum.deadCode }, context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "deadCode",
+                                    getObjectLabel(transition, context) },
+                            new Object[] { transition, ErrorCodeEnum.deadCode },
+                            context));
                 }
             }
         }

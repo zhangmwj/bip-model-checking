@@ -70,17 +70,17 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.IfThenElseExpressionImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.IfThenElseExpressionImpl#getThen <em>Then</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.IfThenElseExpressionImpl#getElse <em>Else</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class IfThenElseExpressionImpl extends AnnotatedEObjectImpl implements
-        IfThenElseExpression {
+public class IfThenElseExpressionImpl extends AnnotatedEObjectImpl
+        implements IfThenElseExpression {
     /**
      * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
      * <!-- begin-user-doc -->
@@ -135,6 +135,7 @@ public class IfThenElseExpressionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getCondition() {
         return condition;
     }
@@ -166,23 +167,20 @@ public class IfThenElseExpressionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setCondition(ValuedExpression newCondition) {
         if (newCondition != condition) {
             NotificationChain msgs = null;
             if (condition != null)
-                msgs = ((InternalEObject) condition)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - ActionlangPackage.IF_THEN_ELSE_EXPRESSION__CONDITION,
-                                null, msgs);
+                msgs = ((InternalEObject) condition).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - ActionlangPackage.IF_THEN_ELSE_EXPRESSION__CONDITION,
+                        null, msgs);
             if (newCondition != null)
-                msgs = ((InternalEObject) newCondition)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - ActionlangPackage.IF_THEN_ELSE_EXPRESSION__CONDITION,
-                                null, msgs);
+                msgs = ((InternalEObject) newCondition).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - ActionlangPackage.IF_THEN_ELSE_EXPRESSION__CONDITION,
+                        null, msgs);
             msgs = basicSetCondition(newCondition, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -197,6 +195,7 @@ public class IfThenElseExpressionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<Expression> getThen() {
         if (then == null) {
             then = new EObjectContainmentEList<Expression>(Expression.class,
@@ -210,6 +209,7 @@ public class IfThenElseExpressionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<Expression> getElse() {
         if (else_ == null) {
             else_ = new EObjectContainmentEList<Expression>(Expression.class,

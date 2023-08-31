@@ -53,8 +53,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AnnotationFactoryImpl extends EFactoryImpl implements
-        AnnotationFactory {
+public class AnnotationFactoryImpl extends EFactoryImpl
+        implements AnnotationFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -64,7 +64,7 @@ public class AnnotationFactoryImpl extends EFactoryImpl implements
     public static AnnotationFactory init() {
         try {
             AnnotationFactory theAnnotationFactory = (AnnotationFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/annotation/1.0");
+                    .getEFactory(AnnotationPackage.eNS_URI);
             if (theAnnotationFactory != null) {
                 return theAnnotationFactory;
             }
@@ -109,6 +109,7 @@ public class AnnotationFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public BipAnnotation createBipAnnotation() {
         BipAnnotationImpl bipAnnotation = new BipAnnotationImpl();
         return bipAnnotation;
@@ -139,6 +140,7 @@ public class AnnotationFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AnnotationPackage getAnnotationPackage() {
         return (AnnotationPackage) getEPackage();
     }

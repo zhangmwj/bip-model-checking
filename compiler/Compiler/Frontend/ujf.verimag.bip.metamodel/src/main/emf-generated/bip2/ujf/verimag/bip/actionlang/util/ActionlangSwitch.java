@@ -84,7 +84,7 @@ public class ActionlangSwitch<T> extends Switch<T> {
      * Checks whether this is a switch for the given package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @parameter ePackage the package in question.
+     * @param ePackage the package in question.
      * @return whether this is a switch for the given package.
      * @generated
      */
@@ -136,9 +136,11 @@ public class ActionlangSwitch<T> extends Switch<T> {
         }
         case ActionlangPackage.SUB_DATA_DECLARATION_REFERENCE_EXPRESSION: {
             SubDataDeclarationReferenceExpression subDataDeclarationReferenceExpression = (SubDataDeclarationReferenceExpression) theEObject;
-            T result = caseSubDataDeclarationReferenceExpression(subDataDeclarationReferenceExpression);
+            T result = caseSubDataDeclarationReferenceExpression(
+                    subDataDeclarationReferenceExpression);
             if (result == null)
-                result = caseValuedExpression(subDataDeclarationReferenceExpression);
+                result = caseValuedExpression(
+                        subDataDeclarationReferenceExpression);
             if (result == null)
                 result = caseExpression(subDataDeclarationReferenceExpression);
             if (result == null)
@@ -147,11 +149,14 @@ public class ActionlangSwitch<T> extends Switch<T> {
         }
         case ActionlangPackage.DIRECT_DATA_DECLARATION_REFERENCE_EXPRESSION: {
             DirectDataDeclarationReferenceExpression directDataDeclarationReferenceExpression = (DirectDataDeclarationReferenceExpression) theEObject;
-            T result = caseDirectDataDeclarationReferenceExpression(directDataDeclarationReferenceExpression);
+            T result = caseDirectDataDeclarationReferenceExpression(
+                    directDataDeclarationReferenceExpression);
             if (result == null)
-                result = caseValuedExpression(directDataDeclarationReferenceExpression);
+                result = caseValuedExpression(
+                        directDataDeclarationReferenceExpression);
             if (result == null)
-                result = caseExpression(directDataDeclarationReferenceExpression);
+                result = caseExpression(
+                        directDataDeclarationReferenceExpression);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
@@ -249,11 +254,14 @@ public class ActionlangSwitch<T> extends Switch<T> {
         }
         case ActionlangPackage.DIRECT_CLOCK_DECLARATION_REFERENCE_EXPRESSION: {
             DirectClockDeclarationReferenceExpression directClockDeclarationReferenceExpression = (DirectClockDeclarationReferenceExpression) theEObject;
-            T result = caseDirectClockDeclarationReferenceExpression(directClockDeclarationReferenceExpression);
+            T result = caseDirectClockDeclarationReferenceExpression(
+                    directClockDeclarationReferenceExpression);
             if (result == null)
-                result = caseValuedExpression(directClockDeclarationReferenceExpression);
+                result = caseValuedExpression(
+                        directClockDeclarationReferenceExpression);
             if (result == null)
-                result = caseExpression(directClockDeclarationReferenceExpression);
+                result = caseExpression(
+                        directClockDeclarationReferenceExpression);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;

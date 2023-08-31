@@ -70,14 +70,15 @@ public enum BinaryOperators implements Enumerator {
      * @generated
      * @ordered
      */
-    SUBTRACTION(1, "subtraction", "-"), /**
-                                         * The '<em><b>Multiplication</b></em>' literal object.
-                                         * <!-- begin-user-doc -->
-                                         * <!-- end-user-doc -->
-                                         * @see #MULTIPLICATION_VALUE
-                                         * @generated
-                                         * @ordered
-                                         */
+    SUBTRACTION(1, "subtraction", "-"),
+    /**
+     * The '<em><b>Multiplication</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #MULTIPLICATION_VALUE
+     * @generated
+     * @ordered
+     */
     MULTIPLICATION(2, "multiplication", "*"),
 
     /**
@@ -264,7 +265,7 @@ public enum BinaryOperators implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #BWISE_AND
-     * @model name="bwise_and" literal="&"
+     * @model name="bwise_and" literal="&amp;"
      * @generated
      * @ordered
      */
@@ -309,7 +310,7 @@ public enum BinaryOperators implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #LOGICAL_AND
-     * @model name="logical_and" literal="&&"
+     * @model name="logical_and" literal="&amp;&amp;"
      * @generated
      * @ordered
      */
@@ -369,7 +370,7 @@ public enum BinaryOperators implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #LESS_THAN
-     * @model name="less_than" literal="<"
+     * @model name="less_than" literal="&lt;"
      * @generated
      * @ordered
      */
@@ -384,7 +385,7 @@ public enum BinaryOperators implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #GREATER_THAN
-     * @model name="greater_than" literal=">"
+     * @model name="greater_than" literal="&gt;"
      * @generated
      * @ordered
      */
@@ -399,7 +400,7 @@ public enum BinaryOperators implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #LESS_THAN_OR_EQUAL
-     * @model name="less_than_or_equal" literal="<="
+     * @model name="less_than_or_equal" literal="&lt;="
      * @generated
      * @ordered
      */
@@ -414,7 +415,7 @@ public enum BinaryOperators implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #GREATER_THAN_OR_EQUAL
-     * @model name="greater_than_or_equal" literal=">="
+     * @model name="greater_than_or_equal" literal="&gt;="
      * @generated
      * @ordered
      */
@@ -475,6 +476,8 @@ public enum BinaryOperators implements Enumerator {
      * Returns the '<em><b>Binary Operators</b></em>' literal with the specified literal value.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @param literal the literal.
+     * @return the matching enumerator or <code>null</code>.
      * @generated
      */
     public static BinaryOperators get(String literal) {
@@ -491,6 +494,8 @@ public enum BinaryOperators implements Enumerator {
      * Returns the '<em><b>Binary Operators</b></em>' literal with the specified name.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @param name the name.
+     * @return the matching enumerator or <code>null</code>.
      * @generated
      */
     public static BinaryOperators getByName(String name) {
@@ -507,6 +512,8 @@ public enum BinaryOperators implements Enumerator {
      * Returns the '<em><b>Binary Operators</b></em>' literal with the specified integer value.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @param value the integer value.
+     * @return the matching enumerator or <code>null</code>.
      * @generated
      */
     public static BinaryOperators get(int value) {
@@ -585,6 +592,7 @@ public enum BinaryOperators implements Enumerator {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public int getValue() {
         return value;
     }
@@ -594,6 +602,7 @@ public enum BinaryOperators implements Enumerator {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -603,6 +612,7 @@ public enum BinaryOperators implements Enumerator {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getLiteral() {
         return literal;
     }

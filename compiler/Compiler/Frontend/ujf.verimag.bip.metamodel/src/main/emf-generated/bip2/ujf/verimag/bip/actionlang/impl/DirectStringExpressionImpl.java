@@ -65,15 +65,15 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.DirectStringExpressionImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class DirectStringExpressionImpl extends ValuedExpressionImpl implements
-        DirectStringExpression {
+public class DirectStringExpressionImpl extends ValuedExpressionImpl
+        implements DirectStringExpression {
     /**
      * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -118,6 +118,7 @@ public class DirectStringExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getValue() {
         return value;
     }
@@ -127,13 +128,14 @@ public class DirectStringExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setValue(String newValue) {
         String oldValue = value;
         value = newValue;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    ActionlangPackage.DIRECT_STRING_EXPRESSION__VALUE,
-                    oldValue, value));
+                    ActionlangPackage.DIRECT_STRING_EXPRESSION__VALUE, oldValue,
+                    value));
     }
 
     /**
@@ -207,8 +209,8 @@ public class DirectStringExpressionImpl extends ValuedExpressionImpl implements
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case ActionlangPackage.DIRECT_STRING_EXPRESSION__VALUE:
-            return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT
-                    .equals(value);
+            return VALUE_EDEFAULT == null ? value != null
+                    : !VALUE_EDEFAULT.equals(value);
         }
         return super.eIsSet(featureID);
     }
@@ -223,7 +225,7 @@ public class DirectStringExpressionImpl extends ValuedExpressionImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (value: ");
         result.append(value);
         result.append(')');

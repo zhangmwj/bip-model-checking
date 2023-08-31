@@ -133,8 +133,8 @@ public class PortValidator extends EObjectValidator {
             DiagnosticChain diagnostics, Map<Object, Object> context) {
         switch (classifierID) {
         case PortPackage.PORT_DECLARATION:
-            return validatePortDeclaration((PortDeclaration) value,
-                    diagnostics, context);
+            return validatePortDeclaration((PortDeclaration) value, diagnostics,
+                    context);
         case PortPackage.SUB_PORT_DECLARATION_REFERENCE:
             return validateSubPortDeclarationReference(
                     (SubPortDeclarationReference) value, diagnostics, context);
@@ -163,8 +163,8 @@ public class PortValidator extends EObjectValidator {
         boolean result = validate_EveryMultiplicityConforms(
                 (EObject) portDeclaration, diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_EveryDataValueConforms(
-                    (EObject) portDeclaration, diagnostics, context);
+            result &= validate_EveryDataValueConforms((EObject) portDeclaration,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryReferenceIsContained(
                     (EObject) portDeclaration, diagnostics, context);
@@ -214,19 +214,14 @@ public class PortValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "hasCorrectNumberOfDataParameters",
-                                        getObjectLabel(portDeclaration, context) },
-                                new Object[] {
-                                        portDeclaration,
-                                        ErrorCodeEnum.hasCorrectNumberOfDataParameters },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "hasCorrectNumberOfDataParameters",
+                                getObjectLabel(portDeclaration, context) },
+                        new Object[] { portDeclaration,
+                                ErrorCodeEnum.hasCorrectNumberOfDataParameters },
+                        context));
             }
             return false;
         }
@@ -248,25 +243,31 @@ public class PortValidator extends EObjectValidator {
                 (EObject) subPortDeclarationReference, diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryDataValueConforms(
-                    (EObject) subPortDeclarationReference, diagnostics, context);
+                    (EObject) subPortDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryReferenceIsContained(
-                    (EObject) subPortDeclarationReference, diagnostics, context);
+                    (EObject) subPortDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryBidirectionalReferenceIsPaired(
-                    (EObject) subPortDeclarationReference, diagnostics, context);
+                    (EObject) subPortDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryProxyResolves(
-                    (EObject) subPortDeclarationReference, diagnostics, context);
+                    (EObject) subPortDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_UniqueID((EObject) subPortDeclarationReference,
                     diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique(
-                    (EObject) subPortDeclarationReference, diagnostics, context);
+                    (EObject) subPortDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique(
-                    (EObject) subPortDeclarationReference, diagnostics, context);
+                    (EObject) subPortDeclarationReference, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validateSubPortDeclarationReference_subPortDeclarationReferenceHasOneDeclaration(
                     subPortDeclarationReference, diagnostics, context);
@@ -289,21 +290,16 @@ public class PortValidator extends EObjectValidator {
                 : 0;
         if (c != 1) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "subPortDeclarationReferenceHasOneDeclaration",
-                                        getObjectLabel(
-                                                subPortDeclarationReference,
-                                                context) },
-                                new Object[] {
-                                        subPortDeclarationReference,
-                                        ErrorCodeEnum.subPortDeclarationReferenceHasOneDeclaration },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] {
+                                "subPortDeclarationReferenceHasOneDeclaration",
+                                getObjectLabel(subPortDeclarationReference,
+                                        context) },
+                        new Object[] { subPortDeclarationReference,
+                                ErrorCodeEnum.subPortDeclarationReferenceHasOneDeclaration },
+                        context));
             }
             return false;
         }
@@ -381,8 +377,7 @@ public class PortValidator extends EObjectValidator {
             PortDeclarationReferenceParameter portDeclarationReferenceParameter,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-        boolean ok = portDeclarationReferenceParameter
-                .getParameterDeclaration()
+        boolean ok = portDeclarationReferenceParameter.getParameterDeclaration()
                 .getPortType()
                 .equals(portDeclarationReferenceParameter
                         .getSubPortDeclarationReference()
@@ -390,21 +385,16 @@ public class PortValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "portParameterHasCorrectPortType",
-                                        getObjectLabel(
-                                                portDeclarationReferenceParameter,
-                                                context) },
-                                new Object[] {
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "portParameterHasCorrectPortType",
+                                getObjectLabel(
                                         portDeclarationReferenceParameter,
-                                        ErrorCodeEnum.portParameterHasCorrectPortType },
-                                context));
+                                        context) },
+                        new Object[] { portDeclarationReferenceParameter,
+                                ErrorCodeEnum.portParameterHasCorrectPortType },
+                        context));
             }
             return false;
         }

@@ -67,10 +67,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.SubDataDeclarationReferenceExpressionImpl#getSubDataDeclarationRef <em>Sub Data Declaration Ref</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -110,6 +110,7 @@ public class SubDataDeclarationReferenceExpressionImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public SubDataDeclarationReference getSubDataDeclarationRef() {
         return subDataDeclarationRef;
     }
@@ -125,8 +126,7 @@ public class SubDataDeclarationReferenceExpressionImpl extends
         SubDataDeclarationReference oldSubDataDeclarationRef = subDataDeclarationRef;
         subDataDeclarationRef = newSubDataDeclarationRef;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(
-                    this,
+            ENotificationImpl notification = new ENotificationImpl(this,
                     Notification.SET,
                     ActionlangPackage.SUB_DATA_DECLARATION_REFERENCE_EXPRESSION__SUB_DATA_DECLARATION_REF,
                     oldSubDataDeclarationRef, newSubDataDeclarationRef);
@@ -143,31 +143,29 @@ public class SubDataDeclarationReferenceExpressionImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setSubDataDeclarationRef(
             SubDataDeclarationReference newSubDataDeclarationRef) {
         if (newSubDataDeclarationRef != subDataDeclarationRef) {
             NotificationChain msgs = null;
             if (subDataDeclarationRef != null)
-                msgs = ((InternalEObject) subDataDeclarationRef)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - ActionlangPackage.SUB_DATA_DECLARATION_REFERENCE_EXPRESSION__SUB_DATA_DECLARATION_REF,
-                                null, msgs);
+                msgs = ((InternalEObject) subDataDeclarationRef).eInverseRemove(
+                        this,
+                        EOPPOSITE_FEATURE_BASE
+                                - ActionlangPackage.SUB_DATA_DECLARATION_REFERENCE_EXPRESSION__SUB_DATA_DECLARATION_REF,
+                        null, msgs);
             if (newSubDataDeclarationRef != null)
-                msgs = ((InternalEObject) newSubDataDeclarationRef)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - ActionlangPackage.SUB_DATA_DECLARATION_REFERENCE_EXPRESSION__SUB_DATA_DECLARATION_REF,
-                                null, msgs);
-            msgs = basicSetSubDataDeclarationRef(newSubDataDeclarationRef, msgs);
+                msgs = ((InternalEObject) newSubDataDeclarationRef).eInverseAdd(
+                        this,
+                        EOPPOSITE_FEATURE_BASE
+                                - ActionlangPackage.SUB_DATA_DECLARATION_REFERENCE_EXPRESSION__SUB_DATA_DECLARATION_REF,
+                        null, msgs);
+            msgs = basicSetSubDataDeclarationRef(newSubDataDeclarationRef,
+                    msgs);
             if (msgs != null)
                 msgs.dispatch();
         } else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     ActionlangPackage.SUB_DATA_DECLARATION_REFERENCE_EXPRESSION__SUB_DATA_DECLARATION_REF,
                     newSubDataDeclarationRef, newSubDataDeclarationRef));
     }
@@ -322,8 +320,8 @@ public class SubDataDeclarationReferenceExpressionImpl extends
             EList<DataDeclaration> uninitialized) {
         EList<Expression> ret = new BasicEList<Expression>();
 
-        if (uninitialized.contains(getSubDataDeclarationRef()
-                .getForwardDataDeclaration())) {
+        if (uninitialized.contains(
+                getSubDataDeclarationRef().getForwardDataDeclaration())) {
             ret.add(this);
         }
 

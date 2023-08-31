@@ -65,7 +65,7 @@ public class TypesFactoryImpl extends EFactoryImpl implements TypesFactory {
     public static TypesFactory init() {
         try {
             TypesFactory theTypesFactory = (TypesFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/types/1.0");
+                    .getEFactory(TypesPackage.eNS_URI);
             if (theTypesFactory != null) {
                 return theTypesFactory;
             }
@@ -112,6 +112,7 @@ public class TypesFactoryImpl extends EFactoryImpl implements TypesFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomType createAtomType() {
         AtomTypeImpl atomType = new AtomTypeImpl();
         return atomType;
@@ -122,6 +123,7 @@ public class TypesFactoryImpl extends EFactoryImpl implements TypesFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public CompoundType createCompoundType() {
         CompoundTypeImpl compoundType = new CompoundTypeImpl();
         return compoundType;
@@ -132,6 +134,7 @@ public class TypesFactoryImpl extends EFactoryImpl implements TypesFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorType createConnectorType() {
         ConnectorTypeImpl connectorType = new ConnectorTypeImpl();
         return connectorType;
@@ -142,6 +145,7 @@ public class TypesFactoryImpl extends EFactoryImpl implements TypesFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortType createPortType() {
         PortTypeImpl portType = new PortTypeImpl();
         return portType;
@@ -152,6 +156,7 @@ public class TypesFactoryImpl extends EFactoryImpl implements TypesFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public TypesPackage getTypesPackage() {
         return (TypesPackage) getEPackage();
     }

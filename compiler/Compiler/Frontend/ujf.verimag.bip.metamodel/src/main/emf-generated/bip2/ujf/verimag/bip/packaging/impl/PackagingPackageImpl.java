@@ -111,8 +111,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PackagingPackageImpl extends EPackageImpl implements
-        PackagingPackage {
+public class PackagingPackageImpl extends EPackageImpl
+        implements PackagingPackage {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -197,7 +197,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
 
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-     * 
+     *
      * <p>This method is used to initialize {@link PackagingPackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
@@ -213,76 +213,105 @@ public class PackagingPackageImpl extends EPackageImpl implements
                     .getEPackage(PackagingPackage.eNS_URI);
 
         // Obtain or create and register package
-        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (EPackage.Registry.INSTANCE
-                .get(eNS_URI) instanceof PackagingPackageImpl ? EPackage.Registry.INSTANCE
-                .get(eNS_URI) : new PackagingPackageImpl());
+        Object registeredPackagingPackage = EPackage.Registry.INSTANCE
+                .get(eNS_URI);
+        PackagingPackageImpl thePackagingPackage = registeredPackagingPackage instanceof PackagingPackageImpl
+                ? (PackagingPackageImpl) registeredPackagingPackage
+                : new PackagingPackageImpl();
 
         isInited = true;
 
         // Obtain or create and register interdependencies
-        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) instanceof Bip2PackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) : Bip2Package.eINSTANCE);
-        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) instanceof UjfPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) : UjfPackage.eINSTANCE);
-        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) instanceof VerimagPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) : VerimagPackage.eINSTANCE);
-        BipPackageImpl theBipPackage = (BipPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) instanceof BipPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) : BipPackage.eINSTANCE);
-        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) instanceof TypesPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) : TypesPackage.eINSTANCE);
-        DataPackageImpl theDataPackage = (DataPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(DataPackage.eNS_URI) instanceof DataPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(DataPackage.eNS_URI) : DataPackage.eINSTANCE);
-        PortPackageImpl thePortPackage = (PortPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) instanceof PortPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) : PortPackage.eINSTANCE);
-        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI) instanceof BehaviorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI)
+        Object registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(Bip2Package.eNS_URI);
+        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (registeredPackage instanceof Bip2PackageImpl
+                ? registeredPackage
+                : Bip2Package.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(UjfPackage.eNS_URI);
+        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (registeredPackage instanceof UjfPackageImpl
+                ? registeredPackage
+                : UjfPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(VerimagPackage.eNS_URI);
+        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (registeredPackage instanceof VerimagPackageImpl
+                ? registeredPackage
+                : VerimagPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BipPackage.eNS_URI);
+        BipPackageImpl theBipPackage = (BipPackageImpl) (registeredPackage instanceof BipPackageImpl
+                ? registeredPackage
+                : BipPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TypesPackage.eNS_URI);
+        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (registeredPackage instanceof TypesPackageImpl
+                ? registeredPackage
+                : TypesPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(DataPackage.eNS_URI);
+        DataPackageImpl theDataPackage = (DataPackageImpl) (registeredPackage instanceof DataPackageImpl
+                ? registeredPackage
+                : DataPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PortPackage.eNS_URI);
+        PortPackageImpl thePortPackage = (PortPackageImpl) (registeredPackage instanceof PortPackageImpl
+                ? registeredPackage
+                : PortPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BehaviorPackage.eNS_URI);
+        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (registeredPackage instanceof BehaviorPackageImpl
+                ? registeredPackage
                 : BehaviorPackage.eINSTANCE);
-        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI) instanceof PriorityPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PriorityPackage.eNS_URI);
+        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (registeredPackage instanceof PriorityPackageImpl
+                ? registeredPackage
                 : PriorityPackage.eINSTANCE);
-        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ConnectorPackage.eNS_URI) instanceof ConnectorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ConnectorPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ConnectorPackage.eNS_URI);
+        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (registeredPackage instanceof ConnectorPackageImpl
+                ? registeredPackage
                 : ConnectorPackage.eINSTANCE);
-        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ComponentPackage.eNS_URI);
+        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (registeredPackage instanceof ComponentPackageImpl
+                ? registeredPackage
                 : ComponentPackage.eINSTANCE);
-        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) instanceof AtomPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) : AtomPackage.eINSTANCE);
-        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI) instanceof CompoundPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AtomPackage.eNS_URI);
+        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (registeredPackage instanceof AtomPackageImpl
+                ? registeredPackage
+                : AtomPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(CompoundPackage.eNS_URI);
+        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (registeredPackage instanceof CompoundPackageImpl
+                ? registeredPackage
                 : CompoundPackage.eINSTANCE);
-        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ActionlangPackage.eNS_URI) instanceof ActionlangPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ActionlangPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ActionlangPackage.eNS_URI);
+        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (registeredPackage instanceof ActionlangPackageImpl
+                ? registeredPackage
                 : ActionlangPackage.eINSTANCE);
-        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(InstancePackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI);
+        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (registeredPackage instanceof InstancePackageImpl
+                ? registeredPackage
                 : InstancePackage.eINSTANCE);
-        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI) instanceof AnnotationPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AnnotationPackage.eNS_URI);
+        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (registeredPackage instanceof AnnotationPackageImpl
+                ? registeredPackage
                 : AnnotationPackage.eINSTANCE);
-        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(InvariantPackage.eNS_URI) instanceof InvariantPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(InvariantPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(InvariantPackage.eNS_URI);
+        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (registeredPackage instanceof InvariantPackageImpl
+                ? registeredPackage
                 : InvariantPackage.eINSTANCE);
-        TimePackageImpl theTimePackage = (TimePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) instanceof TimePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) : TimePackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TimePackage.eNS_URI);
+        TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
+                ? registeredPackage
+                : TimePackage.eINSTANCE);
 
         // Create package meta-data objects
         thePackagingPackage.createPackageContents();
@@ -329,6 +358,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
         // Register package validator
         EValidator.Registry.INSTANCE.put(thePackagingPackage,
                 new EValidator.Descriptor() {
+                    @Override
                     public EValidator getEValidator() {
                         return PackagingValidator.INSTANCE;
                     }
@@ -348,6 +378,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getBipPackage() {
         return bipPackageEClass;
     }
@@ -357,6 +388,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getBipPackage_Name() {
         return (EAttribute) bipPackageEClass.getEStructuralFeatures().get(0);
     }
@@ -366,6 +398,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBipPackage_Used_packages() {
         return (EReference) bipPackageEClass.getEStructuralFeatures().get(6);
     }
@@ -375,6 +408,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBipPackage_ConstData() {
         return (EReference) bipPackageEClass.getEStructuralFeatures().get(7);
     }
@@ -384,6 +418,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBipPackage_Prototypes() {
         return (EReference) bipPackageEClass.getEStructuralFeatures().get(8);
     }
@@ -393,6 +428,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getBipPackageSet() {
         return bipPackageSetEClass;
     }
@@ -402,6 +438,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBipPackageSet_Packages() {
         return (EReference) bipPackageSetEClass.getEStructuralFeatures().get(0);
     }
@@ -411,6 +448,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConstDataDeclaration() {
         return constDataDeclarationEClass;
     }
@@ -420,6 +458,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getPrototype() {
         return prototypeEClass;
     }
@@ -429,6 +468,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getPrototype_ParameterDeclarations() {
         return (EReference) prototypeEClass.getEStructuralFeatures().get(0);
     }
@@ -438,6 +478,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getPrototype_ReturnType() {
         return (EReference) prototypeEClass.getEStructuralFeatures().get(1);
     }
@@ -447,6 +488,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getPrototype_Native() {
         return (EAttribute) prototypeEClass.getEStructuralFeatures().get(2);
     }
@@ -456,6 +498,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getPrototype_Const() {
         return (EAttribute) prototypeEClass.getEStructuralFeatures().get(3);
     }
@@ -465,6 +508,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getFunctionCallPrototype() {
         return functionCallPrototypeEClass;
     }
@@ -474,9 +518,10 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getFunctionCallPrototype_FunctionName() {
-        return (EAttribute) functionCallPrototypeEClass
-                .getEStructuralFeatures().get(0);
+        return (EAttribute) functionCallPrototypeEClass.getEStructuralFeatures()
+                .get(0);
     }
 
     /**
@@ -484,6 +529,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getBinaryOpPrototype() {
         return binaryOpPrototypeEClass;
     }
@@ -493,6 +539,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getBinaryOpPrototype_Operator() {
         return (EAttribute) binaryOpPrototypeEClass.getEStructuralFeatures()
                 .get(0);
@@ -503,6 +550,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getUnaryOpPrototype() {
         return unaryOpPrototypeEClass;
     }
@@ -512,6 +560,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getUnaryOpPrototype_Operator() {
         return (EAttribute) unaryOpPrototypeEClass.getEStructuralFeatures()
                 .get(0);
@@ -522,6 +571,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getPrototypeParameterDeclaration() {
         return prototypeParameterDeclarationEClass;
     }
@@ -531,6 +581,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getPrototypeParameterDeclaration_Type() {
         return (EReference) prototypeParameterDeclarationEClass
                 .getEStructuralFeatures().get(0);
@@ -541,6 +592,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getPrototypeParameterDeclaration_Name() {
         return (EAttribute) prototypeParameterDeclarationEClass
                 .getEStructuralFeatures().get(1);
@@ -551,6 +603,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getPrototypeParameterDeclaration_Const() {
         return (EAttribute) prototypeParameterDeclarationEClass
                 .getEStructuralFeatures().get(2);
@@ -561,6 +614,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBipPackage_AtomTypes() {
         return (EReference) bipPackageEClass.getEStructuralFeatures().get(1);
     }
@@ -570,6 +624,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBipPackage_CompoundTypes() {
         return (EReference) bipPackageEClass.getEStructuralFeatures().get(2);
     }
@@ -579,6 +634,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBipPackage_ConnectorTypes() {
         return (EReference) bipPackageEClass.getEStructuralFeatures().get(3);
     }
@@ -588,6 +644,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBipPackage_PortTypes() {
         return (EReference) bipPackageEClass.getEStructuralFeatures().get(4);
     }
@@ -597,6 +654,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getBipPackage_DataTypes() {
         return (EReference) bipPackageEClass.getEStructuralFeatures().get(5);
     }
@@ -606,6 +664,7 @@ public class PackagingPackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PackagingFactory getPackagingFactory() {
         return (PackagingFactory) getEFactoryInstance();
     }
@@ -657,12 +716,14 @@ public class PackagingPackageImpl extends EPackageImpl implements
                 FUNCTION_CALL_PROTOTYPE__FUNCTION_NAME);
 
         binaryOpPrototypeEClass = createEClass(BINARY_OP_PROTOTYPE);
-        createEAttribute(binaryOpPrototypeEClass, BINARY_OP_PROTOTYPE__OPERATOR);
+        createEAttribute(binaryOpPrototypeEClass,
+                BINARY_OP_PROTOTYPE__OPERATOR);
 
         unaryOpPrototypeEClass = createEClass(UNARY_OP_PROTOTYPE);
         createEAttribute(unaryOpPrototypeEClass, UNARY_OP_PROTOTYPE__OPERATOR);
 
-        prototypeParameterDeclarationEClass = createEClass(PROTOTYPE_PARAMETER_DECLARATION);
+        prototypeParameterDeclarationEClass = createEClass(
+                PROTOTYPE_PARAMETER_DECLARATION);
         createEReference(prototypeParameterDeclarationEClass,
                 PROTOTYPE_PARAMETER_DECLARATION__TYPE);
         createEAttribute(prototypeParameterDeclarationEClass,
@@ -712,12 +773,12 @@ public class PackagingPackageImpl extends EPackageImpl implements
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        bipPackageEClass.getESuperTypes().add(
-                theAnnotationPackage.getAnnotatedElement());
-        constDataDeclarationEClass.getESuperTypes().add(
-                theDataPackage.getExplicitDataDeclaration());
-        prototypeEClass.getESuperTypes().add(
-                theAnnotationPackage.getAnnotatedElement());
+        bipPackageEClass.getESuperTypes()
+                .add(theAnnotationPackage.getAnnotatedElement());
+        constDataDeclarationEClass.getESuperTypes()
+                .add(theDataPackage.getExplicitDataDeclaration());
+        prototypeEClass.getESuperTypes()
+                .add(theAnnotationPackage.getAnnotatedElement());
         functionCallPrototypeEClass.getESuperTypes().add(this.getPrototype());
         binaryOpPrototypeEClass.getESuperTypes().add(this.getPrototype());
         unaryOpPrototypeEClass.getESuperTypes().add(this.getPrototype());
@@ -730,8 +791,8 @@ public class PackagingPackageImpl extends EPackageImpl implements
                 null, 1, 1, bip2.ujf.verimag.bip.packaging.BipPackage.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
                 !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getBipPackage_AtomTypes(),
-                theTypesPackage.getAtomType(), null, "atomTypes", null, 0, -1,
+        initEReference(getBipPackage_AtomTypes(), theTypesPackage.getAtomType(),
+                null, "atomTypes", null, 0, -1,
                 bip2.ujf.verimag.bip.packaging.BipPackage.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -747,8 +808,8 @@ public class PackagingPackageImpl extends EPackageImpl implements
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
                 !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
-        initEReference(getBipPackage_PortTypes(),
-                theTypesPackage.getPortType(), null, "portTypes", null, 0, -1,
+        initEReference(getBipPackage_PortTypes(), theTypesPackage.getPortType(),
+                null, "portTypes", null, 0, -1,
                 bip2.ujf.verimag.bip.packaging.BipPackage.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -784,9 +845,8 @@ public class PackagingPackageImpl extends EPackageImpl implements
         addEParameter(op, ecorePackage.getEString(), "name", 0, 1, IS_UNIQUE,
                 IS_ORDERED);
 
-        op = addEOperation(bipPackageEClass,
-                theTypesPackage.getConnectorType(), "getConnectorType", 0, 1,
-                IS_UNIQUE, IS_ORDERED);
+        op = addEOperation(bipPackageEClass, theTypesPackage.getConnectorType(),
+                "getConnectorType", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, ecorePackage.getEString(), "name", 0, 1, IS_UNIQUE,
                 IS_ORDERED);
 
@@ -819,13 +879,13 @@ public class PackagingPackageImpl extends EPackageImpl implements
 
         op = addEOperation(bipPackageEClass, this.getBinaryOpPrototype(),
                 "getBinaryOpPrototypes", 0, -1, IS_UNIQUE, IS_ORDERED);
-        addEParameter(op, theActionlangPackage.getBinaryOperators(),
-                "operator", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, theActionlangPackage.getBinaryOperators(), "operator",
+                0, 1, IS_UNIQUE, IS_ORDERED);
 
         op = addEOperation(bipPackageEClass, this.getBinaryOpPrototype(),
                 "getBinaryOpPrototypes", 0, -1, IS_UNIQUE, IS_ORDERED);
-        addEParameter(op, theActionlangPackage.getBinaryOperators(),
-                "operator", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, theActionlangPackage.getBinaryOperators(), "operator",
+                0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, theTypesPackage.getType(), "parametersTypes", 0, -1,
                 !IS_UNIQUE, IS_ORDERED);
 
@@ -868,8 +928,8 @@ public class PackagingPackageImpl extends EPackageImpl implements
         addEOperation(bipPackageEClass, theTimePackage.getTime(),
                 "getMinuteType", 1, 1, IS_UNIQUE, IS_ORDERED);
 
-        addEOperation(bipPackageEClass, theTimePackage.getTime(),
-                "getHourType", 1, 1, IS_UNIQUE, IS_ORDERED);
+        addEOperation(bipPackageEClass, theTimePackage.getTime(), "getHourType",
+                1, 1, IS_UNIQUE, IS_ORDERED);
 
         addEOperation(bipPackageEClass, theTimePackage.getTime(), "getDayType",
                 1, 1, IS_UNIQUE, IS_ORDERED);
@@ -908,8 +968,8 @@ public class PackagingPackageImpl extends EPackageImpl implements
 
         op = addEOperation(prototypeEClass, ecorePackage.getEBoolean(),
                 "isBetterMatchingThan", 1, 1, IS_UNIQUE, IS_ORDERED);
-        addEParameter(op, theTypesPackage.getType(), "types", 0, -1,
-                !IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, theTypesPackage.getType(), "types", 0, -1, !IS_UNIQUE,
+                IS_ORDERED);
         addEParameter(op, this.getPrototype(), "prototype", 1, 1, IS_UNIQUE,
                 IS_ORDERED);
 
@@ -973,10 +1033,10 @@ public class PackagingPackageImpl extends EPackageImpl implements
      */
     protected void createEcoreAnnotations() {
         String source = "http://www.eclipse.org/emf/2002/Ecore";
-        addAnnotation(bipPackageEClass, source, new String[] { "constraints",
-                "checkForCyclesInSubTyping" });
-        addAnnotation(constDataDeclarationEClass, source, new String[] {
-                "constraints", "hasCorrectConst" });
+        addAnnotation(bipPackageEClass, source,
+                new String[] { "constraints", "checkForCyclesInSubTyping" });
+        addAnnotation(constDataDeclarationEClass, source,
+                new String[] { "constraints", "hasCorrectConst" });
         addAnnotation(prototypeEClass, source, new String[] { "constraints",
                 "involveOnlyDataTypeIfNotNative" });
     }

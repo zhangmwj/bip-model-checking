@@ -58,20 +58,20 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.Transition#getSources <em>Sources</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.Transition#getDestinations <em>Destinations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.Transition#getTriggerPort <em>Trigger Port</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.Transition#getActions <em>Actions</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.behavior.BehaviorPackage#getTransition()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='hasNoVariableModifiedBetweenProvidedAndDo'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='hasNoVariableModifiedBetweenProvidedAndDo eagerHasNoClocksInGuard'"
  * @generated
  */
-public interface Transition extends AnnotatedElement, Guarded, Resumed,
-        UrgentElement {
+public interface Transition
+        extends AnnotatedElement, Guarded, Resumed, UrgentElement {
 
     /**
      * Returns the value of the '<em><b>Sources</b></em>' reference list.

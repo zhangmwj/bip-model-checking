@@ -101,4 +101,12 @@ public interface ValuedExpression extends Expression {
      * @generated
      */
     boolean hasSideEffect();
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model required="true"
+     * @generated
+     */
+    boolean hasClocks();
 } // ValuedExpression

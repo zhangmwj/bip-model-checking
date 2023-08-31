@@ -118,7 +118,8 @@ public interface InvariantPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INVARIANT__GUARD = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+    int INVARIANT__GUARD = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -136,7 +137,8 @@ public interface InvariantPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INVARIANT_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+    int INVARIANT_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 2;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.invariant.impl.AtomInvariantImpl <em>Atom Invariant</em>}' class.

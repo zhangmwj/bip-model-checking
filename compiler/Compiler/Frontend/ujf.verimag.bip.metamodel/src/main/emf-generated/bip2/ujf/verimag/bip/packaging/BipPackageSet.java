@@ -47,10 +47,10 @@ import ujf.verimag.bip.metamodel.AnnotatedEObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.BipPackageSet#getPackages <em>Packages</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.packaging.PackagingPackage#getBipPackageSet()
  * @model

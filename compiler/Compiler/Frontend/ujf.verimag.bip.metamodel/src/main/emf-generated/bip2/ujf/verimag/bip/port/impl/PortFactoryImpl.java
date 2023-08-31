@@ -62,7 +62,7 @@ public class PortFactoryImpl extends EFactoryImpl implements PortFactory {
     public static PortFactory init() {
         try {
             PortFactory thePortFactory = (PortFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/port/1.0");
+                    .getEFactory(PortPackage.eNS_URI);
             if (thePortFactory != null) {
                 return thePortFactory;
             }
@@ -107,6 +107,7 @@ public class PortFactoryImpl extends EFactoryImpl implements PortFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public SubPortDeclarationReference createSubPortDeclarationReference() {
         SubPortDeclarationReferenceImpl subPortDeclarationReference = new SubPortDeclarationReferenceImpl();
         return subPortDeclarationReference;
@@ -117,6 +118,7 @@ public class PortFactoryImpl extends EFactoryImpl implements PortFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortDataParameterDeclaration createPortDataParameterDeclaration() {
         PortDataParameterDeclarationImpl portDataParameterDeclaration = new PortDataParameterDeclarationImpl();
         return portDataParameterDeclaration;
@@ -127,6 +129,7 @@ public class PortFactoryImpl extends EFactoryImpl implements PortFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortDeclarationReferenceParameter createPortDeclarationReferenceParameter() {
         PortDeclarationReferenceParameterImpl portDeclarationReferenceParameter = new PortDeclarationReferenceParameterImpl();
         return portDeclarationReferenceParameter;
@@ -137,6 +140,7 @@ public class PortFactoryImpl extends EFactoryImpl implements PortFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortPackage getPortPackage() {
         return (PortPackage) getEPackage();
     }

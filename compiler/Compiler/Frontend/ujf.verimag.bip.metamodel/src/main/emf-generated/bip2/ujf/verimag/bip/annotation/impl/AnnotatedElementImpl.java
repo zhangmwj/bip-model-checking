@@ -63,10 +63,10 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.annotation.impl.AnnotatedElementImpl#getBipAnnotations <em>Bip Annotations</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -106,6 +106,7 @@ public abstract class AnnotatedElementImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EMap<String, BipAnnotation> getBipAnnotations() {
         if (bipAnnotations == null) {
             bipAnnotations = new EcoreEMap<String, BipAnnotation>(
@@ -126,8 +127,8 @@ public abstract class AnnotatedElementImpl extends AnnotatedEObjectImpl
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case AnnotationPackage.ANNOTATED_ELEMENT__BIP_ANNOTATIONS:
-            return ((InternalEList<?>) getBipAnnotations()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getBipAnnotations())
+                    .basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }

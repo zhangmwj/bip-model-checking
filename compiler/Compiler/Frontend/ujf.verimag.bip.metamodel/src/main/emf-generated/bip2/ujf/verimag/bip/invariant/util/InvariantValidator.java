@@ -153,8 +153,8 @@ public class InvariantValidator extends EObjectValidator {
         if (!validate_NoCircularContainment((EObject) invariant, diagnostics,
                 context))
             return false;
-        boolean result = validate_EveryMultiplicityConforms(
-                (EObject) invariant, diagnostics, context);
+        boolean result = validate_EveryMultiplicityConforms((EObject) invariant,
+                diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryDataValueConforms((EObject) invariant,
                     diagnostics, context);
@@ -177,29 +177,8 @@ public class InvariantValidator extends EObjectValidator {
             result &= validate_EveryMapEntryUnique((EObject) invariant,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_nestedComparisonOnClocks(
+            result &= timeValidator.validateGuarded_checkExpressionGrammar(
                     invariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_clocksOnOneSideOfLogicalOr(
-                    invariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_invalidNotEqualOnClocks(
-                    invariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_noClocksInLogicalNot(
-                    invariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_invalidUseOfMultiplicationOrDivisionOnClocks(
-                            invariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfMoreThanTwoClocks(invariant,
-                            diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfClocksHavingWrongSign(
-                            invariant, diagnostics, context);
         return result;
     }
 
@@ -237,29 +216,8 @@ public class InvariantValidator extends EObjectValidator {
             result &= validate_EveryMapEntryUnique((EObject) atomInvariant,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_nestedComparisonOnClocks(
+            result &= timeValidator.validateGuarded_checkExpressionGrammar(
                     atomInvariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_clocksOnOneSideOfLogicalOr(
-                    atomInvariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_invalidNotEqualOnClocks(
-                    atomInvariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_noClocksInLogicalNot(
-                    atomInvariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_invalidUseOfMultiplicationOrDivisionOnClocks(
-                            atomInvariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfMoreThanTwoClocks(
-                            atomInvariant, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfClocksHavingWrongSign(
-                            atomInvariant, diagnostics, context);
         if (result || diagnostics != null)
             result &= validateAtomInvariant_fakeConstraint(atomInvariant,
                     diagnostics, context);

@@ -192,8 +192,8 @@ public class ActionlangValidator extends EObjectValidator {
                     (DirectClockDeclarationReferenceExpression) value,
                     diagnostics, context);
         case ActionlangPackage.BINARY_OPERATORS:
-            return validateBinaryOperators((BinaryOperators) value,
-                    diagnostics, context);
+            return validateBinaryOperators((BinaryOperators) value, diagnostics,
+                    context);
         case ActionlangPackage.UNARY_OPERATORS:
             return validateUnaryOperators((UnaryOperators) value, diagnostics,
                     context);
@@ -234,8 +234,8 @@ public class ActionlangValidator extends EObjectValidator {
             result &= validate_EveryKeyUnique((EObject) binaryOpExpression,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_EveryMapEntryUnique(
-                    (EObject) binaryOpExpression, diagnostics, context);
+            result &= validate_EveryMapEntryUnique((EObject) binaryOpExpression,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validateValuedExpression_hasCorrectType(
                     binaryOpExpression, diagnostics, context);
@@ -276,37 +276,29 @@ public class ActionlangValidator extends EObjectValidator {
                 Type rightDataType = binaryOpExpression.getRight().getType();
 
                 if (binaryOpExpression.getPrototypes().size() == 0) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.ERROR,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "noMatchBinaryOp",
-                                            getObjectLabel(binaryOpExpression,
-                                                    context) }, new Object[] {
-                                            binaryOpExpression,
-                                            ErrorCodeEnum.noMatchBinaryOp,
-                                            leftDataType, rightDataType },
-                                    context));
+                    diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "noMatchBinaryOp",
+                                    getObjectLabel(binaryOpExpression,
+                                            context) },
+                            new Object[] { binaryOpExpression,
+                                    ErrorCodeEnum.noMatchBinaryOp, leftDataType,
+                                    rightDataType },
+                            context));
                 }
 
                 if (binaryOpExpression.getPrototypes().size() > 1) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.ERROR,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "ambiguousBinaryOp",
-                                            getObjectLabel(binaryOpExpression,
-                                                    context) }, new Object[] {
-                                            binaryOpExpression,
-                                            ErrorCodeEnum.ambiguousBinaryOp,
-                                            leftDataType, rightDataType,
-                                            prototypes }, context));
+                    diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "ambiguousBinaryOp",
+                                    getObjectLabel(binaryOpExpression,
+                                            context) },
+                            new Object[] { binaryOpExpression,
+                                    ErrorCodeEnum.ambiguousBinaryOp,
+                                    leftDataType, rightDataType, prototypes },
+                            context));
                 }
             }
             return false;
@@ -349,8 +341,8 @@ public class ActionlangValidator extends EObjectValidator {
             result &= validate_EveryMapEntryUnique((EObject) unaryOpExpression,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validateValuedExpression_hasCorrectType(
-                    unaryOpExpression, diagnostics, context);
+            result &= validateValuedExpression_hasCorrectType(unaryOpExpression,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validateValuedExpression_hasCorrectConst(
                     unaryOpExpression, diagnostics, context);
@@ -385,36 +377,29 @@ public class ActionlangValidator extends EObjectValidator {
                 Type operandDataType = unaryOpExpression.getOperand().getType();
 
                 if (unaryOpExpression.getPrototypes().size() == 0) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.ERROR,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "noMatchUnaryOp",
-                                            getObjectLabel(unaryOpExpression,
-                                                    context) }, new Object[] {
-                                            unaryOpExpression,
-                                            ErrorCodeEnum.noMatchUnaryOp,
-                                            operandDataType }, context));
+                    diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "noMatchUnaryOp",
+                                    getObjectLabel(unaryOpExpression,
+                                            context) },
+                            new Object[] { unaryOpExpression,
+                                    ErrorCodeEnum.noMatchUnaryOp,
+                                    operandDataType },
+                            context));
                 }
 
                 if (unaryOpExpression.getPrototypes().size() > 1) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.ERROR,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "ambiguousUnaryOp",
-                                            getObjectLabel(unaryOpExpression,
-                                                    context) }, new Object[] {
-                                            unaryOpExpression,
-                                            ErrorCodeEnum.ambiguousUnaryOp,
-                                            operandDataType, prototypes },
-                                    context));
+                    diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "ambiguousUnaryOp",
+                                    getObjectLabel(unaryOpExpression,
+                                            context) },
+                            new Object[] { unaryOpExpression,
+                                    ErrorCodeEnum.ambiguousUnaryOp,
+                                    operandDataType, prototypes },
+                            context));
                 }
             }
             return false;
@@ -447,8 +432,8 @@ public class ActionlangValidator extends EObjectValidator {
             result &= validate_EveryProxyResolves((EObject) valuedExpression,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_UniqueID((EObject) valuedExpression,
-                    diagnostics, context);
+            result &= validate_UniqueID((EObject) valuedExpression, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique((EObject) valuedExpression,
                     diagnostics, context);
@@ -459,8 +444,8 @@ public class ActionlangValidator extends EObjectValidator {
             result &= validateValuedExpression_hasCorrectType(valuedExpression,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validateValuedExpression_hasCorrectConst(
-                    valuedExpression, diagnostics, context);
+            result &= validateValuedExpression_hasCorrectConst(valuedExpression,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validateValuedExpression_noSideEffectInGuards(
                     valuedExpression, diagnostics, context);
@@ -488,16 +473,15 @@ public class ActionlangValidator extends EObjectValidator {
         }
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
                         new Object[] { "hasIncorrectType",
                                 getObjectLabel(valuedExpression, context) },
                         new Object[] { valuedExpression,
                                 ErrorCodeEnum.hasIncorrectType,
-                                expectedDataType, dataType }, context));
+                                expectedDataType, dataType },
+                        context));
             }
             return false;
         }
@@ -515,15 +499,14 @@ public class ActionlangValidator extends EObjectValidator {
             Map<Object, Object> context) {
         if (!valuedExpression.expectedIsConst() && valuedExpression.isConst()) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
                         new Object[] { "hasIncorrectConst",
                                 getObjectLabel(valuedExpression, context) },
                         new Object[] { valuedExpression,
-                                ErrorCodeEnum.hasIncorrectConst }, context));
+                                ErrorCodeEnum.hasIncorrectConst },
+                        context));
             }
             return false;
         }
@@ -542,15 +525,14 @@ public class ActionlangValidator extends EObjectValidator {
         if (valuedExpression.isInConstantContext()
                 && valuedExpression.hasSideEffect()) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
                         new Object[] { "noSideEffectInGuards",
                                 getObjectLabel(valuedExpression, context) },
                         new Object[] { valuedExpression,
-                                ErrorCodeEnum.noSideEffectInGuards }, context));
+                                ErrorCodeEnum.noSideEffectInGuards },
+                        context));
             }
             return false;
         }
@@ -602,19 +584,24 @@ public class ActionlangValidator extends EObjectValidator {
                     diagnostics, context);
         if (result || diagnostics != null)
             result &= validateValuedExpression_hasCorrectType(
-                    subDataDeclarationReferenceExpression, diagnostics, context);
+                    subDataDeclarationReferenceExpression, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validateValuedExpression_hasCorrectConst(
-                    subDataDeclarationReferenceExpression, diagnostics, context);
+                    subDataDeclarationReferenceExpression, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validateValuedExpression_noSideEffectInGuards(
-                    subDataDeclarationReferenceExpression, diagnostics, context);
+                    subDataDeclarationReferenceExpression, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validateSubDataDeclarationReferenceExpression_dataIsExportedInComponent(
-                    subDataDeclarationReferenceExpression, diagnostics, context);
+                    subDataDeclarationReferenceExpression, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validateSubDataDeclarationReferenceExpression_dataRefInConnectorActionToInvolvedPort(
-                    subDataDeclarationReferenceExpression, diagnostics, context);
+                    subDataDeclarationReferenceExpression, diagnostics,
+                    context);
         return result;
     }
 
@@ -645,13 +632,10 @@ public class ActionlangValidator extends EObjectValidator {
         }
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
-                        new Object[] {
-                                "dataIsExportedInComponent",
+                        new Object[] { "dataIsExportedInComponent",
                                 getObjectLabel(
                                         subDataDeclarationReferenceExpression,
                                         context) },
@@ -691,21 +675,16 @@ public class ActionlangValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "dataRefInConnectorActionToInvolvedPort",
-                                        getObjectLabel(
-                                                subDataDeclarationReferenceExpression,
-                                                context) },
-                                new Object[] {
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "dataRefInConnectorActionToInvolvedPort",
+                                getObjectLabel(
                                         subDataDeclarationReferenceExpression,
-                                        ErrorCodeEnum.dataRefInConnectorActionToInvolvedPort },
-                                context));
+                                        context) },
+                        new Object[] { subDataDeclarationReferenceExpression,
+                                ErrorCodeEnum.dataRefInConnectorActionToInvolvedPort },
+                        context));
             }
             return false;
         }
@@ -721,12 +700,12 @@ public class ActionlangValidator extends EObjectValidator {
             DirectDataDeclarationReferenceExpression directDataDeclarationReferenceExpression,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
         if (!validate_NoCircularContainment(
-                (EObject) directDataDeclarationReferenceExpression,
-                diagnostics, context))
+                (EObject) directDataDeclarationReferenceExpression, diagnostics,
+                context))
             return false;
         boolean result = validate_EveryMultiplicityConforms(
-                (EObject) directDataDeclarationReferenceExpression,
-                diagnostics, context);
+                (EObject) directDataDeclarationReferenceExpression, diagnostics,
+                context);
         if (result || diagnostics != null)
             result &= validate_EveryDataValueConforms(
                     (EObject) directDataDeclarationReferenceExpression,
@@ -799,7 +778,8 @@ public class ActionlangValidator extends EObjectValidator {
             error = true;
 
             // only non nested assignment to zero are allowed outside guards
-            if (directClockDeclarationReferenceExpression.eContainer() instanceof AssignmentExpression) {
+            if (directClockDeclarationReferenceExpression
+                    .eContainer() instanceof AssignmentExpression) {
                 AssignmentExpression assignment = (AssignmentExpression) directClockDeclarationReferenceExpression
                         .eContainer();
 
@@ -818,14 +798,16 @@ public class ActionlangValidator extends EObjectValidator {
                                 .contains(assignment));
                     }
 
-                    if (assignment.getRhs() instanceof DirectIntegerExpression) {
+                    if (assignment
+                            .getRhs() instanceof DirectIntegerExpression) {
                         DirectIntegerExpression rhs = (DirectIntegerExpression) assignment
                                 .getRhs();
 
                         if (rhs.getValue() == 0) {
                             error = false;
                         }
-                    } else if (assignment.getRhs() instanceof DirectFloatExpression) {
+                    } else if (assignment
+                            .getRhs() instanceof DirectFloatExpression) {
                         DirectFloatExpression rhs = (DirectFloatExpression) assignment
                                 .getRhs();
 
@@ -839,21 +821,16 @@ public class ActionlangValidator extends EObjectValidator {
 
         if (error) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.WARNING,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "invalidUseOfClocksInDo",
-                                        getObjectLabel(
-                                                directClockDeclarationReferenceExpression,
-                                                context) },
-                                new Object[] {
-                                        directClockDeclarationReferenceExpression,
-                                        ErrorCodeEnum.invalidUseOfClocksInDo },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "invalidUseOfClocksInDo", getObjectLabel(
+                                directClockDeclarationReferenceExpression,
+                                context) },
+                        new Object[] {
+                                directClockDeclarationReferenceExpression,
+                                ErrorCodeEnum.invalidUseOfClocksInDo },
+                        context));
             }
             return false;
         }
@@ -900,6 +877,9 @@ public class ActionlangValidator extends EObjectValidator {
         if (result || diagnostics != null)
             result &= validateAssignmentExpression_hasCorrectConst(
                     assignmentExpression, diagnostics, context);
+        if (result || diagnostics != null)
+            result &= validateAssignmentExpression_rhsHasNoClock(
+                    assignmentExpression, diagnostics, context);
         return result;
     }
 
@@ -912,35 +892,33 @@ public class ActionlangValidator extends EObjectValidator {
     public boolean validateAssignmentExpression_rhsIsADataDeclarationReference(
             AssignmentExpression assignmentExpression,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
-        boolean ok = (assignmentExpression.getLhs() instanceof DirectDataDeclarationReferenceExpression)
-                || (assignmentExpression.getLhs() instanceof SubDataDeclarationReferenceExpression)
-                || (assignmentExpression.getLhs() instanceof DirectClockDeclarationReferenceExpression)
+        boolean ok = (assignmentExpression
+                .getLhs() instanceof DirectDataDeclarationReferenceExpression)
+                || (assignmentExpression
+                        .getLhs() instanceof SubDataDeclarationReferenceExpression)
+                || (assignmentExpression
+                        .getLhs() instanceof DirectClockDeclarationReferenceExpression)
                 || (assignmentExpression.getLhs() instanceof UnaryOpExpression);
 
         if (assignmentExpression.getLhs() instanceof UnaryOpExpression) {
             UnaryOpExpression unaryExpr = (UnaryOpExpression) assignmentExpression
                     .getLhs();
 
-            ok = ok
-                    && (unaryExpr.getOperand() instanceof DirectClockDeclarationReferenceExpression)
+            ok = ok && (unaryExpr
+                    .getOperand() instanceof DirectClockDeclarationReferenceExpression)
                     && (unaryExpr.getOperator() == UnaryOperators.QUOTE);
         }
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "rhsIsADataDeclarationReference",
-                                        getObjectLabel(assignmentExpression,
-                                                context) }, new Object[] {
-                                        assignmentExpression,
-                                        ErrorCodeEnum.invalidLHSOfAssignment },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "rhsIsADataDeclarationReference",
+                                getObjectLabel(assignmentExpression, context) },
+                        new Object[] { assignmentExpression,
+                                ErrorCodeEnum.invalidLHSOfAssignment },
+                        context));
             }
             return false;
         }
@@ -960,19 +938,39 @@ public class ActionlangValidator extends EObjectValidator {
 
         if (assignmentExpression.getLhs().isConst()) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "hasCorrectConst",
-                                        getObjectLabel(assignmentExpression,
-                                                context) }, new Object[] {
-                                        assignmentExpression.getLhs(),
-                                        ErrorCodeEnum.hasIncorrectConst },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "hasCorrectConst",
+                                getObjectLabel(assignmentExpression, context) },
+                        new Object[] { assignmentExpression.getLhs(),
+                                ErrorCodeEnum.hasIncorrectConst },
+                        context));
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Validates the rhsHasNoClock constraint of '<em>Assignment Expression</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean validateAssignmentExpression_rhsHasNoClock(
+            AssignmentExpression assignmentExpression,
+            DiagnosticChain diagnostics, Map<Object, Object> context) {
+        if (assignmentExpression.getRhs().hasClocks()) {
+            if (diagnostics != null) {
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "rhsHasNoClock",
+                                getObjectLabel(assignmentExpression, context) },
+                        new Object[] { assignmentExpression,
+                                ErrorCodeEnum.rhsHasNoClock },
+                        context));
             }
             return false;
         }
@@ -1062,33 +1060,29 @@ public class ActionlangValidator extends EObjectValidator {
                 }
 
                 if (functionCallExpression.getPrototypes().size() == 0) {
-                    diagnostics.add(createDiagnostic(
-                            Diagnostic.ERROR,
-                            DIAGNOSTIC_SOURCE,
-                            0,
+                    diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                            DIAGNOSTIC_SOURCE, 0,
                             "_UI_GenericConstraint_diagnostic",
-                            new Object[] {
-                                    "noMatchFunctionCall",
+                            new Object[] { "noMatchFunctionCall",
                                     getObjectLabel(functionCallExpression,
-                                            context) }, new Object[] {
-                                    functionCallExpression,
+                                            context) },
+                            new Object[] { functionCallExpression,
                                     ErrorCodeEnum.noMatchFunctionCall,
-                                    parametersTypes }, context));
+                                    parametersTypes },
+                            context));
                 }
 
                 if (functionCallExpression.getPrototypes().size() > 1) {
-                    diagnostics.add(createDiagnostic(
-                            Diagnostic.ERROR,
-                            DIAGNOSTIC_SOURCE,
-                            0,
+                    diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                            DIAGNOSTIC_SOURCE, 0,
                             "_UI_GenericConstraint_diagnostic",
-                            new Object[] {
-                                    "ambiguousFunctionCall",
+                            new Object[] { "ambiguousFunctionCall",
                                     getObjectLabel(functionCallExpression,
-                                            context) }, new Object[] {
-                                    functionCallExpression,
+                                            context) },
+                            new Object[] { functionCallExpression,
                                     ErrorCodeEnum.ambiguousFunctionCall,
-                                    parametersTypes, prototypes }, context));
+                                    parametersTypes, prototypes },
+                            context));
                 }
 
             }
@@ -1110,7 +1104,8 @@ public class ActionlangValidator extends EObjectValidator {
         EObject container = functionCallExpression.eContainer();
 
         if (container instanceof IfThenElseExpression) {
-            if (functionCallExpression.eContainmentFeature().getName() == "condition") {
+            if (functionCallExpression.eContainmentFeature()
+                    .getName() == "condition") {
                 ret = true;
             }
         } else if (container instanceof BinaryOpExpression) {
@@ -1153,20 +1148,16 @@ public class ActionlangValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "matchingFunctionCallWithoutReturnValue",
-                                        getObjectLabel(functionCallExpression,
-                                                context) },
-                                new Object[] {
-                                        functionCallExpression,
-                                        ErrorCodeEnum.matchingFunctionCallWithoutReturnValue,
-                                        matchingPrototype }, context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "matchingFunctionCallWithoutReturnValue",
+                                getObjectLabel(functionCallExpression,
+                                        context) },
+                        new Object[] { functionCallExpression,
+                                ErrorCodeEnum.matchingFunctionCallWithoutReturnValue,
+                                matchingPrototype },
+                        context));
             }
             return false;
         }
@@ -1192,8 +1183,8 @@ public class ActionlangValidator extends EObjectValidator {
     public boolean validateValuedReferenceExpression(
             ValuedReferenceExpression valuedReferenceExpression,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
-        if (!validate_NoCircularContainment(
-                (EObject) valuedReferenceExpression, diagnostics, context))
+        if (!validate_NoCircularContainment((EObject) valuedReferenceExpression,
+                diagnostics, context))
             return false;
         boolean result = validate_EveryMultiplicityConforms(
                 (EObject) valuedReferenceExpression, diagnostics, context);
@@ -1259,8 +1250,8 @@ public class ActionlangValidator extends EObjectValidator {
             result &= validate_UniqueID((EObject) directBooleanExpression,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_EveryKeyUnique(
-                    (EObject) directBooleanExpression, diagnostics, context);
+            result &= validate_EveryKeyUnique((EObject) directBooleanExpression,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique(
                     (EObject) directBooleanExpression, diagnostics, context);
@@ -1317,8 +1308,8 @@ public class ActionlangValidator extends EObjectValidator {
             result &= validate_UniqueID((EObject) directIntegerExpression,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_EveryKeyUnique(
-                    (EObject) directIntegerExpression, diagnostics, context);
+            result &= validate_EveryKeyUnique((EObject) directIntegerExpression,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique(
                     (EObject) directIntegerExpression, diagnostics, context);

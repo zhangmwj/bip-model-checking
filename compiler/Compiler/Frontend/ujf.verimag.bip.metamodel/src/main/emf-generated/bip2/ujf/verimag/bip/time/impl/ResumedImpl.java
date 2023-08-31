@@ -56,10 +56,10 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.time.impl.ResumedImpl#getResume <em>Resume</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -98,6 +98,7 @@ public class ResumedImpl extends AnnotatedEObjectImpl implements Resumed {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Resume getResume() {
         return resume;
     }
@@ -128,6 +129,7 @@ public class ResumedImpl extends AnnotatedEObjectImpl implements Resumed {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setResume(Resume newResume) {
         if (newResume != resume) {
             NotificationChain msgs = null;

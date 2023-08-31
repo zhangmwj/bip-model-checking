@@ -55,16 +55,16 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorInteractionPortReferenceImpl#getPort <em>Port</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class ConnectorInteractionPortReferenceImpl extends
-        ConnectorInteractionDefinitionImpl implements
-        ConnectorInteractionPortReference {
+public class ConnectorInteractionPortReferenceImpl
+        extends ConnectorInteractionDefinitionImpl
+        implements ConnectorInteractionPortReference {
     /**
      * The cached value of the '{@link #getPort() <em>Port</em>}' reference.
      * <!-- begin-user-doc -->
@@ -99,15 +99,14 @@ public class ConnectorInteractionPortReferenceImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorPortParameterDeclaration getPort() {
         if (port != null && ((EObject) port).eIsProxy()) {
             InternalEObject oldPort = (InternalEObject) port;
             port = (ConnectorPortParameterDeclaration) eResolveProxy(oldPort);
             if (port != oldPort) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             ConnectorPackage.CONNECTOR_INTERACTION_PORT_REFERENCE__PORT,
                             oldPort, port));
             }
@@ -129,13 +128,12 @@ public class ConnectorInteractionPortReferenceImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setPort(ConnectorPortParameterDeclaration newPort) {
         ConnectorPortParameterDeclaration oldPort = port;
         port = newPort;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     ConnectorPackage.CONNECTOR_INTERACTION_PORT_REFERENCE__PORT,
                     oldPort, port));
     }

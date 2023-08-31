@@ -52,8 +52,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InvariantFactoryImpl extends EFactoryImpl implements
-        InvariantFactory {
+public class InvariantFactoryImpl extends EFactoryImpl
+        implements InvariantFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -63,7 +63,7 @@ public class InvariantFactoryImpl extends EFactoryImpl implements
     public static InvariantFactory init() {
         try {
             InvariantFactory theInvariantFactory = (InvariantFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/invariant/1.0");
+                    .getEFactory(InvariantPackage.eNS_URI);
             if (theInvariantFactory != null) {
                 return theInvariantFactory;
             }
@@ -104,6 +104,7 @@ public class InvariantFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomInvariant createAtomInvariant() {
         AtomInvariantImpl atomInvariant = new AtomInvariantImpl();
         return atomInvariant;
@@ -114,6 +115,7 @@ public class InvariantFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public InvariantPackage getInvariantPackage() {
         return (InvariantPackage) getEPackage();
     }

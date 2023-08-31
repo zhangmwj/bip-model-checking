@@ -124,8 +124,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InstancePackageImpl extends EPackageImpl implements
-        InstancePackage {
+public class InstancePackageImpl extends EPackageImpl
+        implements InstancePackage {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -231,7 +231,7 @@ public class InstancePackageImpl extends EPackageImpl implements
 
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-     * 
+     *
      * <p>This method is used to initialize {@link InstancePackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
@@ -247,76 +247,105 @@ public class InstancePackageImpl extends EPackageImpl implements
                     .getEPackage(InstancePackage.eNS_URI);
 
         // Obtain or create and register package
-        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
-                .get(eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
-                .get(eNS_URI) : new InstancePackageImpl());
+        Object registeredInstancePackage = EPackage.Registry.INSTANCE
+                .get(eNS_URI);
+        InstancePackageImpl theInstancePackage = registeredInstancePackage instanceof InstancePackageImpl
+                ? (InstancePackageImpl) registeredInstancePackage
+                : new InstancePackageImpl();
 
         isInited = true;
 
         // Obtain or create and register interdependencies
-        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) instanceof Bip2PackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) : Bip2Package.eINSTANCE);
-        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) instanceof UjfPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) : UjfPackage.eINSTANCE);
-        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) instanceof VerimagPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) : VerimagPackage.eINSTANCE);
-        BipPackageImpl theBipPackage = (BipPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) instanceof BipPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) : BipPackage.eINSTANCE);
-        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) instanceof TypesPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) : TypesPackage.eINSTANCE);
-        DataPackageImpl theDataPackage = (DataPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(DataPackage.eNS_URI) instanceof DataPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(DataPackage.eNS_URI) : DataPackage.eINSTANCE);
-        PortPackageImpl thePortPackage = (PortPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) instanceof PortPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) : PortPackage.eINSTANCE);
-        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI) instanceof BehaviorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI)
+        Object registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(Bip2Package.eNS_URI);
+        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (registeredPackage instanceof Bip2PackageImpl
+                ? registeredPackage
+                : Bip2Package.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(UjfPackage.eNS_URI);
+        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (registeredPackage instanceof UjfPackageImpl
+                ? registeredPackage
+                : UjfPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(VerimagPackage.eNS_URI);
+        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (registeredPackage instanceof VerimagPackageImpl
+                ? registeredPackage
+                : VerimagPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BipPackage.eNS_URI);
+        BipPackageImpl theBipPackage = (BipPackageImpl) (registeredPackage instanceof BipPackageImpl
+                ? registeredPackage
+                : BipPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TypesPackage.eNS_URI);
+        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (registeredPackage instanceof TypesPackageImpl
+                ? registeredPackage
+                : TypesPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(DataPackage.eNS_URI);
+        DataPackageImpl theDataPackage = (DataPackageImpl) (registeredPackage instanceof DataPackageImpl
+                ? registeredPackage
+                : DataPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PortPackage.eNS_URI);
+        PortPackageImpl thePortPackage = (PortPackageImpl) (registeredPackage instanceof PortPackageImpl
+                ? registeredPackage
+                : PortPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BehaviorPackage.eNS_URI);
+        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (registeredPackage instanceof BehaviorPackageImpl
+                ? registeredPackage
                 : BehaviorPackage.eINSTANCE);
-        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI) instanceof PriorityPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PriorityPackage.eNS_URI);
+        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (registeredPackage instanceof PriorityPackageImpl
+                ? registeredPackage
                 : PriorityPackage.eINSTANCE);
-        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ConnectorPackage.eNS_URI) instanceof ConnectorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ConnectorPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ConnectorPackage.eNS_URI);
+        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (registeredPackage instanceof ConnectorPackageImpl
+                ? registeredPackage
                 : ConnectorPackage.eINSTANCE);
-        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ComponentPackage.eNS_URI);
+        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (registeredPackage instanceof ComponentPackageImpl
+                ? registeredPackage
                 : ComponentPackage.eINSTANCE);
-        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) instanceof AtomPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) : AtomPackage.eINSTANCE);
-        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI) instanceof CompoundPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AtomPackage.eNS_URI);
+        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (registeredPackage instanceof AtomPackageImpl
+                ? registeredPackage
+                : AtomPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(CompoundPackage.eNS_URI);
+        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (registeredPackage instanceof CompoundPackageImpl
+                ? registeredPackage
                 : CompoundPackage.eINSTANCE);
-        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PackagingPackage.eNS_URI) instanceof PackagingPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PackagingPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PackagingPackage.eNS_URI);
+        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (registeredPackage instanceof PackagingPackageImpl
+                ? registeredPackage
                 : PackagingPackage.eINSTANCE);
-        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ActionlangPackage.eNS_URI) instanceof ActionlangPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ActionlangPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ActionlangPackage.eNS_URI);
+        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (registeredPackage instanceof ActionlangPackageImpl
+                ? registeredPackage
                 : ActionlangPackage.eINSTANCE);
-        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI) instanceof AnnotationPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AnnotationPackage.eNS_URI);
+        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (registeredPackage instanceof AnnotationPackageImpl
+                ? registeredPackage
                 : AnnotationPackage.eINSTANCE);
-        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(InvariantPackage.eNS_URI) instanceof InvariantPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(InvariantPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(InvariantPackage.eNS_URI);
+        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (registeredPackage instanceof InvariantPackageImpl
+                ? registeredPackage
                 : InvariantPackage.eINSTANCE);
-        TimePackageImpl theTimePackage = (TimePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) instanceof TimePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) : TimePackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TimePackage.eNS_URI);
+        TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
+                ? registeredPackage
+                : TimePackage.eINSTANCE);
 
         // Create package meta-data objects
         theInstancePackage.createPackageContents();
@@ -363,6 +392,7 @@ public class InstancePackageImpl extends EPackageImpl implements
         // Register package validator
         EValidator.Registry.INSTANCE.put(theInstancePackage,
                 new EValidator.Descriptor() {
+                    @Override
                     public EValidator getEValidator() {
                         return InstanceValidator.INSTANCE;
                     }
@@ -382,6 +412,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConnectorInstance() {
         return connectorInstanceEClass;
     }
@@ -391,6 +422,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorInstance_Declaration() {
         return (EReference) connectorInstanceEClass.getEStructuralFeatures()
                 .get(0);
@@ -401,6 +433,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorInstance_SubDataInstances() {
         return (EReference) connectorInstanceEClass.getEStructuralFeatures()
                 .get(1);
@@ -411,6 +444,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorInstance_PortParamInstances() {
         return (EReference) connectorInstanceEClass.getEStructuralFeatures()
                 .get(2);
@@ -421,6 +455,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorInstance_ExportedPort() {
         return (EReference) connectorInstanceEClass.getEStructuralFeatures()
                 .get(3);
@@ -431,6 +466,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getPortInstance() {
         return portInstanceEClass;
     }
@@ -440,6 +476,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getPortInstance_Declaration() {
         return (EReference) portInstanceEClass.getEStructuralFeatures().get(0);
     }
@@ -449,6 +486,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getExportedPortInstance() {
         return exportedPortInstanceEClass;
     }
@@ -458,6 +496,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getExportedPortInstance_ReferencedPorts() {
         return (EReference) exportedPortInstanceEClass.getEStructuralFeatures()
                 .get(0);
@@ -468,6 +507,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getAtomInternalPortInstance() {
         return atomInternalPortInstanceEClass;
     }
@@ -477,6 +517,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getAtomInternalPortInstance_DataParamInstances() {
         return (EReference) atomInternalPortInstanceEClass
                 .getEStructuralFeatures().get(0);
@@ -487,6 +528,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getAtomExternalPortInstance() {
         return atomExternalPortInstanceEClass;
     }
@@ -496,6 +538,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getAtomExternalPortInstance_DataParamInstances() {
         return (EReference) atomExternalPortInstanceEClass
                 .getEStructuralFeatures().get(0);
@@ -506,6 +549,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getConnectorPortInstance() {
         return connectorPortInstanceEClass;
     }
@@ -515,9 +559,10 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getConnectorPortInstance_DataParamInstances() {
-        return (EReference) connectorPortInstanceEClass
-                .getEStructuralFeatures().get(0);
+        return (EReference) connectorPortInstanceEClass.getEStructuralFeatures()
+                .get(0);
     }
 
     /**
@@ -525,6 +570,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDataInstance() {
         return dataInstanceEClass;
     }
@@ -534,6 +580,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getDataInstance_Declaration() {
         return (EReference) dataInstanceEClass.getEStructuralFeatures().get(0);
     }
@@ -543,6 +590,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getDataInstance_ProxyLink() {
         return (EReference) dataInstanceEClass.getEStructuralFeatures().get(1);
     }
@@ -552,6 +600,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getCompoundPriorityInstance() {
         return compoundPriorityInstanceEClass;
     }
@@ -561,6 +610,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getCompoundPriorityInstance_Declaration() {
         return (EReference) compoundPriorityInstanceEClass
                 .getEStructuralFeatures().get(0);
@@ -571,6 +621,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getCompoundPriorityInstance_LowConnector() {
         return (EReference) compoundPriorityInstanceEClass
                 .getEStructuralFeatures().get(1);
@@ -581,6 +632,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getCompoundPriorityInstance_HighConnector() {
         return (EReference) compoundPriorityInstanceEClass
                 .getEStructuralFeatures().get(2);
@@ -591,6 +643,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getCompoundPriorityInstance_LowPorts() {
         return (EReference) compoundPriorityInstanceEClass
                 .getEStructuralFeatures().get(3);
@@ -601,6 +654,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getCompoundPriorityInstance_HighPorts() {
         return (EReference) compoundPriorityInstanceEClass
                 .getEStructuralFeatures().get(4);
@@ -611,6 +665,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getAtomInstance() {
         return atomInstanceEClass;
     }
@@ -620,6 +675,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getAtomInstance_SubDataInstances() {
         return (EReference) atomInstanceEClass.getEStructuralFeatures().get(0);
     }
@@ -629,6 +685,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getAtomInstance_InternalPorts() {
         return (EReference) atomInstanceEClass.getEStructuralFeatures().get(1);
     }
@@ -638,6 +695,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getAtomInstance_ExternalPorts() {
         return (EReference) atomInstanceEClass.getEStructuralFeatures().get(2);
     }
@@ -647,6 +705,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getCompoundInstance() {
         return compoundInstanceEClass;
     }
@@ -656,6 +715,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getCompoundInstance_SubPriorities() {
         return (EReference) compoundInstanceEClass.getEStructuralFeatures()
                 .get(0);
@@ -666,6 +726,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getCompoundInstance_SubConnectorInstances() {
         return (EReference) compoundInstanceEClass.getEStructuralFeatures()
                 .get(1);
@@ -676,6 +737,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getCompoundInstance_SubAtomInstances() {
         return (EReference) compoundInstanceEClass.getEStructuralFeatures()
                 .get(2);
@@ -686,6 +748,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getCompoundInstance_SubCompoundInstances() {
         return (EReference) compoundInstanceEClass.getEStructuralFeatures()
                 .get(3);
@@ -696,6 +759,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getCompoundInstance_SubDataInstances() {
         return (EReference) compoundInstanceEClass.getEStructuralFeatures()
                 .get(4);
@@ -706,6 +770,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getComponentInstance() {
         return componentInstanceEClass;
     }
@@ -715,6 +780,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getComponentInstance_Declaration() {
         return (EReference) componentInstanceEClass.getEStructuralFeatures()
                 .get(0);
@@ -725,6 +791,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getComponentInstance_ExportedPorts() {
         return (EReference) componentInstanceEClass.getEStructuralFeatures()
                 .get(1);
@@ -735,6 +802,7 @@ public class InstancePackageImpl extends EPackageImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public InstanceFactory getInstanceFactory() {
         return (InstanceFactory) getEFactoryInstance();
     }
@@ -773,7 +841,8 @@ public class InstancePackageImpl extends EPackageImpl implements
         createEReference(dataInstanceEClass, DATA_INSTANCE__DECLARATION);
         createEReference(dataInstanceEClass, DATA_INSTANCE__PROXY_LINK);
 
-        compoundPriorityInstanceEClass = createEClass(COMPOUND_PRIORITY_INSTANCE);
+        compoundPriorityInstanceEClass = createEClass(
+                COMPOUND_PRIORITY_INSTANCE);
         createEReference(compoundPriorityInstanceEClass,
                 COMPOUND_PRIORITY_INSTANCE__DECLARATION);
         createEReference(compoundPriorityInstanceEClass,
@@ -815,11 +884,13 @@ public class InstancePackageImpl extends EPackageImpl implements
         createEReference(exportedPortInstanceEClass,
                 EXPORTED_PORT_INSTANCE__REFERENCED_PORTS);
 
-        atomInternalPortInstanceEClass = createEClass(ATOM_INTERNAL_PORT_INSTANCE);
+        atomInternalPortInstanceEClass = createEClass(
+                ATOM_INTERNAL_PORT_INSTANCE);
         createEReference(atomInternalPortInstanceEClass,
                 ATOM_INTERNAL_PORT_INSTANCE__DATA_PARAM_INSTANCES);
 
-        atomExternalPortInstanceEClass = createEClass(ATOM_EXTERNAL_PORT_INSTANCE);
+        atomExternalPortInstanceEClass = createEClass(
+                ATOM_EXTERNAL_PORT_INSTANCE);
         createEReference(atomExternalPortInstanceEClass,
                 ATOM_EXTERNAL_PORT_INSTANCE__DATA_PARAM_INSTANCES);
 
@@ -873,10 +944,10 @@ public class InstancePackageImpl extends EPackageImpl implements
         compoundInstanceEClass.getESuperTypes()
                 .add(this.getComponentInstance());
         exportedPortInstanceEClass.getESuperTypes().add(this.getPortInstance());
-        atomInternalPortInstanceEClass.getESuperTypes().add(
-                this.getPortInstance());
-        atomExternalPortInstanceEClass.getESuperTypes().add(
-                this.getPortInstance());
+        atomInternalPortInstanceEClass.getESuperTypes()
+                .add(this.getPortInstance());
+        atomExternalPortInstanceEClass.getESuperTypes()
+                .add(this.getPortInstance());
         connectorPortInstanceEClass.getESuperTypes()
                 .add(this.getPortInstance());
 
@@ -896,8 +967,8 @@ public class InstancePackageImpl extends EPackageImpl implements
                 IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getConnectorInstance_PortParamInstances(),
-                this.getPortInstance(), null, "portParamInstances", null, 0,
-                -1, ConnectorInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
+                this.getPortInstance(), null, "portParamInstances", null, 0, -1,
+                ConnectorInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
                 IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getConnectorInstance_ExportedPort(),
@@ -963,13 +1034,13 @@ public class InstancePackageImpl extends EPackageImpl implements
                 IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
         initEReference(getAtomInstance_InternalPorts(),
-                this.getAtomInternalPortInstance(), null, "internalPorts",
-                null, 0, -1, AtomInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
+                this.getAtomInternalPortInstance(), null, "internalPorts", null,
+                0, -1, AtomInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
                 IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getAtomInstance_ExternalPorts(),
-                this.getAtomExternalPortInstance(), null, "externalPorts",
-                null, 0, -1, AtomInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
+                this.getAtomExternalPortInstance(), null, "externalPorts", null,
+                0, -1, AtomInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
                 IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -988,9 +1059,9 @@ public class InstancePackageImpl extends EPackageImpl implements
                 "CompoundInstance", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
         initEReference(getCompoundInstance_SubPriorities(),
-                this.getCompoundPriorityInstance(), null, "subPriorities",
-                null, 0, -1, CompoundInstance.class, !IS_TRANSIENT,
-                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                this.getCompoundPriorityInstance(), null, "subPriorities", null,
+                0, -1, CompoundInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCompoundInstance_SubConnectorInstances(),
                 this.getConnectorInstance(), null, "subConnectorInstances",
@@ -1086,26 +1157,26 @@ public class InstancePackageImpl extends EPackageImpl implements
                 AtomInternalPortInstance.class, "AtomInternalPortInstance",
                 !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getAtomInternalPortInstance_DataParamInstances(),
-                this.getDataInstance(), null, "dataParamInstances", null, 0,
-                -1, AtomInternalPortInstance.class, !IS_TRANSIENT,
-                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                this.getDataInstance(), null, "dataParamInstances", null, 0, -1,
+                AtomInternalPortInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(atomExternalPortInstanceEClass,
                 AtomExternalPortInstance.class, "AtomExternalPortInstance",
                 !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getAtomExternalPortInstance_DataParamInstances(),
-                this.getDataInstance(), null, "dataParamInstances", null, 0,
-                -1, AtomExternalPortInstance.class, !IS_TRANSIENT,
-                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                this.getDataInstance(), null, "dataParamInstances", null, 0, -1,
+                AtomExternalPortInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectorPortInstanceEClass, ConnectorPortInstance.class,
                 "ConnectorPortInstance", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
         initEReference(getConnectorPortInstance_DataParamInstances(),
-                this.getDataInstance(), null, "dataParamInstances", null, 0,
-                -1, ConnectorPortInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
+                this.getDataInstance(), null, "dataParamInstances", null, 0, -1,
+                ConnectorPortInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
                 IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1122,9 +1193,9 @@ public class InstancePackageImpl extends EPackageImpl implements
      */
     protected void createEcoreAnnotations() {
         String source = "http://www.eclipse.org/emf/2002/Ecore";
-        addAnnotation(connectorInstanceEClass, source, new String[] {
-                "constraints",
-                "connectorDoesNotBindTheSameComponentMoreThanOnce" });
+        addAnnotation(connectorInstanceEClass, source,
+                new String[] { "constraints",
+                        "connectorDoesNotBindTheSameComponentMoreThanOnce" });
     }
 
 } //InstancePackageImpl

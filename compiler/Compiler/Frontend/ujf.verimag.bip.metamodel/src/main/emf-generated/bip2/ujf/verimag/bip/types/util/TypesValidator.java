@@ -44,6 +44,7 @@ import bip2.ujf.verimag.bip.actionlang.FunctionCallExpression;
 import bip2.ujf.verimag.bip.actionlang.UnaryOpExpression;
 import bip2.ujf.verimag.bip.actionlang.ValuedExpression;
 import bip2.ujf.verimag.bip.component.atom.AtomInternalPortDeclaration;
+import bip2.ujf.verimag.bip.component.ComponentDeclaration;
 import bip2.ujf.verimag.bip.component.atom.AtomInternalDataDeclaration;
 import bip2.ujf.verimag.bip.connector.ConnectorDataDeclaration;
 import bip2.ujf.verimag.bip.connector.ConnectorDeclaration;
@@ -245,8 +246,8 @@ public class TypesValidator extends EObjectValidator {
         boolean ok = true;
 
         // checks internal list is a superset of exported list
-        ok = atomType.getInternalDataDeclarations().containsAll(
-                atomType.getExportedDataDeclarations());
+        ok = atomType.getInternalDataDeclarations()
+                .containsAll(atomType.getExportedDataDeclarations());
 
         // checks that all internal ports marked as exported are in the exported list
         if (ok) {
@@ -262,19 +263,15 @@ public class TypesValidator extends EObjectValidator {
         }
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "InternalDataSynchronizedWithExportedData",
-                                        getObjectLabel(atomType, context) },
-                                new Object[] {
-                                        atomType,
-                                        ErrorCodeEnum.InternalDataSynchronizedWithExportedData },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] {
+                                "InternalDataSynchronizedWithExportedData",
+                                getObjectLabel(atomType, context) },
+                        new Object[] { atomType,
+                                ErrorCodeEnum.InternalDataSynchronizedWithExportedData },
+                        context));
             }
             return false;
         }
@@ -322,19 +319,14 @@ public class TypesValidator extends EObjectValidator {
                     else
                         level = Diagnostic.ERROR;
 
-                    diagnostics
-                            .add(createDiagnostic(
-                                    level,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "checkForCyclesInPrioritiesInAtom",
-                                            getObjectLabel(atomType, context) },
-                                    new Object[] {
-                                            entry.getKey(),
-                                            ErrorCodeEnum.checkForCyclesInPrioritiesInAtom,
-                                            cycle }, context));
+                    diagnostics.add(createDiagnostic(level, DIAGNOSTIC_SOURCE,
+                            0, "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "checkForCyclesInPrioritiesInAtom",
+                                    getObjectLabel(atomType, context) },
+                            new Object[] { entry.getKey(),
+                                    ErrorCodeEnum.checkForCyclesInPrioritiesInAtom,
+                                    cycle },
+                            context));
                 }
             }
             return false;
@@ -376,18 +368,14 @@ public class TypesValidator extends EObjectValidator {
         if (!errors.isEmpty()) {
             if (diagnostics != null) {
                 for (DirectDataDeclarationReferenceExpression ref : errors) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] { "",
-                                            getObjectLabel(ref, context) },
-                                    new Object[] {
-                                            ref,
-                                            ErrorCodeEnum.uninitializedVariableInAtomInternalDataDeclaration,
-                                            ref }, context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "", getObjectLabel(ref, context) },
+                            new Object[] { ref,
+                                    ErrorCodeEnum.uninitializedVariableInAtomInternalDataDeclaration,
+                                    ref },
+                            context));
                 }
             }
             return false;
@@ -451,8 +439,8 @@ public class TypesValidator extends EObjectValidator {
      */
     public boolean validateCompoundType(CompoundType compoundType,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
-        if (!validate_NoCircularContainment((EObject) compoundType,
-                diagnostics, context))
+        if (!validate_NoCircularContainment((EObject) compoundType, diagnostics,
+                context))
             return false;
         boolean result = validate_EveryMultiplicityConforms(
                 (EObject) compoundType, diagnostics, context);
@@ -460,8 +448,8 @@ public class TypesValidator extends EObjectValidator {
             result &= validate_EveryDataValueConforms((EObject) compoundType,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_EveryReferenceIsContained(
-                    (EObject) compoundType, diagnostics, context);
+            result &= validate_EveryReferenceIsContained((EObject) compoundType,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryBidirectionalReferenceIsPaired(
                     (EObject) compoundType, diagnostics, context);
@@ -486,6 +474,9 @@ public class TypesValidator extends EObjectValidator {
         if (result || diagnostics != null)
             result &= validateCompoundType_checkForCyclesInPrioritiesInCompound(
                     compoundType, diagnostics, context);
+        if (result || diagnostics != null)
+            result &= validateCompoundType_noCompoundDeclarationInCompound(
+                    compoundType, diagnostics, context);
         return result;
     }
 
@@ -501,18 +492,17 @@ public class TypesValidator extends EObjectValidator {
         boolean ok = true;
 
         // check inclusion in both ways
-        ok = compoundType.getExportedPortDeclarations().containsAll(
-                compoundType.getExportPortDeclarations());
-        ok = ok
-                && compoundType.getExportPortDeclarations().containsAll(
-                        compoundType.getExportedPortDeclarations());
+        ok = compoundType.getExportedPortDeclarations()
+                .containsAll(compoundType.getExportPortDeclarations());
+        ok = ok && compoundType.getExportPortDeclarations()
+                .containsAll(compoundType.getExportedPortDeclarations());
 
         if (!ok) {
             if (diagnostics != null) {
                 diagnostics.add(createDiagnostic(Diagnostic.ERROR,
                         DIAGNOSTIC_SOURCE, 0,
-                        "_UI_GenericConstraint_diagnostic", new Object[] {
-                                "exportedPortsListsSynchronized",
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "exportedPortsListsSynchronized",
                                 getObjectLabel(compoundType, context) },
                         new Object[] { compoundType,
                                 ErrorCodeEnum.exportedPortsListsSynchronized },
@@ -535,18 +525,17 @@ public class TypesValidator extends EObjectValidator {
         boolean ok = true;
 
         // check inclusion in both ways
-        ok = compoundType.getExportedDataDeclarations().containsAll(
-                compoundType.getExportDataDeclarations());
-        ok = ok
-                && compoundType.getExportDataDeclarations().containsAll(
-                        compoundType.getExportedDataDeclarations());
+        ok = compoundType.getExportedDataDeclarations()
+                .containsAll(compoundType.getExportDataDeclarations());
+        ok = ok && compoundType.getExportDataDeclarations()
+                .containsAll(compoundType.getExportedDataDeclarations());
 
         if (!ok) {
             if (diagnostics != null) {
                 diagnostics.add(createDiagnostic(Diagnostic.ERROR,
                         DIAGNOSTIC_SOURCE, 0,
-                        "_UI_GenericConstraint_diagnostic", new Object[] {
-                                "exportedDataListsSynchronized",
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "exportedDataListsSynchronized",
                                 getObjectLabel(compoundType, context) },
                         new Object[] { compoundType,
                                 ErrorCodeEnum.exportedDataListsSynchronized },
@@ -582,10 +571,12 @@ public class TypesValidator extends EObjectValidator {
                             .getPortDeclarationReferences()) {
                         if (portRef.getComponentDeclaration() == targetPortRef
                                 .getComponentDeclaration()
-                                && portRef.getConnectorDeclaration() == targetPortRef
-                                        .getConnectorDeclaration()
-                                && portRef.getForwardPortDeclaration() == targetPortRef
-                                        .getForwardPortDeclaration()) {
+                                && portRef
+                                        .getConnectorDeclaration() == targetPortRef
+                                                .getConnectorDeclaration()
+                                && portRef
+                                        .getForwardPortDeclaration() == targetPortRef
+                                                .getForwardPortDeclaration()) {
                             found = true;
                             break;
                         }
@@ -844,8 +835,8 @@ public class TypesValidator extends EObjectValidator {
             for (AnnotatedEObject successor : successors) {
                 if (path.contains(successor)) {
                     // new cycle found
-                    List<AnnotatedEObject> cycle = path.subList(
-                            path.indexOf(successor), path.size());
+                    List<AnnotatedEObject> cycle = path
+                            .subList(path.indexOf(successor), path.size());
                     ret.add(cycle);
                 } else {
                     List<AnnotatedEObject> updatedPath = new ArrayList<AnnotatedEObject>();
@@ -996,7 +987,8 @@ public class TypesValidator extends EObjectValidator {
             Map<Object, Object> context) {
         PriorityGraph compoundPriorityGraph = new CompoundPriorityGraph(
                 compoundType);
-        Set<List<AnnotatedEObject>> allCycles = getAllCycles(compoundPriorityGraph);
+        Set<List<AnnotatedEObject>> allCycles = getAllCycles(
+                compoundPriorityGraph);
 
         Map<CompoundPriorityDeclaration, List<AnnotatedEObject>> errors = new HashMap<CompoundPriorityDeclaration, List<AnnotatedEObject>>();
 
@@ -1030,12 +1022,14 @@ public class TypesValidator extends EObjectValidator {
 
                     boolean priorityContradictMaximalProgress = false;
 
-                    if (priority.getLow() != null && priority.getHigh() != null) {
-                        if (isIncludedIn(priority.getHigh(), priority.getLow())) {
-                            if (priority.getLow()
-                                    .getPortDeclarationReferences().size() > priority
-                                    .getHigh().getPortDeclarationReferences()
-                                    .size()) {
+                    if (priority.getLow() != null
+                            && priority.getHigh() != null) {
+                        if (isIncludedIn(priority.getHigh(),
+                                priority.getLow())) {
+                            if (priority.getLow().getPortDeclarationReferences()
+                                    .size() > priority.getHigh()
+                                            .getPortDeclarationReferences()
+                                            .size()) {
                                 priorityContradictMaximalProgress = true;
 
                                 // since we keep cycles of minimal size (according to keep())
@@ -1047,37 +1041,60 @@ public class TypesValidator extends EObjectValidator {
                     }
 
                     if (priorityContradictMaximalProgress) {
-                        diagnostics
-                                .add(createDiagnostic(
-                                        level,
-                                        DIAGNOSTIC_SOURCE,
-                                        0,
-                                        "_UI_GenericConstraint_diagnostic",
-                                        new Object[] {
-                                                "priorityContradictMaximalProgress",
-                                                getObjectLabel(compoundType,
-                                                        context) },
-                                        new Object[] {
-                                                priority,
-                                                ErrorCodeEnum.priorityContradictMaximalProgress },
-                                        context));
+                        diagnostics.add(createDiagnostic(level,
+                                DIAGNOSTIC_SOURCE, 0,
+                                "_UI_GenericConstraint_diagnostic",
+                                new Object[] {
+                                        "priorityContradictMaximalProgress",
+                                        getObjectLabel(compoundType, context) },
+                                new Object[] { priority,
+                                        ErrorCodeEnum.priorityContradictMaximalProgress },
+                                context));
                     } else {
-                        diagnostics
-                                .add(createDiagnostic(
-                                        level,
-                                        DIAGNOSTIC_SOURCE,
-                                        0,
-                                        "_UI_GenericConstraint_diagnostic",
-                                        new Object[] {
-                                                "checkForCyclesInPrioritiesInCompound",
-                                                getObjectLabel(compoundType,
-                                                        context) },
-                                        new Object[] {
-                                                priority,
-                                                ErrorCodeEnum.checkForCyclesInPrioritiesInCompound,
-                                                cycle }, context));
+                        diagnostics.add(createDiagnostic(level,
+                                DIAGNOSTIC_SOURCE, 0,
+                                "_UI_GenericConstraint_diagnostic",
+                                new Object[] {
+                                        "checkForCyclesInPrioritiesInCompound",
+                                        getObjectLabel(compoundType, context) },
+                                new Object[] { priority,
+                                        ErrorCodeEnum.checkForCyclesInPrioritiesInCompound,
+                                        cycle },
+                                context));
                     }
                 }
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Validates the noCompoundDeclarationInCompound constraint of '<em>Compound Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean validateCompoundType_noCompoundDeclarationInCompound(
+            CompoundType compoundType, DiagnosticChain diagnostics,
+            Map<Object, Object> context) {
+        boolean ok = true;
+        for (ComponentDeclaration c : compoundType.getComponentDeclarations()) {
+            if (c.getType() instanceof CompoundType) {
+                ok = false;
+                break;
+            }
+        }
+        if (!ok) {
+            if (diagnostics != null) {
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "noCompoundDeclarationInCompound",
+                                getObjectLabel(compoundType, context) },
+                        new Object[] { compoundType,
+                                ErrorCodeEnum.noCompoundDeclarationInCompound },
+                        context));
             }
             return false;
         }
@@ -1160,19 +1177,14 @@ public class TypesValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.WARNING,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "interactionDefinedIfExportPortWithData",
-                                        getObjectLabel(connectorType, context) },
-                                new Object[] {
-                                        connectorType,
-                                        ErrorCodeEnum.interactionDefinedIfExportPortWithData },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "interactionDefinedIfExportPortWithData",
+                                getObjectLabel(connectorType, context) },
+                        new Object[] { connectorType,
+                                ErrorCodeEnum.interactionDefinedIfExportPortWithData },
+                        context));
             }
             return false;
         }
@@ -1246,19 +1258,14 @@ public class TypesValidator extends EObjectValidator {
         boolean ok = !empty;
         if (!ok && diagnostics != null) {
             for (ConnectorInteractionAction cia : faulty_down) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.WARNING,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "checkDownWhenNoDataInConnectorPort",
-                                        getObjectLabel(connectorType, context) },
-                                new Object[] {
-                                        cia,
-                                        ErrorCodeEnum.checkDownWhenNoDataInConnectorPort },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "checkDownWhenNoDataInConnectorPort",
+                                getObjectLabel(connectorType, context) },
+                        new Object[] { cia,
+                                ErrorCodeEnum.checkDownWhenNoDataInConnectorPort },
+                        context));
             }
         }
         return ok;
@@ -1335,8 +1342,8 @@ public class TypesValidator extends EObjectValidator {
     public boolean validateConnectorType_missingInteractionIfExportPortWithData(
             ConnectorType connectorType, DiagnosticChain diagnostics,
             Map<Object, Object> context) {
-        int interactions = countDefinedInteractions(connectorType
-                .getInteractionDefinition());
+        int interactions = countDefinedInteractions(
+                connectorType.getInteractionDefinition());
         boolean ok = true;
 
         boolean hasExportPortWithData = false;
@@ -1353,19 +1360,13 @@ public class TypesValidator extends EObjectValidator {
         ok = !(hasExportPortWithData && !hasAllInteractionsOrNoInteraction);
 
         if (!ok && diagnostics != null) {
-            diagnostics
-                    .add(createDiagnostic(
-                            Diagnostic.WARNING,
-                            DIAGNOSTIC_SOURCE,
-                            0,
-                            "_UI_GenericConstraint_diagnostic",
-                            new Object[] {
-                                    "missingInteractionIfExportPortWithData",
-                                    getObjectLabel(connectorType, context) },
-                            new Object[] {
-                                    connectorType,
-                                    ErrorCodeEnum.missingInteractionIfExportPortWithData },
-                            context));
+            diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                    DIAGNOSTIC_SOURCE, 0, "_UI_GenericConstraint_diagnostic",
+                    new Object[] { "missingInteractionIfExportPortWithData",
+                            getObjectLabel(connectorType, context) },
+                    new Object[] { connectorType,
+                            ErrorCodeEnum.missingInteractionIfExportPortWithData },
+                    context));
         }
         return ok;
     }
@@ -1404,18 +1405,14 @@ public class TypesValidator extends EObjectValidator {
         if (!errors.isEmpty()) {
             if (diagnostics != null) {
                 for (DirectDataDeclarationReferenceExpression ref : errors) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] { "",
-                                            getObjectLabel(ref, context) },
-                                    new Object[] {
-                                            ref,
-                                            ErrorCodeEnum.uninitializedVariableInConnectorDataDeclaration,
-                                            ref }, context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "", getObjectLabel(ref, context) },
+                            new Object[] { ref,
+                                    ErrorCodeEnum.uninitializedVariableInConnectorDataDeclaration,
+                                    ref },
+                            context));
                 }
             }
             return false;
@@ -1439,8 +1436,8 @@ public class TypesValidator extends EObjectValidator {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean validateBipType(BipType bipType,
-            DiagnosticChain diagnostics, Map<Object, Object> context) {
+    public boolean validateBipType(BipType bipType, DiagnosticChain diagnostics,
+            Map<Object, Object> context) {
         return validate_EveryDefaultConstraint((EObject) bipType, diagnostics,
                 context);
     }

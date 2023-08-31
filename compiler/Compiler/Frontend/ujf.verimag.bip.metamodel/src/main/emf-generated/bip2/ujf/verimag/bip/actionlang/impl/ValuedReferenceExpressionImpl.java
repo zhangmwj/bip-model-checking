@@ -61,10 +61,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.ValuedReferenceExpressionImpl#getExpressionReference <em>Expression Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -104,16 +104,16 @@ public class ValuedReferenceExpressionImpl extends ValuedExpressionImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getExpressionReference() {
         if (expressionReference != null
                 && ((EObject) expressionReference).eIsProxy()) {
             InternalEObject oldExpressionReference = (InternalEObject) expressionReference;
-            expressionReference = (ValuedExpression) eResolveProxy(oldExpressionReference);
+            expressionReference = (ValuedExpression) eResolveProxy(
+                    oldExpressionReference);
             if (expressionReference != oldExpressionReference) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             ActionlangPackage.VALUED_REFERENCE_EXPRESSION__EXPRESSION_REFERENCE,
                             oldExpressionReference, expressionReference));
             }
@@ -135,13 +135,13 @@ public class ValuedReferenceExpressionImpl extends ValuedExpressionImpl
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setExpressionReference(ValuedExpression newExpressionReference) {
+    @Override
+    public void setExpressionReference(
+            ValuedExpression newExpressionReference) {
         ValuedExpression oldExpressionReference = expressionReference;
         expressionReference = newExpressionReference;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     ActionlangPackage.VALUED_REFERENCE_EXPRESSION__EXPRESSION_REFERENCE,
                     oldExpressionReference, expressionReference));
     }

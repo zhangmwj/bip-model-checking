@@ -80,6 +80,7 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.CompoundInstanceImpl#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.CompoundInstanceImpl#getExportedPorts <em>Exported Ports</em>}</li>
@@ -89,12 +90,11 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.CompoundInstanceImpl#getSubCompoundInstances <em>Sub Compound Instances</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.CompoundInstanceImpl#getSubDataInstances <em>Sub Data Instances</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
-        CompoundInstance {
+public class CompoundInstanceImpl extends AnnotatedEObjectImpl
+        implements CompoundInstance {
     /**
      * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' reference.
      * <!-- begin-user-doc -->
@@ -189,6 +189,7 @@ public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ComponentDeclaration getDeclaration() {
         if (declaration != null && ((EObject) declaration).eIsProxy()) {
             InternalEObject oldDeclaration = (InternalEObject) declaration;
@@ -217,6 +218,7 @@ public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDeclaration(ComponentDeclaration newDeclaration) {
         ComponentDeclaration oldDeclaration = declaration;
         declaration = newDeclaration;
@@ -231,6 +233,7 @@ public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ExportedPortInstance> getExportedPorts() {
         if (exportedPorts == null) {
             exportedPorts = new EObjectContainmentEList<ExportedPortInstance>(
@@ -245,6 +248,7 @@ public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<CompoundPriorityInstance> getSubPriorities() {
         if (subPriorities == null) {
             subPriorities = new EObjectContainmentEList<CompoundPriorityInstance>(
@@ -259,6 +263,7 @@ public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ConnectorInstance> getSubConnectorInstances() {
         if (subConnectorInstances == null) {
             subConnectorInstances = new EObjectContainmentEList<ConnectorInstance>(
@@ -273,6 +278,7 @@ public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomInstance> getSubAtomInstances() {
         if (subAtomInstances == null) {
             subAtomInstances = new EObjectContainmentEList<AtomInstance>(
@@ -287,6 +293,7 @@ public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<CompoundInstance> getSubCompoundInstances() {
         if (subCompoundInstances == null) {
             subCompoundInstances = new EObjectContainmentEList<CompoundInstance>(
@@ -301,6 +308,7 @@ public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataInstance> getSubDataInstances() {
         if (subDataInstances == null) {
             subDataInstances = new EObjectContainmentEList<DataInstance>(
@@ -425,23 +433,23 @@ public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case InstancePackage.COMPOUND_INSTANCE__EXPORTED_PORTS:
-            return ((InternalEList<?>) getExportedPorts()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getExportedPorts()).basicRemove(otherEnd,
+                    msgs);
         case InstancePackage.COMPOUND_INSTANCE__SUB_PRIORITIES:
-            return ((InternalEList<?>) getSubPriorities()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getSubPriorities()).basicRemove(otherEnd,
+                    msgs);
         case InstancePackage.COMPOUND_INSTANCE__SUB_CONNECTOR_INSTANCES:
-            return ((InternalEList<?>) getSubConnectorInstances()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getSubConnectorInstances())
+                    .basicRemove(otherEnd, msgs);
         case InstancePackage.COMPOUND_INSTANCE__SUB_ATOM_INSTANCES:
-            return ((InternalEList<?>) getSubAtomInstances()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getSubAtomInstances())
+                    .basicRemove(otherEnd, msgs);
         case InstancePackage.COMPOUND_INSTANCE__SUB_COMPOUND_INSTANCES:
-            return ((InternalEList<?>) getSubCompoundInstances()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getSubCompoundInstances())
+                    .basicRemove(otherEnd, msgs);
         case InstancePackage.COMPOUND_INSTANCE__SUB_DATA_INSTANCES:
-            return ((InternalEList<?>) getSubDataInstances()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getSubDataInstances())
+                    .basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -498,23 +506,23 @@ public class CompoundInstanceImpl extends AnnotatedEObjectImpl implements
             return;
         case InstancePackage.COMPOUND_INSTANCE__SUB_CONNECTOR_INSTANCES:
             getSubConnectorInstances().clear();
-            getSubConnectorInstances().addAll(
-                    (Collection<? extends ConnectorInstance>) newValue);
+            getSubConnectorInstances()
+                    .addAll((Collection<? extends ConnectorInstance>) newValue);
             return;
         case InstancePackage.COMPOUND_INSTANCE__SUB_ATOM_INSTANCES:
             getSubAtomInstances().clear();
-            getSubAtomInstances().addAll(
-                    (Collection<? extends AtomInstance>) newValue);
+            getSubAtomInstances()
+                    .addAll((Collection<? extends AtomInstance>) newValue);
             return;
         case InstancePackage.COMPOUND_INSTANCE__SUB_COMPOUND_INSTANCES:
             getSubCompoundInstances().clear();
-            getSubCompoundInstances().addAll(
-                    (Collection<? extends CompoundInstance>) newValue);
+            getSubCompoundInstances()
+                    .addAll((Collection<? extends CompoundInstance>) newValue);
             return;
         case InstancePackage.COMPOUND_INSTANCE__SUB_DATA_INSTANCES:
             getSubDataInstances().clear();
-            getSubDataInstances().addAll(
-                    (Collection<? extends DataInstance>) newValue);
+            getSubDataInstances()
+                    .addAll((Collection<? extends DataInstance>) newValue);
             return;
         }
         super.eSet(featureID, newValue);

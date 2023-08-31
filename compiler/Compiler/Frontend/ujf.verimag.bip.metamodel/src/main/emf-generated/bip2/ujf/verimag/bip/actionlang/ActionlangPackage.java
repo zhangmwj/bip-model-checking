@@ -175,7 +175,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BINARY_OP_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT + 3;
+    int BINARY_OP_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT
+            + 3;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.actionlang.impl.UnaryOpExpressionImpl <em>Unary Op Expression</em>}' class.
@@ -231,7 +232,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SUB_DATA_DECLARATION_REFERENCE_EXPRESSION__SUB_DATA_DECLARATION_REF = VALUED_EXPRESSION_FEATURE_COUNT + 0;
+    int SUB_DATA_DECLARATION_REFERENCE_EXPRESSION__SUB_DATA_DECLARATION_REF = VALUED_EXPRESSION_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Sub Data Declaration Reference Expression</em>' class.
@@ -240,7 +242,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SUB_DATA_DECLARATION_REFERENCE_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT + 1;
+    int SUB_DATA_DECLARATION_REFERENCE_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.actionlang.impl.DirectDataDeclarationReferenceExpressionImpl <em>Direct Data Declaration Reference Expression</em>}' class.
@@ -259,7 +262,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DIRECT_DATA_DECLARATION_REFERENCE_EXPRESSION__DATA_DECLARATION = VALUED_EXPRESSION_FEATURE_COUNT + 0;
+    int DIRECT_DATA_DECLARATION_REFERENCE_EXPRESSION__DATA_DECLARATION = VALUED_EXPRESSION_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Direct Data Declaration Reference Expression</em>' class.
@@ -268,7 +272,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DIRECT_DATA_DECLARATION_REFERENCE_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT + 1;
+    int DIRECT_DATA_DECLARATION_REFERENCE_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.actionlang.impl.AssignmentExpressionImpl <em>Assignment Expression</em>}' class.
@@ -324,7 +329,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FUNCTION_CALL_EXPRESSION__PARAMETERS = VALUED_EXPRESSION_FEATURE_COUNT + 0;
+    int FUNCTION_CALL_EXPRESSION__PARAMETERS = VALUED_EXPRESSION_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Function Name</b></em>' attribute.
@@ -333,7 +339,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FUNCTION_CALL_EXPRESSION__FUNCTION_NAME = VALUED_EXPRESSION_FEATURE_COUNT + 1;
+    int FUNCTION_CALL_EXPRESSION__FUNCTION_NAME = VALUED_EXPRESSION_FEATURE_COUNT
+            + 1;
 
     /**
      * The number of structural features of the '<em>Function Call Expression</em>' class.
@@ -342,7 +349,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FUNCTION_CALL_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT + 2;
+    int FUNCTION_CALL_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT
+            + 2;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.actionlang.impl.ValuedReferenceExpressionImpl <em>Valued Reference Expression</em>}' class.
@@ -361,7 +369,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int VALUED_REFERENCE_EXPRESSION__EXPRESSION_REFERENCE = VALUED_EXPRESSION_FEATURE_COUNT + 0;
+    int VALUED_REFERENCE_EXPRESSION__EXPRESSION_REFERENCE = VALUED_EXPRESSION_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Valued Reference Expression</em>' class.
@@ -370,7 +379,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int VALUED_REFERENCE_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT + 1;
+    int VALUED_REFERENCE_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.actionlang.impl.DirectBooleanExpressionImpl <em>Direct Boolean Expression</em>}' class.
@@ -398,7 +408,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DIRECT_BOOLEAN_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT + 1;
+    int DIRECT_BOOLEAN_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.actionlang.impl.IfThenElseExpressionImpl <em>If Then Else Expression</em>}' class.
@@ -472,7 +483,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DIRECT_INTEGER_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT + 1;
+    int DIRECT_INTEGER_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.actionlang.impl.DirectFloatExpressionImpl <em>Direct Float Expression</em>}' class.
@@ -500,7 +512,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DIRECT_FLOAT_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT + 1;
+    int DIRECT_FLOAT_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.actionlang.impl.DirectStringExpressionImpl <em>Direct String Expression</em>}' class.
@@ -528,7 +541,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DIRECT_STRING_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT + 1;
+    int DIRECT_STRING_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.actionlang.impl.DirectClockDeclarationReferenceExpressionImpl <em>Direct Clock Declaration Reference Expression</em>}' class.
@@ -547,7 +561,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DIRECT_CLOCK_DECLARATION_REFERENCE_EXPRESSION__CLOCK_DECLARATION = VALUED_EXPRESSION_FEATURE_COUNT + 0;
+    int DIRECT_CLOCK_DECLARATION_REFERENCE_EXPRESSION__CLOCK_DECLARATION = VALUED_EXPRESSION_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Direct Clock Declaration Reference Expression</em>' class.
@@ -556,7 +571,8 @@ public interface ActionlangPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DIRECT_CLOCK_DECLARATION_REFERENCE_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT + 1;
+    int DIRECT_CLOCK_DECLARATION_REFERENCE_EXPRESSION_FEATURE_COUNT = VALUED_EXPRESSION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.actionlang.BinaryOperators <em>Binary Operators</em>}' enum.

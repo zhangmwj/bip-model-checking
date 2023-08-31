@@ -134,7 +134,8 @@ public class ActionlangAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
-        public Adapter caseFunctionCallExpression(FunctionCallExpression object) {
+        public Adapter caseFunctionCallExpression(
+                FunctionCallExpression object) {
             return createFunctionCallExpressionAdapter();
         }
 
@@ -172,7 +173,8 @@ public class ActionlangAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
-        public Adapter caseDirectStringExpression(DirectStringExpression object) {
+        public Adapter caseDirectStringExpression(
+                DirectStringExpression object) {
             return createDirectStringExpressionAdapter();
         }
 

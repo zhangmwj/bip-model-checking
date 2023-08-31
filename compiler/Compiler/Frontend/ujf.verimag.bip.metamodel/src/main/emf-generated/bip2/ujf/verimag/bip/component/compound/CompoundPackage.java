@@ -137,7 +137,8 @@ public interface CompoundPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 0;
+    int COMPOUND_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Port Declaration References</b></em>' containment reference list.
@@ -146,7 +147,8 @@ public interface CompoundPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_EXPORT_PORT_DECLARATION__PORT_DECLARATION_REFERENCES = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 1;
+    int COMPOUND_EXPORT_PORT_DECLARATION__PORT_DECLARATION_REFERENCES = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 1;
 
     /**
      * The number of structural features of the '<em>Export Port Declaration</em>' class.
@@ -155,7 +157,8 @@ public interface CompoundPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_EXPORT_PORT_DECLARATION_FEATURE_COUNT = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 2;
+    int COMPOUND_EXPORT_PORT_DECLARATION_FEATURE_COUNT = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 2;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.component.compound.impl.CompoundExportDataDeclarationImpl <em>Export Data Declaration</em>}' class.
@@ -219,7 +222,8 @@ public interface CompoundPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_EXPORT_DATA_DECLARATION__DATA_DECLARATION_REFERENCE = DataPackage.DATA_DECLARATION_FEATURE_COUNT + 0;
+    int COMPOUND_EXPORT_DATA_DECLARATION__DATA_DECLARATION_REFERENCE = DataPackage.DATA_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Export Data Declaration</em>' class.
@@ -228,7 +232,8 @@ public interface CompoundPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_EXPORT_DATA_DECLARATION_FEATURE_COUNT = DataPackage.DATA_DECLARATION_FEATURE_COUNT + 1;
+    int COMPOUND_EXPORT_DATA_DECLARATION_FEATURE_COUNT = DataPackage.DATA_DECLARATION_FEATURE_COUNT
+            + 1;
 
     /**
      * Returns the meta object for class '{@link bip2.ujf.verimag.bip.component.compound.CompoundExportPortDeclaration <em>Export Port Declaration</em>}'.

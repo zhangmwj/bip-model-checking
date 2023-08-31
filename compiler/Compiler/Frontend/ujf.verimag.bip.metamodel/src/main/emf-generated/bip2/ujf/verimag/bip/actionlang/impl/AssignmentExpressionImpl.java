@@ -70,16 +70,16 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.AssignmentExpressionImpl#getLhs <em>Lhs</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.AssignmentExpressionImpl#getRhs <em>Rhs</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class AssignmentExpressionImpl extends AnnotatedEObjectImpl implements
-        AssignmentExpression {
+public class AssignmentExpressionImpl extends AnnotatedEObjectImpl
+        implements AssignmentExpression {
     /**
      * The cached value of the '{@link #getLhs() <em>Lhs</em>}' containment reference.
      * <!-- begin-user-doc -->
@@ -124,6 +124,7 @@ public class AssignmentExpressionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getLhs() {
         return lhs;
     }
@@ -155,6 +156,7 @@ public class AssignmentExpressionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setLhs(ValuedExpression newLhs) {
         if (newLhs != lhs) {
             NotificationChain msgs = null;
@@ -182,6 +184,7 @@ public class AssignmentExpressionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getRhs() {
         return rhs;
     }
@@ -213,6 +216,7 @@ public class AssignmentExpressionImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setRhs(ValuedExpression newRhs) {
         if (newRhs != rhs) {
             NotificationChain msgs = null;
@@ -294,8 +298,8 @@ public class AssignmentExpressionImpl extends AnnotatedEObjectImpl implements
     @Override
     public EList<Expression> getMayReadUninitializedVariables(
             EList<DataDeclaration> uninitialized) {
-        EList<Expression> ret = getRhs().getMayReadUninitializedVariables(
-                uninitialized);
+        EList<Expression> ret = getRhs()
+                .getMayReadUninitializedVariables(uninitialized);
 
         for (DataDeclaration declaration : getWriteVariables()) {
             if (uninitialized.contains(declaration)) {

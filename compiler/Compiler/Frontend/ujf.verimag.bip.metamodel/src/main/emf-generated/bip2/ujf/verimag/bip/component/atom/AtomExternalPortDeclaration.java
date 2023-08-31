@@ -47,18 +47,18 @@ import bip2.ujf.verimag.bip.port.PortDeclaration;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.AtomExternalPortDeclaration#getBackendName <em>Backend Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.AtomExternalPortDeclaration#getPolicy <em>Policy</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.component.atom.AtomPackage#getAtomExternalPortDeclaration()
  * @model
  * @generated
  */
-public interface AtomExternalPortDeclaration extends
-        AtomInternalExternalPortDeclaration {
+public interface AtomExternalPortDeclaration
+        extends AtomInternalExternalPortDeclaration {
     /**
      * Returns the value of the '<em><b>Backend Name</b></em>' attribute.
      * <!-- begin-user-doc -->

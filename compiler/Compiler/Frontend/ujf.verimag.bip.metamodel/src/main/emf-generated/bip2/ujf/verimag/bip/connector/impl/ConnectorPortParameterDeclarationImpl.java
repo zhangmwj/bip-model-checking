@@ -68,12 +68,12 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorPortParameterDeclarationImpl#getPortType <em>Port Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorPortParameterDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorPortParameterDeclarationImpl#getDataParameters <em>Data Parameters</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -143,15 +143,14 @@ public class ConnectorPortParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortType getPortType() {
         if (portType != null && ((EObject) portType).eIsProxy()) {
             InternalEObject oldPortType = (InternalEObject) portType;
             portType = (PortType) eResolveProxy(oldPortType);
             if (portType != oldPortType) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             ConnectorPackage.CONNECTOR_PORT_PARAMETER_DECLARATION__PORT_TYPE,
                             oldPortType, portType));
             }
@@ -173,13 +172,12 @@ public class ConnectorPortParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setPortType(PortType newPortType) {
         PortType oldPortType = portType;
         portType = newPortType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     ConnectorPackage.CONNECTOR_PORT_PARAMETER_DECLARATION__PORT_TYPE,
                     oldPortType, portType));
     }
@@ -189,6 +187,7 @@ public class ConnectorPortParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -198,13 +197,12 @@ public class ConnectorPortParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     ConnectorPackage.CONNECTOR_PORT_PARAMETER_DECLARATION__NAME,
                     oldName, name));
     }
@@ -214,11 +212,11 @@ public class ConnectorPortParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataDeclarationReferenceDataParameter> getDataParameters() {
         if (dataParameters == null) {
             dataParameters = new EObjectContainmentEList<DataDeclarationReferenceDataParameter>(
-                    DataDeclarationReferenceDataParameter.class,
-                    this,
+                    DataDeclarationReferenceDataParameter.class, this,
                     ConnectorPackage.CONNECTOR_PORT_PARAMETER_DECLARATION__DATA_PARAMETERS);
         }
         return dataParameters;
@@ -248,8 +246,8 @@ public class ConnectorPortParameterDeclarationImpl extends AnnotatedEObjectImpl
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectorPackage.CONNECTOR_PORT_PARAMETER_DECLARATION__DATA_PARAMETERS:
-            return ((InternalEList<?>) getDataParameters()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getDataParameters())
+                    .basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -291,8 +289,8 @@ public class ConnectorPortParameterDeclarationImpl extends AnnotatedEObjectImpl
             return;
         case ConnectorPackage.CONNECTOR_PORT_PARAMETER_DECLARATION__DATA_PARAMETERS:
             getDataParameters().clear();
-            getDataParameters()
-                    .addAll((Collection<? extends DataDeclarationReferenceDataParameter>) newValue);
+            getDataParameters().addAll(
+                    (Collection<? extends DataDeclarationReferenceDataParameter>) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -330,8 +328,8 @@ public class ConnectorPortParameterDeclarationImpl extends AnnotatedEObjectImpl
         case ConnectorPackage.CONNECTOR_PORT_PARAMETER_DECLARATION__PORT_TYPE:
             return portType != null;
         case ConnectorPackage.CONNECTOR_PORT_PARAMETER_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case ConnectorPackage.CONNECTOR_PORT_PARAMETER_DECLARATION__DATA_PARAMETERS:
             return dataParameters != null && !dataParameters.isEmpty();
         }
@@ -348,7 +346,7 @@ public class ConnectorPortParameterDeclarationImpl extends AnnotatedEObjectImpl
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

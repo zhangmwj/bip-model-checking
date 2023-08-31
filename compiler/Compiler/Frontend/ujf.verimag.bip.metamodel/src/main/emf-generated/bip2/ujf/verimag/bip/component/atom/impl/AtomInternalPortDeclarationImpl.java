@@ -75,13 +75,13 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomInternalPortDeclarationImpl#getPortType <em>Port Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomInternalPortDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomInternalPortDeclarationImpl#getDataParameters <em>Data Parameters</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.impl.AtomInternalPortDeclarationImpl#getBipAnnotations <em>Bip Annotations</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -161,15 +161,14 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortType getPortType() {
         if (portType != null && ((EObject) portType).eIsProxy()) {
             InternalEObject oldPortType = (InternalEObject) portType;
             portType = (PortType) eResolveProxy(oldPortType);
             if (portType != oldPortType) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             AtomPackage.ATOM_INTERNAL_PORT_DECLARATION__PORT_TYPE,
                             oldPortType, portType));
             }
@@ -191,6 +190,7 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setPortType(PortType newPortType) {
         PortType oldPortType = portType;
         portType = newPortType;
@@ -205,6 +205,7 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -214,6 +215,7 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -228,6 +230,7 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataDeclarationReferenceDataParameter> getDataParameters() {
         if (dataParameters == null) {
             dataParameters = new EObjectContainmentEList<DataDeclarationReferenceDataParameter>(
@@ -242,6 +245,7 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EMap<String, BipAnnotation> getBipAnnotations() {
         if (bipAnnotations == null) {
             bipAnnotations = new EcoreEMap<String, BipAnnotation>(
@@ -276,11 +280,11 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case AtomPackage.ATOM_INTERNAL_PORT_DECLARATION__DATA_PARAMETERS:
-            return ((InternalEList<?>) getDataParameters()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getDataParameters())
+                    .basicRemove(otherEnd, msgs);
         case AtomPackage.ATOM_INTERNAL_PORT_DECLARATION__BIP_ANNOTATIONS:
-            return ((InternalEList<?>) getBipAnnotations()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getBipAnnotations())
+                    .basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -327,8 +331,8 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
             return;
         case AtomPackage.ATOM_INTERNAL_PORT_DECLARATION__DATA_PARAMETERS:
             getDataParameters().clear();
-            getDataParameters()
-                    .addAll((Collection<? extends DataDeclarationReferenceDataParameter>) newValue);
+            getDataParameters().addAll(
+                    (Collection<? extends DataDeclarationReferenceDataParameter>) newValue);
             return;
         case AtomPackage.ATOM_INTERNAL_PORT_DECLARATION__BIP_ANNOTATIONS:
             ((EStructuralFeature.Setting) getBipAnnotations()).set(newValue);
@@ -372,8 +376,8 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
         case AtomPackage.ATOM_INTERNAL_PORT_DECLARATION__PORT_TYPE:
             return portType != null;
         case AtomPackage.ATOM_INTERNAL_PORT_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case AtomPackage.ATOM_INTERNAL_PORT_DECLARATION__DATA_PARAMETERS:
             return dataParameters != null && !dataParameters.isEmpty();
         case AtomPackage.ATOM_INTERNAL_PORT_DECLARATION__BIP_ANNOTATIONS:
@@ -388,7 +392,8 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
      * @generated
      */
     @Override
-    public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+    public int eBaseStructuralFeatureID(int derivedFeatureID,
+            Class<?> baseClass) {
         if (baseClass == AnnotatedElement.class) {
             switch (derivedFeatureID) {
             case AtomPackage.ATOM_INTERNAL_PORT_DECLARATION__BIP_ANNOTATIONS:
@@ -406,7 +411,8 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
      * @generated
      */
     @Override
-    public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+    public int eDerivedStructuralFeatureID(int baseFeatureID,
+            Class<?> baseClass) {
         if (baseClass == AnnotatedElement.class) {
             switch (baseFeatureID) {
             case AnnotationPackage.ANNOTATED_ELEMENT__BIP_ANNOTATIONS:
@@ -428,7 +434,7 @@ public class AtomInternalPortDeclarationImpl extends AnnotatedEObjectImpl
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

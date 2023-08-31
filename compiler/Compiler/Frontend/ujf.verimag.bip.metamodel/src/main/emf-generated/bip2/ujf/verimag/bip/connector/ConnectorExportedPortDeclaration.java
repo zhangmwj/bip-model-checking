@@ -50,6 +50,6 @@ import bip2.ujf.verimag.bip.port.PortDeclaration;
  * @model
  * @generated
  */
-public interface ConnectorExportedPortDeclaration extends PortDeclaration,
-        AnnotatedElement {
+public interface ConnectorExportedPortDeclaration
+        extends PortDeclaration, AnnotatedElement {
 } // ConnectorExportedPortDeclaration

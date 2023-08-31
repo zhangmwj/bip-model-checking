@@ -358,7 +358,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_INSTANCE__SUB_DATA_INSTANCES = COMPONENT_INSTANCE_FEATURE_COUNT + 0;
+    int ATOM_INSTANCE__SUB_DATA_INSTANCES = COMPONENT_INSTANCE_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Internal Ports</b></em>' containment reference list.
@@ -422,7 +423,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_INSTANCE__SUB_PRIORITIES = COMPONENT_INSTANCE_FEATURE_COUNT + 0;
+    int COMPOUND_INSTANCE__SUB_PRIORITIES = COMPONENT_INSTANCE_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Sub Connector Instances</b></em>' containment reference list.
@@ -431,7 +433,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_INSTANCE__SUB_CONNECTOR_INSTANCES = COMPONENT_INSTANCE_FEATURE_COUNT + 1;
+    int COMPOUND_INSTANCE__SUB_CONNECTOR_INSTANCES = COMPONENT_INSTANCE_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Sub Atom Instances</b></em>' containment reference list.
@@ -440,7 +443,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_INSTANCE__SUB_ATOM_INSTANCES = COMPONENT_INSTANCE_FEATURE_COUNT + 2;
+    int COMPOUND_INSTANCE__SUB_ATOM_INSTANCES = COMPONENT_INSTANCE_FEATURE_COUNT
+            + 2;
 
     /**
      * The feature id for the '<em><b>Sub Compound Instances</b></em>' containment reference list.
@@ -449,7 +453,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_INSTANCE__SUB_COMPOUND_INSTANCES = COMPONENT_INSTANCE_FEATURE_COUNT + 3;
+    int COMPOUND_INSTANCE__SUB_COMPOUND_INSTANCES = COMPONENT_INSTANCE_FEATURE_COUNT
+            + 3;
 
     /**
      * The feature id for the '<em><b>Sub Data Instances</b></em>' containment reference list.
@@ -458,7 +463,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_INSTANCE__SUB_DATA_INSTANCES = COMPONENT_INSTANCE_FEATURE_COUNT + 4;
+    int COMPOUND_INSTANCE__SUB_DATA_INSTANCES = COMPONENT_INSTANCE_FEATURE_COUNT
+            + 4;
 
     /**
      * The number of structural features of the '<em>Compound Instance</em>' class.
@@ -503,7 +509,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXPORTED_PORT_INSTANCE__REFERENCED_PORTS = PORT_INSTANCE_FEATURE_COUNT + 0;
+    int EXPORTED_PORT_INSTANCE__REFERENCED_PORTS = PORT_INSTANCE_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Exported Port Instance</em>' class.
@@ -530,7 +537,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_INTERNAL_PORT_INSTANCE__DATA_PARAM_INSTANCES = PORT_INSTANCE_FEATURE_COUNT + 0;
+    int ATOM_INTERNAL_PORT_INSTANCE__DATA_PARAM_INSTANCES = PORT_INSTANCE_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Atom Internal Port Instance</em>' class.
@@ -539,7 +547,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_INTERNAL_PORT_INSTANCE_FEATURE_COUNT = PORT_INSTANCE_FEATURE_COUNT + 1;
+    int ATOM_INTERNAL_PORT_INSTANCE_FEATURE_COUNT = PORT_INSTANCE_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.instance.impl.AtomExternalPortInstanceImpl <em>Atom External Port Instance</em>}' class.
@@ -567,7 +576,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_EXTERNAL_PORT_INSTANCE__DATA_PARAM_INSTANCES = PORT_INSTANCE_FEATURE_COUNT + 0;
+    int ATOM_EXTERNAL_PORT_INSTANCE__DATA_PARAM_INSTANCES = PORT_INSTANCE_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Atom External Port Instance</em>' class.
@@ -576,7 +586,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_EXTERNAL_PORT_INSTANCE_FEATURE_COUNT = PORT_INSTANCE_FEATURE_COUNT + 1;
+    int ATOM_EXTERNAL_PORT_INSTANCE_FEATURE_COUNT = PORT_INSTANCE_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Declaration</b></em>' reference.
@@ -594,7 +605,8 @@ public interface InstancePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_PORT_INSTANCE__DATA_PARAM_INSTANCES = PORT_INSTANCE_FEATURE_COUNT + 0;
+    int CONNECTOR_PORT_INSTANCE__DATA_PARAM_INSTANCES = PORT_INSTANCE_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Connector Port Instance</em>' class.

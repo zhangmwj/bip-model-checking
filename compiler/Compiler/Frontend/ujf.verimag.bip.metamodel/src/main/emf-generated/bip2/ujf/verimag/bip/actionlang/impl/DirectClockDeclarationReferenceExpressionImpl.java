@@ -60,16 +60,16 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.DirectClockDeclarationReferenceExpressionImpl#getClockDeclaration <em>Clock Declaration</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class DirectClockDeclarationReferenceExpressionImpl extends
-        ValuedExpressionImpl implements
-        DirectClockDeclarationReferenceExpression {
+public class DirectClockDeclarationReferenceExpressionImpl
+        extends ValuedExpressionImpl
+        implements DirectClockDeclarationReferenceExpression {
     /**
      * The cached value of the '{@link #getClockDeclaration() <em>Clock Declaration</em>}' reference.
      * <!-- begin-user-doc -->
@@ -104,15 +104,16 @@ public class DirectClockDeclarationReferenceExpressionImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ClockDeclaration getClockDeclaration() {
-        if (clockDeclaration != null && ((EObject) clockDeclaration).eIsProxy()) {
+        if (clockDeclaration != null
+                && ((EObject) clockDeclaration).eIsProxy()) {
             InternalEObject oldClockDeclaration = (InternalEObject) clockDeclaration;
-            clockDeclaration = (ClockDeclaration) eResolveProxy(oldClockDeclaration);
+            clockDeclaration = (ClockDeclaration) eResolveProxy(
+                    oldClockDeclaration);
             if (clockDeclaration != oldClockDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             ActionlangPackage.DIRECT_CLOCK_DECLARATION_REFERENCE_EXPRESSION__CLOCK_DECLARATION,
                             oldClockDeclaration, clockDeclaration));
             }
@@ -134,13 +135,12 @@ public class DirectClockDeclarationReferenceExpressionImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setClockDeclaration(ClockDeclaration newClockDeclaration) {
         ClockDeclaration oldClockDeclaration = clockDeclaration;
         clockDeclaration = newClockDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     ActionlangPackage.DIRECT_CLOCK_DECLARATION_REFERENCE_EXPRESSION__CLOCK_DECLARATION,
                     oldClockDeclaration, clockDeclaration));
     }
@@ -211,7 +211,7 @@ public class DirectClockDeclarationReferenceExpressionImpl extends
      * @generated NOT
      */
     public Type getType() {
-        return getClockDeclaration().getUnit();
+        return getPackage().getIntDataType();
     }
 
     /**
@@ -221,6 +221,16 @@ public class DirectClockDeclarationReferenceExpressionImpl extends
      */
     public boolean isConst() {
         return false;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    @Override
+    public boolean hasClocks() {
+        return true;
     }
 
     /**

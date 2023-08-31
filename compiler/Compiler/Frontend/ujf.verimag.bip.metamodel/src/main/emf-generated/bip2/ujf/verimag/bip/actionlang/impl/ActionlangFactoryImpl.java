@@ -54,8 +54,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ActionlangFactoryImpl extends EFactoryImpl implements
-        ActionlangFactory {
+public class ActionlangFactoryImpl extends EFactoryImpl
+        implements ActionlangFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -65,7 +65,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
     public static ActionlangFactory init() {
         try {
             ActionlangFactory theActionlangFactory = (ActionlangFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/actionlang/1.0");
+                    .getEFactory(ActionlangPackage.eNS_URI);
             if (theActionlangFactory != null) {
                 return theActionlangFactory;
             }
@@ -166,6 +166,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public BinaryOpExpression createBinaryOpExpression() {
         BinaryOpExpressionImpl binaryOpExpression = new BinaryOpExpressionImpl();
         return binaryOpExpression;
@@ -176,6 +177,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public UnaryOpExpression createUnaryOpExpression() {
         UnaryOpExpressionImpl unaryOpExpression = new UnaryOpExpressionImpl();
         return unaryOpExpression;
@@ -186,6 +188,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public SubDataDeclarationReferenceExpression createSubDataDeclarationReferenceExpression() {
         SubDataDeclarationReferenceExpressionImpl subDataDeclarationReferenceExpression = new SubDataDeclarationReferenceExpressionImpl();
         return subDataDeclarationReferenceExpression;
@@ -196,6 +199,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DirectDataDeclarationReferenceExpression createDirectDataDeclarationReferenceExpression() {
         DirectDataDeclarationReferenceExpressionImpl directDataDeclarationReferenceExpression = new DirectDataDeclarationReferenceExpressionImpl();
         return directDataDeclarationReferenceExpression;
@@ -206,6 +210,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AssignmentExpression createAssignmentExpression() {
         AssignmentExpressionImpl assignmentExpression = new AssignmentExpressionImpl();
         return assignmentExpression;
@@ -216,6 +221,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public FunctionCallExpression createFunctionCallExpression() {
         FunctionCallExpressionImpl functionCallExpression = new FunctionCallExpressionImpl();
         return functionCallExpression;
@@ -226,6 +232,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedReferenceExpression createValuedReferenceExpression() {
         ValuedReferenceExpressionImpl valuedReferenceExpression = new ValuedReferenceExpressionImpl();
         return valuedReferenceExpression;
@@ -236,6 +243,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DirectBooleanExpression createDirectBooleanExpression() {
         DirectBooleanExpressionImpl directBooleanExpression = new DirectBooleanExpressionImpl();
         return directBooleanExpression;
@@ -246,6 +254,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public IfThenElseExpression createIfThenElseExpression() {
         IfThenElseExpressionImpl ifThenElseExpression = new IfThenElseExpressionImpl();
         return ifThenElseExpression;
@@ -256,6 +265,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DirectIntegerExpression createDirectIntegerExpression() {
         DirectIntegerExpressionImpl directIntegerExpression = new DirectIntegerExpressionImpl();
         return directIntegerExpression;
@@ -266,6 +276,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DirectFloatExpression createDirectFloatExpression() {
         DirectFloatExpressionImpl directFloatExpression = new DirectFloatExpressionImpl();
         return directFloatExpression;
@@ -276,6 +287,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DirectStringExpression createDirectStringExpression() {
         DirectStringExpressionImpl directStringExpression = new DirectStringExpressionImpl();
         return directStringExpression;
@@ -286,6 +298,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DirectClockDeclarationReferenceExpression createDirectClockDeclarationReferenceExpression() {
         DirectClockDeclarationReferenceExpressionImpl directClockDeclarationReferenceExpression = new DirectClockDeclarationReferenceExpressionImpl();
         return directClockDeclarationReferenceExpression;
@@ -346,6 +359,7 @@ public class ActionlangFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ActionlangPackage getActionlangPackage() {
         return (ActionlangPackage) getEPackage();
     }

@@ -207,20 +207,15 @@ public class ComponentValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "componentDeclarationHasCorrectNumberOfParam",
-                                        getObjectLabel(componentDeclaration,
-                                                context) },
-                                new Object[] {
-                                        componentDeclaration,
-                                        ErrorCodeEnum.componentDeclarationHasCorrectNumberOfParam },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] {
+                                "componentDeclarationHasCorrectNumberOfParam",
+                                getObjectLabel(componentDeclaration, context) },
+                        new Object[] { componentDeclaration,
+                                ErrorCodeEnum.componentDeclarationHasCorrectNumberOfParam },
+                        context));
             }
             return false;
         }
@@ -296,8 +291,8 @@ public class ComponentValidator extends EObjectValidator {
                         if (spdr.getComponentDeclaration() != null) {
                             String b_c_name = spdr.getComponentDeclaration()
                                     .getName();
-                            String b_epd_name = spdr
-                                    .getForwardPortDeclaration().getName();
+                            String b_epd_name = spdr.getForwardPortDeclaration()
+                                    .getName();
                             if (b_c_name.equals(comp_name)) {
                                 epd_names.remove(b_epd_name);
                             }
@@ -310,20 +305,15 @@ public class ComponentValidator extends EObjectValidator {
         ok = epd_names.isEmpty();
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.WARNING,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "componentDeclarationHasNoUnconnectedPort",
-                                        getObjectLabel(componentDeclaration,
-                                                context) },
-                                new Object[] {
-                                        componentDeclaration,
-                                        ErrorCodeEnum.componentDeclarationHasNoUnconnectedPort },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] {
+                                "componentDeclarationHasNoUnconnectedPort",
+                                getObjectLabel(componentDeclaration, context) },
+                        new Object[] { componentDeclaration,
+                                ErrorCodeEnum.componentDeclarationHasNoUnconnectedPort },
+                        context));
             }
             return false;
         }
@@ -392,18 +382,14 @@ public class ComponentValidator extends EObjectValidator {
         boolean b = componentDataParameterDeclaration.getDataType().isNative();
         if (!b) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
-                        new Object[] {
-                                "dataTypeIsBasic",
-                                getObjectLabel(
-                                        componentDataParameterDeclaration,
-                                        context) }, new Object[] {
-                                componentDataParameterDeclaration,
-                                ErrorCodeEnum.dataTypeIsBasic }, context));
+                        new Object[] { "dataTypeIsBasic", getObjectLabel(
+                                componentDataParameterDeclaration, context) },
+                        new Object[] { componentDataParameterDeclaration,
+                                ErrorCodeEnum.dataTypeIsBasic },
+                        context));
             }
             return false;
         }

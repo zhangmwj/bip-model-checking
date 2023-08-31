@@ -124,7 +124,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_DECLARATION__TYPE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+    int CONNECTOR_DECLARATION__TYPE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Port Parameters</b></em>' containment reference list.
@@ -133,7 +134,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_DECLARATION__PORT_PARAMETERS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
+    int CONNECTOR_DECLARATION__PORT_PARAMETERS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -142,7 +144,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_DECLARATION__NAME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+    int CONNECTOR_DECLARATION__NAME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 2;
 
     /**
      * The number of structural features of the '<em>Declaration</em>' class.
@@ -151,7 +154,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_DECLARATION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
+    int CONNECTOR_DECLARATION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 3;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.connector.impl.ConnectorPortParameterDeclarationImpl <em>Port Parameter Declaration</em>}' class.
@@ -197,7 +201,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_PORT_PARAMETER_DECLARATION_FEATURE_COUNT = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 0;
+    int CONNECTOR_PORT_PARAMETER_DECLARATION_FEATURE_COUNT = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.connector.impl.ConnectorExportedPortDeclarationImpl <em>Exported Port Declaration</em>}' class.
@@ -243,7 +248,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_EXPORTED_PORT_DECLARATION__BIP_ANNOTATIONS = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 0;
+    int CONNECTOR_EXPORTED_PORT_DECLARATION__BIP_ANNOTATIONS = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Exported Port Declaration</em>' class.
@@ -252,7 +258,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_EXPORTED_PORT_DECLARATION_FEATURE_COUNT = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 1;
+    int CONNECTOR_EXPORTED_PORT_DECLARATION_FEATURE_COUNT = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.connector.impl.ConnectorDataDeclarationImpl <em>Data Declaration</em>}' class.
@@ -316,7 +323,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_DATA_DECLARATION_FEATURE_COUNT = DataPackage.EXPLICIT_DATA_DECLARATION_FEATURE_COUNT + 0;
+    int CONNECTOR_DATA_DECLARATION_FEATURE_COUNT = DataPackage.EXPLICIT_DATA_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.connector.impl.ConnectorInteractionActionImpl <em>Interaction Action</em>}' class.
@@ -344,7 +352,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_INTERACTION_ACTION__GUARD = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+    int CONNECTOR_INTERACTION_ACTION__GUARD = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>On Ports</b></em>' reference list.
@@ -353,7 +362,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_INTERACTION_ACTION__ON_PORTS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
+    int CONNECTOR_INTERACTION_ACTION__ON_PORTS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Up</b></em>' containment reference list.
@@ -362,7 +372,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_INTERACTION_ACTION__UP = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+    int CONNECTOR_INTERACTION_ACTION__UP = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 2;
 
     /**
      * The feature id for the '<em><b>Down</b></em>' containment reference list.
@@ -371,7 +382,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_INTERACTION_ACTION__DOWN = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
+    int CONNECTOR_INTERACTION_ACTION__DOWN = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 3;
 
     /**
      * The number of structural features of the '<em>Interaction Action</em>' class.
@@ -380,7 +392,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_INTERACTION_ACTION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 4;
+    int CONNECTOR_INTERACTION_ACTION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 4;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.connector.impl.ConnectorInteractionDefinitionImpl <em>Interaction Definition</em>}' class.
@@ -436,7 +449,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_INTERACTION_PORT_REFERENCE__PORT = CONNECTOR_INTERACTION_DEFINITION_FEATURE_COUNT + 0;
+    int CONNECTOR_INTERACTION_PORT_REFERENCE__PORT = CONNECTOR_INTERACTION_DEFINITION_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Interaction Port Reference</em>' class.
@@ -445,7 +459,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_INTERACTION_PORT_REFERENCE_FEATURE_COUNT = CONNECTOR_INTERACTION_DEFINITION_FEATURE_COUNT + 1;
+    int CONNECTOR_INTERACTION_PORT_REFERENCE_FEATURE_COUNT = CONNECTOR_INTERACTION_DEFINITION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.connector.impl.ConnectorInteractionNestedDefinitionImpl <em>Interaction Nested Definition</em>}' class.
@@ -473,7 +488,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_INTERACTION_NESTED_DEFINITION__SUB_INTERACTIONS = CONNECTOR_INTERACTION_DEFINITION_FEATURE_COUNT + 0;
+    int CONNECTOR_INTERACTION_NESTED_DEFINITION__SUB_INTERACTIONS = CONNECTOR_INTERACTION_DEFINITION_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Interaction Nested Definition</em>' class.
@@ -482,7 +498,8 @@ public interface ConnectorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_INTERACTION_NESTED_DEFINITION_FEATURE_COUNT = CONNECTOR_INTERACTION_DEFINITION_FEATURE_COUNT + 1;
+    int CONNECTOR_INTERACTION_NESTED_DEFINITION_FEATURE_COUNT = CONNECTOR_INTERACTION_DEFINITION_FEATURE_COUNT
+            + 1;
 
     /**
      * Returns the meta object for class '{@link bip2.ujf.verimag.bip.connector.ConnectorDeclaration <em>Declaration</em>}'.

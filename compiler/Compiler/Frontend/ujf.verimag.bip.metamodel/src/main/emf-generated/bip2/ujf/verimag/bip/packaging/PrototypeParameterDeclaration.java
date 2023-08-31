@@ -47,12 +47,12 @@ import ujf.verimag.bip.metamodel.AnnotatedEObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.PrototypeParameterDeclaration#getType <em>Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.PrototypeParameterDeclaration#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.PrototypeParameterDeclaration#isConst <em>Const</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.packaging.PackagingPackage#getPrototypeParameterDeclaration()
  * @model

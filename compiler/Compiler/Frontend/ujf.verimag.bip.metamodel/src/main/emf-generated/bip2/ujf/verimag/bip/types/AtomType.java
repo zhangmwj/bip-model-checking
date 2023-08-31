@@ -56,6 +56,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.types.AtomType#getInternalPortDeclarations <em>Internal Port Declarations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.AtomType#getExternalPortDeclarations <em>External Port Declarations</em>}</li>
@@ -66,7 +67,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link bip2.ujf.verimag.bip.types.AtomType#getPriorities <em>Priorities</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.AtomType#getInvariants <em>Invariants</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.types.TypesPackage#getAtomType()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='InternalDataSynchronizedWithExportedData checkForCyclesInPrioritiesInAtom checkUninitializedVariablesInAtomInternalDataDeclaration'"

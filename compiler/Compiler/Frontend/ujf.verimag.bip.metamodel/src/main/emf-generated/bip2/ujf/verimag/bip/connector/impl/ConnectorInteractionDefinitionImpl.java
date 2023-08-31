@@ -53,10 +53,10 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorInteractionDefinitionImpl#isQuoted <em>Quoted</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -106,6 +106,7 @@ public class ConnectorInteractionDefinitionImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean isQuoted() {
         return quoted;
     }
@@ -115,6 +116,7 @@ public class ConnectorInteractionDefinitionImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setQuoted(boolean newQuoted) {
         boolean oldQuoted = quoted;
         quoted = newQuoted;
@@ -192,7 +194,7 @@ public class ConnectorInteractionDefinitionImpl extends AnnotatedEObjectImpl
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (quoted: ");
         result.append(quoted);
         result.append(')');

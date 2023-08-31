@@ -144,10 +144,12 @@ public class CompoundValidator extends EObjectValidator {
         switch (classifierID) {
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION:
             return validateCompoundExportPortDeclaration(
-                    (CompoundExportPortDeclaration) value, diagnostics, context);
+                    (CompoundExportPortDeclaration) value, diagnostics,
+                    context);
         case CompoundPackage.COMPOUND_EXPORT_DATA_DECLARATION:
             return validateCompoundExportDataDeclaration(
-                    (CompoundExportDataDeclaration) value, diagnostics, context);
+                    (CompoundExportDataDeclaration) value, diagnostics,
+                    context);
         default:
             return true;
         }
@@ -183,9 +185,8 @@ public class CompoundValidator extends EObjectValidator {
                     (EObject) compoundExportPortDeclaration, diagnostics,
                     context);
         if (result || diagnostics != null)
-            result &= validate_UniqueID(
-                    (EObject) compoundExportPortDeclaration, diagnostics,
-                    context);
+            result &= validate_UniqueID((EObject) compoundExportPortDeclaration,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique(
                     (EObject) compoundExportPortDeclaration, diagnostics,
@@ -197,7 +198,8 @@ public class CompoundValidator extends EObjectValidator {
         if (result || diagnostics != null)
             result &= portValidator
                     .validatePortDeclaration_hasCorrectNumberOfDataParameters(
-                            compoundExportPortDeclaration, diagnostics, context);
+                            compoundExportPortDeclaration, diagnostics,
+                            context);
         if (result || diagnostics != null)
             result &= validateCompoundExportPortDeclaration_referencedPortsHaveTheSameType(
                     compoundExportPortDeclaration, diagnostics, context);
@@ -232,16 +234,13 @@ public class CompoundValidator extends EObjectValidator {
         }
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
-                        new Object[] {
-                                "referencedPortsHaveTheSameType",
+                        new Object[] { "referencedPortsHaveTheSameType",
                                 getObjectLabel(compoundExportPortDeclaration,
-                                        context) }, new Object[] {
-                                compoundExportPortDeclaration,
+                                        context) },
+                        new Object[] { compoundExportPortDeclaration,
                                 ErrorCodeEnum.referencedPortsHaveTheSameType },
                         context));
             }
@@ -278,16 +277,13 @@ public class CompoundValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
-                        new Object[] {
-                                "noDuplicatedPortReference",
+                        new Object[] { "noDuplicatedPortReference",
                                 getObjectLabel(compoundExportPortDeclaration,
-                                        context) }, new Object[] {
-                                compoundExportPortDeclaration,
+                                        context) },
+                        new Object[] { compoundExportPortDeclaration,
                                 ErrorCodeEnum.noDuplicatedPortReference },
                         context));
             }
@@ -326,9 +322,8 @@ public class CompoundValidator extends EObjectValidator {
                     (EObject) compoundExportDataDeclaration, diagnostics,
                     context);
         if (result || diagnostics != null)
-            result &= validate_UniqueID(
-                    (EObject) compoundExportDataDeclaration, diagnostics,
-                    context);
+            result &= validate_UniqueID((EObject) compoundExportDataDeclaration,
+                    diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique(
                     (EObject) compoundExportDataDeclaration, diagnostics,
@@ -353,25 +348,20 @@ public class CompoundValidator extends EObjectValidator {
             CompoundExportDataDeclaration compoundExportDataDeclaration,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-        if (compoundExportDataDeclaration.getDataType() != compoundExportDataDeclaration
-                .getDataDeclarationReference().getForwardDataDeclaration()
-                .getDataType()) {
+        if (compoundExportDataDeclaration
+                .getDataType() != compoundExportDataDeclaration
+                        .getDataDeclarationReference()
+                        .getForwardDataDeclaration().getDataType()) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "sameDataTypeAsPointedDeclaration",
-                                        getObjectLabel(
-                                                compoundExportDataDeclaration,
-                                                context) },
-                                new Object[] {
-                                        compoundExportDataDeclaration,
-                                        ErrorCodeEnum.sameDataTypeAsPointedDeclaration },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "sameDataTypeAsPointedDeclaration",
+                                getObjectLabel(compoundExportDataDeclaration,
+                                        context) },
+                        new Object[] { compoundExportDataDeclaration,
+                                ErrorCodeEnum.sameDataTypeAsPointedDeclaration },
+                        context));
             }
             return false;
         }

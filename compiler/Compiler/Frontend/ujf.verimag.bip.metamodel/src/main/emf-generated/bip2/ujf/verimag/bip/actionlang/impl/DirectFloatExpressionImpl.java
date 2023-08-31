@@ -65,15 +65,15 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.DirectFloatExpressionImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class DirectFloatExpressionImpl extends ValuedExpressionImpl implements
-        DirectFloatExpression {
+public class DirectFloatExpressionImpl extends ValuedExpressionImpl
+        implements DirectFloatExpression {
     /**
      * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -118,6 +118,7 @@ public class DirectFloatExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public float getValue() {
         return value;
     }
@@ -127,6 +128,7 @@ public class DirectFloatExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setValue(float newValue) {
         float oldValue = value;
         value = newValue;
@@ -222,7 +224,7 @@ public class DirectFloatExpressionImpl extends ValuedExpressionImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (value: ");
         result.append(value);
         result.append(')');

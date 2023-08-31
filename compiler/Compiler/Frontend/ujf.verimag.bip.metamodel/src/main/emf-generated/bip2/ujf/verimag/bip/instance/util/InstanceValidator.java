@@ -229,12 +229,12 @@ public class InstanceValidator extends EObjectValidator {
                 for (PortInstance pi : conni.getPortParamInstances()) {
                     if (pi instanceof ConnectorPortInstance) {
                         // visit the subconnector
-                        connectorToVisit
-                                .push((ConnectorInstance) (((ConnectorPortInstance) pi)
+                        connectorToVisit.push(
+                                (ConnectorInstance) (((ConnectorPortInstance) pi)
                                         .eContainer()));
                     } else if (pi instanceof ExportedPortInstance) {
-                        if (!connectedComps.add((ComponentInstance) pi
-                                .eContainer())) {
+                        if (!connectedComps
+                                .add((ComponentInstance) pi.eContainer())) {
                             ok = false;
                         }
                     } else if (pi instanceof AtomInternalPortInstance) {
@@ -245,20 +245,15 @@ public class InstanceValidator extends EObjectValidator {
         }
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "connectorDoesNotBindTheSameComponentMoreThanOnce",
-                                        getObjectLabel(connectorInstance,
-                                                context) },
-                                new Object[] {
-                                        connectorInstance,
-                                        ErrorCodeEnum.connectorDoesNotBindTheSameComponentMoreThanOnce },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] {
+                                "connectorDoesNotBindTheSameComponentMoreThanOnce",
+                                getObjectLabel(connectorInstance, context) },
+                        new Object[] { connectorInstance,
+                                ErrorCodeEnum.connectorDoesNotBindTheSameComponentMoreThanOnce },
+                        context));
             }
             return false;
         }

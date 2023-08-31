@@ -86,7 +86,7 @@ public class ComponentSwitch<T> extends Switch<T> {
      * Checks whether this is a switch for the given package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @parameter ePackage the package in question.
+     * @param ePackage the package in question.
      * @return whether this is a switch for the given package.
      * @generated
      */
@@ -116,11 +116,13 @@ public class ComponentSwitch<T> extends Switch<T> {
         }
         case ComponentPackage.COMPONENT_DATA_PARAMETER_DECLARATION: {
             ComponentDataParameterDeclaration componentDataParameterDeclaration = (ComponentDataParameterDeclaration) theEObject;
-            T result = caseComponentDataParameterDeclaration(componentDataParameterDeclaration);
+            T result = caseComponentDataParameterDeclaration(
+                    componentDataParameterDeclaration);
             if (result == null)
                 result = caseDataDeclaration(componentDataParameterDeclaration);
             if (result == null)
-                result = caseAnnotatedElement(componentDataParameterDeclaration);
+                result = caseAnnotatedElement(
+                        componentDataParameterDeclaration);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;

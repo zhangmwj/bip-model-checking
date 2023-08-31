@@ -89,6 +89,7 @@ import lpsolve.LpSolveException;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.impl.PetriNetImpl#getStates <em>States</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.impl.PetriNetImpl#getInitStates <em>Init States</em>}</li>
@@ -96,7 +97,6 @@ import lpsolve.LpSolveException;
  *   <li>{@link bip2.ujf.verimag.bip.behavior.impl.PetriNetImpl#getInitialActions <em>Initial Actions</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.impl.PetriNetImpl#getInitialResume <em>Initial Resume</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -175,6 +175,7 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<State> getStates() {
         if (states == null) {
             states = new EObjectContainmentEList<State>(State.class, this,
@@ -188,6 +189,7 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<State> getInitStates() {
         if (initStates == null) {
             initStates = new EObjectResolvingEList<State>(State.class, this,
@@ -201,6 +203,7 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<Transition> getTransitions() {
         if (transitions == null) {
             transitions = new EObjectContainmentEList<Transition>(
@@ -215,6 +218,7 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<Expression> getInitialActions() {
         if (initialActions == null) {
             initialActions = new EObjectContainmentEList<Expression>(
@@ -229,6 +233,7 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Resume getInitialResume() {
         return initialResume;
     }
@@ -244,8 +249,7 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
         initialResume = newInitialResume;
         if (eNotificationRequired()) {
             ENotificationImpl notification = new ENotificationImpl(this,
-                    Notification.SET,
-                    BehaviorPackage.PETRI_NET__INITIAL_RESUME,
+                    Notification.SET, BehaviorPackage.PETRI_NET__INITIAL_RESUME,
                     oldInitialResume, newInitialResume);
             if (msgs == null)
                 msgs = notification;
@@ -260,6 +264,7 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setInitialResume(Resume newInitialResume) {
         if (newInitialResume != initialResume) {
             NotificationChain msgs = null;
@@ -278,8 +283,8 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
                 msgs.dispatch();
         } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    BehaviorPackage.PETRI_NET__INITIAL_RESUME,
-                    newInitialResume, newInitialResume));
+                    BehaviorPackage.PETRI_NET__INITIAL_RESUME, newInitialResume,
+                    newInitialResume));
     }
 
     /**
@@ -415,7 +420,8 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
             return true;
         }
 
-        private boolean isAcyclic(Transition transition, List<Transition> path) {
+        private boolean isAcyclic(Transition transition,
+                List<Transition> path) {
             if (path.contains(transition)) {
                 return false;
             } else {
@@ -464,11 +470,12 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
         public boolean isDeterministic() {
             for (Transition t1 : getTransitions()) {
                 for (Transition t2 : getTransitions()) {
-                    if (t1 != t2 && t1.getTriggerPort() == t2.getTriggerPort()) {
+                    if (t1 != t2
+                            && t1.getTriggerPort() == t2.getTriggerPort()) {
                         Set<State> states = new HashSet<State>();
 
-                        if (t1.getSources().containsAll(t2.getSources())
-                                || t2.getSources().containsAll(t1.getSources())) {
+                        if (t1.getSources().containsAll(t2.getSources()) || t2
+                                .getSources().containsAll(t1.getSources())) {
                             return false;
                         }
 
@@ -538,8 +545,8 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
 
         private LpSolve getMarkingEquation() throws LpSolveException {
             if (markingEquation == null) {
-                markingEquation = LpSolve.makeLp(1, getStates().size()
-                        + getTransitions().size());
+                markingEquation = LpSolve.makeLp(1,
+                        getStates().size() + getTransitions().size());
                 markingEquation.setVerbose(LpSolve.CRITICAL);
 
                 // initialize variables & objective
@@ -744,12 +751,14 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
          * @param state the target state
          * @param uninit the target set of uninitialized variables
          */
-        private void addUninitialized(State state, Set<DataDeclaration> uninit) {
+        private void addUninitialized(State state,
+                Set<DataDeclaration> uninit) {
             boolean modified = uninitialized.get(state).addAll(uninit);
 
             if (modified) {
                 for (Transition t : pn.getSuccessors(state)) {
-                    Set<DataDeclaration> uninitializedAfterT = getUninitializedAfter(t);
+                    Set<DataDeclaration> uninitializedAfterT = getUninitializedAfter(
+                            t);
 
                     for (State s : pn.getSuccessors(t)) {
                         addUninitialized(s, uninitializedAfterT);
@@ -774,7 +783,8 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
          * @param transition the target transition
          * @return the set of uninitialized variables after the execution of transition
          */
-        public Set<DataDeclaration> getUninitializedAfter(Transition transition) {
+        public Set<DataDeclaration> getUninitializedAfter(
+                Transition transition) {
             Set<DataDeclaration> ret = getUninitializedBefore(transition);
 
             checkUninitializedVariables(transition.getActions(), ret, null);
@@ -791,7 +801,8 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
          */
         private List<Expression> getErrors(Transition transition) {
             List<Expression> ret = new ArrayList<Expression>();
-            Set<DataDeclaration> uninitializedBefore = getUninitializedBefore(transition);
+            Set<DataDeclaration> uninitializedBefore = getUninitializedBefore(
+                    transition);
 
             // check guard of the transition
             if (transition.getGuard() != null) {
@@ -817,7 +828,8 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
          * @param transition the target transition
          * @return the set uninitialized variables before the execution of transition
          */
-        public Set<DataDeclaration> getUninitializedBefore(Transition transition) {
+        public Set<DataDeclaration> getUninitializedBefore(
+                Transition transition) {
             Set<DataDeclaration> ret = new HashSet<DataDeclaration>();
 
             boolean first = true;
@@ -1008,8 +1020,8 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
             }
 
             // faulty variables = the ones uninitialized before the execution of t
-            uninitializedVariables.retainAll(analyzer
-                    .getUninitializedBefore(transition));
+            uninitializedVariables
+                    .retainAll(analyzer.getUninitializedBefore(transition));
 
             ret.addAll(uninitializedVariables);
         }
@@ -1032,8 +1044,8 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
             return ((InternalEList<?>) getTransitions()).basicRemove(otherEnd,
                     msgs);
         case BehaviorPackage.PETRI_NET__INITIAL_ACTIONS:
-            return ((InternalEList<?>) getInitialActions()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getInitialActions())
+                    .basicRemove(otherEnd, msgs);
         case BehaviorPackage.PETRI_NET__INITIAL_RESUME:
             return basicSetInitialResume(null, msgs);
         }
@@ -1086,8 +1098,8 @@ public class PetriNetImpl extends AnnotatedEObjectImpl implements PetriNet {
             return;
         case BehaviorPackage.PETRI_NET__INITIAL_ACTIONS:
             getInitialActions().clear();
-            getInitialActions().addAll(
-                    (Collection<? extends Expression>) newValue);
+            getInitialActions()
+                    .addAll((Collection<? extends Expression>) newValue);
             return;
         case BehaviorPackage.PETRI_NET__INITIAL_RESUME:
             setInitialResume((Resume) newValue);

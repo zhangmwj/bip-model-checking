@@ -43,10 +43,10 @@ package bip2.ujf.verimag.bip.actionlang;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.ValuedReferenceExpression#getExpressionReference <em>Expression Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.actionlang.ActionlangPackage#getValuedReferenceExpression()
  * @model

@@ -140,7 +140,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION__BIP_ANNOTATIONS = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 0;
+    int ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION__BIP_ANNOTATIONS = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Internal External Port Declaration</em>' class.
@@ -149,7 +150,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 1;
+    int ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.component.atom.impl.AtomInternalPortDeclarationImpl <em>Internal Port Declaration</em>}' class.
@@ -204,7 +206,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_INTERNAL_PORT_DECLARATION_FEATURE_COUNT = ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT + 0;
+    int ATOM_INTERNAL_PORT_DECLARATION_FEATURE_COUNT = ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.component.atom.impl.AtomExternalPortDeclarationImpl <em>External Port Declaration</em>}' class.
@@ -259,7 +262,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_EXTERNAL_PORT_DECLARATION__BACKEND_NAME = ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT + 0;
+    int ATOM_EXTERNAL_PORT_DECLARATION__BACKEND_NAME = ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Policy</b></em>' attribute.
@@ -268,7 +272,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_EXTERNAL_PORT_DECLARATION__POLICY = ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT + 1;
+    int ATOM_EXTERNAL_PORT_DECLARATION__POLICY = ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT
+            + 1;
 
     /**
      * The number of structural features of the '<em>External Port Declaration</em>' class.
@@ -277,7 +282,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT = ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT + 2;
+    int ATOM_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT = ATOM_INTERNAL_EXTERNAL_PORT_DECLARATION_FEATURE_COUNT
+            + 2;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.component.atom.impl.AtomInternalDataDeclarationImpl <em>Internal Data Declaration</em>}' class.
@@ -341,7 +347,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_INTERNAL_DATA_DECLARATION__EXPORTED = DataPackage.EXPLICIT_DATA_DECLARATION_FEATURE_COUNT + 0;
+    int ATOM_INTERNAL_DATA_DECLARATION__EXPORTED = DataPackage.EXPLICIT_DATA_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The number of structural features of the '<em>Internal Data Declaration</em>' class.
@@ -350,7 +357,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_INTERNAL_DATA_DECLARATION_FEATURE_COUNT = DataPackage.EXPLICIT_DATA_DECLARATION_FEATURE_COUNT + 1;
+    int ATOM_INTERNAL_DATA_DECLARATION_FEATURE_COUNT = DataPackage.EXPLICIT_DATA_DECLARATION_FEATURE_COUNT
+            + 1;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.component.atom.impl.AtomExportPortDeclarationImpl <em>Export Port Declaration</em>}' class.
@@ -396,7 +404,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 0;
+    int ATOM_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Port Declaration References</b></em>' reference list.
@@ -405,7 +414,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_EXPORT_PORT_DECLARATION__PORT_DECLARATION_REFERENCES = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 1;
+    int ATOM_EXPORT_PORT_DECLARATION__PORT_DECLARATION_REFERENCES = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 1;
 
     /**
      * The number of structural features of the '<em>Export Port Declaration</em>' class.
@@ -414,7 +424,8 @@ public interface AtomPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_EXPORT_PORT_DECLARATION_FEATURE_COUNT = PortPackage.PORT_DECLARATION_FEATURE_COUNT + 2;
+    int ATOM_EXPORT_PORT_DECLARATION_FEATURE_COUNT = PortPackage.PORT_DECLARATION_FEATURE_COUNT
+            + 2;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.component.atom.EventConsumptionPolicy <em>Event Consumption Policy</em>}' enum.

@@ -70,17 +70,17 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorDeclarationImpl#getType <em>Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorDeclarationImpl#getPortParameters <em>Port Parameters</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorDeclarationImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class ConnectorDeclarationImpl extends AnnotatedElementImpl implements
-        ConnectorDeclaration {
+public class ConnectorDeclarationImpl extends AnnotatedElementImpl
+        implements ConnectorDeclaration {
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' reference.
      * <!-- begin-user-doc -->
@@ -145,6 +145,7 @@ public class ConnectorDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorType getType() {
         if (type != null && ((EObject) type).eIsProxy()) {
             InternalEObject oldType = (InternalEObject) type;
@@ -173,12 +174,14 @@ public class ConnectorDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setType(ConnectorType newType) {
         ConnectorType oldType = type;
         type = newType;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    ConnectorPackage.CONNECTOR_DECLARATION__TYPE, oldType, type));
+                    ConnectorPackage.CONNECTOR_DECLARATION__TYPE, oldType,
+                    type));
     }
 
     /**
@@ -186,6 +189,7 @@ public class ConnectorDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -195,12 +199,14 @@ public class ConnectorDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    ConnectorPackage.CONNECTOR_DECLARATION__NAME, oldName, name));
+                    ConnectorPackage.CONNECTOR_DECLARATION__NAME, oldName,
+                    name));
     }
 
     /**
@@ -208,6 +214,7 @@ public class ConnectorDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<PortDeclarationReferenceParameter> getPortParameters() {
         if (portParameters == null) {
             portParameters = new EObjectContainmentEList<PortDeclarationReferenceParameter>(
@@ -227,8 +234,8 @@ public class ConnectorDeclarationImpl extends AnnotatedElementImpl implements
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectorPackage.CONNECTOR_DECLARATION__PORT_PARAMETERS:
-            return ((InternalEList<?>) getPortParameters()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getPortParameters())
+                    .basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -267,8 +274,8 @@ public class ConnectorDeclarationImpl extends AnnotatedElementImpl implements
             return;
         case ConnectorPackage.CONNECTOR_DECLARATION__PORT_PARAMETERS:
             getPortParameters().clear();
-            getPortParameters()
-                    .addAll((Collection<? extends PortDeclarationReferenceParameter>) newValue);
+            getPortParameters().addAll(
+                    (Collection<? extends PortDeclarationReferenceParameter>) newValue);
             return;
         case ConnectorPackage.CONNECTOR_DECLARATION__NAME:
             setName((String) newValue);
@@ -311,8 +318,8 @@ public class ConnectorDeclarationImpl extends AnnotatedElementImpl implements
         case ConnectorPackage.CONNECTOR_DECLARATION__PORT_PARAMETERS:
             return portParameters != null && !portParameters.isEmpty();
         case ConnectorPackage.CONNECTOR_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         }
         return super.eIsSet(featureID);
     }
@@ -327,7 +334,7 @@ public class ConnectorDeclarationImpl extends AnnotatedElementImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

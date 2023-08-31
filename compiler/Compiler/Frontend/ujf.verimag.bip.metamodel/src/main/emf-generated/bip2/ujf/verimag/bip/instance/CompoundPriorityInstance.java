@@ -48,6 +48,7 @@ import ujf.verimag.bip.metamodel.AnnotatedEObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.CompoundPriorityInstance#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.CompoundPriorityInstance#getLowConnector <em>Low Connector</em>}</li>
@@ -55,7 +56,6 @@ import ujf.verimag.bip.metamodel.AnnotatedEObject;
  *   <li>{@link bip2.ujf.verimag.bip.instance.CompoundPriorityInstance#getLowPorts <em>Low Ports</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.CompoundPriorityInstance#getHighPorts <em>High Ports</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.instance.InstancePackage#getCompoundPriorityInstance()
  * @model

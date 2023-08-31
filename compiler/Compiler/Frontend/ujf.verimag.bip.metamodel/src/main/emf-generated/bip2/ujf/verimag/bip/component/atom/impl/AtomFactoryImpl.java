@@ -64,7 +64,7 @@ public class AtomFactoryImpl extends EFactoryImpl implements AtomFactory {
     public static AtomFactory init() {
         try {
             AtomFactory theAtomFactory = (AtomFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/component/atom/1.0");
+                    .getEFactory(AtomPackage.eNS_URI);
             if (theAtomFactory != null) {
                 return theAtomFactory;
             }
@@ -145,6 +145,7 @@ public class AtomFactoryImpl extends EFactoryImpl implements AtomFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomInternalPortDeclaration createAtomInternalPortDeclaration() {
         AtomInternalPortDeclarationImpl atomInternalPortDeclaration = new AtomInternalPortDeclarationImpl();
         return atomInternalPortDeclaration;
@@ -155,6 +156,7 @@ public class AtomFactoryImpl extends EFactoryImpl implements AtomFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomExternalPortDeclaration createAtomExternalPortDeclaration() {
         AtomExternalPortDeclarationImpl atomExternalPortDeclaration = new AtomExternalPortDeclarationImpl();
         return atomExternalPortDeclaration;
@@ -165,6 +167,7 @@ public class AtomFactoryImpl extends EFactoryImpl implements AtomFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomInternalDataDeclaration createAtomInternalDataDeclaration() {
         AtomInternalDataDeclarationImpl atomInternalDataDeclaration = new AtomInternalDataDeclarationImpl();
         return atomInternalDataDeclaration;
@@ -175,6 +178,7 @@ public class AtomFactoryImpl extends EFactoryImpl implements AtomFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomExportPortDeclaration createAtomExportPortDeclaration() {
         AtomExportPortDeclarationImpl atomExportPortDeclaration = new AtomExportPortDeclarationImpl();
         return atomExportPortDeclaration;
@@ -211,6 +215,7 @@ public class AtomFactoryImpl extends EFactoryImpl implements AtomFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomPackage getAtomPackage() {
         return (AtomPackage) getEPackage();
     }

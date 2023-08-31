@@ -45,17 +45,17 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.connector.ConnectorInteractionNestedDefinition#getSubInteractions <em>Sub Interactions</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.connector.ConnectorPackage#getConnectorInteractionNestedDefinition()
  * @model
  * @generated
  */
-public interface ConnectorInteractionNestedDefinition extends
-        ConnectorInteractionDefinition {
+public interface ConnectorInteractionNestedDefinition
+        extends ConnectorInteractionDefinition {
     /**
      * Returns the value of the '<em><b>Sub Interactions</b></em>' containment reference list.
      * The list contents are of type {@link bip2.ujf.verimag.bip.connector.ConnectorInteractionDefinition}.

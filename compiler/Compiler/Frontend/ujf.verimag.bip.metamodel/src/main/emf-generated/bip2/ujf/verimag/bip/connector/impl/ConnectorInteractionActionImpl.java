@@ -71,13 +71,13 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorInteractionActionImpl#getGuard <em>Guard</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorInteractionActionImpl#getOnPorts <em>On Ports</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorInteractionActionImpl#getUp <em>Up</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.connector.impl.ConnectorInteractionActionImpl#getDown <em>Down</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -147,6 +147,7 @@ public class ConnectorInteractionActionImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ConnectorPortParameterDeclaration> getOnPorts() {
         if (onPorts == null) {
             onPorts = new EObjectResolvingEList<ConnectorPortParameterDeclaration>(
@@ -161,6 +162,7 @@ public class ConnectorInteractionActionImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getGuard() {
         return guard;
     }
@@ -192,23 +194,20 @@ public class ConnectorInteractionActionImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setGuard(ValuedExpression newGuard) {
         if (newGuard != guard) {
             NotificationChain msgs = null;
             if (guard != null)
-                msgs = ((InternalEObject) guard)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - ConnectorPackage.CONNECTOR_INTERACTION_ACTION__GUARD,
-                                null, msgs);
+                msgs = ((InternalEObject) guard).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - ConnectorPackage.CONNECTOR_INTERACTION_ACTION__GUARD,
+                        null, msgs);
             if (newGuard != null)
-                msgs = ((InternalEObject) newGuard)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - ConnectorPackage.CONNECTOR_INTERACTION_ACTION__GUARD,
-                                null, msgs);
+                msgs = ((InternalEObject) newGuard).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - ConnectorPackage.CONNECTOR_INTERACTION_ACTION__GUARD,
+                        null, msgs);
             msgs = basicSetGuard(newGuard, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -223,10 +222,11 @@ public class ConnectorInteractionActionImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<Expression> getUp() {
         if (up == null) {
-            up = new EObjectContainmentEList<Expression>(Expression.class,
-                    this, ConnectorPackage.CONNECTOR_INTERACTION_ACTION__UP);
+            up = new EObjectContainmentEList<Expression>(Expression.class, this,
+                    ConnectorPackage.CONNECTOR_INTERACTION_ACTION__UP);
         }
         return up;
     }
@@ -236,6 +236,7 @@ public class ConnectorInteractionActionImpl extends AnnotatedElementImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<Expression> getDown() {
         if (down == null) {
             down = new EObjectContainmentEList<Expression>(Expression.class,
@@ -297,8 +298,8 @@ public class ConnectorInteractionActionImpl extends AnnotatedElementImpl
             return;
         case ConnectorPackage.CONNECTOR_INTERACTION_ACTION__ON_PORTS:
             getOnPorts().clear();
-            getOnPorts()
-                    .addAll((Collection<? extends ConnectorPortParameterDeclaration>) newValue);
+            getOnPorts().addAll(
+                    (Collection<? extends ConnectorPortParameterDeclaration>) newValue);
             return;
         case ConnectorPackage.CONNECTOR_INTERACTION_ACTION__UP:
             getUp().clear();
@@ -362,7 +363,8 @@ public class ConnectorInteractionActionImpl extends AnnotatedElementImpl
      * @generated
      */
     @Override
-    public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+    public int eBaseStructuralFeatureID(int derivedFeatureID,
+            Class<?> baseClass) {
         if (baseClass == Guarded.class) {
             switch (derivedFeatureID) {
             case ConnectorPackage.CONNECTOR_INTERACTION_ACTION__GUARD:
@@ -380,7 +382,8 @@ public class ConnectorInteractionActionImpl extends AnnotatedElementImpl
      * @generated
      */
     @Override
-    public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+    public int eDerivedStructuralFeatureID(int baseFeatureID,
+            Class<?> baseClass) {
         if (baseClass == Guarded.class) {
             switch (baseFeatureID) {
             case TimePackage.GUARDED__GUARD:

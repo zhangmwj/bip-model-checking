@@ -47,13 +47,11 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Place Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
-public class PlaceHolderImpl extends AnnotatedEObjectImpl implements
-        PlaceHolder {
+public class PlaceHolderImpl extends AnnotatedEObjectImpl
+        implements PlaceHolder {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

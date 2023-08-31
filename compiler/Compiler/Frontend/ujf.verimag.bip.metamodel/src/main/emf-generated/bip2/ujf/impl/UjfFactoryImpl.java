@@ -62,7 +62,7 @@ public class UjfFactoryImpl extends EFactoryImpl implements UjfFactory {
     public static UjfFactory init() {
         try {
             UjfFactory theUjfFactory = (UjfFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/1.0");
+                    .getEFactory(UjfPackage.eNS_URI);
             if (theUjfFactory != null) {
                 return theUjfFactory;
             }
@@ -103,6 +103,7 @@ public class UjfFactoryImpl extends EFactoryImpl implements UjfFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PlaceHolder createPlaceHolder() {
         PlaceHolderImpl placeHolder = new PlaceHolderImpl();
         return placeHolder;
@@ -113,6 +114,7 @@ public class UjfFactoryImpl extends EFactoryImpl implements UjfFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public UjfPackage getUjfPackage() {
         return (UjfPackage) getEPackage();
     }

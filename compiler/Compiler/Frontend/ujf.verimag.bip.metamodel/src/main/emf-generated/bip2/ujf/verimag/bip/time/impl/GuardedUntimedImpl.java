@@ -57,15 +57,15 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.time.impl.GuardedUntimedImpl#getGuard <em>Guard</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class GuardedUntimedImpl extends AnnotatedEObjectImpl implements
-        GuardedUntimed {
+public class GuardedUntimedImpl extends AnnotatedEObjectImpl
+        implements GuardedUntimed {
     /**
      * The cached value of the '{@link #getGuard() <em>Guard</em>}' containment reference.
      * <!-- begin-user-doc -->
@@ -100,6 +100,7 @@ public class GuardedUntimedImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getGuard() {
         return guard;
     }
@@ -130,19 +131,20 @@ public class GuardedUntimedImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setGuard(ValuedExpression newGuard) {
         if (newGuard != guard) {
             NotificationChain msgs = null;
             if (guard != null)
                 msgs = ((InternalEObject) guard).eInverseRemove(this,
                         EOPPOSITE_FEATURE_BASE
-                                - TimePackage.GUARDED_UNTIMED__GUARD, null,
-                        msgs);
+                                - TimePackage.GUARDED_UNTIMED__GUARD,
+                        null, msgs);
             if (newGuard != null)
                 msgs = ((InternalEObject) newGuard).eInverseAdd(this,
                         EOPPOSITE_FEATURE_BASE
-                                - TimePackage.GUARDED_UNTIMED__GUARD, null,
-                        msgs);
+                                - TimePackage.GUARDED_UNTIMED__GUARD,
+                        null, msgs);
             msgs = basicSetGuard(newGuard, msgs);
             if (msgs != null)
                 msgs.dispatch();

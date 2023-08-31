@@ -47,14 +47,14 @@ import ujf.verimag.bip.metamodel.AnnotatedEObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.time.Guarded#getGuard <em>Guard</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.time.TimePackage#getGuarded()
  * @model interface="true" abstract="true"
- *        annotation="http://www.eclipse.org/emf/2002/Ecore constraints='nestedComparisonOnClocks clocksOnOneSideOfLogicalOr invalidNotEqualOnClocks noClocksInLogicalNot invalidUseOfMultiplicationOrDivisionOnClocks comparisonOfMoreThanTwoClocks comparisonOfClocksHavingWrongSign'"
+ *        annotation="http://www.eclipse.org/emf/2002/Ecore constraints='checkExpressionGrammar'"
  * @extends AnnotatedEObject
  * @generated
  */

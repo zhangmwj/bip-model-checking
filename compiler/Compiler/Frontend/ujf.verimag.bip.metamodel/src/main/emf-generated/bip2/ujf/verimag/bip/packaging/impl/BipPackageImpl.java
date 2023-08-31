@@ -88,6 +88,7 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.BipPackageImpl#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.BipPackageImpl#getAtomTypes <em>Atom Types</em>}</li>
@@ -99,7 +100,6 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.BipPackageImpl#getConstData <em>Const Data</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.BipPackageImpl#getPrototypes <em>Prototypes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -258,7 +258,8 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
 
         // set native binary operators for time
         for (Time unit : time_types) {
-            addNativeBinaryPrototype(BinaryOperators.ADDITION, unit, unit, unit);
+            addNativeBinaryPrototype(BinaryOperators.ADDITION, unit, unit,
+                    unit);
             addNativeBinaryPrototype(BinaryOperators.SUBTRACTION, unit, unit,
                     unit);
 
@@ -299,8 +300,8 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
                     getBoolDataType());
             addNativeBinaryPrototype(op, getIntDataType(), getFloatDataType(),
                     getBoolDataType());
-            addNativeBinaryPrototype(op, getFloatDataType(),
-                    getFloatDataType(), getBoolDataType());
+            addNativeBinaryPrototype(op, getFloatDataType(), getFloatDataType(),
+                    getBoolDataType());
             addNativeBinaryPrototype(op, getBoolDataType(), getBoolDataType(),
                     getBoolDataType());
             addNativeBinaryPrototype(op, getStringDataType(),
@@ -315,8 +316,8 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
                     getFloatDataType());
             addNativeBinaryPrototype(op, getIntDataType(), getFloatDataType(),
                     getFloatDataType());
-            addNativeBinaryPrototype(op, getFloatDataType(),
-                    getFloatDataType(), getFloatDataType());
+            addNativeBinaryPrototype(op, getFloatDataType(), getFloatDataType(),
+                    getFloatDataType());
         }
 
         // set native arithmetic unary prototypes
@@ -452,9 +453,8 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      */
     protected static final BinaryOperators[] comparison_operators = {
             BinaryOperators.EQUAL, BinaryOperators.NOT_EQUAL,
-            BinaryOperators.GREATER_THAN,
-            BinaryOperators.GREATER_THAN_OR_EQUAL, BinaryOperators.LESS_THAN,
-            BinaryOperators.LESS_THAN_OR_EQUAL };
+            BinaryOperators.GREATER_THAN, BinaryOperators.GREATER_THAN_OR_EQUAL,
+            BinaryOperators.LESS_THAN, BinaryOperators.LESS_THAN_OR_EQUAL };
 
     /**
      * <!-- begin-user-doc -->
@@ -488,7 +488,8 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated NOT
      */
-    protected static final UnaryOperators[] bwise_unary_operators = { UnaryOperators.BWISE_NOT };
+    protected static final UnaryOperators[] bwise_unary_operators = {
+            UnaryOperators.BWISE_NOT };
 
     /**
      * <!-- begin-user-doc -->
@@ -503,7 +504,8 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated NOT
      */
-    protected static final UnaryOperators[] logical_unary_operators = { UnaryOperators.LOGICAL_NOT };
+    protected static final UnaryOperators[] logical_unary_operators = {
+            UnaryOperators.LOGICAL_NOT };
 
     /**
      * <!-- begin-user-doc -->
@@ -578,6 +580,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -587,6 +590,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -600,6 +604,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<BipPackage> getUsed_packages() {
         if (used_packages == null) {
             used_packages = new EObjectResolvingEList<BipPackage>(
@@ -614,6 +619,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ConstDataDeclaration> getConstData() {
         if (constData == null) {
             constData = new EObjectContainmentEList<ConstDataDeclaration>(
@@ -628,11 +634,11 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<Prototype> getPrototypes() {
         if (prototypes == null) {
-            prototypes = new EObjectContainmentEList<Prototype>(
-                    Prototype.class, this,
-                    PackagingPackage.BIP_PACKAGE__PROTOTYPES);
+            prototypes = new EObjectContainmentEList<Prototype>(Prototype.class,
+                    this, PackagingPackage.BIP_PACKAGE__PROTOTYPES);
         }
         return prototypes;
     }
@@ -642,6 +648,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomType> getAtomTypes() {
         if (atomTypes == null) {
             atomTypes = new EObjectContainmentEList<AtomType>(AtomType.class,
@@ -655,6 +662,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<CompoundType> getCompoundTypes() {
         if (compoundTypes == null) {
             compoundTypes = new EObjectContainmentEList<CompoundType>(
@@ -669,6 +677,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ConnectorType> getConnectorTypes() {
         if (connectorTypes == null) {
             connectorTypes = new EObjectContainmentEList<ConnectorType>(
@@ -683,6 +692,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<PortType> getPortTypes() {
         if (portTypes == null) {
             portTypes = new EObjectContainmentEList<PortType>(PortType.class,
@@ -696,6 +706,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataType> getDataTypes() {
         if (dataTypes == null) {
             dataTypes = new EObjectContainmentEList<DataType>(DataType.class,
@@ -831,8 +842,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
             if (prototype instanceof FunctionCallPrototype) {
                 FunctionCallPrototype functionCallPrototype = (FunctionCallPrototype) prototype;
 
-                if (functionName
-                        .equals(functionCallPrototype.getFunctionName())
+                if (functionName.equals(functionCallPrototype.getFunctionName())
                         || functionName.equals(getName() + "."
                                 + functionCallPrototype.getFunctionName())) {
                     ret.add(functionCallPrototype);
@@ -852,8 +862,10 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
             String functionName, EList<Type> parametersTypes) {
         EList<FunctionCallPrototype> ret = new BasicEList<FunctionCallPrototype>();
 
-        for (FunctionCallPrototype prototype : getFunctionCallPrototypes(functionName)) {
-            if (isKindOf(parametersTypes, prototype.getParameterDeclarations())) {
+        for (FunctionCallPrototype prototype : getFunctionCallPrototypes(
+                functionName)) {
+            if (isKindOf(parametersTypes,
+                    prototype.getParameterDeclarations())) {
                 ret.add(prototype);
             }
         }
@@ -893,7 +905,8 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
         EList<BinaryOpPrototype> ret = new BasicEList<BinaryOpPrototype>();
 
         for (BinaryOpPrototype prototype : getBinaryOpPrototypes(operator)) {
-            if (isKindOf(parametersTypes, prototype.getParameterDeclarations())) {
+            if (isKindOf(parametersTypes,
+                    prototype.getParameterDeclarations())) {
                 ret.add(prototype);
             }
         }
@@ -906,7 +919,8 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated NOT
      */
-    public EList<UnaryOpPrototype> getUnaryOpPrototypes(UnaryOperators operator) {
+    public EList<UnaryOpPrototype> getUnaryOpPrototypes(
+            UnaryOperators operator) {
         EList<UnaryOpPrototype> ret = new BasicEList<UnaryOpPrototype>();
 
         for (Prototype prototype : getPrototypes()) {
@@ -927,12 +941,13 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
      * <!-- end-user-doc -->
      * @generated NOT
      */
-    public EList<UnaryOpPrototype> getUnaryOpPrototypes(
-            UnaryOperators operator, EList<Type> parametersTypes) {
+    public EList<UnaryOpPrototype> getUnaryOpPrototypes(UnaryOperators operator,
+            EList<Type> parametersTypes) {
         EList<UnaryOpPrototype> ret = new BasicEList<UnaryOpPrototype>();
 
         for (UnaryOpPrototype prototype : getUnaryOpPrototypes(operator)) {
-            if (isKindOf(parametersTypes, prototype.getParameterDeclarations())) {
+            if (isKindOf(parametersTypes,
+                    prototype.getParameterDeclarations())) {
                 ret.add(prototype);
             }
         }
@@ -1052,11 +1067,11 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
             return ((InternalEList<?>) getAtomTypes()).basicRemove(otherEnd,
                     msgs);
         case PackagingPackage.BIP_PACKAGE__COMPOUND_TYPES:
-            return ((InternalEList<?>) getCompoundTypes()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getCompoundTypes()).basicRemove(otherEnd,
+                    msgs);
         case PackagingPackage.BIP_PACKAGE__CONNECTOR_TYPES:
-            return ((InternalEList<?>) getConnectorTypes()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getConnectorTypes())
+                    .basicRemove(otherEnd, msgs);
         case PackagingPackage.BIP_PACKAGE__PORT_TYPES:
             return ((InternalEList<?>) getPortTypes()).basicRemove(otherEnd,
                     msgs);
@@ -1121,13 +1136,13 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
             return;
         case PackagingPackage.BIP_PACKAGE__COMPOUND_TYPES:
             getCompoundTypes().clear();
-            getCompoundTypes().addAll(
-                    (Collection<? extends CompoundType>) newValue);
+            getCompoundTypes()
+                    .addAll((Collection<? extends CompoundType>) newValue);
             return;
         case PackagingPackage.BIP_PACKAGE__CONNECTOR_TYPES:
             getConnectorTypes().clear();
-            getConnectorTypes().addAll(
-                    (Collection<? extends ConnectorType>) newValue);
+            getConnectorTypes()
+                    .addAll((Collection<? extends ConnectorType>) newValue);
             return;
         case PackagingPackage.BIP_PACKAGE__PORT_TYPES:
             getPortTypes().clear();
@@ -1139,8 +1154,8 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
             return;
         case PackagingPackage.BIP_PACKAGE__USED_PACKAGES:
             getUsed_packages().clear();
-            getUsed_packages().addAll(
-                    (Collection<? extends BipPackage>) newValue);
+            getUsed_packages()
+                    .addAll((Collection<? extends BipPackage>) newValue);
             return;
         case PackagingPackage.BIP_PACKAGE__CONST_DATA:
             getConstData().clear();
@@ -1203,8 +1218,8 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case PackagingPackage.BIP_PACKAGE__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case PackagingPackage.BIP_PACKAGE__ATOM_TYPES:
             return atomTypes != null && !atomTypes.isEmpty();
         case PackagingPackage.BIP_PACKAGE__COMPOUND_TYPES:
@@ -1235,7 +1250,7 @@ public class BipPackageImpl extends AnnotatedElementImpl implements BipPackage {
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

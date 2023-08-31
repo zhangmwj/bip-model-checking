@@ -50,7 +50,7 @@ import bip2.ujf.verimag.bip.port.PortDeclaration;
  * @model
  * @generated
  */
-public interface AtomInternalPortDeclaration extends
-        AtomInternalExternalPortDeclaration {
+public interface AtomInternalPortDeclaration
+        extends AtomInternalExternalPortDeclaration {
 
 } // AtomInternalPortDeclaration

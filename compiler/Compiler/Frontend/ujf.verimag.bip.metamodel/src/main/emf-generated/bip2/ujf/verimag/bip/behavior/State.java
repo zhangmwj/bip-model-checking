@@ -47,10 +47,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.State#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.behavior.BehaviorPackage#getState()
  * @model

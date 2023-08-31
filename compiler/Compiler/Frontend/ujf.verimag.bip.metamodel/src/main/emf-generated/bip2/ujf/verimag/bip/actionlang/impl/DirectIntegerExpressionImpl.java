@@ -65,15 +65,15 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.DirectIntegerExpressionImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class DirectIntegerExpressionImpl extends ValuedExpressionImpl implements
-        DirectIntegerExpression {
+public class DirectIntegerExpressionImpl extends ValuedExpressionImpl
+        implements DirectIntegerExpression {
     /**
      * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -118,6 +118,7 @@ public class DirectIntegerExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public int getValue() {
         return value;
     }
@@ -127,6 +128,7 @@ public class DirectIntegerExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setValue(int newValue) {
         int oldValue = value;
         value = newValue;
@@ -222,7 +224,7 @@ public class DirectIntegerExpressionImpl extends ValuedExpressionImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (value: ");
         result.append(value);
         result.append(')');

@@ -76,6 +76,7 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.compound.impl.CompoundExportPortDeclarationImpl#getPortType <em>Port Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.compound.impl.CompoundExportPortDeclarationImpl#getName <em>Name</em>}</li>
@@ -83,7 +84,6 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  *   <li>{@link bip2.ujf.verimag.bip.component.compound.impl.CompoundExportPortDeclarationImpl#getBipAnnotations <em>Bip Annotations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.compound.impl.CompoundExportPortDeclarationImpl#getPortDeclarationReferences <em>Port Declaration References</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -173,15 +173,14 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortType getPortType() {
         if (portType != null && ((EObject) portType).eIsProxy()) {
             InternalEObject oldPortType = (InternalEObject) portType;
             portType = (PortType) eResolveProxy(oldPortType);
             if (portType != oldPortType) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__PORT_TYPE,
                             oldPortType, portType));
             }
@@ -203,13 +202,12 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setPortType(PortType newPortType) {
         PortType oldPortType = portType;
         portType = newPortType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__PORT_TYPE,
                     oldPortType, portType));
     }
@@ -219,6 +217,7 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -228,6 +227,7 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -242,11 +242,11 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataDeclarationReferenceDataParameter> getDataParameters() {
         if (dataParameters == null) {
             dataParameters = new EObjectContainmentEList<DataDeclarationReferenceDataParameter>(
-                    DataDeclarationReferenceDataParameter.class,
-                    this,
+                    DataDeclarationReferenceDataParameter.class, this,
                     CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__DATA_PARAMETERS);
         }
         return dataParameters;
@@ -257,12 +257,12 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EMap<String, BipAnnotation> getBipAnnotations() {
         if (bipAnnotations == null) {
             bipAnnotations = new EcoreEMap<String, BipAnnotation>(
                     AnnotationPackage.Literals.STRING_TO_ANNOTATION_MAP_ENTRY,
-                    StringToAnnotationMapEntryImpl.class,
-                    this,
+                    StringToAnnotationMapEntryImpl.class, this,
                     CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS);
         }
         return bipAnnotations;
@@ -273,11 +273,11 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<SubPortDeclarationReference> getPortDeclarationReferences() {
         if (portDeclarationReferences == null) {
             portDeclarationReferences = new EObjectContainmentEList<SubPortDeclarationReference>(
-                    SubPortDeclarationReference.class,
-                    this,
+                    SubPortDeclarationReference.class, this,
                     CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__PORT_DECLARATION_REFERENCES);
         }
         return portDeclarationReferences;
@@ -304,11 +304,11 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__DATA_PARAMETERS:
-            return ((InternalEList<?>) getDataParameters()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getDataParameters())
+                    .basicRemove(otherEnd, msgs);
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS:
-            return ((InternalEList<?>) getBipAnnotations()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getBipAnnotations())
+                    .basicRemove(otherEnd, msgs);
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__PORT_DECLARATION_REFERENCES:
             return ((InternalEList<?>) getPortDeclarationReferences())
                     .basicRemove(otherEnd, msgs);
@@ -360,16 +360,16 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
             return;
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__DATA_PARAMETERS:
             getDataParameters().clear();
-            getDataParameters()
-                    .addAll((Collection<? extends DataDeclarationReferenceDataParameter>) newValue);
+            getDataParameters().addAll(
+                    (Collection<? extends DataDeclarationReferenceDataParameter>) newValue);
             return;
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS:
             ((EStructuralFeature.Setting) getBipAnnotations()).set(newValue);
             return;
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__PORT_DECLARATION_REFERENCES:
             getPortDeclarationReferences().clear();
-            getPortDeclarationReferences()
-                    .addAll((Collection<? extends SubPortDeclarationReference>) newValue);
+            getPortDeclarationReferences().addAll(
+                    (Collection<? extends SubPortDeclarationReference>) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -413,8 +413,8 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__PORT_TYPE:
             return portType != null;
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__DATA_PARAMETERS:
             return dataParameters != null && !dataParameters.isEmpty();
         case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS:
@@ -432,7 +432,8 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * @generated
      */
     @Override
-    public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+    public int eBaseStructuralFeatureID(int derivedFeatureID,
+            Class<?> baseClass) {
         if (baseClass == AnnotatedElement.class) {
             switch (derivedFeatureID) {
             case CompoundPackage.COMPOUND_EXPORT_PORT_DECLARATION__BIP_ANNOTATIONS:
@@ -450,7 +451,8 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
      * @generated
      */
     @Override
-    public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+    public int eDerivedStructuralFeatureID(int baseFeatureID,
+            Class<?> baseClass) {
         if (baseClass == AnnotatedElement.class) {
             switch (baseFeatureID) {
             case AnnotationPackage.ANNOTATED_ELEMENT__BIP_ANNOTATIONS:
@@ -472,7 +474,7 @@ public class CompoundExportPortDeclarationImpl extends AnnotatedEObjectImpl
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

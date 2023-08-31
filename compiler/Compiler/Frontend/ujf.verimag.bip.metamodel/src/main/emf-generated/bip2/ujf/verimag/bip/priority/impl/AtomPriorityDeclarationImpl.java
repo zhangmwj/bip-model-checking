@@ -60,18 +60,18 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.priority.impl.AtomPriorityDeclarationImpl#getGuard <em>Guard</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.priority.impl.AtomPriorityDeclarationImpl#getLow <em>Low</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.priority.impl.AtomPriorityDeclarationImpl#getHigh <em>High</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.priority.impl.AtomPriorityDeclarationImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
-        AtomPriorityDeclaration {
+public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl
+        implements AtomPriorityDeclaration {
     /**
      * The cached value of the '{@link #getGuard() <em>Guard</em>}' containment reference.
      * <!-- begin-user-doc -->
@@ -146,6 +146,7 @@ public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getGuard() {
         return guard;
     }
@@ -177,23 +178,20 @@ public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setGuard(ValuedExpression newGuard) {
         if (newGuard != guard) {
             NotificationChain msgs = null;
             if (guard != null)
-                msgs = ((InternalEObject) guard)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PriorityPackage.ATOM_PRIORITY_DECLARATION__GUARD,
-                                null, msgs);
+                msgs = ((InternalEObject) guard).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - PriorityPackage.ATOM_PRIORITY_DECLARATION__GUARD,
+                        null, msgs);
             if (newGuard != null)
-                msgs = ((InternalEObject) newGuard)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PriorityPackage.ATOM_PRIORITY_DECLARATION__GUARD,
-                                null, msgs);
+                msgs = ((InternalEObject) newGuard).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - PriorityPackage.ATOM_PRIORITY_DECLARATION__GUARD,
+                        null, msgs);
             msgs = basicSetGuard(newGuard, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -208,6 +206,7 @@ public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomInternalPortDeclaration getLow() {
         if (low != null && ((EObject) low).eIsProxy()) {
             InternalEObject oldLow = (InternalEObject) low;
@@ -236,12 +235,14 @@ public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setLow(AtomInternalPortDeclaration newLow) {
         AtomInternalPortDeclaration oldLow = low;
         low = newLow;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    PriorityPackage.ATOM_PRIORITY_DECLARATION__LOW, oldLow, low));
+                    PriorityPackage.ATOM_PRIORITY_DECLARATION__LOW, oldLow,
+                    low));
     }
 
     /**
@@ -249,6 +250,7 @@ public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomInternalPortDeclaration getHigh() {
         if (high != null && ((EObject) high).eIsProxy()) {
             InternalEObject oldHigh = (InternalEObject) high;
@@ -277,6 +279,7 @@ public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setHigh(AtomInternalPortDeclaration newHigh) {
         AtomInternalPortDeclaration oldHigh = high;
         high = newHigh;
@@ -291,6 +294,7 @@ public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -300,6 +304,7 @@ public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -411,8 +416,8 @@ public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
         case PriorityPackage.ATOM_PRIORITY_DECLARATION__HIGH:
             return high != null;
         case PriorityPackage.ATOM_PRIORITY_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         }
         return super.eIsSet(featureID);
     }
@@ -427,7 +432,7 @@ public class AtomPriorityDeclarationImpl extends AnnotatedEObjectImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

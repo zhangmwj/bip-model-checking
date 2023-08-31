@@ -90,6 +90,7 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.ConnectorTypeImpl#getExportedPortDeclaration <em>Exported Port Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.ConnectorTypeImpl#getDataDeclarations <em>Data Declarations</em>}</li>
@@ -98,7 +99,6 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.ConnectorTypeImpl#getPorts <em>Ports</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.ConnectorTypeImpl#isAsyncResume <em>Async Resume</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -196,6 +196,7 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorExportedPortDeclaration getExportedPortDeclaration() {
         return exportedPortDeclaration;
     }
@@ -228,23 +229,20 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setExportedPortDeclaration(
             ConnectorExportedPortDeclaration newExportedPortDeclaration) {
         if (newExportedPortDeclaration != exportedPortDeclaration) {
             NotificationChain msgs = null;
             if (exportedPortDeclaration != null)
                 msgs = ((InternalEObject) exportedPortDeclaration)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - TypesPackage.CONNECTOR_TYPE__EXPORTED_PORT_DECLARATION,
+                        .eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+                                - TypesPackage.CONNECTOR_TYPE__EXPORTED_PORT_DECLARATION,
                                 null, msgs);
             if (newExportedPortDeclaration != null)
                 msgs = ((InternalEObject) newExportedPortDeclaration)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - TypesPackage.CONNECTOR_TYPE__EXPORTED_PORT_DECLARATION,
+                        .eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                                - TypesPackage.CONNECTOR_TYPE__EXPORTED_PORT_DECLARATION,
                                 null, msgs);
             msgs = basicSetExportedPortDeclaration(newExportedPortDeclaration,
                     msgs);
@@ -261,6 +259,7 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ConnectorDataDeclaration> getDataDeclarations() {
         if (dataDeclarations == null) {
             dataDeclarations = new EObjectContainmentEList<ConnectorDataDeclaration>(
@@ -275,6 +274,7 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ConnectorInteractionAction> getInteractions() {
         if (interactions == null) {
             interactions = new EObjectContainmentEList<ConnectorInteractionAction>(
@@ -289,6 +289,7 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInteractionDefinition getInteractionDefinition() {
         return interactionDefinition;
     }
@@ -321,25 +322,25 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setInteractionDefinition(
             ConnectorInteractionDefinition newInteractionDefinition) {
         if (newInteractionDefinition != interactionDefinition) {
             NotificationChain msgs = null;
             if (interactionDefinition != null)
-                msgs = ((InternalEObject) interactionDefinition)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - TypesPackage.CONNECTOR_TYPE__INTERACTION_DEFINITION,
-                                null, msgs);
+                msgs = ((InternalEObject) interactionDefinition).eInverseRemove(
+                        this,
+                        EOPPOSITE_FEATURE_BASE
+                                - TypesPackage.CONNECTOR_TYPE__INTERACTION_DEFINITION,
+                        null, msgs);
             if (newInteractionDefinition != null)
-                msgs = ((InternalEObject) newInteractionDefinition)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - TypesPackage.CONNECTOR_TYPE__INTERACTION_DEFINITION,
-                                null, msgs);
-            msgs = basicSetInteractionDefinition(newInteractionDefinition, msgs);
+                msgs = ((InternalEObject) newInteractionDefinition).eInverseAdd(
+                        this,
+                        EOPPOSITE_FEATURE_BASE
+                                - TypesPackage.CONNECTOR_TYPE__INTERACTION_DEFINITION,
+                        null, msgs);
+            msgs = basicSetInteractionDefinition(newInteractionDefinition,
+                    msgs);
             if (msgs != null)
                 msgs.dispatch();
         } else if (eNotificationRequired())
@@ -353,6 +354,7 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ConnectorPortParameterDeclaration> getPorts() {
         if (ports == null) {
             ports = new EObjectContainmentEList<ConnectorPortParameterDeclaration>(
@@ -367,6 +369,7 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean isAsyncResume() {
         return asyncResume;
     }
@@ -376,6 +379,7 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setAsyncResume(boolean newAsyncResume) {
         boolean oldAsyncResume = asyncResume;
         asyncResume = newAsyncResume;
@@ -460,7 +464,8 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
      */
     private boolean isEmpty(Set<ConnectorPortParameterDeclaration> ports,
             ConnectorInteractionDefinition definition) {
-        Set<ConnectorPortParameterDeclaration> portsOfSupport = support(definition);
+        Set<ConnectorPortParameterDeclaration> portsOfSupport = support(
+                definition);
         // intersect the support set of definition with the set of ports
         portsOfSupport.retainAll(ports);
 
@@ -564,8 +569,8 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
         case TypesPackage.CONNECTOR_TYPE__EXPORTED_PORT_DECLARATION:
             return basicSetExportedPortDeclaration(null, msgs);
         case TypesPackage.CONNECTOR_TYPE__DATA_DECLARATIONS:
-            return ((InternalEList<?>) getDataDeclarations()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getDataDeclarations())
+                    .basicRemove(otherEnd, msgs);
         case TypesPackage.CONNECTOR_TYPE__INTERACTIONS:
             return ((InternalEList<?>) getInteractions()).basicRemove(otherEnd,
                     msgs);
@@ -611,7 +616,8 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
         case TypesPackage.CONNECTOR_TYPE__EXPORTED_PORT_DECLARATION:
-            setExportedPortDeclaration((ConnectorExportedPortDeclaration) newValue);
+            setExportedPortDeclaration(
+                    (ConnectorExportedPortDeclaration) newValue);
             return;
         case TypesPackage.CONNECTOR_TYPE__DATA_DECLARATIONS:
             getDataDeclarations().clear();
@@ -620,16 +626,16 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
             return;
         case TypesPackage.CONNECTOR_TYPE__INTERACTIONS:
             getInteractions().clear();
-            getInteractions()
-                    .addAll((Collection<? extends ConnectorInteractionAction>) newValue);
+            getInteractions().addAll(
+                    (Collection<? extends ConnectorInteractionAction>) newValue);
             return;
         case TypesPackage.CONNECTOR_TYPE__INTERACTION_DEFINITION:
             setInteractionDefinition((ConnectorInteractionDefinition) newValue);
             return;
         case TypesPackage.CONNECTOR_TYPE__PORTS:
             getPorts().clear();
-            getPorts()
-                    .addAll((Collection<? extends ConnectorPortParameterDeclaration>) newValue);
+            getPorts().addAll(
+                    (Collection<? extends ConnectorPortParameterDeclaration>) newValue);
             return;
         case TypesPackage.CONNECTOR_TYPE__ASYNC_RESUME:
             setAsyncResume((Boolean) newValue);
@@ -702,7 +708,7 @@ public class ConnectorTypeImpl extends TypeImpl implements ConnectorType {
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (asyncResume: ");
         result.append(asyncResume);
         result.append(')');

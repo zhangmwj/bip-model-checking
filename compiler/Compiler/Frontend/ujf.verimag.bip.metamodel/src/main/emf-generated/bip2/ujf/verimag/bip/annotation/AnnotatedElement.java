@@ -48,10 +48,10 @@ import ujf.verimag.bip.metamodel.AnnotatedEObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.annotation.AnnotatedElement#getBipAnnotations <em>Bip Annotations</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.annotation.AnnotationPackage#getAnnotatedElement()
  * @model abstract="true"
@@ -71,7 +71,7 @@ public interface AnnotatedElement extends AnnotatedEObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Bip Annotations</em>' map.
      * @see bip2.ujf.verimag.bip.annotation.AnnotationPackage#getAnnotatedElement_BipAnnotations()
-     * @model mapType="bip2.ujf.verimag.bip.annotation.StringToAnnotationMapEntry<org.eclipse.emf.ecore.EString, bip2.ujf.verimag.bip.annotation.BipAnnotation>"
+     * @model mapType="bip2.ujf.verimag.bip.annotation.StringToAnnotationMapEntry&lt;org.eclipse.emf.ecore.EString, bip2.ujf.verimag.bip.annotation.BipAnnotation&gt;"
      * @generated
      */
     EMap<String, BipAnnotation> getBipAnnotations();

@@ -49,13 +49,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.data.DataDeclaration#getDataType <em>Data Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.data.DataDeclaration#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.data.DataDeclaration#getValue <em>Value</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.data.DataDeclaration#isConst <em>Const</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.data.DataPackage#getDataDeclaration()
  * @model interface="true" abstract="true"

@@ -161,7 +161,8 @@ public class PackagingValidator extends EObjectValidator {
                     diagnostics, context);
         case PackagingPackage.PROTOTYPE_PARAMETER_DECLARATION:
             return validatePrototypeParameterDeclaration(
-                    (PrototypeParameterDeclaration) value, diagnostics, context);
+                    (PrototypeParameterDeclaration) value, diagnostics,
+                    context);
         default:
             return true;
         }
@@ -195,8 +196,8 @@ public class PackagingValidator extends EObjectValidator {
             result &= validate_UniqueID((EObject) bipPackage, diagnostics,
                     context);
         if (result || diagnostics != null)
-            result &= validate_EveryKeyUnique((EObject) bipPackage,
-                    diagnostics, context);
+            result &= validate_EveryKeyUnique((EObject) bipPackage, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique((EObject) bipPackage,
                     diagnostics, context);
@@ -223,7 +224,8 @@ public class PackagingValidator extends EObjectValidator {
 
         if (!ret) {
             for (Type superType : type.getSuperTypes()) {
-                ret |= checkForCyclesInSubTypingFrom(superType, pathInDataTypes);
+                ret |= checkForCyclesInSubTypingFrom(superType,
+                        pathInDataTypes);
 
                 if (ret)
                     break;
@@ -341,20 +343,14 @@ public class PackagingValidator extends EObjectValidator {
             DiagnosticChain diagnostics, Map<Object, Object> context) {
         if (!constDataDeclaration.isConst()) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "incorrectConstForConstDataDeclaration",
-                                        getObjectLabel(constDataDeclaration,
-                                                context) },
-                                new Object[] {
-                                        constDataDeclaration,
-                                        ErrorCodeEnum.incorrectConstForConstDataDeclaration },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "incorrectConstForConstDataDeclaration",
+                                getObjectLabel(constDataDeclaration, context) },
+                        new Object[] { constDataDeclaration,
+                                ErrorCodeEnum.incorrectConstForConstDataDeclaration },
+                        context));
             }
             return false;
         }
@@ -371,8 +367,8 @@ public class PackagingValidator extends EObjectValidator {
         if (!validate_NoCircularContainment((EObject) prototype, diagnostics,
                 context))
             return false;
-        boolean result = validate_EveryMultiplicityConforms(
-                (EObject) prototype, diagnostics, context);
+        boolean result = validate_EveryMultiplicityConforms((EObject) prototype,
+                diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryDataValueConforms((EObject) prototype,
                     diagnostics, context);
@@ -429,12 +425,12 @@ public class PackagingValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE, 0,
-                        "_UI_GenericConstraint_diagnostic", new Object[] {
-                                "involveOnlyDataTypeIfNotNative",
-                                getObjectLabel(prototype, context) },
-                        new Object[] { prototype }, context));
+                diagnostics.add(
+                        createDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, 0,
+                                "_UI_GenericConstraint_diagnostic",
+                                new Object[] { "involveOnlyDataTypeIfNotNative",
+                                        getObjectLabel(prototype, context) },
+                                new Object[] { prototype }, context));
             }
             return false;
         }
@@ -546,8 +542,8 @@ public class PackagingValidator extends EObjectValidator {
             result &= validate_EveryProxyResolves((EObject) unaryOpPrototype,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_UniqueID((EObject) unaryOpPrototype,
-                    diagnostics, context);
+            result &= validate_UniqueID((EObject) unaryOpPrototype, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique((EObject) unaryOpPrototype,
                     diagnostics, context);

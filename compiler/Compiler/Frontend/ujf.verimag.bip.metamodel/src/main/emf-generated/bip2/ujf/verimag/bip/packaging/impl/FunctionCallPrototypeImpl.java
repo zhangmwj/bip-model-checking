@@ -51,15 +51,15 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.FunctionCallPrototypeImpl#getFunctionName <em>Function Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class FunctionCallPrototypeImpl extends PrototypeImpl implements
-        FunctionCallPrototype {
+public class FunctionCallPrototypeImpl extends PrototypeImpl
+        implements FunctionCallPrototype {
     /**
      * The default value of the '{@link #getFunctionName() <em>Function Name</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -104,6 +104,7 @@ public class FunctionCallPrototypeImpl extends PrototypeImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getFunctionName() {
         return functionName;
     }
@@ -113,6 +114,7 @@ public class FunctionCallPrototypeImpl extends PrototypeImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setFunctionName(String newFunctionName) {
         String oldFunctionName = functionName;
         functionName = newFunctionName;
@@ -191,7 +193,7 @@ public class FunctionCallPrototypeImpl extends PrototypeImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (functionName: ");
         result.append(functionName);
         result.append(')');

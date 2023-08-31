@@ -57,10 +57,10 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.time.impl.ResumeImpl#getGuard <em>Guard</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -99,6 +99,7 @@ public class ResumeImpl extends AnnotatedEObjectImpl implements Resume {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getGuard() {
         return guard;
     }
@@ -129,6 +130,7 @@ public class ResumeImpl extends AnnotatedEObjectImpl implements Resume {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setGuard(ValuedExpression newGuard) {
         if (newGuard != guard) {
             NotificationChain msgs = null;

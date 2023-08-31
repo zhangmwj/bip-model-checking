@@ -86,7 +86,7 @@ public class DataSwitch<T> extends Switch<T> {
      * Checks whether this is a switch for the given package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @parameter ePackage the package in question.
+     * @param ePackage the package in question.
      * @return whether this is a switch for the given package.
      * @generated
      */
@@ -138,7 +138,8 @@ public class DataSwitch<T> extends Switch<T> {
         }
         case DataPackage.SUB_DATA_DECLARATION_REFERENCE: {
             SubDataDeclarationReference subDataDeclarationReference = (SubDataDeclarationReference) theEObject;
-            T result = caseSubDataDeclarationReference(subDataDeclarationReference);
+            T result = caseSubDataDeclarationReference(
+                    subDataDeclarationReference);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
@@ -152,9 +153,11 @@ public class DataSwitch<T> extends Switch<T> {
         }
         case DataPackage.DATA_DECLARATION_REFERENCE_DATA_PARAMETER: {
             DataDeclarationReferenceDataParameter dataDeclarationReferenceDataParameter = (DataDeclarationReferenceDataParameter) theEObject;
-            T result = caseDataDeclarationReferenceDataParameter(dataDeclarationReferenceDataParameter);
+            T result = caseDataDeclarationReferenceDataParameter(
+                    dataDeclarationReferenceDataParameter);
             if (result == null)
-                result = caseDataParameter(dataDeclarationReferenceDataParameter);
+                result = caseDataParameter(
+                        dataDeclarationReferenceDataParameter);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
@@ -220,7 +223,8 @@ public class DataSwitch<T> extends Switch<T> {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseSubDataDeclarationReference(SubDataDeclarationReference object) {
+    public T caseSubDataDeclarationReference(
+            SubDataDeclarationReference object) {
         return null;
     }
 

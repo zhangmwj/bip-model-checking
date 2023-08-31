@@ -50,12 +50,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.port.SubPortDeclarationReference#getForwardPortDeclaration <em>Forward Port Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.SubPortDeclarationReference#getComponentDeclaration <em>Component Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.SubPortDeclarationReference#getConnectorDeclaration <em>Connector Declaration</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.port.PortPackage#getSubPortDeclarationReference()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='subPortDeclarationReferenceHasOneDeclaration'"

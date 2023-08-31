@@ -51,11 +51,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.ComponentInstance#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.ComponentInstance#getExportedPorts <em>Exported Ports</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.instance.InstancePackage#getComponentInstance()
  * @model interface="true" abstract="true"

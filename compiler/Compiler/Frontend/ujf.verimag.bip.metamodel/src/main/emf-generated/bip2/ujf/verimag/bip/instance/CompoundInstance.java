@@ -45,6 +45,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.CompoundInstance#getSubPriorities <em>Sub Priorities</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.CompoundInstance#getSubConnectorInstances <em>Sub Connector Instances</em>}</li>
@@ -52,7 +53,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link bip2.ujf.verimag.bip.instance.CompoundInstance#getSubCompoundInstances <em>Sub Compound Instances</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.CompoundInstance#getSubDataInstances <em>Sub Data Instances</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.instance.InstancePackage#getCompoundInstance()
  * @model

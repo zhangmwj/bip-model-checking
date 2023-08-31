@@ -50,6 +50,8 @@ import bip2.ujf.verimag.bip.actionlang.UnaryOpExpression;
 import bip2.ujf.verimag.bip.actionlang.UnaryOperators;
 import bip2.ujf.verimag.bip.actionlang.ValuedExpression;
 import bip2.ujf.verimag.bip.behavior.Transition;
+import bip2.ujf.verimag.bip.connector.ConnectorInteractionAction;
+import bip2.ujf.verimag.bip.invariant.Invariant;
 import bip2.ujf.verimag.bip.time.*;
 
 import java.util.ArrayList;
@@ -205,8 +207,8 @@ public class TimeValidator extends EObjectValidator {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean validateGuarded(Guarded guarded,
-            DiagnosticChain diagnostics, Map<Object, Object> context) {
+    public boolean validateGuarded(Guarded guarded, DiagnosticChain diagnostics,
+            Map<Object, Object> context) {
         if (!validate_NoCircularContainment((EObject) guarded, diagnostics,
                 context))
             return false;
@@ -225,7 +227,8 @@ public class TimeValidator extends EObjectValidator {
             result &= validate_EveryProxyResolves((EObject) guarded,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_UniqueID((EObject) guarded, diagnostics, context);
+            result &= validate_UniqueID((EObject) guarded, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique((EObject) guarded, diagnostics,
                     context);
@@ -233,27 +236,208 @@ public class TimeValidator extends EObjectValidator {
             result &= validate_EveryMapEntryUnique((EObject) guarded,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validateGuarded_nestedComparisonOnClocks(guarded,
+            result &= validateGuarded_checkExpressionGrammar(guarded,
                     diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_clocksOnOneSideOfLogicalOr(guarded,
-                    diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_invalidNotEqualOnClocks(guarded,
-                    diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_noClocksInLogicalNot(guarded,
-                    diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_invalidUseOfMultiplicationOrDivisionOnClocks(
-                    guarded, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_comparisonOfMoreThanTwoClocks(guarded,
-                    diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_comparisonOfClocksHavingWrongSign(
-                    guarded, diagnostics, context);
         return result;
+    }
+    
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    private boolean expressionIsConstant(ValuedExpression expression) {
+        if (expression instanceof UnaryOpExpression) {
+            UnaryOpExpression exp = (UnaryOpExpression) expression;
+            return expressionIsConstant(exp.getOperand());
+        } else if (expression instanceof BinaryOpExpression) {
+            BinaryOpExpression exp = (BinaryOpExpression) expression;
+            return expressionIsConstant(exp.getLeft())
+                    && expressionIsConstant(exp.getRight());
+        } else if (expression instanceof FunctionCallExpression) {
+            FunctionCallExpression exp = (FunctionCallExpression) expression;
+            for (ValuedExpression e : exp.getParameters()) {
+                if (!expressionIsConstant(e))
+                    return false;
+            }
+            return true;
+        } else if (expression instanceof DirectDataDeclarationReferenceExpression) {
+            DirectDataDeclarationReferenceExpression exp = (DirectDataDeclarationReferenceExpression) expression;
+            return exp.getDataDeclaration().isConst();
+        } else if (expression instanceof SubDataDeclarationReferenceExpression) {
+            SubDataDeclarationReferenceExpression exp = (SubDataDeclarationReferenceExpression) expression;
+            return exp.getSubDataDeclarationRef().getForwardDataDeclaration().isConst();
+        } else if (expression instanceof DirectClockDeclarationReferenceExpression) {
+            return false;
+        } else {
+            assert(expression instanceof DirectBooleanExpression
+                || expression instanceof DirectIntegerExpression);
+            return true;
+        }
+    }
+    
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    private boolean checkExpressionGrammar(ValuedExpression expression,
+            List<BinaryOperators> allowedComparisonOperators, 
+            DiagnosticChain diagnostics, Map<Object, Object> context) {
+        if (!expression.hasClocks()) {
+            return true;
+        } else if (expression instanceof UnaryOpExpression) {
+            return checkExpressionGrammar((UnaryOpExpression) expression, diagnostics, context);
+        } else if (expression instanceof BinaryOpExpression) {
+            return checkExpressionGrammar((BinaryOpExpression) expression, allowedComparisonOperators, diagnostics, context);
+        } else if (expression instanceof FunctionCallExpression) {
+            return checkExpressionGrammar((FunctionCallExpression) expression, diagnostics, context);
+        } else {
+            assert (expression instanceof DirectClockDeclarationReferenceExpression);
+            return true;
+        }
+    }
+    
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    private boolean checkExpressionGrammar(UnaryOpExpression expression,
+            DiagnosticChain diagnostics, Map<Object, Object> context) {
+        
+        if (diagnostics != null) {
+            diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                    DIAGNOSTIC_SOURCE, 0,
+                    "_UI_GenericConstraint_diagnostic",
+                    new Object[] { "checkExpressionGrammar",
+                            getObjectLabel(expression, context) },
+                    new Object[] { expression,
+                            ErrorCodeEnum.invalidExpressionOnClocks },
+                    context));
+        }
+        return false;
+    }
+    
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    private List<BinaryOperators> comparisonOperators = Arrays.asList(
+            BinaryOperators.GREATER_THAN,
+            BinaryOperators.GREATER_THAN_OR_EQUAL,
+            BinaryOperators.LESS_THAN, BinaryOperators.LESS_THAN_OR_EQUAL);
+    
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    private boolean checkExpressionGrammar(BinaryOpExpression expression,
+            List<BinaryOperators> allowedComparisonOperators, 
+            DiagnosticChain diagnostics, Map<Object, Object> context) {
+       
+        ErrorCodeEnum error = null;
+        
+        if (expression.getOperator() == BinaryOperators.LOGICAL_AND) {
+            return checkExpressionGrammar(expression.getLeft(), allowedComparisonOperators, diagnostics, context)
+                    && checkExpressionGrammar(expression.getRight(), allowedComparisonOperators, diagnostics, context);
+        }
+        else if (expression.getOperator() == BinaryOperators.LOGICAL_OR) {
+            if (expression.getLeft().hasClocks() && expression.getRight().hasClocks()) {
+                error = ErrorCodeEnum.clocksOnOneSideOfLogicalOr;
+            } else {
+                return checkExpressionGrammar(expression.getLeft(), allowedComparisonOperators, diagnostics, context)
+                        && checkExpressionGrammar(expression.getRight(), allowedComparisonOperators, diagnostics, context);
+            }
+        }
+        else if (comparisonOperators.contains(expression.getOperator())) {
+            boolean leftHasClocks = expression.getLeft().hasClocks();
+            boolean rightHasClocks = expression.getRight().hasClocks();
+            if ((leftHasClocks && ! (expression.getLeft() instanceof DirectClockDeclarationReferenceExpression)) 
+                        || (rightHasClocks && ! (expression.getRight() instanceof DirectClockDeclarationReferenceExpression))){
+                error = ErrorCodeEnum.invalidExpressionOnClocks;
+            } else if (leftHasClocks && rightHasClocks) {
+                error = ErrorCodeEnum.clocksOnBothSideOfComparison;
+            } else {
+                boolean opIsValid = allowedComparisonOperators.contains(expression.getOperator());
+                boolean valueIsConst = expressionIsConstant(expression.getRight());
+                if (rightHasClocks) {
+                    if (allowedComparisonOperators != comparisonOperators)
+                        opIsValid = !opIsValid;
+                    valueIsConst = expressionIsConstant(expression.getLeft());
+                }
+                if (!opIsValid) {
+                    error = ErrorCodeEnum.invariantComparisonOperator;
+                }
+                else if (!valueIsConst) {
+                    error = ErrorCodeEnum.clocksComparedToConst;
+                }
+            }
+        } else {
+            error = ErrorCodeEnum.invalidExpressionOnClocks;
+        }
+        
+        if (error == null)
+            return true;
+        if (diagnostics != null) {
+            diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                    DIAGNOSTIC_SOURCE, 0,
+                    "_UI_GenericConstraint_diagnostic",
+                    new Object[] { "checkExpressionGrammar",
+                            getObjectLabel(expression, context) },
+                    new Object[] { expression,
+                            error },
+                    context));
+        }
+        return false;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    private boolean checkExpressionGrammar(FunctionCallExpression expression,
+            DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+        if (diagnostics != null) {
+            diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                    DIAGNOSTIC_SOURCE, 0,
+                    "_UI_GenericConstraint_diagnostic",
+                    new Object[] { "checkExpressionGrammar",
+                            getObjectLabel(expression, context) },
+                    new Object[] { expression,
+                            /* TODO */ },
+                    context));
+        }
+        return false;
+    }
+
+    /**
+     * Validates the checkExpressionGrammar constraint of '<em>Guarded</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean validateGuarded_checkExpressionGrammar(Guarded guarded,
+            DiagnosticChain diagnostics, Map<Object, Object> context) {
+        
+        List<BinaryOperators> allowedComparisonOperators = null;
+        if (guarded instanceof Transition)
+            allowedComparisonOperators = comparisonOperators;
+        else if (guarded instanceof Invariant)
+            allowedComparisonOperators = Arrays.asList(
+                    BinaryOperators.LESS_THAN, BinaryOperators.LESS_THAN_OR_EQUAL);
+        else {
+            assert(guarded instanceof ConnectorInteractionAction);
+            assert(guarded.getGuard() == null || !guarded.getGuard().hasClocks());
+            return true;
+        }
+        if (guarded.getGuard() == null)
+            return true;
+        return checkExpressionGrammar(guarded.getGuard(), allowedComparisonOperators, diagnostics, context);
     }
 
     /**
@@ -273,16 +457,16 @@ public class TimeValidator extends EObjectValidator {
                 BinaryOperators.LESS_THAN, BinaryOperators.LESS_THAN_OR_EQUAL);
 
         if (guarded.getGuard() != null) {
-            for (DirectClockDeclarationReferenceExpression ref : getAllClockReferences(guarded
-                    .getGuard())) {
+            for (DirectClockDeclarationReferenceExpression ref : getAllClockReferences(
+                    guarded.getGuard())) {
                 boolean alreadyInAComparison = false;
 
                 for (ValuedExpression upper : getUpperExpressions(ref)) {
                     if (upper instanceof BinaryOpExpression) {
                         BinaryOpExpression binaryExpr = (BinaryOpExpression) upper;
 
-                        if (allowedComparisonOperators.contains(binaryExpr
-                                .getOperator())) {
+                        if (allowedComparisonOperators
+                                .contains(binaryExpr.getOperator())) {
                             if (alreadyInAComparison) {
                                 invalidComparisons.add(binaryExpr);
                                 break;
@@ -361,11 +545,12 @@ public class TimeValidator extends EObjectValidator {
                 BinaryOpExpression binaryExpr = (BinaryOpExpression) upper;
 
                 if (binaryExpr.getOperator() == BinaryOperators.SUBTRACTION) {
-                    if (getAllClockReferences(binaryExpr.getRight()).contains(
-                            clockRef)) {
+                    if (getAllClockReferences(binaryExpr.getRight())
+                            .contains(clockRef)) {
                         sign = -sign;
                     }
-                } else if (binaryExpr.getOperator() != BinaryOperators.ADDITION) {
+                } else if (binaryExpr
+                        .getOperator() != BinaryOperators.ADDITION) {
                     // no change of sign
                 } else {
                     sign = 0;
@@ -412,7 +597,8 @@ public class TimeValidator extends EObjectValidator {
                     || expr instanceof SubDataDeclarationReferenceExpression
                     || expr instanceof DirectBooleanExpression
                     || expr instanceof DirectIntegerExpression
-                    || expr instanceof DirectFloatExpression || expr instanceof DirectStringExpression);
+                    || expr instanceof DirectFloatExpression
+                    || expr instanceof DirectStringExpression);
         }
 
         return ret;
@@ -429,13 +615,14 @@ public class TimeValidator extends EObjectValidator {
         Set<BinaryOpExpression> invalidLogicalOr = new HashSet<BinaryOpExpression>();
 
         if (guarded.getGuard() != null) {
-            for (DirectClockDeclarationReferenceExpression ref : getAllClockReferences(guarded
-                    .getGuard())) {
+            for (DirectClockDeclarationReferenceExpression ref : getAllClockReferences(
+                    guarded.getGuard())) {
                 for (ValuedExpression upper : getUpperExpressions(ref)) {
                     if (upper instanceof BinaryOpExpression) {
                         BinaryOpExpression binaryExpr = (BinaryOpExpression) upper;
 
-                        if (binaryExpr.getOperator() == BinaryOperators.LOGICAL_OR) {
+                        if (binaryExpr
+                                .getOperator() == BinaryOperators.LOGICAL_OR) {
                             if (!getAllClockReferences(binaryExpr.getLeft())
                                     .isEmpty()
                                     && !getAllClockReferences(
@@ -453,8 +640,8 @@ public class TimeValidator extends EObjectValidator {
                 for (BinaryOpExpression binaryExpr : invalidLogicalOr) {
                     diagnostics.add(createDiagnostic(Diagnostic.ERROR,
                             DIAGNOSTIC_SOURCE, 0,
-                            "_UI_GenericConstraint_diagnostic", new Object[] {
-                                    "clocksOnOneSideOfLogicalOr",
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "clocksOnOneSideOfLogicalOr",
                                     getObjectLabel(binaryExpr, context) },
                             new Object[] { binaryExpr,
                                     ErrorCodeEnum.clocksOnOneSideOfLogicalOr },
@@ -490,14 +677,14 @@ public class TimeValidator extends EObjectValidator {
                 BinaryOperators.LESS_THAN, BinaryOperators.LESS_THAN_OR_EQUAL);
 
         if (guarded.getGuard() != null) {
-            for (DirectClockDeclarationReferenceExpression ref : getAllClockReferences(guarded
-                    .getGuard())) {
+            for (DirectClockDeclarationReferenceExpression ref : getAllClockReferences(
+                    guarded.getGuard())) {
                 for (ValuedExpression upper : getUpperExpressions(ref)) {
                     if (upper instanceof BinaryOpExpression) {
                         BinaryOpExpression binaryExpr = (BinaryOpExpression) upper;
 
-                        if (comparisonOperators.contains(binaryExpr
-                                .getOperator())
+                        if (comparisonOperators
+                                .contains(binaryExpr.getOperator())
                                 && !allowedComparisonOperators
                                         .contains(binaryExpr.getOperator())) {
                             invalidComparisons.add(binaryExpr);
@@ -537,13 +724,14 @@ public class TimeValidator extends EObjectValidator {
         Set<UnaryOpExpression> invalidLogicalNot = new HashSet<UnaryOpExpression>();
 
         if (guarded.getGuard() != null) {
-            for (DirectClockDeclarationReferenceExpression ref : getAllClockReferences(guarded
-                    .getGuard())) {
+            for (DirectClockDeclarationReferenceExpression ref : getAllClockReferences(
+                    guarded.getGuard())) {
                 for (ValuedExpression upper : getUpperExpressions(ref)) {
                     if (upper instanceof UnaryOpExpression) {
                         UnaryOpExpression unaryExpr = (UnaryOpExpression) upper;
 
-                        if (unaryExpr.getOperator() == UnaryOperators.LOGICAL_NOT) {
+                        if (unaryExpr
+                                .getOperator() == UnaryOperators.LOGICAL_NOT) {
                             invalidLogicalNot.add(unaryExpr);
                         }
                     }
@@ -583,16 +771,18 @@ public class TimeValidator extends EObjectValidator {
         List<ValuedExpression> faultyExpressions = new ArrayList<ValuedExpression>();
 
         if (guarded.getGuard() != null) {
-            for (DirectClockDeclarationReferenceExpression clockRef : getAllClockReferences(guarded
-                    .getGuard())) {
+            for (DirectClockDeclarationReferenceExpression clockRef : getAllClockReferences(
+                    guarded.getGuard())) {
                 List<ValuedExpression> uppers = getUpperExpressions(clockRef);
 
                 for (ValuedExpression expr : uppers) {
                     if (expr instanceof BinaryOpExpression) {
                         BinaryOpExpression binaryExpr = (BinaryOpExpression) expr;
 
-                        if (binaryExpr.getOperator() == BinaryOperators.MULTIPLICATION
-                                || binaryExpr.getOperator() == BinaryOperators.DIVISION) {
+                        if (binaryExpr
+                                .getOperator() == BinaryOperators.MULTIPLICATION
+                                || binaryExpr
+                                        .getOperator() == BinaryOperators.DIVISION) {
                             faultyExpressions.add(binaryExpr);
                             break;
                         }
@@ -604,19 +794,15 @@ public class TimeValidator extends EObjectValidator {
         if (!faultyExpressions.isEmpty()) {
             if (diagnostics != null) {
                 for (ValuedExpression binaryExpr : faultyExpressions) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "invalidUseOfMultiplicationOrDivisionOnClocks",
-                                            getObjectLabel(binaryExpr, context) },
-                                    new Object[] {
-                                            binaryExpr,
-                                            ErrorCodeEnum.invalidUseOfMultiplicationOrDivisionOnClocks },
-                                    context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] {
+                                    "invalidUseOfMultiplicationOrDivisionOnClocks",
+                                    getObjectLabel(binaryExpr, context) },
+                            new Object[] { binaryExpr,
+                                    ErrorCodeEnum.invalidUseOfMultiplicationOrDivisionOnClocks },
+                            context));
                 }
             }
 
@@ -643,17 +829,18 @@ public class TimeValidator extends EObjectValidator {
                 BinaryOperators.LESS_THAN, BinaryOperators.LESS_THAN_OR_EQUAL);
 
         if (guarded.getGuard() != null) {
-            for (DirectClockDeclarationReferenceExpression clockRef : getAllClockReferences(guarded
-                    .getGuard())) {
+            for (DirectClockDeclarationReferenceExpression clockRef : getAllClockReferences(
+                    guarded.getGuard())) {
                 List<ValuedExpression> uppers = getUpperExpressions(clockRef);
 
                 for (ValuedExpression expr : uppers) {
                     if (expr instanceof BinaryOpExpression) {
                         BinaryOpExpression binaryExpr = (BinaryOpExpression) expr;
 
-                        if (comparisonOperators.contains(binaryExpr
-                                .getOperator())) {
-                            List<DirectClockDeclarationReferenceExpression> clocks = getAllClockReferences(binaryExpr);
+                        if (comparisonOperators
+                                .contains(binaryExpr.getOperator())) {
+                            List<DirectClockDeclarationReferenceExpression> clocks = getAllClockReferences(
+                                    binaryExpr);
 
                             // check that comparison involve at most 2 clocks
                             // and generate an error only on the 3rd clock
@@ -670,19 +857,14 @@ public class TimeValidator extends EObjectValidator {
         if (!faultyExpressions.isEmpty()) {
             if (diagnostics != null) {
                 for (ValuedExpression binaryExpr : faultyExpressions) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "comparisonOfMoreThanTwoClocks",
-                                            getObjectLabel(binaryExpr, context) },
-                                    new Object[] {
-                                            binaryExpr,
-                                            ErrorCodeEnum.comparisonOfMoreThanTwoClocks },
-                                    context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "comparisonOfMoreThanTwoClocks",
+                                    getObjectLabel(binaryExpr, context) },
+                            new Object[] { binaryExpr,
+                                    ErrorCodeEnum.comparisonOfMoreThanTwoClocks },
+                            context));
                 }
             }
 
@@ -709,17 +891,18 @@ public class TimeValidator extends EObjectValidator {
                 BinaryOperators.LESS_THAN, BinaryOperators.LESS_THAN_OR_EQUAL);
 
         if (guarded.getGuard() != null) {
-            for (DirectClockDeclarationReferenceExpression clockRef : getAllClockReferences(guarded
-                    .getGuard())) {
+            for (DirectClockDeclarationReferenceExpression clockRef : getAllClockReferences(
+                    guarded.getGuard())) {
                 List<ValuedExpression> uppers = getUpperExpressions(clockRef);
 
                 for (ValuedExpression expr : uppers) {
                     if (expr instanceof BinaryOpExpression) {
                         BinaryOpExpression binaryExpr = (BinaryOpExpression) expr;
 
-                        if (comparisonOperators.contains(binaryExpr
-                                .getOperator())) {
-                            List<DirectClockDeclarationReferenceExpression> clocks = getAllClockReferences(binaryExpr);
+                        if (comparisonOperators
+                                .contains(binaryExpr.getOperator())) {
+                            List<DirectClockDeclarationReferenceExpression> clocks = getAllClockReferences(
+                                    binaryExpr);
 
                             // check that clocks have opposite signs
                             if (clocks.size() == 2
@@ -728,17 +911,17 @@ public class TimeValidator extends EObjectValidator {
 
                                 for (int i = 0; i < 2; i++) {
                                     if (getAllClockReferences(
-                                            binaryExpr.getLeft()).contains(
-                                            clocks.get(i))) {
+                                            binaryExpr.getLeft())
+                                            .contains(clocks.get(i))) {
                                         signOfClock[i] = getSign(clocks.get(i),
                                                 binaryExpr.getLeft());
                                     } else {
-                                        signOfClock[i] = -getSign(
-                                                clocks.get(i),
+                                        signOfClock[i] = -getSign(clocks.get(i),
                                                 binaryExpr.getRight());
                                     }
 
-                                    assert (signOfClock[i] == 1 || signOfClock[i] == -1);
+                                    assert (signOfClock[i] == 1
+                                            || signOfClock[i] == -1);
                                 }
 
                                 if (signOfClock[0] == signOfClock[1]) {
@@ -754,19 +937,14 @@ public class TimeValidator extends EObjectValidator {
         if (!faultyExpressions.isEmpty()) {
             if (diagnostics != null) {
                 for (ValuedExpression binaryExpr : faultyExpressions) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "comparisonOfClocksHavingWrongSign",
-                                            getObjectLabel(binaryExpr, context) },
-                                    new Object[] {
-                                            binaryExpr,
-                                            ErrorCodeEnum.comparisonOfClocksHavingWrongSign },
-                                    context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "comparisonOfClocksHavingWrongSign",
+                                    getObjectLabel(binaryExpr, context) },
+                            new Object[] { binaryExpr,
+                                    ErrorCodeEnum.comparisonOfClocksHavingWrongSign },
+                            context));
                 }
             }
 
@@ -809,26 +987,8 @@ public class TimeValidator extends EObjectValidator {
             result &= validate_EveryMapEntryUnique((EObject) guardedUntimed,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validateGuarded_nestedComparisonOnClocks(guardedUntimed,
+            result &= validateGuarded_checkExpressionGrammar(guardedUntimed,
                     diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_clocksOnOneSideOfLogicalOr(
-                    guardedUntimed, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_invalidNotEqualOnClocks(guardedUntimed,
-                    diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_noClocksInLogicalNot(guardedUntimed,
-                    diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_invalidUseOfMultiplicationOrDivisionOnClocks(
-                    guardedUntimed, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_comparisonOfMoreThanTwoClocks(
-                    guardedUntimed, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_comparisonOfClocksHavingWrongSign(
-                    guardedUntimed, diagnostics, context);
         if (result || diagnostics != null)
             result &= validateGuardedUntimed_noClocksInGuard(guardedUntimed,
                     diagnostics, context);
@@ -854,8 +1014,8 @@ public class TimeValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                for (DirectClockDeclarationReferenceExpression ref : getAllClockReferences(guardedUntimed
-                        .getGuard())) {
+                for (DirectClockDeclarationReferenceExpression ref : getAllClockReferences(
+                        guardedUntimed.getGuard())) {
                     diagnostics.add(createDiagnostic(Diagnostic.ERROR,
                             DIAGNOSTIC_SOURCE, 0,
                             "_UI_GenericConstraint_diagnostic",
@@ -877,8 +1037,8 @@ public class TimeValidator extends EObjectValidator {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean validateResumed(Resumed resumed,
-            DiagnosticChain diagnostics, Map<Object, Object> context) {
+    public boolean validateResumed(Resumed resumed, DiagnosticChain diagnostics,
+            Map<Object, Object> context) {
         return validate_EveryDefaultConstraint((EObject) resumed, diagnostics,
                 context);
     }
@@ -905,8 +1065,8 @@ public class TimeValidator extends EObjectValidator {
             result &= validate_EveryBidirectionalReferenceIsPaired(
                     (EObject) resume, diagnostics, context);
         if (result || diagnostics != null)
-            result &= validate_EveryProxyResolves((EObject) resume,
-                    diagnostics, context);
+            result &= validate_EveryProxyResolves((EObject) resume, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_UniqueID((EObject) resume, diagnostics, context);
         if (result || diagnostics != null)
@@ -916,25 +1076,7 @@ public class TimeValidator extends EObjectValidator {
             result &= validate_EveryMapEntryUnique((EObject) resume,
                     diagnostics, context);
         if (result || diagnostics != null)
-            result &= validateGuarded_nestedComparisonOnClocks(resume,
-                    diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_clocksOnOneSideOfLogicalOr(resume,
-                    diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_invalidNotEqualOnClocks(resume,
-                    diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_noClocksInLogicalNot(resume, diagnostics,
-                    context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_invalidUseOfMultiplicationOrDivisionOnClocks(
-                    resume, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_comparisonOfMoreThanTwoClocks(resume,
-                    diagnostics, context);
-        if (result || diagnostics != null)
-            result &= validateGuarded_comparisonOfClocksHavingWrongSign(resume,
+            result &= validateGuarded_checkExpressionGrammar(resume,
                     diagnostics, context);
         return result;
     }
@@ -944,8 +1086,8 @@ public class TimeValidator extends EObjectValidator {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean validateUrgency(Urgency urgency,
-            DiagnosticChain diagnostics, Map<Object, Object> context) {
+    public boolean validateUrgency(Urgency urgency, DiagnosticChain diagnostics,
+            Map<Object, Object> context) {
         return true;
     }
 

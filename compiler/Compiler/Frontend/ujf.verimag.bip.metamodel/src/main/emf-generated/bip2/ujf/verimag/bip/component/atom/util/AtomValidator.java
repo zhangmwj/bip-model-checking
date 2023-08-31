@@ -239,25 +239,31 @@ public class AtomValidator extends EObjectValidator {
                 (EObject) atomInternalPortDeclaration, diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryDataValueConforms(
-                    (EObject) atomInternalPortDeclaration, diagnostics, context);
+                    (EObject) atomInternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryReferenceIsContained(
-                    (EObject) atomInternalPortDeclaration, diagnostics, context);
+                    (EObject) atomInternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryBidirectionalReferenceIsPaired(
-                    (EObject) atomInternalPortDeclaration, diagnostics, context);
+                    (EObject) atomInternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryProxyResolves(
-                    (EObject) atomInternalPortDeclaration, diagnostics, context);
+                    (EObject) atomInternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_UniqueID((EObject) atomInternalPortDeclaration,
                     diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique(
-                    (EObject) atomInternalPortDeclaration, diagnostics, context);
+                    (EObject) atomInternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique(
-                    (EObject) atomInternalPortDeclaration, diagnostics, context);
+                    (EObject) atomInternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= portValidator
                     .validatePortDeclaration_hasCorrectNumberOfDataParameters(
@@ -280,25 +286,31 @@ public class AtomValidator extends EObjectValidator {
                 (EObject) atomExternalPortDeclaration, diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryDataValueConforms(
-                    (EObject) atomExternalPortDeclaration, diagnostics, context);
+                    (EObject) atomExternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryReferenceIsContained(
-                    (EObject) atomExternalPortDeclaration, diagnostics, context);
+                    (EObject) atomExternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryBidirectionalReferenceIsPaired(
-                    (EObject) atomExternalPortDeclaration, diagnostics, context);
+                    (EObject) atomExternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryProxyResolves(
-                    (EObject) atomExternalPortDeclaration, diagnostics, context);
+                    (EObject) atomExternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_UniqueID((EObject) atomExternalPortDeclaration,
                     diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique(
-                    (EObject) atomExternalPortDeclaration, diagnostics, context);
+                    (EObject) atomExternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique(
-                    (EObject) atomExternalPortDeclaration, diagnostics, context);
+                    (EObject) atomExternalPortDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= portValidator
                     .validatePortDeclaration_hasCorrectNumberOfDataParameters(
@@ -321,25 +333,31 @@ public class AtomValidator extends EObjectValidator {
                 (EObject) atomInternalDataDeclaration, diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryDataValueConforms(
-                    (EObject) atomInternalDataDeclaration, diagnostics, context);
+                    (EObject) atomInternalDataDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryReferenceIsContained(
-                    (EObject) atomInternalDataDeclaration, diagnostics, context);
+                    (EObject) atomInternalDataDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryBidirectionalReferenceIsPaired(
-                    (EObject) atomInternalDataDeclaration, diagnostics, context);
+                    (EObject) atomInternalDataDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryProxyResolves(
-                    (EObject) atomInternalDataDeclaration, diagnostics, context);
+                    (EObject) atomInternalDataDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_UniqueID((EObject) atomInternalDataDeclaration,
                     diagnostics, context);
         if (result || diagnostics != null)
             result &= validate_EveryKeyUnique(
-                    (EObject) atomInternalDataDeclaration, diagnostics, context);
+                    (EObject) atomInternalDataDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= validate_EveryMapEntryUnique(
-                    (EObject) atomInternalDataDeclaration, diagnostics, context);
+                    (EObject) atomInternalDataDeclaration, diagnostics,
+                    context);
         if (result || diagnostics != null)
             result &= dataValidator
                     .validateExplicitDataDeclaration_hasInitializationIfConst(
@@ -355,8 +373,8 @@ public class AtomValidator extends EObjectValidator {
     public boolean validateAtomExportPortDeclaration(
             AtomExportPortDeclaration atomExportPortDeclaration,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
-        if (!validate_NoCircularContainment(
-                (EObject) atomExportPortDeclaration, diagnostics, context))
+        if (!validate_NoCircularContainment((EObject) atomExportPortDeclaration,
+                diagnostics, context))
             return false;
         boolean result = validate_EveryMultiplicityConforms(
                 (EObject) atomExportPortDeclaration, diagnostics, context);
@@ -419,16 +437,13 @@ public class AtomValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
-                        new Object[] {
-                                "referencedPortsHaveTheSameType",
+                        new Object[] { "referencedPortsHaveTheSameType",
                                 getObjectLabel(atomExportPortDeclaration,
-                                        context) }, new Object[] {
-                                atomExportPortDeclaration,
+                                        context) },
+                        new Object[] { atomExportPortDeclaration,
                                 ErrorCodeEnum.referencedPortsHaveTheSameType },
                         context));
             }
@@ -454,16 +469,13 @@ public class AtomValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
-                        new Object[] {
-                                "noDuplicatedPortReference",
+                        new Object[] { "noDuplicatedPortReference",
                                 getObjectLabel(atomExportPortDeclaration,
-                                        context) }, new Object[] {
-                                atomExportPortDeclaration,
+                                        context) },
+                        new Object[] { atomExportPortDeclaration,
                                 ErrorCodeEnum.noDuplicatedPortReference },
                         context));
             }

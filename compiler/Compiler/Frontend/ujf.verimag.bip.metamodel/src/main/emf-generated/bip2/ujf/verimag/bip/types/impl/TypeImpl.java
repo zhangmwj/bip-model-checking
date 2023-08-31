@@ -59,13 +59,13 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.TypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.TypeImpl#isNative <em>Native</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.TypeImpl#getSuperTypes <em>Super Types</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.TypeImpl#getCastableTypes <em>Castable Types</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -154,6 +154,7 @@ public abstract class TypeImpl extends AnnotatedElementImpl implements Type {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -163,6 +164,7 @@ public abstract class TypeImpl extends AnnotatedElementImpl implements Type {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -176,6 +178,7 @@ public abstract class TypeImpl extends AnnotatedElementImpl implements Type {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean isNative() {
         return native_;
     }
@@ -185,6 +188,7 @@ public abstract class TypeImpl extends AnnotatedElementImpl implements Type {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setNative(boolean newNative) {
         boolean oldNative = native_;
         native_ = newNative;
@@ -198,6 +202,7 @@ public abstract class TypeImpl extends AnnotatedElementImpl implements Type {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<Type> getSuperTypes() {
         if (superTypes == null) {
             superTypes = new EObjectResolvingEList<Type>(Type.class, this,
@@ -211,6 +216,7 @@ public abstract class TypeImpl extends AnnotatedElementImpl implements Type {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<Type> getCastableTypes() {
         if (castableTypes == null) {
             castableTypes = new EObjectResolvingEList<Type>(Type.class, this,
@@ -348,8 +354,8 @@ public abstract class TypeImpl extends AnnotatedElementImpl implements Type {
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case TypesPackage.TYPE__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case TypesPackage.TYPE__NATIVE:
             return native_ != NATIVE_EDEFAULT;
         case TypesPackage.TYPE__SUPER_TYPES:
@@ -370,7 +376,7 @@ public abstract class TypeImpl extends AnnotatedElementImpl implements Type {
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(", native: ");

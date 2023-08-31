@@ -48,10 +48,10 @@ import bip2.ujf.verimag.bip.data.DataDeclaration;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.atom.AtomInternalDataDeclaration#isExported <em>Exported</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.component.atom.AtomPackage#getAtomInternalDataDeclaration()
  * @model

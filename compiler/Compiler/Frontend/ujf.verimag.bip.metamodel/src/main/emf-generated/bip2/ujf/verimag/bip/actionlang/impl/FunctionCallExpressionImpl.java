@@ -83,16 +83,16 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.FunctionCallExpressionImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.FunctionCallExpressionImpl#getFunctionName <em>Function Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class FunctionCallExpressionImpl extends ValuedExpressionImpl implements
-        FunctionCallExpression {
+public class FunctionCallExpressionImpl extends ValuedExpressionImpl
+        implements FunctionCallExpression {
     /**
      * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
      * <!-- begin-user-doc -->
@@ -147,6 +147,7 @@ public class FunctionCallExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ValuedExpression> getParameters() {
         if (parameters == null) {
             parameters = new EObjectContainmentEList<ValuedExpression>(
@@ -161,6 +162,7 @@ public class FunctionCallExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getFunctionName() {
         return functionName;
     }
@@ -170,6 +172,7 @@ public class FunctionCallExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setFunctionName(String newFunctionName) {
         String oldFunctionName = functionName;
         functionName = newFunctionName;
@@ -196,17 +199,16 @@ public class FunctionCallExpressionImpl extends ValuedExpressionImpl implements
         }
 
         // compute all prototypes matching function name and compatible parameters
-        EList<FunctionCallPrototype> matching = pack.getFunctionCallPrototypes(
-                getFunctionName(), parametersTypes);
+        EList<FunctionCallPrototype> matching = pack
+                .getFunctionCallPrototypes(getFunctionName(), parametersTypes);
 
         // keep only the maximal ones w.r.t. isRefiningParametersOf()
         for (FunctionCallPrototype prototype : matching) {
             boolean keepIt = true;
 
             for (FunctionCallPrototype testPrototype : matching) {
-                if (prototype != testPrototype
-                        && testPrototype.isBetterMatchingThan(parametersTypes,
-                                prototype)) {
+                if (prototype != testPrototype && testPrototype
+                        .isBetterMatchingThan(parametersTypes, prototype)) {
                     keepIt = false;
                     break;
                 }
@@ -319,6 +321,20 @@ public class FunctionCallExpressionImpl extends ValuedExpressionImpl implements
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    @Override
+    public boolean hasClocks() {
+        for (ValuedExpression param : getParameters()) {
+            if (param.hasClocks())
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -359,8 +375,8 @@ public class FunctionCallExpressionImpl extends ValuedExpressionImpl implements
         switch (featureID) {
         case ActionlangPackage.FUNCTION_CALL_EXPRESSION__PARAMETERS:
             getParameters().clear();
-            getParameters().addAll(
-                    (Collection<? extends ValuedExpression>) newValue);
+            getParameters()
+                    .addAll((Collection<? extends ValuedExpression>) newValue);
             return;
         case ActionlangPackage.FUNCTION_CALL_EXPRESSION__FUNCTION_NAME:
             setFunctionName((String) newValue);
@@ -414,7 +430,7 @@ public class FunctionCallExpressionImpl extends ValuedExpressionImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (functionName: ");
         result.append(functionName);
         result.append(')');
@@ -521,8 +537,8 @@ public class FunctionCallExpressionImpl extends ValuedExpressionImpl implements
             EList<DataDeclaration> exprUninitializedVariables = new BasicEList<DataDeclaration>(
                     uninitialized);
 
-            ret.addAll(expr
-                    .getMayReadUninitializedVariables(exprUninitializedVariables));
+            ret.addAll(expr.getMayReadUninitializedVariables(
+                    exprUninitializedVariables));
 
             // update returned uninitialized variables
             returnedInitializedVariables.retainAll(exprUninitializedVariables);

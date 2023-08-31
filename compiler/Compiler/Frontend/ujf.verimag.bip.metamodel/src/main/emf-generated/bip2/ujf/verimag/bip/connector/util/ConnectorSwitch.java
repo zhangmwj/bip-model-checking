@@ -92,7 +92,7 @@ public class ConnectorSwitch<T> extends Switch<T> {
      * Checks whether this is a switch for the given package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @parameter ePackage the package in question.
+     * @param ePackage the package in question.
      * @return whether this is a switch for the given package.
      * @generated
      */
@@ -122,7 +122,8 @@ public class ConnectorSwitch<T> extends Switch<T> {
         }
         case ConnectorPackage.CONNECTOR_PORT_PARAMETER_DECLARATION: {
             ConnectorPortParameterDeclaration connectorPortParameterDeclaration = (ConnectorPortParameterDeclaration) theEObject;
-            T result = caseConnectorPortParameterDeclaration(connectorPortParameterDeclaration);
+            T result = caseConnectorPortParameterDeclaration(
+                    connectorPortParameterDeclaration);
             if (result == null)
                 result = casePortDeclaration(connectorPortParameterDeclaration);
             if (result == null)
@@ -131,7 +132,8 @@ public class ConnectorSwitch<T> extends Switch<T> {
         }
         case ConnectorPackage.CONNECTOR_EXPORTED_PORT_DECLARATION: {
             ConnectorExportedPortDeclaration connectorExportedPortDeclaration = (ConnectorExportedPortDeclaration) theEObject;
-            T result = caseConnectorExportedPortDeclaration(connectorExportedPortDeclaration);
+            T result = caseConnectorExportedPortDeclaration(
+                    connectorExportedPortDeclaration);
             if (result == null)
                 result = casePortDeclaration(connectorExportedPortDeclaration);
             if (result == null)
@@ -155,7 +157,8 @@ public class ConnectorSwitch<T> extends Switch<T> {
         }
         case ConnectorPackage.CONNECTOR_INTERACTION_ACTION: {
             ConnectorInteractionAction connectorInteractionAction = (ConnectorInteractionAction) theEObject;
-            T result = caseConnectorInteractionAction(connectorInteractionAction);
+            T result = caseConnectorInteractionAction(
+                    connectorInteractionAction);
             if (result == null)
                 result = caseAnnotatedElement(connectorInteractionAction);
             if (result == null)
@@ -166,25 +169,30 @@ public class ConnectorSwitch<T> extends Switch<T> {
         }
         case ConnectorPackage.CONNECTOR_INTERACTION_DEFINITION: {
             ConnectorInteractionDefinition connectorInteractionDefinition = (ConnectorInteractionDefinition) theEObject;
-            T result = caseConnectorInteractionDefinition(connectorInteractionDefinition);
+            T result = caseConnectorInteractionDefinition(
+                    connectorInteractionDefinition);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
         }
         case ConnectorPackage.CONNECTOR_INTERACTION_PORT_REFERENCE: {
             ConnectorInteractionPortReference connectorInteractionPortReference = (ConnectorInteractionPortReference) theEObject;
-            T result = caseConnectorInteractionPortReference(connectorInteractionPortReference);
+            T result = caseConnectorInteractionPortReference(
+                    connectorInteractionPortReference);
             if (result == null)
-                result = caseConnectorInteractionDefinition(connectorInteractionPortReference);
+                result = caseConnectorInteractionDefinition(
+                        connectorInteractionPortReference);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
         }
         case ConnectorPackage.CONNECTOR_INTERACTION_NESTED_DEFINITION: {
             ConnectorInteractionNestedDefinition connectorInteractionNestedDefinition = (ConnectorInteractionNestedDefinition) theEObject;
-            T result = caseConnectorInteractionNestedDefinition(connectorInteractionNestedDefinition);
+            T result = caseConnectorInteractionNestedDefinition(
+                    connectorInteractionNestedDefinition);
             if (result == null)
-                result = caseConnectorInteractionDefinition(connectorInteractionNestedDefinition);
+                result = caseConnectorInteractionDefinition(
+                        connectorInteractionNestedDefinition);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;

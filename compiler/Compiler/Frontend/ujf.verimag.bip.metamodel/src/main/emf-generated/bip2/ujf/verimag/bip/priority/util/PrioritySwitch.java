@@ -86,7 +86,7 @@ public class PrioritySwitch<T> extends Switch<T> {
      * Checks whether this is a switch for the given package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @parameter ePackage the package in question.
+     * @param ePackage the package in question.
      * @return whether this is a switch for the given package.
      * @generated
      */
@@ -107,7 +107,8 @@ public class PrioritySwitch<T> extends Switch<T> {
         switch (classifierID) {
         case PriorityPackage.COMPOUND_PRIORITY_DECLARATION: {
             CompoundPriorityDeclaration compoundPriorityDeclaration = (CompoundPriorityDeclaration) theEObject;
-            T result = caseCompoundPriorityDeclaration(compoundPriorityDeclaration);
+            T result = caseCompoundPriorityDeclaration(
+                    compoundPriorityDeclaration);
             if (result == null)
                 result = caseGuardedUntimed(compoundPriorityDeclaration);
             if (result == null)
@@ -150,7 +151,8 @@ public class PrioritySwitch<T> extends Switch<T> {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseCompoundPriorityDeclaration(CompoundPriorityDeclaration object) {
+    public T caseCompoundPriorityDeclaration(
+            CompoundPriorityDeclaration object) {
         return null;
     }
 

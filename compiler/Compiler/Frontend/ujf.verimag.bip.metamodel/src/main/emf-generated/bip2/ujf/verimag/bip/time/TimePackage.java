@@ -121,7 +121,8 @@ public interface TimePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CLOCK_DECLARATION__UNIT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+    int CLOCK_DECLARATION__UNIT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -130,7 +131,8 @@ public interface TimePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CLOCK_DECLARATION__NAME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
+    int CLOCK_DECLARATION__NAME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 1;
 
     /**
      * The number of structural features of the '<em>Clock Declaration</em>' class.
@@ -139,7 +141,8 @@ public interface TimePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CLOCK_DECLARATION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+    int CLOCK_DECLARATION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 2;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.time.UrgentElement <em>Urgent Element</em>}' class.

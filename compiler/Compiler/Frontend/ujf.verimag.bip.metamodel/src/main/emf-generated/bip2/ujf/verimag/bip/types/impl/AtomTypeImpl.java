@@ -88,6 +88,7 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.AtomTypeImpl#getExportedPortDeclarations <em>Exported Port Declarations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.AtomTypeImpl#getExportedDataDeclarations <em>Exported Data Declarations</em>}</li>
@@ -101,7 +102,6 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.AtomTypeImpl#getPriorities <em>Priorities</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.impl.AtomTypeImpl#getInvariants <em>Invariants</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -234,6 +234,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<PortDeclaration> getExportedPortDeclarations() {
         if (exportedPortDeclarations == null) {
             exportedPortDeclarations = new EObjectResolvingEList<PortDeclaration>(
@@ -248,6 +249,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<DataDeclaration> getExportedDataDeclarations() {
         if (exportedDataDeclarations == null) {
             exportedDataDeclarations = new EObjectResolvingEList<DataDeclaration>(
@@ -262,6 +264,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ComponentDataParameterDeclaration> getDataParameterDeclarations() {
         if (dataParameterDeclarations == null) {
             dataParameterDeclarations = new EObjectContainmentEList<ComponentDataParameterDeclaration>(
@@ -276,6 +279,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomInternalPortDeclaration> getInternalPortDeclarations() {
         if (internalPortDeclarations == null) {
             internalPortDeclarations = new EObjectContainmentEList<AtomInternalPortDeclaration>(
@@ -290,6 +294,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomExternalPortDeclaration> getExternalPortDeclarations() {
         if (externalPortDeclarations == null) {
             externalPortDeclarations = new EObjectContainmentEList<AtomExternalPortDeclaration>(
@@ -304,6 +309,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PetriNet getBehavior() {
         return behavior;
     }
@@ -334,23 +340,29 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setBehavior(PetriNet newBehavior) {
         if (newBehavior != behavior) {
             NotificationChain msgs = null;
             if (behavior != null)
-                msgs = ((InternalEObject) behavior).eInverseRemove(this,
-                        EOPPOSITE_FEATURE_BASE
-                                - TypesPackage.ATOM_TYPE__BEHAVIOR, null, msgs);
+                msgs = ((InternalEObject) behavior)
+                        .eInverseRemove(this,
+                                EOPPOSITE_FEATURE_BASE
+                                        - TypesPackage.ATOM_TYPE__BEHAVIOR,
+                                null, msgs);
             if (newBehavior != null)
-                msgs = ((InternalEObject) newBehavior).eInverseAdd(this,
-                        EOPPOSITE_FEATURE_BASE
-                                - TypesPackage.ATOM_TYPE__BEHAVIOR, null, msgs);
+                msgs = ((InternalEObject) newBehavior)
+                        .eInverseAdd(this,
+                                EOPPOSITE_FEATURE_BASE
+                                        - TypesPackage.ATOM_TYPE__BEHAVIOR,
+                                null, msgs);
             msgs = basicSetBehavior(newBehavior, msgs);
             if (msgs != null)
                 msgs.dispatch();
         } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    TypesPackage.ATOM_TYPE__BEHAVIOR, newBehavior, newBehavior));
+                    TypesPackage.ATOM_TYPE__BEHAVIOR, newBehavior,
+                    newBehavior));
     }
 
     /**
@@ -358,6 +370,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomInternalDataDeclaration> getInternalDataDeclarations() {
         if (internalDataDeclarations == null) {
             internalDataDeclarations = new EObjectContainmentEList<AtomInternalDataDeclaration>(
@@ -372,6 +385,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ClockDeclaration> getClockDeclarations() {
         if (clockDeclarations == null) {
             clockDeclarations = new EObjectContainmentEList<ClockDeclaration>(
@@ -386,6 +400,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomExportPortDeclaration> getExportPortDeclarations() {
         if (exportPortDeclarations == null) {
             exportPortDeclarations = new EObjectContainmentEList<AtomExportPortDeclaration>(
@@ -400,6 +415,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomPriorityDeclaration> getPriorities() {
         if (priorities == null) {
             priorities = new EObjectContainmentEList<AtomPriorityDeclaration>(
@@ -414,6 +430,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<AtomInvariant> getInvariants() {
         if (invariants == null) {
             invariants = new EObjectContainmentEList<AtomInvariant>(
@@ -442,6 +459,7 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomExternalPortDeclaration getExternalPortDeclaration(String name) {
         // TODO: implement this method
         // Ensure that you remove @generated or mark it @generated NOT
@@ -567,8 +585,8 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
             return ((InternalEList<?>) getInternalDataDeclarations())
                     .basicRemove(otherEnd, msgs);
         case TypesPackage.ATOM_TYPE__CLOCK_DECLARATIONS:
-            return ((InternalEList<?>) getClockDeclarations()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getClockDeclarations())
+                    .basicRemove(otherEnd, msgs);
         case TypesPackage.ATOM_TYPE__EXPORT_PORT_DECLARATIONS:
             return ((InternalEList<?>) getExportPortDeclarations())
                     .basicRemove(otherEnd, msgs);
@@ -627,41 +645,41 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
         switch (featureID) {
         case TypesPackage.ATOM_TYPE__EXPORTED_PORT_DECLARATIONS:
             getExportedPortDeclarations().clear();
-            getExportedPortDeclarations().addAll(
-                    (Collection<? extends PortDeclaration>) newValue);
+            getExportedPortDeclarations()
+                    .addAll((Collection<? extends PortDeclaration>) newValue);
             return;
         case TypesPackage.ATOM_TYPE__EXPORTED_DATA_DECLARATIONS:
             getExportedDataDeclarations().clear();
-            getExportedDataDeclarations().addAll(
-                    (Collection<? extends DataDeclaration>) newValue);
+            getExportedDataDeclarations()
+                    .addAll((Collection<? extends DataDeclaration>) newValue);
             return;
         case TypesPackage.ATOM_TYPE__DATA_PARAMETER_DECLARATIONS:
             getDataParameterDeclarations().clear();
-            getDataParameterDeclarations()
-                    .addAll((Collection<? extends ComponentDataParameterDeclaration>) newValue);
+            getDataParameterDeclarations().addAll(
+                    (Collection<? extends ComponentDataParameterDeclaration>) newValue);
             return;
         case TypesPackage.ATOM_TYPE__INTERNAL_PORT_DECLARATIONS:
             getInternalPortDeclarations().clear();
-            getInternalPortDeclarations()
-                    .addAll((Collection<? extends AtomInternalPortDeclaration>) newValue);
+            getInternalPortDeclarations().addAll(
+                    (Collection<? extends AtomInternalPortDeclaration>) newValue);
             return;
         case TypesPackage.ATOM_TYPE__EXTERNAL_PORT_DECLARATIONS:
             getExternalPortDeclarations().clear();
-            getExternalPortDeclarations()
-                    .addAll((Collection<? extends AtomExternalPortDeclaration>) newValue);
+            getExternalPortDeclarations().addAll(
+                    (Collection<? extends AtomExternalPortDeclaration>) newValue);
             return;
         case TypesPackage.ATOM_TYPE__BEHAVIOR:
             setBehavior((PetriNet) newValue);
             return;
         case TypesPackage.ATOM_TYPE__INTERNAL_DATA_DECLARATIONS:
             getInternalDataDeclarations().clear();
-            getInternalDataDeclarations()
-                    .addAll((Collection<? extends AtomInternalDataDeclaration>) newValue);
+            getInternalDataDeclarations().addAll(
+                    (Collection<? extends AtomInternalDataDeclaration>) newValue);
             return;
         case TypesPackage.ATOM_TYPE__CLOCK_DECLARATIONS:
             getClockDeclarations().clear();
-            getClockDeclarations().addAll(
-                    (Collection<? extends ClockDeclaration>) newValue);
+            getClockDeclarations()
+                    .addAll((Collection<? extends ClockDeclaration>) newValue);
             return;
         case TypesPackage.ATOM_TYPE__EXPORT_PORT_DECLARATIONS:
             getExportPortDeclarations().clear();
@@ -675,8 +693,8 @@ public class AtomTypeImpl extends TypeImpl implements AtomType {
             return;
         case TypesPackage.ATOM_TYPE__INVARIANTS:
             getInvariants().clear();
-            getInvariants().addAll(
-                    (Collection<? extends AtomInvariant>) newValue);
+            getInvariants()
+                    .addAll((Collection<? extends AtomInvariant>) newValue);
             return;
         }
         super.eSet(featureID, newValue);

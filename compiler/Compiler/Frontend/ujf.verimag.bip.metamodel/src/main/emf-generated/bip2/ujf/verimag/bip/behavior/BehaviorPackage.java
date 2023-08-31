@@ -210,7 +210,8 @@ public interface BehaviorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TRANSITION__GUARD = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+    int TRANSITION__GUARD = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Resume</b></em>' containment reference.
@@ -219,7 +220,8 @@ public interface BehaviorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TRANSITION__RESUME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
+    int TRANSITION__RESUME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Urgency</b></em>' attribute.
@@ -228,7 +230,8 @@ public interface BehaviorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TRANSITION__URGENCY = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+    int TRANSITION__URGENCY = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 2;
 
     /**
      * The feature id for the '<em><b>Sources</b></em>' reference list.
@@ -237,7 +240,8 @@ public interface BehaviorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TRANSITION__SOURCES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
+    int TRANSITION__SOURCES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 3;
 
     /**
      * The feature id for the '<em><b>Destinations</b></em>' reference list.
@@ -246,7 +250,8 @@ public interface BehaviorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TRANSITION__DESTINATIONS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 4;
+    int TRANSITION__DESTINATIONS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 4;
 
     /**
      * The feature id for the '<em><b>Trigger Port</b></em>' reference.
@@ -255,7 +260,8 @@ public interface BehaviorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TRANSITION__TRIGGER_PORT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 5;
+    int TRANSITION__TRIGGER_PORT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 5;
 
     /**
      * The feature id for the '<em><b>Actions</b></em>' containment reference list.
@@ -264,7 +270,8 @@ public interface BehaviorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TRANSITION__ACTIONS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 6;
+    int TRANSITION__ACTIONS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 6;
 
     /**
      * The number of structural features of the '<em>Transition</em>' class.
@@ -273,7 +280,8 @@ public interface BehaviorPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TRANSITION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 7;
+    int TRANSITION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 7;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.behavior.impl.InternalTransitionImpl <em>Internal Transition</em>}' class.

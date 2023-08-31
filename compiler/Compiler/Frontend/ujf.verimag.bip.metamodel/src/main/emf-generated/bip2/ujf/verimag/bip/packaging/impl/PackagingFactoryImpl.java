@@ -53,8 +53,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PackagingFactoryImpl extends EFactoryImpl implements
-        PackagingFactory {
+public class PackagingFactoryImpl extends EFactoryImpl
+        implements PackagingFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -64,7 +64,7 @@ public class PackagingFactoryImpl extends EFactoryImpl implements
     public static PackagingFactory init() {
         try {
             PackagingFactory thePackagingFactory = (PackagingFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/package/1.0");
+                    .getEFactory(PackagingPackage.eNS_URI);
             if (thePackagingFactory != null) {
                 return thePackagingFactory;
             }
@@ -117,6 +117,7 @@ public class PackagingFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public BipPackage createBipPackage() {
         BipPackageImpl bipPackage = new BipPackageImpl();
         return bipPackage;
@@ -127,6 +128,7 @@ public class PackagingFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public BipPackageSet createBipPackageSet() {
         BipPackageSetImpl bipPackageSet = new BipPackageSetImpl();
         return bipPackageSet;
@@ -137,6 +139,7 @@ public class PackagingFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConstDataDeclaration createConstDataDeclaration() {
         ConstDataDeclarationImpl constDataDeclaration = new ConstDataDeclarationImpl();
         return constDataDeclaration;
@@ -147,6 +150,7 @@ public class PackagingFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public FunctionCallPrototype createFunctionCallPrototype() {
         FunctionCallPrototypeImpl functionCallPrototype = new FunctionCallPrototypeImpl();
         return functionCallPrototype;
@@ -157,6 +161,7 @@ public class PackagingFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public BinaryOpPrototype createBinaryOpPrototype() {
         BinaryOpPrototypeImpl binaryOpPrototype = new BinaryOpPrototypeImpl();
         return binaryOpPrototype;
@@ -167,6 +172,7 @@ public class PackagingFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public UnaryOpPrototype createUnaryOpPrototype() {
         UnaryOpPrototypeImpl unaryOpPrototype = new UnaryOpPrototypeImpl();
         return unaryOpPrototype;
@@ -177,6 +183,7 @@ public class PackagingFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PrototypeParameterDeclaration createPrototypeParameterDeclaration() {
         PrototypeParameterDeclarationImpl prototypeParameterDeclaration = new PrototypeParameterDeclarationImpl();
         return prototypeParameterDeclaration;
@@ -187,6 +194,7 @@ public class PackagingFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PackagingPackage getPackagingPackage() {
         return (PackagingPackage) getEPackage();
     }

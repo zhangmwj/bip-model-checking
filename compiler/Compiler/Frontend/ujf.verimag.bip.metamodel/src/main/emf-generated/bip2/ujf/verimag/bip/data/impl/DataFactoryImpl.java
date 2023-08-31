@@ -63,7 +63,7 @@ public class DataFactoryImpl extends EFactoryImpl implements DataFactory {
     public static DataFactory init() {
         try {
             DataFactory theDataFactory = (DataFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/data/1.0");
+                    .getEFactory(DataPackage.eNS_URI);
             if (theDataFactory != null) {
                 return theDataFactory;
             }
@@ -108,6 +108,7 @@ public class DataFactoryImpl extends EFactoryImpl implements DataFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataType createDataType() {
         DataTypeImpl dataType = new DataTypeImpl();
         return dataType;
@@ -118,6 +119,7 @@ public class DataFactoryImpl extends EFactoryImpl implements DataFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public SubDataDeclarationReference createSubDataDeclarationReference() {
         SubDataDeclarationReferenceImpl subDataDeclarationReference = new SubDataDeclarationReferenceImpl();
         return subDataDeclarationReference;
@@ -128,6 +130,7 @@ public class DataFactoryImpl extends EFactoryImpl implements DataFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataDeclarationReferenceDataParameter createDataDeclarationReferenceDataParameter() {
         DataDeclarationReferenceDataParameterImpl dataDeclarationReferenceDataParameter = new DataDeclarationReferenceDataParameterImpl();
         return dataDeclarationReferenceDataParameter;
@@ -138,6 +141,7 @@ public class DataFactoryImpl extends EFactoryImpl implements DataFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataPackage getDataPackage() {
         return (DataPackage) getEPackage();
     }

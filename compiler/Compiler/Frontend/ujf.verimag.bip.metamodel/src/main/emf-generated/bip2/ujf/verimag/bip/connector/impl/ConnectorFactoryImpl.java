@@ -55,8 +55,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ConnectorFactoryImpl extends EFactoryImpl implements
-        ConnectorFactory {
+public class ConnectorFactoryImpl extends EFactoryImpl
+        implements ConnectorFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -66,7 +66,7 @@ public class ConnectorFactoryImpl extends EFactoryImpl implements
     public static ConnectorFactory init() {
         try {
             ConnectorFactory theConnectorFactory = (ConnectorFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/connector/1.0");
+                    .getEFactory(ConnectorPackage.eNS_URI);
             if (theConnectorFactory != null) {
                 return theConnectorFactory;
             }
@@ -121,6 +121,7 @@ public class ConnectorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorDeclaration createConnectorDeclaration() {
         ConnectorDeclarationImpl connectorDeclaration = new ConnectorDeclarationImpl();
         return connectorDeclaration;
@@ -131,6 +132,7 @@ public class ConnectorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorPortParameterDeclaration createConnectorPortParameterDeclaration() {
         ConnectorPortParameterDeclarationImpl connectorPortParameterDeclaration = new ConnectorPortParameterDeclarationImpl();
         return connectorPortParameterDeclaration;
@@ -141,6 +143,7 @@ public class ConnectorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorExportedPortDeclaration createConnectorExportedPortDeclaration() {
         ConnectorExportedPortDeclarationImpl connectorExportedPortDeclaration = new ConnectorExportedPortDeclarationImpl();
         return connectorExportedPortDeclaration;
@@ -151,6 +154,7 @@ public class ConnectorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorDataDeclaration createConnectorDataDeclaration() {
         ConnectorDataDeclarationImpl connectorDataDeclaration = new ConnectorDataDeclarationImpl();
         return connectorDataDeclaration;
@@ -161,6 +165,7 @@ public class ConnectorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInteractionAction createConnectorInteractionAction() {
         ConnectorInteractionActionImpl connectorInteractionAction = new ConnectorInteractionActionImpl();
         return connectorInteractionAction;
@@ -171,6 +176,7 @@ public class ConnectorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInteractionDefinition createConnectorInteractionDefinition() {
         ConnectorInteractionDefinitionImpl connectorInteractionDefinition = new ConnectorInteractionDefinitionImpl();
         return connectorInteractionDefinition;
@@ -181,6 +187,7 @@ public class ConnectorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInteractionPortReference createConnectorInteractionPortReference() {
         ConnectorInteractionPortReferenceImpl connectorInteractionPortReference = new ConnectorInteractionPortReferenceImpl();
         return connectorInteractionPortReference;
@@ -191,6 +198,7 @@ public class ConnectorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorInteractionNestedDefinition createConnectorInteractionNestedDefinition() {
         ConnectorInteractionNestedDefinitionImpl connectorInteractionNestedDefinition = new ConnectorInteractionNestedDefinitionImpl();
         return connectorInteractionNestedDefinition;
@@ -201,6 +209,7 @@ public class ConnectorFactoryImpl extends EFactoryImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ConnectorPackage getConnectorPackage() {
         return (ConnectorPackage) getEPackage();
     }

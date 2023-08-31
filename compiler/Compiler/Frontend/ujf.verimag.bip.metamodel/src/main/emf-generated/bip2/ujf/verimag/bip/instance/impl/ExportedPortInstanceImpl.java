@@ -60,16 +60,16 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.ExportedPortInstanceImpl#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.ExportedPortInstanceImpl#getReferencedPorts <em>Referenced Ports</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class ExportedPortInstanceImpl extends AnnotatedEObjectImpl implements
-        ExportedPortInstance {
+public class ExportedPortInstanceImpl extends AnnotatedEObjectImpl
+        implements ExportedPortInstance {
     /**
      * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' reference.
      * <!-- begin-user-doc -->
@@ -113,15 +113,14 @@ public class ExportedPortInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortDeclaration getDeclaration() {
         if (declaration != null && ((EObject) declaration).eIsProxy()) {
             InternalEObject oldDeclaration = (InternalEObject) declaration;
             declaration = (PortDeclaration) eResolveProxy(oldDeclaration);
             if (declaration != oldDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             InstancePackage.EXPORTED_PORT_INSTANCE__DECLARATION,
                             oldDeclaration, declaration));
             }
@@ -143,6 +142,7 @@ public class ExportedPortInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDeclaration(PortDeclaration newDeclaration) {
         PortDeclaration oldDeclaration = declaration;
         declaration = newDeclaration;
@@ -157,6 +157,7 @@ public class ExportedPortInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<PortInstance> getReferencedPorts() {
         if (referencedPorts == null) {
             referencedPorts = new EObjectResolvingEList<PortInstance>(
@@ -198,8 +199,8 @@ public class ExportedPortInstanceImpl extends AnnotatedEObjectImpl implements
             return;
         case InstancePackage.EXPORTED_PORT_INSTANCE__REFERENCED_PORTS:
             getReferencedPorts().clear();
-            getReferencedPorts().addAll(
-                    (Collection<? extends PortInstance>) newValue);
+            getReferencedPorts()
+                    .addAll((Collection<? extends PortInstance>) newValue);
             return;
         }
         super.eSet(featureID, newValue);

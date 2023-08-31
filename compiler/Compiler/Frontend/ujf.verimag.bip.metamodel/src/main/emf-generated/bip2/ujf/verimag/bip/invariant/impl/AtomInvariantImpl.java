@@ -68,18 +68,18 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.invariant.impl.AtomInvariantImpl#getGuard <em>Guard</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.invariant.impl.AtomInvariantImpl#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.invariant.impl.AtomInvariantImpl#isExactState <em>Exact State</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.invariant.impl.AtomInvariantImpl#getSources <em>Sources</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class AtomInvariantImpl extends AnnotatedElementImpl implements
-        AtomInvariant {
+public class AtomInvariantImpl extends AnnotatedElementImpl
+        implements AtomInvariant {
     /**
      * The cached value of the '{@link #getGuard() <em>Guard</em>}' containment reference.
      * <!-- begin-user-doc -->
@@ -164,6 +164,7 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getGuard() {
         return guard;
     }
@@ -194,25 +195,27 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setGuard(ValuedExpression newGuard) {
         if (newGuard != guard) {
             NotificationChain msgs = null;
             if (guard != null)
                 msgs = ((InternalEObject) guard).eInverseRemove(this,
                         EOPPOSITE_FEATURE_BASE
-                                - InvariantPackage.ATOM_INVARIANT__GUARD, null,
-                        msgs);
+                                - InvariantPackage.ATOM_INVARIANT__GUARD,
+                        null, msgs);
             if (newGuard != null)
                 msgs = ((InternalEObject) newGuard).eInverseAdd(this,
                         EOPPOSITE_FEATURE_BASE
-                                - InvariantPackage.ATOM_INVARIANT__GUARD, null,
-                        msgs);
+                                - InvariantPackage.ATOM_INVARIANT__GUARD,
+                        null, msgs);
             msgs = basicSetGuard(newGuard, msgs);
             if (msgs != null)
                 msgs.dispatch();
         } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    InvariantPackage.ATOM_INVARIANT__GUARD, newGuard, newGuard));
+                    InvariantPackage.ATOM_INVARIANT__GUARD, newGuard,
+                    newGuard));
     }
 
     /**
@@ -220,6 +223,7 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -229,6 +233,7 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -242,6 +247,7 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean isExactState() {
         return exactState;
     }
@@ -251,13 +257,14 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setExactState(boolean newExactState) {
         boolean oldExactState = exactState;
         exactState = newExactState;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    InvariantPackage.ATOM_INVARIANT__EXACT_STATE,
-                    oldExactState, exactState));
+                    InvariantPackage.ATOM_INVARIANT__EXACT_STATE, oldExactState,
+                    exactState));
     }
 
     /**
@@ -265,6 +272,7 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<State> getSources() {
         if (sources == null) {
             sources = new EObjectResolvingEList<State>(State.class, this,
@@ -369,8 +377,8 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
         case InvariantPackage.ATOM_INVARIANT__GUARD:
             return guard != null;
         case InvariantPackage.ATOM_INVARIANT__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case InvariantPackage.ATOM_INVARIANT__EXACT_STATE:
             return exactState != EXACT_STATE_EDEFAULT;
         case InvariantPackage.ATOM_INVARIANT__SOURCES:
@@ -385,7 +393,8 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
      * @generated
      */
     @Override
-    public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+    public int eBaseStructuralFeatureID(int derivedFeatureID,
+            Class<?> baseClass) {
         if (baseClass == Guarded.class) {
             switch (derivedFeatureID) {
             case InvariantPackage.ATOM_INVARIANT__GUARD:
@@ -403,7 +412,8 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
      * @generated
      */
     @Override
-    public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+    public int eDerivedStructuralFeatureID(int baseFeatureID,
+            Class<?> baseClass) {
         if (baseClass == Guarded.class) {
             switch (baseFeatureID) {
             case TimePackage.GUARDED__GUARD:
@@ -425,7 +435,7 @@ public class AtomInvariantImpl extends AnnotatedElementImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(", exactState: ");

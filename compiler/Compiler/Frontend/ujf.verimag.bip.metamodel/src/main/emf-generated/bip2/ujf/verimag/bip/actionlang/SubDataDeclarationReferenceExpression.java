@@ -45,16 +45,17 @@ import bip2.ujf.verimag.bip.data.SubDataDeclarationReference;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.SubDataDeclarationReferenceExpression#getSubDataDeclarationRef <em>Sub Data Declaration Ref</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.actionlang.ActionlangPackage#getSubDataDeclarationReferenceExpression()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='dataIsExportedInComponent dataRefInConnectorActionToInvolvedPort'"
  * @generated
  */
-public interface SubDataDeclarationReferenceExpression extends ValuedExpression {
+public interface SubDataDeclarationReferenceExpression
+        extends ValuedExpression {
     /**
      * Returns the value of the '<em><b>Sub Data Declaration Ref</b></em>' containment reference.
      * <!-- begin-user-doc -->

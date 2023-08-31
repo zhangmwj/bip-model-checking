@@ -81,17 +81,17 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.BinaryOpExpressionImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.BinaryOpExpressionImpl#getLeft <em>Left</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.BinaryOpExpressionImpl#getRight <em>Right</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class BinaryOpExpressionImpl extends ValuedExpressionImpl implements
-        BinaryOpExpression {
+public class BinaryOpExpressionImpl extends ValuedExpressionImpl
+        implements BinaryOpExpression {
     /**
      * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -156,6 +156,7 @@ public class BinaryOpExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public BinaryOperators getOperator() {
         return operator;
     }
@@ -165,6 +166,7 @@ public class BinaryOpExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setOperator(BinaryOperators newOperator) {
         BinaryOperators oldOperator = operator;
         operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
@@ -179,6 +181,7 @@ public class BinaryOpExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getLeft() {
         return left;
     }
@@ -238,6 +241,7 @@ public class BinaryOpExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getRight() {
         return right;
     }
@@ -274,19 +278,15 @@ public class BinaryOpExpressionImpl extends ValuedExpressionImpl implements
         if (newRight != right) {
             NotificationChain msgs = null;
             if (right != null)
-                msgs = ((InternalEObject) right)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - ActionlangPackage.BINARY_OP_EXPRESSION__RIGHT,
-                                null, msgs);
+                msgs = ((InternalEObject) right).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - ActionlangPackage.BINARY_OP_EXPRESSION__RIGHT,
+                        null, msgs);
             if (newRight != null)
-                msgs = ((InternalEObject) newRight)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - ActionlangPackage.BINARY_OP_EXPRESSION__RIGHT,
-                                null, msgs);
+                msgs = ((InternalEObject) newRight).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - ActionlangPackage.BINARY_OP_EXPRESSION__RIGHT,
+                        null, msgs);
             msgs = basicSetRight(newRight, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -311,17 +311,16 @@ public class BinaryOpExpressionImpl extends ValuedExpressionImpl implements
         parametersTypes.add(getRight().getType());
 
         // compute all prototypes matching function name and compatible parameters
-        EList<BinaryOpPrototype> matching = pack.getBinaryOpPrototypes(
-                getOperator(), parametersTypes);
+        EList<BinaryOpPrototype> matching = pack
+                .getBinaryOpPrototypes(getOperator(), parametersTypes);
 
         // keep only the maximal ones w.r.t. isRefiningParametersOf()
         for (BinaryOpPrototype prototype : matching) {
             boolean keepIt = true;
 
             for (BinaryOpPrototype testPrototype : matching) {
-                if (prototype != testPrototype
-                        && testPrototype.isBetterMatchingThan(parametersTypes,
-                                prototype)) {
+                if (prototype != testPrototype && testPrototype
+                        .isBetterMatchingThan(parametersTypes, prototype)) {
                     keepIt = false;
                     break;
                 }
@@ -433,6 +432,16 @@ public class BinaryOpExpressionImpl extends ValuedExpressionImpl implements
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    @Override
+    public boolean hasClocks() {
+        return getLeft().hasClocks() || getRight().hasClocks();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -536,7 +545,7 @@ public class BinaryOpExpressionImpl extends ValuedExpressionImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (operator: ");
         result.append(operator);
         result.append(')');
@@ -636,15 +645,15 @@ public class BinaryOpExpressionImpl extends ValuedExpressionImpl implements
         EList<DataDeclaration> leftUninitializedVariables = new BasicEList<DataDeclaration>(
                 uninitialized);
 
-        ret.addAll(getLeft().getMayReadUninitializedVariables(
-                leftUninitializedVariables));
+        ret.addAll(getLeft()
+                .getMayReadUninitializedVariables(leftUninitializedVariables));
 
         // right hand side
         EList<DataDeclaration> rightUninitializedVariables = new BasicEList<DataDeclaration>(
                 uninitialized);
 
-        ret.addAll(getRight().getMayReadUninitializedVariables(
-                rightUninitializedVariables));
+        ret.addAll(getRight()
+                .getMayReadUninitializedVariables(rightUninitializedVariables));
 
         // update uninitialized variables
         uninitialized.retainAll(leftUninitializedVariables);

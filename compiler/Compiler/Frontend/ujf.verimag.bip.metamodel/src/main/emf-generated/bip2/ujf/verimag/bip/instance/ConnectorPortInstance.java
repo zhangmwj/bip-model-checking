@@ -45,10 +45,10 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.ConnectorPortInstance#getDataParamInstances <em>Data Param Instances</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.instance.InstancePackage#getConnectorPortInstance()
  * @model

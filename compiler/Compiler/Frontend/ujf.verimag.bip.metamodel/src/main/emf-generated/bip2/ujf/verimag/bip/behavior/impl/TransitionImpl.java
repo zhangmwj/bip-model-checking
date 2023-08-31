@@ -78,6 +78,7 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.impl.TransitionImpl#getGuard <em>Guard</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.impl.TransitionImpl#getResume <em>Resume</em>}</li>
@@ -87,7 +88,6 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  *   <li>{@link bip2.ujf.verimag.bip.behavior.impl.TransitionImpl#getTriggerPort <em>Trigger Port</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.behavior.impl.TransitionImpl#getActions <em>Actions</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -196,6 +196,7 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Urgency getUrgency() {
         return urgency;
     }
@@ -205,6 +206,7 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setUrgency(Urgency newUrgency) {
         Urgency oldUrgency = urgency;
         urgency = newUrgency == null ? URGENCY_EDEFAULT : newUrgency;
@@ -218,6 +220,7 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<State> getSources() {
         if (sources == null) {
             sources = new EObjectResolvingEList<State>(State.class, this,
@@ -231,6 +234,7 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<State> getDestinations() {
         if (destinations == null) {
             destinations = new EObjectResolvingEList<State>(State.class, this,
@@ -244,10 +248,12 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public AtomInternalExternalPortDeclaration getTriggerPort() {
         if (triggerPort != null && ((EObject) triggerPort).eIsProxy()) {
             InternalEObject oldTriggerPort = (InternalEObject) triggerPort;
-            triggerPort = (AtomInternalExternalPortDeclaration) eResolveProxy(oldTriggerPort);
+            triggerPort = (AtomInternalExternalPortDeclaration) eResolveProxy(
+                    oldTriggerPort);
             if (triggerPort != oldTriggerPort) {
                 if (eNotificationRequired())
                     eNotify(new ENotificationImpl(this, Notification.RESOLVE,
@@ -272,6 +278,7 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setTriggerPort(
             AtomInternalExternalPortDeclaration newTriggerPort) {
         AtomInternalExternalPortDeclaration oldTriggerPort = triggerPort;
@@ -287,6 +294,7 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<Expression> getActions() {
         if (actions == null) {
             actions = new EObjectContainmentEList<Expression>(Expression.class,
@@ -300,6 +308,7 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getGuard() {
         return guard;
     }
@@ -330,17 +339,20 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setGuard(ValuedExpression newGuard) {
         if (newGuard != guard) {
             NotificationChain msgs = null;
             if (guard != null)
-                msgs = ((InternalEObject) guard)
-                        .eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-                                - BehaviorPackage.TRANSITION__GUARD, null, msgs);
+                msgs = ((InternalEObject) guard).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - BehaviorPackage.TRANSITION__GUARD,
+                        null, msgs);
             if (newGuard != null)
-                msgs = ((InternalEObject) newGuard)
-                        .eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-                                - BehaviorPackage.TRANSITION__GUARD, null, msgs);
+                msgs = ((InternalEObject) newGuard).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - BehaviorPackage.TRANSITION__GUARD,
+                        null, msgs);
             msgs = basicSetGuard(newGuard, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -354,6 +366,7 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Resume getResume() {
         return resume;
     }
@@ -384,19 +397,20 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setResume(Resume newResume) {
         if (newResume != resume) {
             NotificationChain msgs = null;
             if (resume != null)
                 msgs = ((InternalEObject) resume).eInverseRemove(this,
                         EOPPOSITE_FEATURE_BASE
-                                - BehaviorPackage.TRANSITION__RESUME, null,
-                        msgs);
+                                - BehaviorPackage.TRANSITION__RESUME,
+                        null, msgs);
             if (newResume != null)
                 msgs = ((InternalEObject) newResume).eInverseAdd(this,
                         EOPPOSITE_FEATURE_BASE
-                                - BehaviorPackage.TRANSITION__RESUME, null,
-                        msgs);
+                                - BehaviorPackage.TRANSITION__RESUME,
+                        null, msgs);
             msgs = basicSetResume(newResume, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -419,8 +433,8 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
         case BehaviorPackage.TRANSITION__RESUME:
             return basicSetResume(null, msgs);
         case BehaviorPackage.TRANSITION__ACTIONS:
-            return ((InternalEList<?>) getActions())
-                    .basicRemove(otherEnd, msgs);
+            return ((InternalEList<?>) getActions()).basicRemove(otherEnd,
+                    msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -555,7 +569,8 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * @generated
      */
     @Override
-    public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+    public int eBaseStructuralFeatureID(int derivedFeatureID,
+            Class<?> baseClass) {
         if (baseClass == Guarded.class) {
             switch (derivedFeatureID) {
             case BehaviorPackage.TRANSITION__GUARD:
@@ -589,7 +604,8 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
      * @generated
      */
     @Override
-    public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+    public int eDerivedStructuralFeatureID(int baseFeatureID,
+            Class<?> baseClass) {
         if (baseClass == Guarded.class) {
             switch (baseFeatureID) {
             case TimePackage.GUARDED__GUARD:
@@ -627,7 +643,7 @@ public class TransitionImpl extends AnnotatedElementImpl implements Transition {
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (urgency: ");
         result.append(urgency);
         result.append(')');

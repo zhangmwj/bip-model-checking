@@ -66,18 +66,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.PrototypeImpl#getParameterDeclarations <em>Parameter Declarations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.PrototypeImpl#getReturnType <em>Return Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.PrototypeImpl#isNative <em>Native</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.PrototypeImpl#isConst <em>Const</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public abstract class PrototypeImpl extends AnnotatedElementImpl implements
-        Prototype {
+public abstract class PrototypeImpl extends AnnotatedElementImpl
+        implements Prototype {
     /**
      * The cached value of the '{@link #getParameterDeclarations() <em>Parameter Declarations</em>}' containment reference list.
      * <!-- begin-user-doc -->
@@ -162,6 +162,7 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<PrototypeParameterDeclaration> getParameterDeclarations() {
         if (parameterDeclarations == null) {
             parameterDeclarations = new EObjectContainmentEList<PrototypeParameterDeclaration>(
@@ -176,6 +177,7 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Type getReturnType() {
         if (returnType != null && ((EObject) returnType).eIsProxy()) {
             InternalEObject oldReturnType = (InternalEObject) returnType;
@@ -204,6 +206,7 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setReturnType(Type newReturnType) {
         Type oldReturnType = returnType;
         returnType = newReturnType;
@@ -218,6 +221,7 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean isNative() {
         return native_;
     }
@@ -227,6 +231,7 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setNative(boolean newNative) {
         boolean oldNative = native_;
         native_ = newNative;
@@ -240,6 +245,7 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean isConst() {
         return const_;
     }
@@ -249,6 +255,7 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setConst(boolean newConst) {
         boolean oldConst = const_;
         const_ = newConst;
@@ -262,7 +269,8 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated NOT
      */
-    public boolean isBetterMatchingThan(EList<Type> types, Prototype prototype) {
+    public boolean isBetterMatchingThan(EList<Type> types,
+            Prototype prototype) {
         boolean oneIsBetter = false;
         boolean allAreNotWorse = true;
 
@@ -304,8 +312,8 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
             int featureID, NotificationChain msgs) {
         switch (featureID) {
         case PackagingPackage.PROTOTYPE__PARAMETER_DECLARATIONS:
-            return ((InternalEList<?>) getParameterDeclarations()).basicRemove(
-                    otherEnd, msgs);
+            return ((InternalEList<?>) getParameterDeclarations())
+                    .basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -343,8 +351,8 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
         switch (featureID) {
         case PackagingPackage.PROTOTYPE__PARAMETER_DECLARATIONS:
             getParameterDeclarations().clear();
-            getParameterDeclarations()
-                    .addAll((Collection<? extends PrototypeParameterDeclaration>) newValue);
+            getParameterDeclarations().addAll(
+                    (Collection<? extends PrototypeParameterDeclaration>) newValue);
             return;
         case PackagingPackage.PROTOTYPE__RETURN_TYPE:
             setReturnType((Type) newValue);
@@ -414,7 +422,7 @@ public abstract class PrototypeImpl extends AnnotatedElementImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (native: ");
         result.append(native_);
         result.append(", const: ");

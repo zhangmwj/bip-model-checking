@@ -47,17 +47,17 @@ import bip2.ujf.verimag.bip.data.SubDataDeclarationReference;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.compound.CompoundExportDataDeclaration#getDataDeclarationReference <em>Data Declaration Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.component.compound.CompoundPackage#getCompoundExportDataDeclaration()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='sameDataTypeAsPointedDeclaration'"
  * @generated
  */
-public interface CompoundExportDataDeclaration extends DataDeclaration,
-        AnnotatedElement {
+public interface CompoundExportDataDeclaration
+        extends DataDeclaration, AnnotatedElement {
     /**
      * Returns the value of the '<em><b>Data Declaration Reference</b></em>' containment reference.
      * <!-- begin-user-doc -->

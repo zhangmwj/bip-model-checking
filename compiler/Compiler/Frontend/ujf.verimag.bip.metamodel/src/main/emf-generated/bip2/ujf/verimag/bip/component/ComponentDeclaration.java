@@ -53,12 +53,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.ComponentDeclaration#getType <em>Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.ComponentDeclaration#getParameters <em>Parameters</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.ComponentDeclaration#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.component.ComponentPackage#getComponentDeclaration()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='componentDeclarationHasCorrectNumberOfParam componentDeclarationHasNoUnconnectedPort'"

@@ -63,7 +63,7 @@ public class TimeFactoryImpl extends EFactoryImpl implements TimeFactory {
     public static TimeFactory init() {
         try {
             TimeFactory theTimeFactory = (TimeFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/time/1.0");
+                    .getEFactory(TimePackage.eNS_URI);
             if (theTimeFactory != null) {
                 return theTimeFactory;
             }
@@ -144,6 +144,7 @@ public class TimeFactoryImpl extends EFactoryImpl implements TimeFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ClockDeclaration createClockDeclaration() {
         ClockDeclarationImpl clockDeclaration = new ClockDeclarationImpl();
         return clockDeclaration;
@@ -154,6 +155,7 @@ public class TimeFactoryImpl extends EFactoryImpl implements TimeFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Time createTime() {
         TimeImpl time = new TimeImpl();
         return time;
@@ -164,6 +166,7 @@ public class TimeFactoryImpl extends EFactoryImpl implements TimeFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public GuardedUntimed createGuardedUntimed() {
         GuardedUntimedImpl guardedUntimed = new GuardedUntimedImpl();
         return guardedUntimed;
@@ -174,6 +177,7 @@ public class TimeFactoryImpl extends EFactoryImpl implements TimeFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Resumed createResumed() {
         ResumedImpl resumed = new ResumedImpl();
         return resumed;
@@ -184,6 +188,7 @@ public class TimeFactoryImpl extends EFactoryImpl implements TimeFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Resume createResume() {
         ResumeImpl resume = new ResumeImpl();
         return resume;
@@ -219,6 +224,7 @@ public class TimeFactoryImpl extends EFactoryImpl implements TimeFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public TimePackage getTimePackage() {
         return (TimePackage) getEPackage();
     }

@@ -186,7 +186,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
 
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-     * 
+     *
      * <p>This method is used to initialize {@link DataPackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
@@ -202,77 +202,104 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
                     .getEPackage(DataPackage.eNS_URI);
 
         // Obtain or create and register package
-        DataPackageImpl theDataPackage = (DataPackageImpl) (EPackage.Registry.INSTANCE
-                .get(eNS_URI) instanceof DataPackageImpl ? EPackage.Registry.INSTANCE
-                .get(eNS_URI) : new DataPackageImpl());
+        Object registeredDataPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+        DataPackageImpl theDataPackage = registeredDataPackage instanceof DataPackageImpl
+                ? (DataPackageImpl) registeredDataPackage
+                : new DataPackageImpl();
 
         isInited = true;
 
         // Obtain or create and register interdependencies
-        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) instanceof Bip2PackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(Bip2Package.eNS_URI) : Bip2Package.eINSTANCE);
-        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) instanceof UjfPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(UjfPackage.eNS_URI) : UjfPackage.eINSTANCE);
-        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) instanceof VerimagPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(VerimagPackage.eNS_URI) : VerimagPackage.eINSTANCE);
-        BipPackageImpl theBipPackage = (BipPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) instanceof BipPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI) : BipPackage.eINSTANCE);
-        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) instanceof TypesPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TypesPackage.eNS_URI) : TypesPackage.eINSTANCE);
-        PortPackageImpl thePortPackage = (PortPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) instanceof PortPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PortPackage.eNS_URI) : PortPackage.eINSTANCE);
-        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI) instanceof BehaviorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(BehaviorPackage.eNS_URI)
+        Object registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(Bip2Package.eNS_URI);
+        Bip2PackageImpl theBip2Package = (Bip2PackageImpl) (registeredPackage instanceof Bip2PackageImpl
+                ? registeredPackage
+                : Bip2Package.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(UjfPackage.eNS_URI);
+        UjfPackageImpl theUjfPackage = (UjfPackageImpl) (registeredPackage instanceof UjfPackageImpl
+                ? registeredPackage
+                : UjfPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(VerimagPackage.eNS_URI);
+        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (registeredPackage instanceof VerimagPackageImpl
+                ? registeredPackage
+                : VerimagPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BipPackage.eNS_URI);
+        BipPackageImpl theBipPackage = (BipPackageImpl) (registeredPackage instanceof BipPackageImpl
+                ? registeredPackage
+                : BipPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TypesPackage.eNS_URI);
+        TypesPackageImpl theTypesPackage = (TypesPackageImpl) (registeredPackage instanceof TypesPackageImpl
+                ? registeredPackage
+                : TypesPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PortPackage.eNS_URI);
+        PortPackageImpl thePortPackage = (PortPackageImpl) (registeredPackage instanceof PortPackageImpl
+                ? registeredPackage
+                : PortPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(BehaviorPackage.eNS_URI);
+        BehaviorPackageImpl theBehaviorPackage = (BehaviorPackageImpl) (registeredPackage instanceof BehaviorPackageImpl
+                ? registeredPackage
                 : BehaviorPackage.eINSTANCE);
-        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI) instanceof PriorityPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PriorityPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PriorityPackage.eNS_URI);
+        PriorityPackageImpl thePriorityPackage = (PriorityPackageImpl) (registeredPackage instanceof PriorityPackageImpl
+                ? registeredPackage
                 : PriorityPackage.eINSTANCE);
-        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ConnectorPackage.eNS_URI) instanceof ConnectorPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ConnectorPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ConnectorPackage.eNS_URI);
+        ConnectorPackageImpl theConnectorPackage = (ConnectorPackageImpl) (registeredPackage instanceof ConnectorPackageImpl
+                ? registeredPackage
                 : ConnectorPackage.eINSTANCE);
-        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ComponentPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ComponentPackage.eNS_URI);
+        ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (registeredPackage instanceof ComponentPackageImpl
+                ? registeredPackage
                 : ComponentPackage.eINSTANCE);
-        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) instanceof AtomPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AtomPackage.eNS_URI) : AtomPackage.eINSTANCE);
-        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI) instanceof CompoundPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(CompoundPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AtomPackage.eNS_URI);
+        AtomPackageImpl theAtomPackage = (AtomPackageImpl) (registeredPackage instanceof AtomPackageImpl
+                ? registeredPackage
+                : AtomPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(CompoundPackage.eNS_URI);
+        CompoundPackageImpl theCompoundPackage = (CompoundPackageImpl) (registeredPackage instanceof CompoundPackageImpl
+                ? registeredPackage
                 : CompoundPackage.eINSTANCE);
-        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(PackagingPackage.eNS_URI) instanceof PackagingPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(PackagingPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PackagingPackage.eNS_URI);
+        PackagingPackageImpl thePackagingPackage = (PackagingPackageImpl) (registeredPackage instanceof PackagingPackageImpl
+                ? registeredPackage
                 : PackagingPackage.eINSTANCE);
-        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(ActionlangPackage.eNS_URI) instanceof ActionlangPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(ActionlangPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(ActionlangPackage.eNS_URI);
+        ActionlangPackageImpl theActionlangPackage = (ActionlangPackageImpl) (registeredPackage instanceof ActionlangPackageImpl
+                ? registeredPackage
                 : ActionlangPackage.eINSTANCE);
-        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(InstancePackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI);
+        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (registeredPackage instanceof InstancePackageImpl
+                ? registeredPackage
                 : InstancePackage.eINSTANCE);
-        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI) instanceof AnnotationPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(AnnotationPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(AnnotationPackage.eNS_URI);
+        AnnotationPackageImpl theAnnotationPackage = (AnnotationPackageImpl) (registeredPackage instanceof AnnotationPackageImpl
+                ? registeredPackage
                 : AnnotationPackage.eINSTANCE);
-        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(InvariantPackage.eNS_URI) instanceof InvariantPackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(InvariantPackage.eNS_URI)
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(InvariantPackage.eNS_URI);
+        InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (registeredPackage instanceof InvariantPackageImpl
+                ? registeredPackage
                 : InvariantPackage.eINSTANCE);
-        TimePackageImpl theTimePackage = (TimePackageImpl) (EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) instanceof TimePackageImpl ? EPackage.Registry.INSTANCE
-                .getEPackage(TimePackage.eNS_URI) : TimePackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(TimePackage.eNS_URI);
+        TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
+                ? registeredPackage
+                : TimePackage.eINSTANCE);
 
         // Create package meta-data objects
         theDataPackage.createPackageContents();
@@ -319,6 +346,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
         // Register package validator
         EValidator.Registry.INSTANCE.put(theDataPackage,
                 new EValidator.Descriptor() {
+                    @Override
                     public EValidator getEValidator() {
                         return DataValidator.INSTANCE;
                     }
@@ -337,6 +365,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDataType() {
         return dataTypeEClass;
     }
@@ -346,6 +375,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getDataType_BackendName() {
         return (EAttribute) dataTypeEClass.getEStructuralFeatures().get(0);
     }
@@ -355,6 +385,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDataDeclaration() {
         return dataDeclarationEClass;
     }
@@ -364,9 +395,10 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getDataDeclaration_DataType() {
-        return (EReference) dataDeclarationEClass.getEStructuralFeatures().get(
-                0);
+        return (EReference) dataDeclarationEClass.getEStructuralFeatures()
+                .get(0);
     }
 
     /**
@@ -374,9 +406,10 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getDataDeclaration_Name() {
-        return (EAttribute) dataDeclarationEClass.getEStructuralFeatures().get(
-                1);
+        return (EAttribute) dataDeclarationEClass.getEStructuralFeatures()
+                .get(1);
     }
 
     /**
@@ -384,9 +417,10 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getDataDeclaration_Value() {
-        return (EReference) dataDeclarationEClass.getEStructuralFeatures().get(
-                2);
+        return (EReference) dataDeclarationEClass.getEStructuralFeatures()
+                .get(2);
     }
 
     /**
@@ -394,9 +428,10 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EAttribute getDataDeclaration_Const() {
-        return (EAttribute) dataDeclarationEClass.getEStructuralFeatures().get(
-                3);
+        return (EAttribute) dataDeclarationEClass.getEStructuralFeatures()
+                .get(3);
     }
 
     /**
@@ -404,6 +439,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getExplicitDataDeclaration() {
         return explicitDataDeclarationEClass;
     }
@@ -413,6 +449,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getSubDataDeclarationReference() {
         return subDataDeclarationReferenceEClass;
     }
@@ -422,6 +459,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getSubDataDeclarationReference_ForwardDataDeclaration() {
         return (EReference) subDataDeclarationReferenceEClass
                 .getEStructuralFeatures().get(0);
@@ -432,6 +470,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getSubDataDeclarationReference_ComponentDeclaration() {
         return (EReference) subDataDeclarationReferenceEClass
                 .getEStructuralFeatures().get(1);
@@ -442,6 +481,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getSubDataDeclarationReference_PortDeclaration() {
         return (EReference) subDataDeclarationReferenceEClass
                 .getEStructuralFeatures().get(2);
@@ -452,6 +492,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDataParameter() {
         return dataParameterEClass;
     }
@@ -461,6 +502,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getDataParameter_ParameterDeclaration() {
         return (EReference) dataParameterEClass.getEStructuralFeatures().get(0);
     }
@@ -470,6 +512,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getDataParameter_Type() {
         return (EReference) dataParameterEClass.getEStructuralFeatures().get(1);
     }
@@ -479,6 +522,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EClass getDataDeclarationReferenceDataParameter() {
         return dataDeclarationReferenceDataParameterEClass;
     }
@@ -488,6 +532,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EReference getDataDeclarationReferenceDataParameter_DataDeclarationReference() {
         return (EReference) dataDeclarationReferenceDataParameterEClass
                 .getEStructuralFeatures().get(0);
@@ -498,6 +543,7 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataFactory getDataFactory() {
         return (DataFactory) getEFactoryInstance();
     }
@@ -533,7 +579,8 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
 
         explicitDataDeclarationEClass = createEClass(EXPLICIT_DATA_DECLARATION);
 
-        subDataDeclarationReferenceEClass = createEClass(SUB_DATA_DECLARATION_REFERENCE);
+        subDataDeclarationReferenceEClass = createEClass(
+                SUB_DATA_DECLARATION_REFERENCE);
         createEReference(subDataDeclarationReferenceEClass,
                 SUB_DATA_DECLARATION_REFERENCE__FORWARD_DATA_DECLARATION);
         createEReference(subDataDeclarationReferenceEClass,
@@ -546,7 +593,8 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
                 DATA_PARAMETER__PARAMETER_DECLARATION);
         createEReference(dataParameterEClass, DATA_PARAMETER__TYPE);
 
-        dataDeclarationReferenceDataParameterEClass = createEClass(DATA_DECLARATION_REFERENCE_DATA_PARAMETER);
+        dataDeclarationReferenceDataParameterEClass = createEClass(
+                DATA_DECLARATION_REFERENCE_DATA_PARAMETER);
         createEReference(dataDeclarationReferenceDataParameterEClass,
                 DATA_DECLARATION_REFERENCE_DATA_PARAMETER__DATA_DECLARATION_REFERENCE);
     }
@@ -593,12 +641,12 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
 
         // Add supertypes to classes
         dataTypeEClass.getESuperTypes().add(theTypesPackage.getType());
-        dataDeclarationEClass.getESuperTypes().add(
-                theAnnotationPackage.getAnnotatedElement());
-        explicitDataDeclarationEClass.getESuperTypes().add(
-                this.getDataDeclaration());
-        dataDeclarationReferenceDataParameterEClass.getESuperTypes().add(
-                this.getDataParameter());
+        dataDeclarationEClass.getESuperTypes()
+                .add(theAnnotationPackage.getAnnotatedElement());
+        explicitDataDeclarationEClass.getESuperTypes()
+                .add(this.getDataDeclaration());
+        dataDeclarationReferenceDataParameterEClass.getESuperTypes()
+                .add(this.getDataParameter());
 
         // Initialize classes and features; add operations and parameters
         initEClass(dataTypeEClass, DataType.class, "DataType", !IS_ABSTRACT,
@@ -620,8 +668,8 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
         initEReference(getDataDeclaration_Value(),
-                theActionlangPackage.getValuedExpression(), null, "value",
-                null, 0, 1, DataDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE,
+                theActionlangPackage.getValuedExpression(), null, "value", null,
+                0, 1, DataDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE,
                 IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDataDeclaration_Const(), ecorePackage.getEBoolean(),
@@ -629,17 +677,17 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
 
-        initEClass(explicitDataDeclarationEClass,
-                ExplicitDataDeclaration.class, "ExplicitDataDeclaration",
-                IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(explicitDataDeclarationEClass, ExplicitDataDeclaration.class,
+                "ExplicitDataDeclaration", IS_ABSTRACT, IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(subDataDeclarationReferenceEClass,
                 SubDataDeclarationReference.class,
                 "SubDataDeclarationReference", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
         initEReference(getSubDataDeclarationReference_ForwardDataDeclaration(),
-                this.getDataDeclaration(), null, "forwardDataDeclaration",
-                null, 1, 1, SubDataDeclarationReference.class, !IS_TRANSIENT,
+                this.getDataDeclaration(), null, "forwardDataDeclaration", null,
+                1, 1, SubDataDeclarationReference.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSubDataDeclarationReference_ComponentDeclaration(),
@@ -691,14 +739,13 @@ public class DataPackageImpl extends EPackageImpl implements DataPackage {
      */
     protected void createEcoreAnnotations() {
         String source = "http://www.eclipse.org/emf/2002/Ecore";
-        addAnnotation(explicitDataDeclarationEClass, source, new String[] {
-                "constraints", "hasInitializationIfConst" });
-        addAnnotation(subDataDeclarationReferenceEClass, source, new String[] {
-                "constraints", "hasOneDeclaration" });
-        addAnnotation(
-                dataDeclarationReferenceDataParameterEClass,
-                source,
-                new String[] { "constraints", "hasCorrectType hasCorrectConst" });
+        addAnnotation(explicitDataDeclarationEClass, source,
+                new String[] { "constraints", "hasInitializationIfConst" });
+        addAnnotation(subDataDeclarationReferenceEClass, source,
+                new String[] { "constraints", "hasOneDeclaration" });
+        addAnnotation(dataDeclarationReferenceDataParameterEClass, source,
+                new String[] { "constraints",
+                        "hasCorrectType hasCorrectConst" });
     }
 
 } //DataPackageImpl

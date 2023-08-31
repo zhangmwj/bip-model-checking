@@ -138,7 +138,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TYPE__SUPER_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+    int TYPE__SUPER_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 2;
 
     /**
      * The feature id for the '<em><b>Castable Types</b></em>' reference list.
@@ -147,7 +148,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TYPE__CASTABLE_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
+    int TYPE__CASTABLE_TYPES = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 3;
 
     /**
      * The number of structural features of the '<em>Type</em>' class.
@@ -156,7 +158,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TYPE_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 4;
+    int TYPE_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 4;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.types.BipType <em>Bip Type</em>}' class.
@@ -302,7 +305,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE__DATA_PARAMETER_DECLARATIONS = BIP_TYPE_FEATURE_COUNT + 2;
+    int COMPONENT_TYPE__DATA_PARAMETER_DECLARATIONS = BIP_TYPE_FEATURE_COUNT
+            + 2;
 
     /**
      * The number of structural features of the '<em>Component Type</em>' class.
@@ -402,7 +406,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_TYPE__INTERNAL_PORT_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT + 0;
+    int ATOM_TYPE__INTERNAL_PORT_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>External Port Declarations</b></em>' containment reference list.
@@ -411,7 +416,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_TYPE__EXTERNAL_PORT_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT + 1;
+    int ATOM_TYPE__EXTERNAL_PORT_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Behavior</b></em>' containment reference.
@@ -429,7 +435,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATOM_TYPE__INTERNAL_DATA_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT + 3;
+    int ATOM_TYPE__INTERNAL_DATA_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT
+            + 3;
 
     /**
      * The feature id for the '<em><b>Clock Declarations</b></em>' containment reference list.
@@ -565,7 +572,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_TYPE__COMPONENT_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT + 0;
+    int COMPOUND_TYPE__COMPONENT_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Connector Declarations</b></em>' containment reference list.
@@ -574,7 +582,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_TYPE__CONNECTOR_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT + 1;
+    int COMPOUND_TYPE__CONNECTOR_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Export Port Declarations</b></em>' containment reference list.
@@ -583,7 +592,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_TYPE__EXPORT_PORT_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT + 2;
+    int COMPOUND_TYPE__EXPORT_PORT_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT
+            + 2;
 
     /**
      * The feature id for the '<em><b>Export Data Declarations</b></em>' containment reference list.
@@ -592,7 +602,8 @@ public interface TypesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPOUND_TYPE__EXPORT_DATA_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT + 3;
+    int COMPOUND_TYPE__EXPORT_DATA_DECLARATIONS = COMPONENT_TYPE_FEATURE_COUNT
+            + 3;
 
     /**
      * The feature id for the '<em><b>Priorities</b></em>' containment reference list.

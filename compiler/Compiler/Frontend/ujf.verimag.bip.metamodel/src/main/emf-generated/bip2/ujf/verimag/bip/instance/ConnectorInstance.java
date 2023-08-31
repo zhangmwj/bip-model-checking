@@ -50,13 +50,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.ConnectorInstance#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.ConnectorInstance#getSubDataInstances <em>Sub Data Instances</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.ConnectorInstance#getPortParamInstances <em>Port Param Instances</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.ConnectorInstance#getExportedPort <em>Exported Port</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.instance.InstancePackage#getConnectorInstance()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='connectorDoesNotBindTheSameComponentMoreThanOnce'"

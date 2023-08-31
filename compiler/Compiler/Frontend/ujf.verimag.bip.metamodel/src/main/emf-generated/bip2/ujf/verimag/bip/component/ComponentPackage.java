@@ -120,7 +120,8 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_DECLARATION__TYPE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+    int COMPONENT_DECLARATION__TYPE = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 0;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -129,7 +130,8 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_DECLARATION__PARAMETERS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
+    int COMPONENT_DECLARATION__PARAMETERS = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 1;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -138,7 +140,8 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_DECLARATION__NAME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+    int COMPONENT_DECLARATION__NAME = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 2;
 
     /**
      * The number of structural features of the '<em>Declaration</em>' class.
@@ -147,7 +150,8 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_DECLARATION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
+    int COMPONENT_DECLARATION_FEATURE_COUNT = AnnotationPackage.ANNOTATED_ELEMENT_FEATURE_COUNT
+            + 3;
 
     /**
      * The meta object id for the '{@link bip2.ujf.verimag.bip.component.impl.ComponentDataParameterDeclarationImpl <em>Data Parameter Declaration</em>}' class.
@@ -211,7 +215,8 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_DATA_PARAMETER_DECLARATION_FEATURE_COUNT = DataPackage.DATA_DECLARATION_FEATURE_COUNT + 0;
+    int COMPONENT_DATA_PARAMETER_DECLARATION_FEATURE_COUNT = DataPackage.DATA_DECLARATION_FEATURE_COUNT
+            + 0;
 
     /**
      * Returns the meta object for class '{@link bip2.ujf.verimag.bip.component.ComponentDeclaration <em>Declaration</em>}'.

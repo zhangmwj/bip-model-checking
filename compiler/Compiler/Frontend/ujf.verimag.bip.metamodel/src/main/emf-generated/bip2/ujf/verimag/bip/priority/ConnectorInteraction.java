@@ -52,11 +52,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.priority.ConnectorInteraction#getConnectorDeclaration <em>Connector Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.priority.ConnectorInteraction#getPortDeclarationReferences <em>Port Declaration References</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.priority.PriorityPackage#getConnectorInteraction()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='portReferencesOnCorrectConnectorDeclaration noDuplicatedPortReferenceInConnectorInteraction interactionIsDefinedInConnector\n'"

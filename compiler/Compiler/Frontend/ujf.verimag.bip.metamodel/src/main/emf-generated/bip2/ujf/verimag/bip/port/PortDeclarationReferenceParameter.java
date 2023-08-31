@@ -46,11 +46,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.port.PortDeclarationReferenceParameter#getParameterDeclaration <em>Parameter Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.PortDeclarationReferenceParameter#getSubPortDeclarationReference <em>Sub Port Declaration Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.port.PortPackage#getPortDeclarationReferenceParameter()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='portParameterHasCorrectPortType'"

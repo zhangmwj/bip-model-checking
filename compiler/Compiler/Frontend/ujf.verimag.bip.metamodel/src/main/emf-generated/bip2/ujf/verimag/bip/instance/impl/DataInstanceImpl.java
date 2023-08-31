@@ -58,16 +58,16 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.DataInstanceImpl#getDeclaration <em>Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.instance.impl.DataInstanceImpl#getProxyLink <em>Proxy Link</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class DataInstanceImpl extends AnnotatedEObjectImpl implements
-        DataInstance {
+public class DataInstanceImpl extends AnnotatedEObjectImpl
+        implements DataInstance {
     /**
      * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' reference.
      * <!-- begin-user-doc -->
@@ -112,6 +112,7 @@ public class DataInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataDeclaration getDeclaration() {
         if (declaration != null && ((EObject) declaration).eIsProxy()) {
             InternalEObject oldDeclaration = (InternalEObject) declaration;
@@ -140,6 +141,7 @@ public class DataInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDeclaration(DataDeclaration newDeclaration) {
         DataDeclaration oldDeclaration = declaration;
         declaration = newDeclaration;
@@ -154,6 +156,7 @@ public class DataInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataInstance getProxyLink() {
         if (proxyLink != null && ((EObject) proxyLink).eIsProxy()) {
             InternalEObject oldProxyLink = (InternalEObject) proxyLink;
@@ -182,6 +185,7 @@ public class DataInstanceImpl extends AnnotatedEObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setProxyLink(DataInstance newProxyLink) {
         DataInstance oldProxyLink = proxyLink;
         proxyLink = newProxyLink;

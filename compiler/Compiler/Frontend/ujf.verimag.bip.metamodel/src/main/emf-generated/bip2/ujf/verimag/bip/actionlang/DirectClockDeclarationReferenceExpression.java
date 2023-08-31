@@ -45,17 +45,17 @@ import bip2.ujf.verimag.bip.time.ClockDeclaration;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.DirectClockDeclarationReferenceExpression#getClockDeclaration <em>Clock Declaration</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.actionlang.ActionlangPackage#getDirectClockDeclarationReferenceExpression()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='invalidUseOfClocksInDo'"
  * @generated
  */
-public interface DirectClockDeclarationReferenceExpression extends
-        ValuedExpression {
+public interface DirectClockDeclarationReferenceExpression
+        extends ValuedExpression {
     /**
      * Returns the value of the '<em><b>Clock Declaration</b></em>' reference.
      * <!-- begin-user-doc -->

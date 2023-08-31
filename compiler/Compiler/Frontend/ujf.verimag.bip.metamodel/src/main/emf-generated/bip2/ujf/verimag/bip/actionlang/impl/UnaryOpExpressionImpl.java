@@ -75,16 +75,16 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.UnaryOpExpressionImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.UnaryOpExpressionImpl#getOperand <em>Operand</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class UnaryOpExpressionImpl extends ValuedExpressionImpl implements
-        UnaryOpExpression {
+public class UnaryOpExpressionImpl extends ValuedExpressionImpl
+        implements UnaryOpExpression {
     /**
      * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -139,6 +139,7 @@ public class UnaryOpExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public UnaryOperators getOperator() {
         return operator;
     }
@@ -148,6 +149,7 @@ public class UnaryOpExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setOperator(UnaryOperators newOperator) {
         UnaryOperators oldOperator = operator;
         operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
@@ -162,6 +164,7 @@ public class UnaryOpExpressionImpl extends ValuedExpressionImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ValuedExpression getOperand() {
         return operand;
     }
@@ -198,19 +201,15 @@ public class UnaryOpExpressionImpl extends ValuedExpressionImpl implements
         if (newOperand != operand) {
             NotificationChain msgs = null;
             if (operand != null)
-                msgs = ((InternalEObject) operand)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - ActionlangPackage.UNARY_OP_EXPRESSION__OPERAND,
-                                null, msgs);
+                msgs = ((InternalEObject) operand).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - ActionlangPackage.UNARY_OP_EXPRESSION__OPERAND,
+                        null, msgs);
             if (newOperand != null)
-                msgs = ((InternalEObject) newOperand)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - ActionlangPackage.UNARY_OP_EXPRESSION__OPERAND,
-                                null, msgs);
+                msgs = ((InternalEObject) newOperand).eInverseAdd(this,
+                        EOPPOSITE_FEATURE_BASE
+                                - ActionlangPackage.UNARY_OP_EXPRESSION__OPERAND,
+                        null, msgs);
             msgs = basicSetOperand(newOperand, msgs);
             if (msgs != null)
                 msgs.dispatch();
@@ -234,17 +233,16 @@ public class UnaryOpExpressionImpl extends ValuedExpressionImpl implements
         parametersTypes.add(type);
 
         // compute all prototypes matching function name and compatible parameters
-        EList<UnaryOpPrototype> matching = pack.getUnaryOpPrototypes(
-                getOperator(), parametersTypes);
+        EList<UnaryOpPrototype> matching = pack
+                .getUnaryOpPrototypes(getOperator(), parametersTypes);
 
         // keep only the maximal ones w.r.t. isRefiningParametersOf()
         for (UnaryOpPrototype prototype : matching) {
             boolean keepIt = true;
 
             for (UnaryOpPrototype testPrototype : matching) {
-                if (prototype != testPrototype
-                        && testPrototype.isBetterMatchingThan(parametersTypes,
-                                prototype)) {
+                if (prototype != testPrototype && testPrototype
+                        .isBetterMatchingThan(parametersTypes, prototype)) {
                     keepIt = false;
                     break;
                 }
@@ -356,6 +354,15 @@ public class UnaryOpExpressionImpl extends ValuedExpressionImpl implements
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean hasClocks() {
+        return getOperand().hasClocks();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -446,7 +453,7 @@ public class UnaryOpExpressionImpl extends ValuedExpressionImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (operator: ");
         result.append(operator);
         result.append(')');

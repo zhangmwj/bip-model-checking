@@ -84,7 +84,7 @@ public class AnnotationSwitch<T> extends Switch<T> {
      * Checks whether this is a switch for the given package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @parameter ePackage the package in question.
+     * @param ePackage the package in question.
      * @return whether this is a switch for the given package.
      * @generated
      */
@@ -120,7 +120,8 @@ public class AnnotationSwitch<T> extends Switch<T> {
         case AnnotationPackage.STRING_TO_ANNOTATION_MAP_ENTRY: {
             @SuppressWarnings("unchecked")
             Map.Entry<String, BipAnnotation> stringToAnnotationMapEntry = (Map.Entry<String, BipAnnotation>) theEObject;
-            T result = caseStringToAnnotationMapEntry(stringToAnnotationMapEntry);
+            T result = caseStringToAnnotationMapEntry(
+                    stringToAnnotationMapEntry);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;

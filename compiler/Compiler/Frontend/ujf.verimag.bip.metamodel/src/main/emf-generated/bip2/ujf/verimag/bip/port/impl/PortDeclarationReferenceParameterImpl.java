@@ -59,11 +59,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.port.impl.PortDeclarationReferenceParameterImpl#getParameterDeclaration <em>Parameter Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.port.impl.PortDeclarationReferenceParameterImpl#getSubPortDeclarationReference <em>Sub Port Declaration Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -113,16 +113,16 @@ public class PortDeclarationReferenceParameterImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PortDeclaration getParameterDeclaration() {
         if (parameterDeclaration != null
                 && ((EObject) parameterDeclaration).eIsProxy()) {
             InternalEObject oldParameterDeclaration = (InternalEObject) parameterDeclaration;
-            parameterDeclaration = (PortDeclaration) eResolveProxy(oldParameterDeclaration);
+            parameterDeclaration = (PortDeclaration) eResolveProxy(
+                    oldParameterDeclaration);
             if (parameterDeclaration != oldParameterDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             PortPackage.PORT_DECLARATION_REFERENCE_PARAMETER__PARAMETER_DECLARATION,
                             oldParameterDeclaration, parameterDeclaration));
             }
@@ -144,13 +144,13 @@ public class PortDeclarationReferenceParameterImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setParameterDeclaration(PortDeclaration newParameterDeclaration) {
+    @Override
+    public void setParameterDeclaration(
+            PortDeclaration newParameterDeclaration) {
         PortDeclaration oldParameterDeclaration = parameterDeclaration;
         parameterDeclaration = newParameterDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     PortPackage.PORT_DECLARATION_REFERENCE_PARAMETER__PARAMETER_DECLARATION,
                     oldParameterDeclaration, parameterDeclaration));
     }
@@ -160,6 +160,7 @@ public class PortDeclarationReferenceParameterImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public SubPortDeclarationReference getSubPortDeclarationReference() {
         return subPortDeclarationReference;
     }
@@ -175,8 +176,7 @@ public class PortDeclarationReferenceParameterImpl extends AnnotatedEObjectImpl
         SubPortDeclarationReference oldSubPortDeclarationReference = subPortDeclarationReference;
         subPortDeclarationReference = newSubPortDeclarationReference;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(
-                    this,
+            ENotificationImpl notification = new ENotificationImpl(this,
                     Notification.SET,
                     PortPackage.PORT_DECLARATION_REFERENCE_PARAMETER__SUB_PORT_DECLARATION_REFERENCE,
                     oldSubPortDeclarationReference,
@@ -194,32 +194,27 @@ public class PortDeclarationReferenceParameterImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setSubPortDeclarationReference(
             SubPortDeclarationReference newSubPortDeclarationReference) {
         if (newSubPortDeclarationReference != subPortDeclarationReference) {
             NotificationChain msgs = null;
             if (subPortDeclarationReference != null)
                 msgs = ((InternalEObject) subPortDeclarationReference)
-                        .eInverseRemove(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PortPackage.PORT_DECLARATION_REFERENCE_PARAMETER__SUB_PORT_DECLARATION_REFERENCE,
+                        .eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+                                - PortPackage.PORT_DECLARATION_REFERENCE_PARAMETER__SUB_PORT_DECLARATION_REFERENCE,
                                 null, msgs);
             if (newSubPortDeclarationReference != null)
                 msgs = ((InternalEObject) newSubPortDeclarationReference)
-                        .eInverseAdd(
-                                this,
-                                EOPPOSITE_FEATURE_BASE
-                                        - PortPackage.PORT_DECLARATION_REFERENCE_PARAMETER__SUB_PORT_DECLARATION_REFERENCE,
+                        .eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                                - PortPackage.PORT_DECLARATION_REFERENCE_PARAMETER__SUB_PORT_DECLARATION_REFERENCE,
                                 null, msgs);
             msgs = basicSetSubPortDeclarationReference(
                     newSubPortDeclarationReference, msgs);
             if (msgs != null)
                 msgs.dispatch();
         } else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     PortPackage.PORT_DECLARATION_REFERENCE_PARAMETER__SUB_PORT_DECLARATION_REFERENCE,
                     newSubPortDeclarationReference,
                     newSubPortDeclarationReference));
@@ -270,7 +265,8 @@ public class PortDeclarationReferenceParameterImpl extends AnnotatedEObjectImpl
             setParameterDeclaration((PortDeclaration) newValue);
             return;
         case PortPackage.PORT_DECLARATION_REFERENCE_PARAMETER__SUB_PORT_DECLARATION_REFERENCE:
-            setSubPortDeclarationReference((SubPortDeclarationReference) newValue);
+            setSubPortDeclarationReference(
+                    (SubPortDeclarationReference) newValue);
             return;
         }
         super.eSet(featureID, newValue);

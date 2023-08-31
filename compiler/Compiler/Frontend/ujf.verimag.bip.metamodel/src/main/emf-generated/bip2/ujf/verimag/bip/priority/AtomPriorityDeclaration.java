@@ -52,12 +52,12 @@ import ujf.verimag.bip.metamodel.AnnotatedEObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.priority.AtomPriorityDeclaration#getLow <em>Low</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.priority.AtomPriorityDeclaration#getHigh <em>High</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.priority.AtomPriorityDeclaration#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.priority.PriorityPackage#getAtomPriorityDeclaration()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='atomPriorityHasAtMostOneWildcard'"

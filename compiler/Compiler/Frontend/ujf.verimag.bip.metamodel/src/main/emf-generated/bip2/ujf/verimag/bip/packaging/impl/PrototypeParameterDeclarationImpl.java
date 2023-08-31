@@ -57,12 +57,12 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.PrototypeParameterDeclarationImpl#getType <em>Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.PrototypeParameterDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.packaging.impl.PrototypeParameterDeclarationImpl#isConst <em>Const</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -142,15 +142,14 @@ public class PrototypeParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Type getType() {
         if (type != null && ((EObject) type).eIsProxy()) {
             InternalEObject oldType = (InternalEObject) type;
             type = (Type) eResolveProxy(oldType);
             if (type != oldType) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             PackagingPackage.PROTOTYPE_PARAMETER_DECLARATION__TYPE,
                             oldType, type));
             }
@@ -172,6 +171,7 @@ public class PrototypeParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setType(Type newType) {
         Type oldType = type;
         type = newType;
@@ -186,6 +186,7 @@ public class PrototypeParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -195,6 +196,7 @@ public class PrototypeParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
@@ -209,6 +211,7 @@ public class PrototypeParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean isConst() {
         return const_;
     }
@@ -218,6 +221,7 @@ public class PrototypeParameterDeclarationImpl extends AnnotatedEObjectImpl
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setConst(boolean newConst) {
         boolean oldConst = const_;
         const_ = newConst;
@@ -300,8 +304,8 @@ public class PrototypeParameterDeclarationImpl extends AnnotatedEObjectImpl
         case PackagingPackage.PROTOTYPE_PARAMETER_DECLARATION__TYPE:
             return type != null;
         case PackagingPackage.PROTOTYPE_PARAMETER_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         case PackagingPackage.PROTOTYPE_PARAMETER_DECLARATION__CONST:
             return const_ != CONST_EDEFAULT;
         }
@@ -318,7 +322,7 @@ public class PrototypeParameterDeclarationImpl extends AnnotatedEObjectImpl
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(", const: ");

@@ -65,17 +65,17 @@ import ujf.verimag.bip.metamodel.AnnotatedEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.component.impl.ComponentDeclarationImpl#getType <em>Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.impl.ComponentDeclarationImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.component.impl.ComponentDeclarationImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class ComponentDeclarationImpl extends AnnotatedElementImpl implements
-        ComponentDeclaration {
+public class ComponentDeclarationImpl extends AnnotatedElementImpl
+        implements ComponentDeclaration {
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' reference.
      * <!-- begin-user-doc -->
@@ -140,6 +140,7 @@ public class ComponentDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -149,12 +150,14 @@ public class ComponentDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    ComponentPackage.COMPONENT_DECLARATION__NAME, oldName, name));
+                    ComponentPackage.COMPONENT_DECLARATION__NAME, oldName,
+                    name));
     }
 
     /**
@@ -162,6 +165,7 @@ public class ComponentDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public ComponentType getType() {
         if (type != null && ((EObject) type).eIsProxy()) {
             InternalEObject oldType = (InternalEObject) type;
@@ -190,12 +194,14 @@ public class ComponentDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setType(ComponentType newType) {
         ComponentType oldType = type;
         type = newType;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    ComponentPackage.COMPONENT_DECLARATION__TYPE, oldType, type));
+                    ComponentPackage.COMPONENT_DECLARATION__TYPE, oldType,
+                    type));
     }
 
     /**
@@ -203,6 +209,7 @@ public class ComponentDeclarationImpl extends AnnotatedElementImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EList<ValuedExpression> getParameters() {
         if (parameters == null) {
             parameters = new EObjectContainmentEList<ValuedExpression>(
@@ -262,8 +269,8 @@ public class ComponentDeclarationImpl extends AnnotatedElementImpl implements
             return;
         case ComponentPackage.COMPONENT_DECLARATION__PARAMETERS:
             getParameters().clear();
-            getParameters().addAll(
-                    (Collection<? extends ValuedExpression>) newValue);
+            getParameters()
+                    .addAll((Collection<? extends ValuedExpression>) newValue);
             return;
         case ComponentPackage.COMPONENT_DECLARATION__NAME:
             setName((String) newValue);
@@ -306,8 +313,8 @@ public class ComponentDeclarationImpl extends AnnotatedElementImpl implements
         case ComponentPackage.COMPONENT_DECLARATION__PARAMETERS:
             return parameters != null && !parameters.isEmpty();
         case ComponentPackage.COMPONENT_DECLARATION__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-                    .equals(name);
+            return NAME_EDEFAULT == null ? name != null
+                    : !NAME_EDEFAULT.equals(name);
         }
         return super.eIsSet(featureID);
     }
@@ -322,7 +329,7 @@ public class ComponentDeclarationImpl extends AnnotatedElementImpl implements
         if (eIsProxy())
             return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
+        StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(')');

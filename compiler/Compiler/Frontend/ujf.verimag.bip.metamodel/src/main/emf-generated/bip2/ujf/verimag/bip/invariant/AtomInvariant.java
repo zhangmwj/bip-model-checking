@@ -47,11 +47,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.invariant.AtomInvariant#isExactState <em>Exact State</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.invariant.AtomInvariant#getSources <em>Sources</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.invariant.InvariantPackage#getAtomInvariant()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='fakeConstraint'"

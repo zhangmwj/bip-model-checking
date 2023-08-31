@@ -45,10 +45,10 @@ import ujf.verimag.bip.metamodel.AnnotatedEObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.time.UrgentElement#getUrgency <em>Urgency</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.time.TimePackage#getUrgentElement()
  * @model interface="true" abstract="true"

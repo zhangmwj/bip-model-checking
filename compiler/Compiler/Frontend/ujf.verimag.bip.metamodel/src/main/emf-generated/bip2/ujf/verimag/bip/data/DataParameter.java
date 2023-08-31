@@ -46,11 +46,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.data.DataParameter#getParameterDeclaration <em>Parameter Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.data.DataParameter#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.data.DataPackage#getDataParameter()
  * @model interface="true" abstract="true"

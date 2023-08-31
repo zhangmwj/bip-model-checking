@@ -62,7 +62,7 @@ public class BipFactoryImpl extends EFactoryImpl implements BipFactory {
     public static BipFactory init() {
         try {
             BipFactory theBipFactory = (BipFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://bip2/ujf/verimag/bip/1.0");
+                    .getEFactory(BipPackage.eNS_URI);
             if (theBipFactory != null) {
                 return theBipFactory;
             }
@@ -103,6 +103,7 @@ public class BipFactoryImpl extends EFactoryImpl implements BipFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public PlaceHolder createPlaceHolder() {
         PlaceHolderImpl placeHolder = new PlaceHolderImpl();
         return placeHolder;
@@ -113,6 +114,7 @@ public class BipFactoryImpl extends EFactoryImpl implements BipFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public BipPackage getBipPackage() {
         return (BipPackage) getEPackage();
     }

@@ -45,11 +45,11 @@ import bip2.ujf.verimag.bip.annotation.AnnotatedElement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.time.ClockDeclaration#getUnit <em>Unit</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.time.ClockDeclaration#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.time.TimePackage#getClockDeclaration()
  * @model

@@ -54,6 +54,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.types.CompoundType#getComponentDeclarations <em>Component Declarations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.CompoundType#getConnectorDeclarations <em>Connector Declarations</em>}</li>
@@ -61,10 +62,9 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link bip2.ujf.verimag.bip.types.CompoundType#getExportDataDeclarations <em>Export Data Declarations</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.types.CompoundType#getPriorities <em>Priorities</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.types.TypesPackage#getCompoundType()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='exportedPortsListsSynchronized exportedDataListsSynchronized checkForCyclesInPrioritiesInCompound\n'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='exportedPortsListsSynchronized exportedDataListsSynchronized checkForCyclesInPrioritiesInCompound noCompoundDeclarationInCompound'"
  * @generated
  */
 public interface CompoundType extends ComponentType {

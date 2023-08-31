@@ -66,16 +66,16 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.impl.DirectDataDeclarationReferenceExpressionImpl#getDataDeclaration <em>Data Declaration</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class DirectDataDeclarationReferenceExpressionImpl extends
-        ValuedExpressionImpl implements
-        DirectDataDeclarationReferenceExpression {
+public class DirectDataDeclarationReferenceExpressionImpl
+        extends ValuedExpressionImpl
+        implements DirectDataDeclarationReferenceExpression {
     /**
      * The cached value of the '{@link #getDataDeclaration() <em>Data Declaration</em>}' reference.
      * <!-- begin-user-doc -->
@@ -110,15 +110,15 @@ public class DirectDataDeclarationReferenceExpressionImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataDeclaration getDataDeclaration() {
         if (dataDeclaration != null && ((EObject) dataDeclaration).eIsProxy()) {
             InternalEObject oldDataDeclaration = (InternalEObject) dataDeclaration;
-            dataDeclaration = (DataDeclaration) eResolveProxy(oldDataDeclaration);
+            dataDeclaration = (DataDeclaration) eResolveProxy(
+                    oldDataDeclaration);
             if (dataDeclaration != oldDataDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             ActionlangPackage.DIRECT_DATA_DECLARATION_REFERENCE_EXPRESSION__DATA_DECLARATION,
                             oldDataDeclaration, dataDeclaration));
             }
@@ -140,13 +140,12 @@ public class DirectDataDeclarationReferenceExpressionImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDataDeclaration(DataDeclaration newDataDeclaration) {
         DataDeclaration oldDataDeclaration = dataDeclaration;
         dataDeclaration = newDataDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     ActionlangPackage.DIRECT_DATA_DECLARATION_REFERENCE_EXPRESSION__DATA_DECLARATION,
                     oldDataDeclaration, dataDeclaration));
     }

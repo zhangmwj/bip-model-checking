@@ -47,6 +47,10 @@ import bip2.ujf.verimag.bip.actionlang.IfThenElseExpression;
 import bip2.ujf.verimag.bip.actionlang.SubDataDeclarationReferenceExpression;
 import bip2.ujf.verimag.bip.actionlang.UnaryOpExpression;
 import bip2.ujf.verimag.bip.actionlang.ValuedExpression;
+import bip2.ujf.verimag.bip.behavior.PetriNet;
+import bip2.ujf.verimag.bip.behavior.Transition;
+import bip2.ujf.verimag.bip.component.ComponentDeclaration;
+import bip2.ujf.verimag.bip.component.atom.AtomInternalExternalPortDeclaration;
 import bip2.ujf.verimag.bip.component.compound.CompoundExportPortDeclaration;
 import bip2.ujf.verimag.bip.connector.*;
 import bip2.ujf.verimag.bip.data.util.DataValidator;
@@ -57,8 +61,10 @@ import bip2.ujf.verimag.bip.port.PortDeclaration;
 import bip2.ujf.verimag.bip.port.PortDeclarationReferenceParameter;
 import bip2.ujf.verimag.bip.port.SubPortDeclarationReference;
 import bip2.ujf.verimag.bip.port.util.PortValidator;
+import bip2.ujf.verimag.bip.time.Urgency;
 import bip2.ujf.verimag.bip.time.util.TimeValidator;
 import bip2.ujf.verimag.bip.types.AtomType;
+import bip2.ujf.verimag.bip.types.ComponentType;
 import bip2.ujf.verimag.bip.types.CompoundType;
 import bip2.ujf.verimag.bip.types.ConnectorType;
 
@@ -259,6 +265,9 @@ public class ConnectorValidator extends EObjectValidator {
         if (result || diagnostics != null)
             result &= validateConnectorDeclaration_connectorHasExportPortBound(
                     connectorDeclaration, diagnostics, context);
+        if (result || diagnostics != null)
+            result &= validateConnectorDeclaration_eagerInteractionHasNoClocksInGuards(
+                    connectorDeclaration, diagnostics, context);
         return result;
     }
 
@@ -304,10 +313,10 @@ public class ConnectorValidator extends EObjectValidator {
                 .getPortParameters()) {
             SubPortDeclarationReference spdr = p
                     .getSubPortDeclarationReference();
-            String n = spdr.getConnectorDeclaration() != null ? spdr
-                    .getConnectorDeclaration().getName() : spdr
-                    .getComponentDeclaration().getName(), frwd = spdr
-                    .getForwardPortDeclaration().getName();
+            String n = spdr.getConnectorDeclaration() != null
+                    ? spdr.getConnectorDeclaration().getName()
+                    : spdr.getComponentDeclaration().getName(),
+                    frwd = spdr.getForwardPortDeclaration().getName();
             ok = !map.containsKey(n) || !map.get(n).equals(frwd);
             if (!ok) {
                 break;
@@ -324,20 +333,14 @@ public class ConnectorValidator extends EObjectValidator {
         }
 
         if (!ok && diagnostics != null) {
-            diagnostics
-                    .add(createDiagnostic(
-                            Diagnostic.ERROR,
-                            DIAGNOSTIC_SOURCE,
-                            0,
-                            "_UI_GenericConstraint_diagnostic",
-                            new Object[] {
-                                    "connectorDeclarationHasnoDuplicatedPortReferenceParameter",
-                                    getObjectLabel(connectorDeclaration,
-                                            context) },
-                            new Object[] {
-                                    connectorDeclaration,
-                                    ErrorCodeEnum.connectorDeclarationHasnoDuplicatedPortReferenceParameter },
-                            context));
+            diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                    DIAGNOSTIC_SOURCE, 0, "_UI_GenericConstraint_diagnostic",
+                    new Object[] {
+                            "connectorDeclarationHasnoDuplicatedPortReferenceParameter",
+                            getObjectLabel(connectorDeclaration, context) },
+                    new Object[] { connectorDeclaration,
+                            ErrorCodeEnum.connectorDeclarationHasnoDuplicatedPortReferenceParameter },
+                    context));
         }
         return ok;
     }
@@ -406,8 +409,8 @@ public class ConnectorValidator extends EObjectValidator {
                         if (spdr.getConnectorDeclaration() != null) {
                             String b_c_name = spdr.getConnectorDeclaration()
                                     .getName();
-                            String b_epd_name = spdr
-                                    .getForwardPortDeclaration().getName();
+                            String b_epd_name = spdr.getForwardPortDeclaration()
+                                    .getName();
                             ok = b_c_name.equals(conn_name)
                                     && b_epd_name.equals(epd_name);
                             break;
@@ -421,20 +424,97 @@ public class ConnectorValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.WARNING,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "connectorHasExportPortBound",
-                                        getObjectLabel(connectorDeclaration,
-                                                context) },
-                                new Object[] {
-                                        connectorDeclaration,
-                                        ErrorCodeEnum.connectorHasExportPortBound },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "connectorHasExportPortBound",
+                                getObjectLabel(connectorDeclaration, context) },
+                        new Object[] { connectorDeclaration,
+                                ErrorCodeEnum.connectorHasExportPortBound },
+                        context));
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    private boolean portIsEager(PetriNet petri,
+            AtomInternalExternalPortDeclaration port) {
+        for (Transition t : petri.getTransitions()) {
+            if (t.getTriggerPort() == port) {
+                if (t.getUrgency() == Urgency.EAGER)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    private boolean portHasClocksInGuard(PetriNet petri,
+            AtomInternalExternalPortDeclaration port) {
+        for (Transition t : petri.getTransitions()) {
+            if (t.getTriggerPort() == port) {
+                if (t.getGuard() != null && t.getGuard().hasClocks())
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Validates the eagerInteractionHasNoClocksInGuards constraint of '<em>Declaration</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean validateConnectorDeclaration_eagerInteractionHasNoClocksInGuards(
+            ConnectorDeclaration connectorDeclaration,
+            DiagnosticChain diagnostics, Map<Object, Object> context) {
+        boolean ok = true;
+        PortDeclaration portEager = null;
+        PortDeclaration portWithClocks = null;
+
+        List<PortDeclarationReferenceParameter> ports = connectorDeclaration
+                .getPortParameters();
+        for (PortDeclarationReferenceParameter pd : ports) {
+            SubPortDeclarationReference pr = pd
+                    .getSubPortDeclarationReference();
+            AtomType c = (AtomType) pr.getComponentDeclaration().getType();
+            AtomInternalExternalPortDeclaration port = c
+                    .getInternalPortDeclaration(
+                            pr.getForwardPortDeclaration().getName());
+            if (portEager == null && portIsEager(c.getBehavior(), port))
+                portEager = port;
+            if (portWithClocks == null
+                    && portHasClocksInGuard(c.getBehavior(), port))
+                portWithClocks = port;
+            if (portEager != null && portWithClocks != null
+                    && portEager != portWithClocks) {
+                ok = false;
+                break;
+            }
+        }
+
+        if (!ok) {
+            if (diagnostics != null) {
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] { "eagerInteractionHasNoClocksInGuards",
+                                getObjectLabel(connectorDeclaration, context) },
+                        new Object[] { connectorDeclaration,
+                                ErrorCodeEnum.eagerInteractionHasNoClocksInGuards,
+                                portEager, portWithClocks },
+                        context));
             }
             return false;
         }
@@ -619,29 +699,8 @@ public class ConnectorValidator extends EObjectValidator {
             result &= validate_EveryMapEntryUnique(
                     (EObject) connectorInteractionAction, diagnostics, context);
         if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_nestedComparisonOnClocks(
+            result &= timeValidator.validateGuarded_checkExpressionGrammar(
                     connectorInteractionAction, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_clocksOnOneSideOfLogicalOr(
-                    connectorInteractionAction, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_invalidNotEqualOnClocks(
-                    connectorInteractionAction, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator.validateGuarded_noClocksInLogicalNot(
-                    connectorInteractionAction, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_invalidUseOfMultiplicationOrDivisionOnClocks(
-                            connectorInteractionAction, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfMoreThanTwoClocks(
-                            connectorInteractionAction, diagnostics, context);
-        if (result || diagnostics != null)
-            result &= timeValidator
-                    .validateGuarded_comparisonOfClocksHavingWrongSign(
-                            connectorInteractionAction, diagnostics, context);
         if (result || diagnostics != null)
             result &= validateConnectorInteractionAction_onPortInConnectorParameters(
                     connectorInteractionAction, diagnostics, context);
@@ -692,16 +751,13 @@ public class ConnectorValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.ERROR,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
-                        new Object[] {
-                                "onPortInConnectorParameters",
+                        new Object[] { "onPortInConnectorParameters",
                                 getObjectLabel(connectorInteractionAction,
-                                        context) }, new Object[] {
-                                connectorInteractionAction,
+                                        context) },
+                        new Object[] { connectorInteractionAction,
                                 ErrorCodeEnum.onPortInConnectorParameters },
                         context));
             }
@@ -720,7 +776,8 @@ public class ConnectorValidator extends EObjectValidator {
             ConnectorType ct, Expression expression) {
         boolean ok = true;
 
-        Set<PortDeclaration> ports = new HashSet<PortDeclaration>(ct.getPorts());
+        Set<PortDeclaration> ports = new HashSet<PortDeclaration>(
+                ct.getPorts());
 
         if (expression instanceof AssignmentExpression) {
             AssignmentExpression ae = (AssignmentExpression) expression;
@@ -790,21 +847,16 @@ public class ConnectorValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.ERROR,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "upDoesNotContainExternalSubDataRefOnLHSAssignments",
-                                        getObjectLabel(
-                                                connectorInteractionAction,
-                                                context) },
-                                new Object[] {
-                                        connectorInteractionAction,
-                                        ErrorCodeEnum.upDoesNotContainExternalSubDataRefOnLHSAssignments },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] {
+                                "upDoesNotContainExternalSubDataRefOnLHSAssignments",
+                                getObjectLabel(connectorInteractionAction,
+                                        context) },
+                        new Object[] { connectorInteractionAction,
+                                ErrorCodeEnum.upDoesNotContainExternalSubDataRefOnLHSAssignments },
+                        context));
             }
             return false;
         }
@@ -826,16 +878,13 @@ public class ConnectorValidator extends EObjectValidator {
 
         if (!ok) {
             if (diagnostics != null) {
-                diagnostics.add(createDiagnostic(
-                        Diagnostic.WARNING,
-                        DIAGNOSTIC_SOURCE,
-                        0,
+                diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                        DIAGNOSTIC_SOURCE, 0,
                         "_UI_GenericConstraint_diagnostic",
-                        new Object[] {
-                                "connectorActionNotEmpty",
+                        new Object[] { "connectorActionNotEmpty",
                                 getObjectLabel(connectorInteractionAction,
-                                        context) }, new Object[] {
-                                connectorInteractionAction,
+                                        context) },
+                        new Object[] { connectorInteractionAction,
                                 ErrorCodeEnum.connectorActionNotEmpty },
                         context));
             }
@@ -871,19 +920,14 @@ public class ConnectorValidator extends EObjectValidator {
         //        }
 
         if (bad && diagnostics != null) {
-            diagnostics
-                    .add(createDiagnostic(
-                            Diagnostic.ERROR,
-                            DIAGNOSTIC_SOURCE,
-                            0,
-                            "_UI_GenericConstraint_diagnostic",
-                            new Object[] {
-                                    "noUpIfNoExportedPort",
-                                    getObjectLabel(connectorInteractionAction,
-                                            context) }, new Object[] {
-                                    connectorInteractionAction,
-                                    ErrorCodeEnum.noUpIfNoExportedPort },
-                            context));
+            diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                    DIAGNOSTIC_SOURCE, 0, "_UI_GenericConstraint_diagnostic",
+                    new Object[] { "noUpIfNoExportedPort",
+                            getObjectLabel(connectorInteractionAction,
+                                    context) },
+                    new Object[] { connectorInteractionAction,
+                            ErrorCodeEnum.noUpIfNoExportedPort },
+                    context));
         }
         return !bad;
     }
@@ -904,19 +948,14 @@ public class ConnectorValidator extends EObjectValidator {
         boolean ok = ct.isDefined(connectorInteractionAction.getOnPorts());
 
         if (!ok && diagnostics != null) {
-            diagnostics
-                    .add(createDiagnostic(
-                            Diagnostic.ERROR,
-                            DIAGNOSTIC_SOURCE,
-                            0,
-                            "_UI_GenericConstraint_diagnostic",
-                            new Object[] {
-                                    "triggerPortsValidWrtDefine",
-                                    getObjectLabel(connectorInteractionAction,
-                                            context) }, new Object[] {
-                                    connectorInteractionAction,
-                                    ErrorCodeEnum.triggerPortsValidWrtDefine },
-                            context));
+            diagnostics.add(createDiagnostic(Diagnostic.ERROR,
+                    DIAGNOSTIC_SOURCE, 0, "_UI_GenericConstraint_diagnostic",
+                    new Object[] { "triggerPortsValidWrtDefine",
+                            getObjectLabel(connectorInteractionAction,
+                                    context) },
+                    new Object[] { connectorInteractionAction,
+                            ErrorCodeEnum.triggerPortsValidWrtDefine },
+                    context));
         }
         return ok;
     }
@@ -940,24 +979,19 @@ public class ConnectorValidator extends EObjectValidator {
 
         // there is an exported port with data, but no Up.
         // this maybe valid, depending on how the exported port is used.
-        maybe_missing = (hasExpPort
-                && !ct.getExportedPortDeclaration().getPortType()
-                        .getDataParameterDeclarations().isEmpty() && !hasUp);
+        maybe_missing = (hasExpPort && !ct.getExportedPortDeclaration()
+                .getPortType().getDataParameterDeclarations().isEmpty()
+                && !hasUp);
 
         if (maybe_missing && diagnostics != null) {
-            diagnostics
-                    .add(createDiagnostic(
-                            Diagnostic.WARNING,
-                            DIAGNOSTIC_SOURCE,
-                            0,
-                            "_UI_GenericConstraint_diagnostic",
-                            new Object[] {
-                                    "missingUpForExportedPort",
-                                    getObjectLabel(connectorInteractionAction,
-                                            context) }, new Object[] {
-                                    connectorInteractionAction,
-                                    ErrorCodeEnum.missingUpForExportedPort },
-                            context));
+            diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                    DIAGNOSTIC_SOURCE, 0, "_UI_GenericConstraint_diagnostic",
+                    new Object[] { "missingUpForExportedPort",
+                            getObjectLabel(connectorInteractionAction,
+                                    context) },
+                    new Object[] { connectorInteractionAction,
+                            ErrorCodeEnum.missingUpForExportedPort },
+                    context));
         }
         return !maybe_missing;
     }
@@ -1003,21 +1037,15 @@ public class ConnectorValidator extends EObjectValidator {
         if (!errors.isEmpty()) {
             if (diagnostics != null) {
                 for (Expression ref : errors) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "variableModifiedBetweenUpAndDown",
-                                            getObjectLabel(ref, context) },
-                                    new Object[] {
-                                            ref,
-                                            ErrorCodeEnum.variableModifiedBetweenUpAndDown,
-                                            connector
-                                                    .getExportedPortDeclaration() },
-                                    context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] { "variableModifiedBetweenUpAndDown",
+                                    getObjectLabel(ref, context) },
+                            new Object[] { ref,
+                                    ErrorCodeEnum.variableModifiedBetweenUpAndDown,
+                                    connector.getExportedPortDeclaration() },
+                            context));
                 }
             }
             return false;
@@ -1053,7 +1081,8 @@ public class ConnectorValidator extends EObjectValidator {
     public boolean validateConnectorInteractionAction_checkUninitializedVariablesOfConnectorInteractionAction(
             ConnectorInteractionAction connectorInteractionAction,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
-        assert (connectorInteractionAction.eContainer() instanceof ConnectorType);
+        assert (connectorInteractionAction
+                .eContainer() instanceof ConnectorType);
         ConnectorType connector = (ConnectorType) connectorInteractionAction
                 .eContainer();
         // check uninitialized variables of guard
@@ -1069,7 +1098,8 @@ public class ConnectorValidator extends EObjectValidator {
         }
 
         // check up and down
-        EList<DataDeclaration> uninitialized = getAllDataDeclarationsWithoutValue(connector);
+        EList<DataDeclaration> uninitialized = getAllDataDeclarationsWithoutValue(
+                connector);
 
         // /!\ WARNING: order is critical here since uninitialized is modified
 
@@ -1092,19 +1122,16 @@ public class ConnectorValidator extends EObjectValidator {
         if (!errors.isEmpty()) {
             if (diagnostics != null) {
                 for (Expression ref : errors) {
-                    diagnostics
-                            .add(createDiagnostic(
-                                    Diagnostic.WARNING,
-                                    DIAGNOSTIC_SOURCE,
-                                    0,
-                                    "_UI_GenericConstraint_diagnostic",
-                                    new Object[] {
-                                            "uninitializedVariableOfConnectorInteractionAction",
-                                            getObjectLabel(ref, context) },
-                                    new Object[] {
-                                            ref,
-                                            ErrorCodeEnum.uninitializedVariableOfConnectorInteractionAction,
-                                            ref }, context));
+                    diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                            DIAGNOSTIC_SOURCE, 0,
+                            "_UI_GenericConstraint_diagnostic",
+                            new Object[] {
+                                    "uninitializedVariableOfConnectorInteractionAction",
+                                    getObjectLabel(ref, context) },
+                            new Object[] { ref,
+                                    ErrorCodeEnum.uninitializedVariableOfConnectorInteractionAction,
+                                    ref },
+                            context));
                 }
             }
             return false;
@@ -1121,7 +1148,8 @@ public class ConnectorValidator extends EObjectValidator {
     public boolean validateConnectorInteractionAction_checkUninitializedVariablesExportedByPortOfConnector(
             ConnectorInteractionAction connectorInteractionAction,
             DiagnosticChain diagnostics, Map<Object, Object> context) {
-        assert (connectorInteractionAction.eContainer() instanceof ConnectorType);
+        assert (connectorInteractionAction
+                .eContainer() instanceof ConnectorType);
         ConnectorType connector = (ConnectorType) connectorInteractionAction
                 .eContainer();
 
@@ -1140,24 +1168,19 @@ public class ConnectorValidator extends EObjectValidator {
 
         if (!uninitializedVariables.isEmpty()) {
             if (diagnostics != null) {
-                diagnostics
-                        .add(createDiagnostic(
-                                Diagnostic.WARNING,
-                                DIAGNOSTIC_SOURCE,
-                                0,
-                                "_UI_GenericConstraint_diagnostic",
-                                new Object[] {
-                                        "uninitializedVariableExportedByPortOfConnector",
-                                        getObjectLabel(
-                                                connectorInteractionAction,
-                                                context) },
-                                new Object[] {
-                                        connectorInteractionAction,
-                                        ErrorCodeEnum.uninitializedVariableExportedByPortOfConnector,
-                                        connector.getExportedPortDeclaration(),
-                                        new HashSet<DataDeclaration>(
-                                                uninitializedVariables) },
-                                context));
+                diagnostics.add(createDiagnostic(Diagnostic.WARNING,
+                        DIAGNOSTIC_SOURCE, 0,
+                        "_UI_GenericConstraint_diagnostic",
+                        new Object[] {
+                                "uninitializedVariableExportedByPortOfConnector",
+                                getObjectLabel(connectorInteractionAction,
+                                        context) },
+                        new Object[] { connectorInteractionAction,
+                                ErrorCodeEnum.uninitializedVariableExportedByPortOfConnector,
+                                connector.getExportedPortDeclaration(),
+                                new HashSet<DataDeclaration>(
+                                        uninitializedVariables) },
+                        context));
             }
             return false;
         }

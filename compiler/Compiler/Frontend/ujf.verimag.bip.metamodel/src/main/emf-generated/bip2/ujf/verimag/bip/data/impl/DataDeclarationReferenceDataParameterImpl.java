@@ -58,12 +58,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.data.impl.DataDeclarationReferenceDataParameterImpl#getParameterDeclaration <em>Parameter Declaration</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.data.impl.DataDeclarationReferenceDataParameterImpl#getType <em>Type</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.data.impl.DataDeclarationReferenceDataParameterImpl#getDataDeclarationReference <em>Data Declaration Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -123,16 +123,16 @@ public class DataDeclarationReferenceDataParameterImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataDeclaration getParameterDeclaration() {
         if (parameterDeclaration != null
                 && ((EObject) parameterDeclaration).eIsProxy()) {
             InternalEObject oldParameterDeclaration = (InternalEObject) parameterDeclaration;
-            parameterDeclaration = (DataDeclaration) eResolveProxy(oldParameterDeclaration);
+            parameterDeclaration = (DataDeclaration) eResolveProxy(
+                    oldParameterDeclaration);
             if (parameterDeclaration != oldParameterDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             DataPackage.DATA_DECLARATION_REFERENCE_DATA_PARAMETER__PARAMETER_DECLARATION,
                             oldParameterDeclaration, parameterDeclaration));
             }
@@ -154,13 +154,13 @@ public class DataDeclarationReferenceDataParameterImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setParameterDeclaration(DataDeclaration newParameterDeclaration) {
+    @Override
+    public void setParameterDeclaration(
+            DataDeclaration newParameterDeclaration) {
         DataDeclaration oldParameterDeclaration = parameterDeclaration;
         parameterDeclaration = newParameterDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     DataPackage.DATA_DECLARATION_REFERENCE_DATA_PARAMETER__PARAMETER_DECLARATION,
                     oldParameterDeclaration, parameterDeclaration));
     }
@@ -170,15 +170,14 @@ public class DataDeclarationReferenceDataParameterImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataType getType() {
         if (type != null && ((EObject) type).eIsProxy()) {
             InternalEObject oldType = (InternalEObject) type;
             type = (DataType) eResolveProxy(oldType);
             if (type != oldType) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             DataPackage.DATA_DECLARATION_REFERENCE_DATA_PARAMETER__TYPE,
                             oldType, type));
             }
@@ -200,13 +199,12 @@ public class DataDeclarationReferenceDataParameterImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setType(DataType newType) {
         DataType oldType = type;
         type = newType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     DataPackage.DATA_DECLARATION_REFERENCE_DATA_PARAMETER__TYPE,
                     oldType, type));
     }
@@ -216,16 +214,16 @@ public class DataDeclarationReferenceDataParameterImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public DataDeclaration getDataDeclarationReference() {
         if (dataDeclarationReference != null
                 && ((EObject) dataDeclarationReference).eIsProxy()) {
             InternalEObject oldDataDeclarationReference = (InternalEObject) dataDeclarationReference;
-            dataDeclarationReference = (DataDeclaration) eResolveProxy(oldDataDeclarationReference);
+            dataDeclarationReference = (DataDeclaration) eResolveProxy(
+                    oldDataDeclarationReference);
             if (dataDeclarationReference != oldDataDeclarationReference) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(
-                            this,
-                            Notification.RESOLVE,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                             DataPackage.DATA_DECLARATION_REFERENCE_DATA_PARAMETER__DATA_DECLARATION_REFERENCE,
                             oldDataDeclarationReference,
                             dataDeclarationReference));
@@ -248,14 +246,13 @@ public class DataDeclarationReferenceDataParameterImpl extends
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void setDataDeclarationReference(
             DataDeclaration newDataDeclarationReference) {
         DataDeclaration oldDataDeclarationReference = dataDeclarationReference;
         dataDeclarationReference = newDataDeclarationReference;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(
-                    this,
-                    Notification.SET,
+            eNotify(new ENotificationImpl(this, Notification.SET,
                     DataPackage.DATA_DECLARATION_REFERENCE_DATA_PARAMETER__DATA_DECLARATION_REFERENCE,
                     oldDataDeclarationReference, dataDeclarationReference));
     }

@@ -48,12 +48,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.BinaryOpExpression#getOperator <em>Operator</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.BinaryOpExpression#getLeft <em>Left</em>}</li>
  *   <li>{@link bip2.ujf.verimag.bip.actionlang.BinaryOpExpression#getRight <em>Right</em>}</li>
  * </ul>
- * </p>
  *
  * @see bip2.ujf.verimag.bip.actionlang.ActionlangPackage#getBinaryOpExpression()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='hasOneMatchingPrototype'"
