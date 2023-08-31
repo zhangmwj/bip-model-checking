@@ -9,3 +9,8 @@ cd distribution
 ./single-archive-dist.sh
 ```
 
+# Options added to the executable created by the compiler
+`./system -z` compute the zone graph  
+`./system --mc [--bfs]` compute the states visited by model checking using bfs  
+`./system --mc --dfs` compute the states visited by model checking using dfs  
+
