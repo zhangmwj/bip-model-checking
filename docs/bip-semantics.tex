@@ -10,9 +10,8 @@ Let $V$ be a set of variables, $X$ a set of clocks and $\mathcal{E}(V)$ the set 
 $V$. Variables can be integer or Boolean and expressions can use comparison operators ($<,\leq,>,\geq,=,\neq$),
 arithmetics operators ($+,-,*,/$ (euclidean division)$,\%$), logical Boolean operators ($!, \&\&, ||$), Boolean bitwise
 operators (\textasciitilde$, \&, |,$\textasciicircum) and function calls with returned value.\\
-A \textbf{clock constraint} over $V \cup X$ is a conjunction of atomic constraints of the form
-$x \sim n$ or $x - y \sim n$ with $x,y \in X, \sim \in \{\leq, <, \geq, >\}$ and $n \in \mathcal{E}(V)$ evaluates to a
-natural number without side effects. \\
+A \textbf{clock constraint} over $X$ is a conjunction of atomic constraints of the form
+$x \sim n$ with $x \in X, \sim \in \{\leq, <, \geq, >\}$ and $n \in \mathbb{N}$. \\
 A \textbf{guard} over $V \cup X$ is a (possibly empty) conjunction of atomic guard of the form $c$ or $b$ or $c \vee b$
 with $c$ a clock constraint and $b \in \mathcal{E}(V)$ evaluates to a Boolean value without side effects. We write
 $\mathcal{G}(V, X)$ to denote the set of guards over $V \cup X$ and $\mathcal{G}(V) = \mathcal{G}(V, \emptyset)$. \\
@@ -65,30 +64,31 @@ The semantics of an atomic component $A$ is a LTS $\langle Q_A, q_A^0, \Sigma_A,
         $v \in \mathcal{D}^{V_A \cup X_A}$ a valuation of variables and clocks of $A$,
   \item $q_A^0$ is the initial state $\langle l^0, v_0 \rangle$ with $v_0(x) = x_0$ for each $x \in V_A$ and
         $v_0(x) = 0$ for each $x \in X_A$,
-  \item $\Sigma_A$ is the set of labels of the form $d$ or $\langle p, u \rangle$ with
-        $d \in \mathbb{R}_{>0}, p \in P_A$ and $u \in \{e,l\}$ an urgency
+  \item $\Sigma_A$ is the set of labels of the form $d$ or $\langle p, v_p, u \rangle$ with
+        $d \in \mathbb{R}_{>0}, p \in P_A, v_p \in \mathcal{D}^{x_p}$ a valuation of variables of the port $p$ and $u \in \{e,l\}$ an urgency
   \item $\xrightarrow{}_A$ is the transition relation defined by the rules:
         \begin{mathpar}
           \inferrule[port]{
             \langle l, p, g, f, l', u \rangle \in E_A \\
             v \vDash g \\
-            v' = f(v)\\
+            v' = f(v/v_p)~(1)\\
             v' \vDash I_A(l')
           } {
-            \langle l, v \rangle \xrightarrow{\langle p, u \rangle}_A \langle l', v' \rangle
+            \langle l, v \rangle \xrightarrow{\langle p, v_p, u \rangle}_A \langle l', v' \rangle
           }
         \end{mathpar}
+        $(1)$ $v'$ is the valuation $v$ updated by $v_p$ then by $f$
         \begin{mathpar}
           \inferrule[delay]{
             v' = v+\delta \\
             v' \vDash I_A(l) \\
-            \neg \bigl(\exists q \in Q_A, \exists p \in P_A:
-            \langle l, v \rangle \xrightarrow{\langle p, e \rangle}_A q\bigr)~(1)
+            \neg \bigl(\exists q \in Q_A, \exists p \in P_A, \exists v_p \in \mathcal{D}^{x_p}:
+            \langle l, v \rangle \xrightarrow{\langle p, v_p, e \rangle}_A q\bigr)~(2)
           } {
             \langle l, v \rangle \xrightarrow{\delta}_A \langle l, v' \rangle
           }
         \end{mathpar}
-        $(1)$ expresses that there is no port transition from $\langle l, v \rangle$ with an eager urgency
+        $(2)$ expresses that there is no port transition from $\langle l, v \rangle$ with an eager urgency
 \end{itemize}
 \section*{Composite Components}
 \subsection*{Formal syntax}
@@ -99,16 +99,16 @@ A \textbf{connector} is a tuple $\gamma = \langle T_{\gamma}, S_{\gamma}, A_{\ga
         $T_{\gamma} \cup S_{\gamma} = \{p_i \mid i \in I\}$ and $p_i \in P_{A_i}$ for each $i \in I$, $I$ defines the
         indices of the atomics components from where the ports of the connector come and there is at most one port per
         atomic component in the connector,
+  \item $\forall i \in I: \bigl(\exists \langle l, p, g, f, l', u \rangle \in \mathcal{T}(A_i, p_i): u = e
+        \bigr) \Rightarrow \forall j \in I \setminus \{i\}, \forall \langle l, p, g, f, l', u \rangle \in
+        \mathcal{T}(A_j, p_j): g \in \mathcal{G}(V_{A_j})$, i.e. if a port has an eager
+      transition then the transitions of the other ports cannot have clocks in their guard,
   \item $A_{\gamma}$ is a set of actions, each action is a tuple $\langle P, g, f \rangle$ with
         \begin{itemize}
           \item $P = \{p_j \mid j \in J\} \subseteq T_{\gamma} \cup S_{\gamma}$ for a $J \subseteq I$ where either
                 $P \cap T_{\gamma} \neq \emptyset$ or $P = T_{\gamma} \cup S_{\gamma}$, $T_{\gamma}$ is a set
                 of trigger ports that can initiate an interaction without synchronizing and $S_{\gamma}$ is a set of
                 synchron ports that needs synchronization with other ports to initiate an interaction,
-          \item $\forall i \in J: \bigl(\exists \langle l, p, g, f, l', u \rangle \in \mathcal{T}(A_i, p_i): u = e
-                  \bigr) \Rightarrow \forall j \in J \setminus \{i\}, \forall \langle l, p, g, f, l', u \rangle \in
-                  \mathcal{T}(A_j, p_j): g \in \mathcal{G}(V_{A_j})$, i.e. if a port has an eager
-                transition then the transitions of the other ports cannot have clocks in their guard,
           \item $g \in \mathcal{G}(\bigcup_{j \in J} x_{p_j})$,
           \item $f \in \mathcal{F}(\bigcup_{j \in J} x_{p_j})$.
         \end{itemize}
@@ -138,20 +138,21 @@ The semantics of a composite component $C$ is a LTS $\langle Q_C, q^0_C, \Sigma_
           \inferrule[internal port]{
             i \in [1,n] \\
             p \in \mathcal{B}(C) \cap P_{A_i} \\
-            q_i \xrightarrow{\langle p, u \rangle}_{A_i} q_i' \\
+            q_i \xrightarrow{\langle p, v_{\emptyset}, u \rangle}_{A_i} q_i' \\
             \forall j \in [1,n] \setminus \{i\}: q_j = q_j'
           } {
             \langle q_1, \ldots, q_n \rangle \xrightarrow{\langle p, u \rangle}_C \langle q_1', \ldots, q_n' \rangle
           }
         \end{mathpar}
+        where $v_{\emptyset}$ is the empty function to $\mathcal{D}$
         \begin{mathpar}
           \inferrule[interaction]{
             I \subseteq [1, n] \\
             a = \{p_i \mid i \in I \} \wedge p_i \in P_{A_i} \\
             \exists \gamma \in \Gamma_C: \langle a, g, f \rangle \in A_{\gamma}\\
             v \vDash g \\
-            \forall i \in I, \exists u_i \in \{e,l\}: \langle l_i, v_i'' \rangle
-            \xrightarrow{\langle p_i, u_i \rangle}_{A_i} q_i' \wedge v_i'' = v_i / \bigl(f \vert_{x_{p_i}}(v)\bigr)~(2)\\
+            \forall i \in I, \exists u_i \in \{e,l\}: q_i
+            \xrightarrow{\langle p_i, v_{p_i}, u_i \rangle}_{A_i} q_i' \wedge v_{p_i} = f \vert_{x_{p_i}}(v)~(3)\\
             u = \text{$\begin{cases}
                   e & \text{if } \exists i \in I : u_i = e \\
                   l & \text{otherwise}
@@ -159,10 +160,10 @@ The semantics of a composite component $C$ is a LTS $\langle Q_C, q^0_C, \Sigma_
             \forall i \not\in I : q_i = q_i' \\
             \neg \bigl(\exists \gamma' \in \Gamma_C, \exists a' \in \mathcal{A}(\gamma'), \exists u \in \{e,l\},
             \exists Q \in Q_C: \gamma \prec_{\pi_C} \gamma' \wedge \langle q_1, \ldots, q_n \rangle
-            \xrightarrow{\langle a', u \rangle}_C Q\bigr)~(3) \\
+            \xrightarrow{\langle a', u \rangle}_C Q\bigr)~(4) \\
             \neg \bigl(\exists a' \in \mathcal{A}(\gamma), \exists u \in \{e,l\}, \exists Q \in Q_C: a \subset a'
             \wedge \langle q_1, \ldots, q_n \rangle \xrightarrow{\langle a', u \rangle}_C Q\bigr)
-            ~(4)
+            ~(5)
           } {
             \langle q_1, \ldots q_n \rangle \xrightarrow{\langle a, u \rangle}_C \langle q_1', \ldots, q_n' \rangle
           }
@@ -170,19 +171,19 @@ The semantics of a composite component $C$ is a LTS $\langle Q_C, q^0_C, \Sigma_
         where $v = v_I \vert_{\bigcup_{i \in I} x_{p_i}}$ with $v_I$ defined as $v_I(x) = v_i(x)$ for each
         $x \in V_{A_i}$ if $i \in I$, it is the valuation of variables of the
         ports in $a$ \\
-        $(2)$ $v_i''$ is the valuation of variables in $A_i$ updated by $f$ \\
-        $(3)$ and $(4)$ express that there is no interaction with a higher priority or including $a$ from
+        $(3)$ $v_{p_i}$ is the valuation of variables in $p_i$ updated by $f$ \\
+        $(4)$ and $(5)$ express that there is no interaction with a higher priority or including $a$ from
         $\langle q_1, \ldots, q_n \rangle$\\
         \begin{mathpar}
           \inferrule[delay]{
             \forall i \in [1, n]: q_i \xrightarrow{\delta}_{A_i} q_i' \\
             \neg \bigl(\exists p \in \bigcup_{\gamma \in \Gamma_C} \mathcal{A}(\gamma) \cup \mathcal{B}(C),
-            \exists Q \in Q_C: \langle q_1, \ldots, q_n \rangle \xrightarrow{\langle p, e \rangle}_C Q\bigr)~(5)
+            \exists Q \in Q_C: \langle q_1, \ldots, q_n \rangle \xrightarrow{\langle p, e \rangle}_C Q\bigr)~(6)
           } {
             \langle q_1, \ldots q_n \rangle \xrightarrow{\delta}_C \langle q_1', \ldots, q_n' \rangle
           }
         \end{mathpar}
-        $(5)$ expresses that there is no internal port or interaction transition from
+        $(6)$ expresses that there is no internal port or interaction transition from
         $\langle q_1, \ldots q_n \rangle$ with an eager urgency
 \end{itemize}
 \section*{Differences}
@@ -203,13 +204,15 @@ The semantics of a composite component $C$ is a LTS $\langle Q_C, q^0_C, \Sigma_
   \item Guard and invariant conditions are restricted to the grammar: \\
         $\begin{aligned}
             G & ::= c \:\vert\: b \:\vert\: c \vee b \:\vert\: G \wedge G \\
-            c & ::= x \sim n \:\vert\: x - y \sim n \:\vert\: c\wedge c
+            c & ::= x \sim n \:\vert\: c \wedge c
           \end{aligned}$ \\
-        where $b$ is an expression that evaluates to a Boolean value, $x,y$ are clocks, $n$ is an expression that
-        evaluates to a natural number, $\sim \in \{<, \leq, >, \geq \}$ for guards and $\sim \in \{<, \leq \}$ for
+        where $b$ is an expression that evaluates to a Boolean value, $x$ is a clock, $n \in \mathbb{N}$,
+        $\sim \in \{<, \leq, >, \geq \}$ for guards and $\sim \in \{<, \leq \}$ for
         invariants
   \item No internal transition
   \item No if-then-else statement in actions
   \item Only Boolean and integer variables
+  \item An eager transition has no clock in its guard and transitions in an eager interaction have no clock in their
+        guard
 \end{itemize}
 \end{document}
