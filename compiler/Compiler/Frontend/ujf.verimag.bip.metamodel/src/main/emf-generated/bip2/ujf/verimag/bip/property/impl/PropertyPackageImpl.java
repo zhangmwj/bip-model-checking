@@ -1,41 +1,6 @@
 /**
- * Copyright Verimag laboratory.
- * 
- * contributors:
- *  Marc Pouhliès
- *  Jacques Combaz (jacques.combaz@univ-grenoble-alpes.fr)
- * 
- * This software is a computer program whose purpose is to generate
- * executable code from BIP models.
- * 
- * This software is governed by the CeCILL-B license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
- * modify and/ or redistribute the software under the terms of the CeCILL-B
- * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info".
- * 
- * As a counterpart to the access to the source code and  rights to copy,
- * modify and redistribute granted by the license, users are provided only
- * with a limited warranty  and the software's author,  the holder of the
- * economic rights,  and the successive licensors  have only  limited
- * liability.
- *
- * In this respect, the user's attention is drawn to the risks associated
- * with loading,  using,  modifying and/or developing or reproducing the
- * software by the user in light of its specific status of free software,
- * that may mean  that it is complicated to manipulate,  and  that  also
- * therefore means  that it is reserved for developers  and  experienced
- * professionals having in-depth computer knowledge. Users are therefore
- * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security.
- * 
- * The fact that you are presently reading this means that you have had
- * knowledge of the CeCILL-B license and that you accept its terms.
  */
-
-package bip2.ujf.verimag.impl;
+package bip2.ujf.verimag.bip.property.impl;
 
 import bip2.Bip2Package;
 
@@ -45,8 +10,6 @@ import bip2.ujf.UjfPackage;
 
 import bip2.ujf.impl.UjfPackageImpl;
 
-import bip2.ujf.verimag.PlaceHolder;
-import bip2.ujf.verimag.VerimagFactory;
 import bip2.ujf.verimag.VerimagPackage;
 
 import bip2.ujf.verimag.bip.BipPackage;
@@ -90,7 +53,9 @@ import bip2.ujf.verimag.bip.instance.InstancePackage;
 import bip2.ujf.verimag.bip.instance.impl.InstancePackageImpl;
 
 import bip2.ujf.verimag.bip.invariant.InvariantPackage;
+
 import bip2.ujf.verimag.bip.invariant.impl.InvariantPackageImpl;
+
 import bip2.ujf.verimag.bip.packaging.PackagingPackage;
 
 import bip2.ujf.verimag.bip.packaging.impl.PackagingPackageImpl;
@@ -103,16 +68,27 @@ import bip2.ujf.verimag.bip.priority.PriorityPackage;
 
 import bip2.ujf.verimag.bip.priority.impl.PriorityPackageImpl;
 
+import bip2.ujf.verimag.bip.property.Properties;
+import bip2.ujf.verimag.bip.property.Property;
+import bip2.ujf.verimag.bip.property.PropertyFactory;
 import bip2.ujf.verimag.bip.property.PropertyPackage;
-import bip2.ujf.verimag.bip.property.impl.PropertyPackageImpl;
+
 import bip2.ujf.verimag.bip.time.TimePackage;
+
 import bip2.ujf.verimag.bip.time.impl.TimePackageImpl;
+
 import bip2.ujf.verimag.bip.types.TypesPackage;
 
 import bip2.ujf.verimag.bip.types.impl.TypesPackageImpl;
 
+import bip2.ujf.verimag.impl.VerimagPackageImpl;
+
+import java.util.Map;
+
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
@@ -122,13 +98,28 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
+public class PropertyPackageImpl extends EPackageImpl
+        implements PropertyPackage {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass placeHolderEClass = null;
+    private EClass propertyEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass propertiesEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass stringToPropertyMapEntryEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -141,12 +132,12 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see org.eclipse.emf.ecore.EPackage.Registry
-     * @see bip2.ujf.verimag.VerimagPackage#eNS_URI
+     * @see bip2.ujf.verimag.bip.property.PropertyPackage#eNS_URI
      * @see #init()
      * @generated
      */
-    private VerimagPackageImpl() {
-        super(eNS_URI, VerimagFactory.eINSTANCE);
+    private PropertyPackageImpl() {
+        super(eNS_URI, PropertyFactory.eINSTANCE);
     }
 
     /**
@@ -159,7 +150,7 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
      *
-     * <p>This method is used to initialize {@link VerimagPackage#eINSTANCE} when that field is accessed.
+     * <p>This method is used to initialize {@link PropertyPackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -168,17 +159,17 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
      * @see #initializePackageContents()
      * @generated
      */
-    public static VerimagPackage init() {
+    public static PropertyPackage init() {
         if (isInited)
-            return (VerimagPackage) EPackage.Registry.INSTANCE
-                    .getEPackage(VerimagPackage.eNS_URI);
+            return (PropertyPackage) EPackage.Registry.INSTANCE
+                    .getEPackage(PropertyPackage.eNS_URI);
 
         // Obtain or create and register package
-        Object registeredVerimagPackage = EPackage.Registry.INSTANCE
+        Object registeredPropertyPackage = EPackage.Registry.INSTANCE
                 .get(eNS_URI);
-        VerimagPackageImpl theVerimagPackage = registeredVerimagPackage instanceof VerimagPackageImpl
-                ? (VerimagPackageImpl) registeredVerimagPackage
-                : new VerimagPackageImpl();
+        PropertyPackageImpl thePropertyPackage = registeredPropertyPackage instanceof PropertyPackageImpl
+                ? (PropertyPackageImpl) registeredPropertyPackage
+                : new PropertyPackageImpl();
 
         isInited = true;
 
@@ -193,6 +184,11 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
         UjfPackageImpl theUjfPackage = (UjfPackageImpl) (registeredPackage instanceof UjfPackageImpl
                 ? registeredPackage
                 : UjfPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(VerimagPackage.eNS_URI);
+        VerimagPackageImpl theVerimagPackage = (VerimagPackageImpl) (registeredPackage instanceof VerimagPackageImpl
+                ? registeredPackage
+                : VerimagPackage.eINSTANCE);
         registeredPackage = EPackage.Registry.INSTANCE
                 .getEPackage(BipPackage.eNS_URI);
         BipPackageImpl theBipPackage = (BipPackageImpl) (registeredPackage instanceof BipPackageImpl
@@ -273,16 +269,12 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
         TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
                 ? registeredPackage
                 : TimePackage.eINSTANCE);
-        registeredPackage = EPackage.Registry.INSTANCE
-                .getEPackage(PropertyPackage.eNS_URI);
-        PropertyPackageImpl thePropertyPackage = (PropertyPackageImpl) (registeredPackage instanceof PropertyPackageImpl
-                ? registeredPackage
-                : PropertyPackage.eINSTANCE);
 
         // Create package meta-data objects
-        theVerimagPackage.createPackageContents();
+        thePropertyPackage.createPackageContents();
         theBip2Package.createPackageContents();
         theUjfPackage.createPackageContents();
+        theVerimagPackage.createPackageContents();
         theBipPackage.createPackageContents();
         theTypesPackage.createPackageContents();
         theDataPackage.createPackageContents();
@@ -299,12 +291,12 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
         theAnnotationPackage.createPackageContents();
         theInvariantPackage.createPackageContents();
         theTimePackage.createPackageContents();
-        thePropertyPackage.createPackageContents();
 
         // Initialize created meta-data
-        theVerimagPackage.initializePackageContents();
+        thePropertyPackage.initializePackageContents();
         theBip2Package.initializePackageContents();
         theUjfPackage.initializePackageContents();
+        theVerimagPackage.initializePackageContents();
         theBipPackage.initializePackageContents();
         theTypesPackage.initializePackageContents();
         theDataPackage.initializePackageContents();
@@ -321,15 +313,14 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
         theAnnotationPackage.initializePackageContents();
         theInvariantPackage.initializePackageContents();
         theTimePackage.initializePackageContents();
-        thePropertyPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
-        theVerimagPackage.freeze();
+        thePropertyPackage.freeze();
 
         // Update the registry and return the package
-        EPackage.Registry.INSTANCE.put(VerimagPackage.eNS_URI,
-                theVerimagPackage);
-        return theVerimagPackage;
+        EPackage.Registry.INSTANCE.put(PropertyPackage.eNS_URI,
+                thePropertyPackage);
+        return thePropertyPackage;
     }
 
     /**
@@ -338,8 +329,8 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
      * @generated
      */
     @Override
-    public EClass getPlaceHolder() {
-        return placeHolderEClass;
+    public EClass getProperty() {
+        return propertyEClass;
     }
 
     /**
@@ -348,8 +339,80 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
      * @generated
      */
     @Override
-    public VerimagFactory getVerimagFactory() {
-        return (VerimagFactory) getEFactoryInstance();
+    public EAttribute getProperty_Reachability() {
+        return (EAttribute) propertyEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public EReference getProperty_Expression() {
+        return (EReference) propertyEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public EClass getProperties() {
+        return propertiesEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public EReference getProperties_Properties() {
+        return (EReference) propertiesEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public EClass getStringToPropertyMapEntry() {
+        return stringToPropertyMapEntryEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public EAttribute getStringToPropertyMapEntry_Key() {
+        return (EAttribute) stringToPropertyMapEntryEClass
+                .getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public EReference getStringToPropertyMapEntry_Value() {
+        return (EReference) stringToPropertyMapEntryEClass
+                .getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public PropertyFactory getPropertyFactory() {
+        return (PropertyFactory) getEFactoryInstance();
     }
 
     /**
@@ -372,7 +435,19 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
         isCreated = true;
 
         // Create classes and their features
-        placeHolderEClass = createEClass(PLACE_HOLDER);
+        propertyEClass = createEClass(PROPERTY);
+        createEAttribute(propertyEClass, PROPERTY__REACHABILITY);
+        createEReference(propertyEClass, PROPERTY__EXPRESSION);
+
+        propertiesEClass = createEClass(PROPERTIES);
+        createEReference(propertiesEClass, PROPERTIES__PROPERTIES);
+
+        stringToPropertyMapEntryEClass = createEClass(
+                STRING_TO_PROPERTY_MAP_ENTRY);
+        createEAttribute(stringToPropertyMapEntryEClass,
+                STRING_TO_PROPERTY_MAP_ENTRY__KEY);
+        createEReference(stringToPropertyMapEntryEClass,
+                STRING_TO_PROPERTY_MAP_ENTRY__VALUE);
     }
 
     /**
@@ -400,11 +475,8 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        BipPackage theBipPackage = (BipPackage) EPackage.Registry.INSTANCE
-                .getEPackage(BipPackage.eNS_URI);
-
-        // Add subpackages
-        getESubpackages().add(theBipPackage);
+        ActionlangPackage theActionlangPackage = (ActionlangPackage) EPackage.Registry.INSTANCE
+                .getEPackage(ActionlangPackage.eNS_URI);
 
         // Create type parameters
 
@@ -413,8 +485,37 @@ public class VerimagPackageImpl extends EPackageImpl implements VerimagPackage {
         // Add supertypes to classes
 
         // Initialize classes and features; add operations and parameters
-        initEClass(placeHolderEClass, PlaceHolder.class, "PlaceHolder",
+        initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getProperty_Reachability(), ecorePackage.getEBoolean(),
+                "reachability", "true", 1, 1, Property.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getProperty_Expression(),
+                theActionlangPackage.getValuedExpression(), null, "expression",
+                null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(propertiesEClass, Properties.class, "Properties",
                 !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getProperties_Properties(),
+                this.getStringToPropertyMapEntry(), null, "properties", null, 0,
+                -1, Properties.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(stringToPropertyMapEntryEClass, Map.Entry.class,
+                "StringToPropertyMapEntry", !IS_ABSTRACT, !IS_INTERFACE,
+                !IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getStringToPropertyMapEntry_Key(),
+                ecorePackage.getEString(), "key", null, 1, 1, Map.Entry.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+                !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getStringToPropertyMapEntry_Value(), this.getProperty(),
+                null, "value", null, 1, 1, Map.Entry.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     }
 
-} //VerimagPackageImpl
+} //PropertyPackageImpl

@@ -96,6 +96,8 @@ import bip2.ujf.verimag.bip.priority.PriorityPackage;
 
 import bip2.ujf.verimag.bip.priority.impl.PriorityPackageImpl;
 
+import bip2.ujf.verimag.bip.property.PropertyPackage;
+import bip2.ujf.verimag.bip.property.impl.PropertyPackageImpl;
 import bip2.ujf.verimag.bip.time.TimePackage;
 import bip2.ujf.verimag.bip.time.impl.TimePackageImpl;
 import bip2.ujf.verimag.bip.types.TypesPackage;
@@ -264,6 +266,11 @@ public class Bip2PackageImpl extends EPackageImpl implements Bip2Package {
         TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
                 ? registeredPackage
                 : TimePackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PropertyPackage.eNS_URI);
+        PropertyPackageImpl thePropertyPackage = (PropertyPackageImpl) (registeredPackage instanceof PropertyPackageImpl
+                ? registeredPackage
+                : PropertyPackage.eINSTANCE);
 
         // Create package meta-data objects
         theBip2Package.createPackageContents();
@@ -285,6 +292,7 @@ public class Bip2PackageImpl extends EPackageImpl implements Bip2Package {
         theAnnotationPackage.createPackageContents();
         theInvariantPackage.createPackageContents();
         theTimePackage.createPackageContents();
+        thePropertyPackage.createPackageContents();
 
         // Initialize created meta-data
         theBip2Package.initializePackageContents();
@@ -306,6 +314,7 @@ public class Bip2PackageImpl extends EPackageImpl implements Bip2Package {
         theAnnotationPackage.initializePackageContents();
         theInvariantPackage.initializePackageContents();
         theTimePackage.initializePackageContents();
+        thePropertyPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         theBip2Package.freeze();

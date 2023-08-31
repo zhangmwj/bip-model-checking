@@ -90,6 +90,8 @@ import bip2.ujf.verimag.bip.port.SubPortDeclarationReference;
 import bip2.ujf.verimag.bip.port.util.PortValidator;
 import bip2.ujf.verimag.bip.priority.PriorityPackage;
 import bip2.ujf.verimag.bip.priority.impl.PriorityPackageImpl;
+import bip2.ujf.verimag.bip.property.PropertyPackage;
+import bip2.ujf.verimag.bip.property.impl.PropertyPackageImpl;
 import bip2.ujf.verimag.bip.time.TimePackage;
 import bip2.ujf.verimag.bip.time.impl.TimePackageImpl;
 import bip2.ujf.verimag.bip.types.TypesPackage;
@@ -283,6 +285,11 @@ public class PortPackageImpl extends EPackageImpl implements PortPackage {
         TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
                 ? registeredPackage
                 : TimePackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PropertyPackage.eNS_URI);
+        PropertyPackageImpl thePropertyPackage = (PropertyPackageImpl) (registeredPackage instanceof PropertyPackageImpl
+                ? registeredPackage
+                : PropertyPackage.eINSTANCE);
 
         // Create package meta-data objects
         thePortPackage.createPackageContents();
@@ -304,6 +311,7 @@ public class PortPackageImpl extends EPackageImpl implements PortPackage {
         theAnnotationPackage.createPackageContents();
         theInvariantPackage.createPackageContents();
         theTimePackage.createPackageContents();
+        thePropertyPackage.createPackageContents();
 
         // Initialize created meta-data
         thePortPackage.initializePackageContents();
@@ -325,6 +333,7 @@ public class PortPackageImpl extends EPackageImpl implements PortPackage {
         theAnnotationPackage.initializePackageContents();
         theInvariantPackage.initializePackageContents();
         theTimePackage.initializePackageContents();
+        thePropertyPackage.initializePackageContents();
 
         // Register package validator
         EValidator.Registry.INSTANCE.put(thePortPackage,

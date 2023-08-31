@@ -100,6 +100,8 @@ import bip2.ujf.verimag.bip.priority.PriorityPackage;
 
 import bip2.ujf.verimag.bip.priority.impl.PriorityPackageImpl;
 
+import bip2.ujf.verimag.bip.property.PropertyPackage;
+import bip2.ujf.verimag.bip.property.impl.PropertyPackageImpl;
 import bip2.ujf.verimag.bip.time.TimePackage;
 import bip2.ujf.verimag.bip.time.impl.TimePackageImpl;
 import bip2.ujf.verimag.bip.types.TypesPackage;
@@ -323,6 +325,11 @@ public class ConnectorPackageImpl extends EPackageImpl
         TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
                 ? registeredPackage
                 : TimePackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PropertyPackage.eNS_URI);
+        PropertyPackageImpl thePropertyPackage = (PropertyPackageImpl) (registeredPackage instanceof PropertyPackageImpl
+                ? registeredPackage
+                : PropertyPackage.eINSTANCE);
 
         // Create package meta-data objects
         theConnectorPackage.createPackageContents();
@@ -344,6 +351,7 @@ public class ConnectorPackageImpl extends EPackageImpl
         theAnnotationPackage.createPackageContents();
         theInvariantPackage.createPackageContents();
         theTimePackage.createPackageContents();
+        thePropertyPackage.createPackageContents();
 
         // Initialize created meta-data
         theConnectorPackage.initializePackageContents();
@@ -365,6 +373,7 @@ public class ConnectorPackageImpl extends EPackageImpl
         theAnnotationPackage.initializePackageContents();
         theInvariantPackage.initializePackageContents();
         theTimePackage.initializePackageContents();
+        thePropertyPackage.initializePackageContents();
 
         // Register package validator
         EValidator.Registry.INSTANCE.put(theConnectorPackage,

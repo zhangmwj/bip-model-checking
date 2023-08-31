@@ -102,6 +102,8 @@ import bip2.ujf.verimag.bip.priority.PriorityPackage;
 
 import bip2.ujf.verimag.bip.priority.impl.PriorityPackageImpl;
 
+import bip2.ujf.verimag.bip.property.PropertyPackage;
+import bip2.ujf.verimag.bip.property.impl.PropertyPackageImpl;
 import bip2.ujf.verimag.bip.time.ClockDeclaration;
 import bip2.ujf.verimag.bip.time.Guarded;
 import bip2.ujf.verimag.bip.time.GuardedUntimed;
@@ -335,6 +337,11 @@ public class TimePackageImpl extends EPackageImpl implements TimePackage {
         InvariantPackageImpl theInvariantPackage = (InvariantPackageImpl) (registeredPackage instanceof InvariantPackageImpl
                 ? registeredPackage
                 : InvariantPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PropertyPackage.eNS_URI);
+        PropertyPackageImpl thePropertyPackage = (PropertyPackageImpl) (registeredPackage instanceof PropertyPackageImpl
+                ? registeredPackage
+                : PropertyPackage.eINSTANCE);
 
         // Create package meta-data objects
         theTimePackage.createPackageContents();
@@ -356,6 +363,7 @@ public class TimePackageImpl extends EPackageImpl implements TimePackage {
         theInstancePackage.createPackageContents();
         theAnnotationPackage.createPackageContents();
         theInvariantPackage.createPackageContents();
+        thePropertyPackage.createPackageContents();
 
         // Initialize created meta-data
         theTimePackage.initializePackageContents();
@@ -377,6 +385,7 @@ public class TimePackageImpl extends EPackageImpl implements TimePackage {
         theInstancePackage.initializePackageContents();
         theAnnotationPackage.initializePackageContents();
         theInvariantPackage.initializePackageContents();
+        thePropertyPackage.initializePackageContents();
 
         // Register package validator
         EValidator.Registry.INSTANCE.put(theTimePackage,

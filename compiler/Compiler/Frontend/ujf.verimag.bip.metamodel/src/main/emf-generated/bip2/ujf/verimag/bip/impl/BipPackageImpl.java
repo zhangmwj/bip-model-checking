@@ -101,6 +101,8 @@ import bip2.ujf.verimag.bip.priority.PriorityPackage;
 
 import bip2.ujf.verimag.bip.priority.impl.PriorityPackageImpl;
 
+import bip2.ujf.verimag.bip.property.PropertyPackage;
+import bip2.ujf.verimag.bip.property.impl.PropertyPackageImpl;
 import bip2.ujf.verimag.bip.time.TimePackage;
 import bip2.ujf.verimag.bip.time.impl.TimePackageImpl;
 import bip2.ujf.verimag.bip.types.TypesPackage;
@@ -270,6 +272,11 @@ public class BipPackageImpl extends EPackageImpl implements BipPackage {
         TimePackageImpl theTimePackage = (TimePackageImpl) (registeredPackage instanceof TimePackageImpl
                 ? registeredPackage
                 : TimePackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE
+                .getEPackage(PropertyPackage.eNS_URI);
+        PropertyPackageImpl thePropertyPackage = (PropertyPackageImpl) (registeredPackage instanceof PropertyPackageImpl
+                ? registeredPackage
+                : PropertyPackage.eINSTANCE);
 
         // Create package meta-data objects
         theBipPackage.createPackageContents();
@@ -291,6 +298,7 @@ public class BipPackageImpl extends EPackageImpl implements BipPackage {
         theAnnotationPackage.createPackageContents();
         theInvariantPackage.createPackageContents();
         theTimePackage.createPackageContents();
+        thePropertyPackage.createPackageContents();
 
         // Initialize created meta-data
         theBipPackage.initializePackageContents();
@@ -312,6 +320,7 @@ public class BipPackageImpl extends EPackageImpl implements BipPackage {
         theAnnotationPackage.initializePackageContents();
         theInvariantPackage.initializePackageContents();
         theTimePackage.initializePackageContents();
+        thePropertyPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         theBipPackage.freeze();
@@ -415,6 +424,8 @@ public class BipPackageImpl extends EPackageImpl implements BipPackage {
                 .getEPackage(InvariantPackage.eNS_URI);
         TimePackage theTimePackage = (TimePackage) EPackage.Registry.INSTANCE
                 .getEPackage(TimePackage.eNS_URI);
+        PropertyPackage thePropertyPackage = (PropertyPackage) EPackage.Registry.INSTANCE
+                .getEPackage(PropertyPackage.eNS_URI);
 
         // Add subpackages
         getESubpackages().add(theTypesPackage);
@@ -430,6 +441,7 @@ public class BipPackageImpl extends EPackageImpl implements BipPackage {
         getESubpackages().add(theAnnotationPackage);
         getESubpackages().add(theInvariantPackage);
         getESubpackages().add(theTimePackage);
+        getESubpackages().add(thePropertyPackage);
 
         // Create type parameters
 
