@@ -43,8 +43,10 @@
 // some common includes
 #include <string>
 #include <vector>
+#include <list>
 #include <map>
 #include <set>
+#include <unordered_set>
 #include <algorithm>
 #include <bitset>
 

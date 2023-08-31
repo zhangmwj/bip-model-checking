@@ -61,6 +61,7 @@ class InteractionValue : public InteractionValueItf {
   const Connector &connector() const { return interaction().connector(); }
   const vector<Port *> &ports() const { return interaction().ports(); }
   BipError &execute(const TimeValue &time);
+  BipError &execute();
 
   string getDistribution() const;
   AtomInternalPort *getStochasticPort() const;

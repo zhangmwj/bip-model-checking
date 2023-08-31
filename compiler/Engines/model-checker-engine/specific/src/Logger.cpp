@@ -222,9 +222,7 @@ void Logger::logTimeSafetyViolation(const TimeValue &timeSafetyViolation) {
 void Logger::logEnabled() {
   if (verbose()) {
     begin();
-
     outputStream() << "state #" << mState << " and global time " << engine().time() << ": ";
-
     if (engine().interactions().size() == 0 && engine().internals().size() == 0 && engine().externals().size() == 0) {
       if (engine().waitInterval().right() == TimeValue::MAX) {
         outputStream() << "deadlock!";

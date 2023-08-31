@@ -38,27 +38,61 @@
 #ifndef _BIP_Engine_State_HPP_
 #define _BIP_Engine_State_HPP_
 
+#include <bip-engineiface-config.hpp>
+#include <dbm/fed.h>
 #include <string>
+
+using namespace bipbasetypes;
+using namespace dbm;
 
 /** \brief Represent a state of a model
  */
 class State {
  public:
+  struct hash_all {
+    size_t operator()(const State &state) const {
+      size_t hashDiscret = hash_discret_part()(&state);
+      uint32_t hashDbm = dbm_hash(state.dbm()(), state.dbm().getDimension());
+      return hashDbm + 0x9e3779b9 + (hashDiscret << 6) + (hashDiscret>>2);
+    }
+  };
+
+  struct hash_discret_part {
+    size_t operator()(const State *state) const {
+      size_t res = 17;
+      for (size_t i = 0; i < state->size(); i++) {
+        res = res * 31 + hash<char>()( state->buffer()[i]);
+      }
+      return res;
+    }
+  };
+
   State(char *buffer, size_t size);
+  State(char *buffer, size_t size, const dbm_t &dbm);
   State(const State &state);
   virtual ~State();
 
   const char *buffer() const { return mBuffer; }
   size_t size() const { return mSize; }
 
+  const dbm_t &dbm() const { return mDbm; }
   bool operator==(const State &state) const;
+  bool operator<=(const State &state) const;
+  bool operator<(const State &state) const;
   State &operator=(const State &state);
+  int id() const { return mId; }
 
  protected:
   void setSize();
-
+  static int nb;
   char *mBuffer;
   size_t mSize;
+  dbm_t mDbm;
+  int mId;
+  friend ostream &operator<<(ostream &out, const State &state) {
+    out << "state mId = " << state.mId;
+    return out;
+  }
 };
 
 #endif // _BIP_Engine_State_HPP_

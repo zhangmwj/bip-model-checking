@@ -149,39 +149,45 @@ class RandomScheduler : public Scheduler {
 
     //Clean memory
     void  cleanMemory(std::set<const Connector *> enabledInteractions){
-        for( std::map<const  Connector* , std::pair<TimeValue, Interval> >::iterator it= interactionMemory.begin(); it != interactionMemory.end(); ++it)
+        for( std::map<const  Connector* , std::pair<TimeValue, Interval> >::iterator it= interactionMemory.begin(); it != interactionMemory.end(); /* empty */)
         {
-            if( enabledInteractions.find((*it).first) == enabledInteractions.end() ) interactionMemory.erase(it);
+            if( enabledInteractions.find((*it).first) == enabledInteractions.end() ) it = interactionMemory.erase(it);
+            else ++it;
         }
     }
     void  cleanMemory(InteractionValue &interaction){
-        for( std::map<const  Connector* , std::pair<TimeValue, Interval> > ::iterator it= interactionMemory.begin(); it != interactionMemory.end(); ++it)
+        for( std::map<const  Connector* , std::pair<TimeValue, Interval> > ::iterator it= interactionMemory.begin(); it != interactionMemory.end(); /* empty */)
         {
-            if(  (*it).first == &(interaction.connector()) ) interactionMemory.erase(it);
+            if(  (*it).first == &(interaction.connector()) ) it = interactionMemory.erase(it);
+            else ++it;
         }
     }
     void  cleanMemory(std::set<const AtomInternalPort*> enabledInternals){
-        for( std::map<const  AtomInternalPort* , std::pair<TimeValue, Interval> >::iterator it= internalMemory.begin(); it != internalMemory.end(); ++it)
+        for( std::map<const  AtomInternalPort* , std::pair<TimeValue, Interval> >::iterator it= internalMemory.begin(); it != internalMemory.end(); /* empty */)
         {
-            if( enabledInternals.find((*it).first) == enabledInternals.end() ) internalMemory.erase(it);
+            if( enabledInternals.find((*it).first) == enabledInternals.end() ) it = internalMemory.erase(it);
+            else ++it;
         }
     }
     void  cleanMemory(AtomInternalPort &port){
-        for( std::map<const  AtomInternalPort* , std::pair<TimeValue, Interval> > ::iterator it= internalMemory.begin(); it != internalMemory.end(); ++it)
+        for( std::map<const  AtomInternalPort* , std::pair<TimeValue, Interval> > ::iterator it= internalMemory.begin(); it != internalMemory.end(); /* empty */)
         {
-            if(  (*it).first == &port ) internalMemory.erase(it);
+            if(  (*it).first == &port ) it = internalMemory.erase(it);
+            else ++it;
         }
     }
     void  cleanMemory(std::set<const AtomExternalPort*> enabledExternals){
-        for( std::map<const  AtomExternalPort* , std::pair<TimeValue, Interval> >::iterator it= externalMemory.begin(); it != externalMemory.end(); ++it)
+        for( std::map<const  AtomExternalPort* , std::pair<TimeValue, Interval> >::iterator it= externalMemory.begin(); it != externalMemory.end(); /* empty */)
         {
-            if( enabledExternals.find((*it).first) == enabledExternals.end() ) externalMemory.erase(it);
+            if( enabledExternals.find((*it).first) == enabledExternals.end() ) it = externalMemory.erase(it);
+            else ++it;
         }
     }
     void  cleanMemory(AtomExternalPort &port){
-        for( std::map<const  AtomExternalPort* , std::pair<TimeValue, Interval> > ::iterator it= externalMemory.begin(); it != externalMemory.end(); ++it)
+        for( std::map<const  AtomExternalPort* , std::pair<TimeValue, Interval> > ::iterator it= externalMemory.begin(); it != externalMemory.end(); /* empty */)
         {
-            if(  (*it).first == &port ) externalMemory.erase(it);
+            if(  (*it).first == &port ) it = externalMemory.erase(it);
+            else ++it;
         }
     }
 

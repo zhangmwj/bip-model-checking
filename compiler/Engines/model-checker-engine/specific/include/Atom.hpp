@@ -60,12 +60,15 @@ class Atom : public virtual ComponentItf, public Component, public AtomItf {
   // destructor
   virtual ~Atom();
 
+  virtual vector<Constraint> allTimingConstraints() const = 0;
   virtual BipError &execute(PortValue &portValue, const TimeValue &time) = 0;
+  virtual BipError &execute(PortValue &portValue) = 0;
   virtual BipError &execute(AtomExternalPort &external, const TimeValue &time) = 0;
   virtual string toString() const { return "?"; };
 
   // specific
   BipError &execute(AtomInternalPort &internalPort, const TimeValue &time);
+  BipError &execute(AtomInternalPort &internalPort);
   virtual vector<AtomInternalPort *> internals() const;
   virtual vector<AtomExternalPort *> allExternals() const;
   virtual const TimeValue &time() const { return holder().time(); }

@@ -41,6 +41,8 @@
 // inherited classes
 #include <ComponentItf.hpp>
 #include <Interval.hpp>
+#include "Constraint.hpp"
+
 
 class InteractionValue;
 class AtomInternalPort;
@@ -58,6 +60,7 @@ class Component : public virtual ComponentItf {
   // specific operations
   virtual vector<AtomInternalPort *> internals() const = 0;
   virtual vector<AtomExternalPort *> allExternals() const = 0;
+  virtual vector<Constraint> allTimingConstraints() const = 0;
   virtual const TimeValue &time() const = 0;
   BipError &updateUpperLevels();
   string fullName() const;

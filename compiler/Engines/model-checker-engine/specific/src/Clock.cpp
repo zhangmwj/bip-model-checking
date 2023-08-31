@@ -43,8 +43,8 @@ Clock::Clock() :
   mSpeed(1.0) {
 }
 
-Clock::Clock(Atom &atom) :
-  ClockItf(atom),
+Clock::Clock(Atom &atom, const string &name) :
+  ClockItf(atom, name),
   mResetTime(TimeValue::ZERO),
   mResetTo(TimeValue::ZERO),
   mSpeed(1.0) {
@@ -58,3 +58,7 @@ void Clock::configureAllClocks(GlobalClock &modelClock) {
 }
 
 GlobalClock *Clock::mModelClock(NULL);
+
+dbm_t *Clock::mDbm(NULL);
+
+vector<const Clock *>* Clock::mClocks(NULL);

@@ -222,7 +222,7 @@ vector<InteractionValue *> Connector::maximalInteractions() const {
  *
  * \return The set of interaction values enabled by 'this'.
  */
-vector<InteractionValue *> Connector::enabledInteractions() const {
+vector<InteractionValue *> Connector::enabledInteractions(bool MC) const {
   vector<InteractionValue *> ret;
 
   // for all (static) interaction, compute an interaction value (when applies)
@@ -247,7 +247,7 @@ vector<InteractionValue *> Connector::enabledInteractions() const {
 
     if (enabledByPorts) {
       vector<PortValue *> partialValues;
-      enumerateInteractionValues(ret, interaction, partialValues, 0);
+      enumerateInteractionValues(ret, interaction, partialValues, 0, MC);
     }
   }
 
@@ -304,7 +304,7 @@ void Connector::release(const vector<InteractionValue *> &interactions) const {
  * \param nextPortIndex is the index in the list of ports 'ports()' of interaction
  * from which interaction values are be enumerated
  */
-void Connector::enumerateInteractionValues(vector<InteractionValue *> &allInteractions, const Interaction &interaction, vector<PortValue *> partialValues, unsigned int nextPortIndex) const {
+void Connector::enumerateInteractionValues(vector<InteractionValue *> &allInteractions, const Interaction &interaction, vector<PortValue *> partialValues, unsigned int nextPortIndex, bool MC) const {
   if (nextPortIndex < interaction.ports().size()) {
     const Port *port = interaction.ports()[nextPortIndex];
 
@@ -315,7 +315,7 @@ void Connector::enumerateInteractionValues(vector<InteractionValue *> &allIntera
 
       // enumerate using value
       partialValues.push_back(value);
-      enumerateInteractionValues(allInteractions, interaction, partialValues, nextPortIndex + 1);
+      enumerateInteractionValues(allInteractions, interaction, partialValues, nextPortIndex + 1, MC);
 
       // remove value for next iteration (avoids using multiple vector<PortValue *>)
       partialValues.pop_back();
@@ -323,7 +323,7 @@ void Connector::enumerateInteractionValues(vector<InteractionValue *> &allIntera
   }
   else {
     // build an interaction value based on interaction and the port values partial values
-    vector<PortValue *> values; 
+    vector<PortValue *> values;
 
     for (vector<PortValue *>::const_iterator valueIt = partialValues.begin() ;
          valueIt != partialValues.end() ;
@@ -335,8 +335,8 @@ void Connector::enumerateInteractionValues(vector<InteractionValue *> &allIntera
 
     // check the guard of the build interaction value, if true, keep it
     if (guard(interactionValue) &&
-        !interactionValue.timingConstraint().empty() &&
-        !interactionValue.hasResume()) {
+        (MC || (!interactionValue.timingConstraint().empty() &&
+        !interactionValue.hasResume()))) {
       allInteractions.push_back(&interactionValue);
     }
     else {

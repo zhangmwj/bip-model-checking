@@ -39,13 +39,13 @@
 #define _BIP_Engine_InteractionValueItf_HPP_
 
 #include <bip-engineiface-config.hpp>
+#include <Constraint.hpp>
+#include <PortValue.hpp>
 using namespace bipbasetypes;
 using namespace biptypes;
 
 // referenced classes
 class Interaction;
-class PortValue;
-
 
 class InteractionValueItf {
  public:
@@ -56,6 +56,24 @@ class InteractionValueItf {
   virtual const Interaction &interaction() const = 0;
   virtual const vector<PortValue *> &portValues() const = 0;
   virtual bool hasPortValues() const = 0;
+
+    const Constraint constraint() const {
+        assert(hasPortValues());
+        Constraint ret = true;
+        for (PortValue * port: portValues()) {
+            ret &= port->guard();
+        }
+        return ret;
+    }
+
+    const Urgency urgency() const {
+        assert(hasPortValues());
+        for (PortValue * port: portValues()) {
+            if (port->urgency() == EAGER)
+                return EAGER;
+        }
+        return LAZY;
+    }
 
  protected:
   // protected constructors

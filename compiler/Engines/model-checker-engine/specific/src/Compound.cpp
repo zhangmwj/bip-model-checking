@@ -124,6 +124,17 @@ BipError &Compound::execute(InteractionValue &interactionValue, const TimeValue 
   return update();
 }
 
+BipError &Compound::execute(InteractionValue &interactionValue) {
+  // execute the interaction
+  BipError &error = interactionValue.execute();
+
+  if (error.type() != NO_ERROR) {
+    return error;
+  }
+
+  // update the port values of the component
+  return update();
+}
 
 /* \brief Initialize the compound component.
  *
@@ -135,8 +146,8 @@ BipError &Compound::execute(InteractionValue &interactionValue, const TimeValue 
  */
 BipError &Compound::initialize() {
   // recursive call to sub-components
-  for (map<string, Component *>::const_iterator componentIt = components().begin() ;
-       componentIt != components().end() ;
+  for (map<string, Component *>::const_iterator componentIt = components().begin();
+       componentIt != components().end();
        ++componentIt) {
     Component &component = *componentIt->second;
     BipError &error = component.initialize();
@@ -174,6 +185,19 @@ void Compound::initializeAllAtomExternalPorts() {
       }
     }
   }
+}
+
+vector<Constraint> Compound::allTimingConstraints() const {
+  vector<Constraint> ret;
+  // recursive call to sub-components
+  for (map<string, Component *>::const_iterator componentIt = components().begin();
+       componentIt != components().end();
+       ++componentIt) {
+    Component &component = *componentIt->second;
+    vector<Constraint> tmp = component.allTimingConstraints();
+    ret.insert(ret.end(), tmp.begin(), tmp.end());
+  }
+  return ret;
 }
 
 /**
@@ -239,8 +263,8 @@ BipError &Compound::recursiveUpdate() {
  * It also includes interactions of sub-components, that is, the computation
  * is recursive.
  */
-vector<InteractionValue *> Compound::interactions() const {
-  vector <InteractionValue *> ret;
+vector<InteractionValue *> Compound::interactions(bool MC) const {
+  vector<InteractionValue *> ret;
 
   // get interactions of sub-components
   for (map<string, Component *>::const_iterator componentIt = components().begin() ;
@@ -251,7 +275,7 @@ vector<InteractionValue *> Compound::interactions() const {
     if (component.type() == COMPOUND) {
       Compound &compound = dynamic_cast<Compound &>(component);
 
-      vector<InteractionValue *> interactionsOfCompound = compound.interactions();
+      vector<InteractionValue *> interactionsOfCompound = compound.interactions(MC);
 
       // add to ret
       ret.insert(ret.end(),
@@ -269,7 +293,7 @@ vector<InteractionValue *> Compound::interactions() const {
     // keep only interactions of non exported connectors, interactions of exported
     // connector will be handled at higher levels
     if (!connector.hasExportedPort()) {
-      const vector<InteractionValue *> interactionsOfConnector = connector.maximalInteractions();
+      const vector<InteractionValue *> interactionsOfConnector = MC? connector.enabledInteractions(MC) : connector.maximalInteractions();
 
       // add to ret
       ret.insert(ret.end(),
@@ -342,6 +366,31 @@ Interval Compound::invariant() const {
       }
     }
     else {
+      assert(false);
+    }
+  }
+
+  return ret;
+}
+
+const Constraint Compound::invariantConstraint() const {
+  Constraint ret = true;
+
+  // get interactions of sub-components
+  for (map<string, Component *>::const_iterator componentIt = components().begin();
+       componentIt != components().end();
+       ++componentIt) {
+    Component &component = *componentIt->second;
+
+    if (component.type() == COMPOUND) {
+      Compound &compound = dynamic_cast<Compound &>(component);
+
+      // intersect with local timing constraint of component
+      ret &= compound.invariantConstraint();
+    } else if (component.type() == ATOM) {
+      Atom &atom = dynamic_cast<Atom &>(component);
+      ret &= atom.invariantConstraint();
+    } else {
       assert(false);
     }
   }

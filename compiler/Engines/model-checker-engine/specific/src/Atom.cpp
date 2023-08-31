@@ -86,6 +86,20 @@ BipError &Atom::execute(AtomInternalPort &internalPort, const TimeValue &time) {
   return BipError::NoError;
 }
 
+BipError &Atom::execute(AtomInternalPort &internalPort) {
+  // must have a port value
+  assert(internalPort.hasPortValue());
+
+  // execute
+  BipError &error = execute(internalPort.portValue());
+
+  if (error.type() != NO_ERROR) {
+      return error;
+  }
+
+  return BipError::NoError;
+}
+
 /* \brief Compute enabled internal ports.
  *
  * Compute internal ports enabled by transitions at the current state

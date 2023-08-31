@@ -56,7 +56,7 @@ class Connector : public ConnectorItf {
   vector<Connector *> subConnectors() const;
   vector<Connector *> allSubConnectors() const;
   void updatePortValues();
-  vector<InteractionValue *> enabledInteractions() const;
+  vector<InteractionValue *> enabledInteractions(bool MC = false) const;
   vector<InteractionValue *> maximalInteractions() const;
   void release(const vector<Interaction *> &interactions) const;
   void release(const vector<InteractionValue *> &interactions) const;
@@ -75,7 +75,7 @@ class Connector : public ConnectorItf {
   }
 
   // specific
-  void enumerateInteractionValues(vector<InteractionValue *> &allInteractions, const Interaction &interaction, vector<PortValue *> partialValues, unsigned int nextPortIndex) const;
+  void enumerateInteractionValues(vector<InteractionValue *> &allInteractions, const Interaction &interaction, vector<PortValue *> partialValues, unsigned int nextPortIndex, bool MC = false) const;
 };
 
 #endif // _BIP_Engine_Connector_HPP_

@@ -58,7 +58,8 @@ namespace biptypes {
         CYCLE_IN_ATOM_PRIORITIES = 4,
         ATOM_INVARIANT_VIOLATION = 5,
         UNEXPECTED_EVENT = 6,
-        TIME_SAFETY_VIOLATION = 7
+        TIME_SAFETY_VIOLATION = 7,
+        CLOCK_WITH_NEGATIVE_VALUE = 8
     };
     enum EventConsumptionPolicy {
         REMEMBER = 0,

@@ -36,23 +36,37 @@
  */
 
 #include "State.hpp"
-
-#include <string.h>
 #include <iostream>
+
+int State::nb{0};
 
 State::State(char *buffer, size_t size) :
   mBuffer(buffer),
-  mSize(size) {
+  mSize(size),
+  mId(++nb) {
+}
+
+State::State(char *buffer, size_t size, const dbm_t &dbm) :
+  mBuffer(buffer),
+  mSize(size),
+  mDbm(dbm(), dbm.getDimension()),
+  mId(++nb){
+  // printf("a state has been constructed mDbm()=%p\n", mDbm());
 }
 
 State::State(const State &state) {
   mSize = state.size();
   mBuffer = new char[size()];
   memcpy(mBuffer, (void *) state.buffer(), size());
+  mId = ++nb;
+  if (!state.dbm().isEmpty()) {
+    mDbm = state.dbm()();
+  }
 }
 
 State::~State() {
   delete[] buffer();
+  --nb;
 }
 
 /**
@@ -66,7 +80,36 @@ bool State::operator==(const State &state) const {
       ret = true;
     }
   }
+  if (!dbm().isEmpty() && !state.dbm().isEmpty()) {
+    bool aux = mDbm == state.mDbm;
+    ret &= aux;
+  }
+  return ret;
+}
 
+bool State::operator<(const State &state) const {
+  bool ret = false;
+  if (size() == state.size()) {
+    if (memcmp(buffer(), state.buffer(), size()) == 0) {
+      ret = true;
+      if (!dbm().isEmpty() && !state.dbm().isEmpty()) {
+        ret &= mDbm < state.mDbm;
+      }
+    }
+  }
+  return ret;
+}
+
+bool State::operator<=(const State &state) const {
+  bool ret = false;
+  if (size() == state.size()) {
+    if (memcmp(buffer(), state.buffer(), size()) == 0) {
+      ret = true;
+      if (!dbm().isEmpty() && !state.dbm().isEmpty()) {
+        ret &= mDbm <= state.mDbm;
+      }
+    }
+  }
   return ret;
 }
 
@@ -77,8 +120,9 @@ State &State::operator=(const State &state) {
     mSize = state.size();
     mBuffer = new char[size()];
     memcpy(mBuffer, (void *) state.buffer(), size());
+    if (!state.dbm().isEmpty())
+      mDbm = state.dbm()();
   }
 
   return *this;
 }
-
