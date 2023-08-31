@@ -40,12 +40,10 @@ package ujf.verimag.bip.backend.cpp;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Stack;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -60,6 +58,7 @@ import bip2.ujf.verimag.bip.instance.ComponentInstance;
 import bip2.ujf.verimag.bip.packaging.BipPackage;
 import bip2.ujf.verimag.bip.packaging.BipPackageSet;
 import bip2.ujf.verimag.bip.packaging.PackagingFactory;
+import bip2.ujf.verimag.bip.property.Properties;
 import ujf.verimag.bip.backend.BackendStatus;
 import ujf.verimag.bip.backend.Backendable;
 import ujf.verimag.bip.backend.BackendStatusEnum;
@@ -231,6 +230,11 @@ public class CppBackend implements Backendable {
     public boolean canGenerateFromInstance() {
         return true;
     }
+    
+    @Override
+    public boolean canGenerateFromProperties() {
+    	return true;
+    }
 
     private static boolean optimisationExists(final String optim){
         for (final String[] opt_level : OptimizationLevels){
@@ -399,7 +403,7 @@ public class CppBackend implements Backendable {
 
     @Override
     public BackendStatus generateFromInstance(final ComponentInstance instance) {
-        final List<Object> tmpl_args = new ArrayList<Object>();
+    	final List<Object> tmpl_args = new ArrayList<Object>();
         tmpl_args.add(no_main);
         final File outputdirF = new File(this.outputdir, "Deploy");
 
@@ -426,6 +430,13 @@ public class CppBackend implements Backendable {
         }
 
         return new BackendStatus(BackendStatusEnum.SUCCESS);
+    }
+    
+
+    @Override
+    public BackendStatus generateFromProperties(Properties properties) {
+        // TODO Auto-generated method stub
+        return new BackendStatus(BackendStatusEnum.FAIL);
     }
 
     @Override

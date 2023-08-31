@@ -37,8 +37,10 @@
 package ujf.verimag.bip.backend;
 
 import ujf.verimag.bip.Configurable;
+
 import bip2.ujf.verimag.bip.instance.ComponentInstance;
 import bip2.ujf.verimag.bip.packaging.BipPackage;
+import bip2.ujf.verimag.bip.property.Properties;
 
 /***
  * This interface describes what a Backend must provide. A Backend is the
@@ -65,6 +67,13 @@ public interface Backendable extends Configurable {
      */
     public boolean canGenerateFromInstance();
     
+    
+    /**
+     * Tests the backend's capability for the generation from a Properties
+     * @return true if the backend can generate something out of a Properties, false if not.
+     */
+    public boolean canGenerateFromProperties();
+    
     /**
      * Executes the generation from a BipPackage
      * @param pack the package
@@ -79,9 +88,20 @@ public interface Backendable extends Configurable {
      */
     public BackendStatus generateFromInstance(ComponentInstance instance);
     
+    
+    /**
+     * Executes the generation from a Properties
+     * @param properties the properties
+     * @return a BackendStatus indicating the status of the generation.
+     */
+    public BackendStatus generateFromProperties(Properties properties);
+    
+    
+    
     /**
      * Tests if the backend is enabled or not
      * @return true if the backend is enabled, false if not.
      */
     public boolean isEnabled();
+
 }

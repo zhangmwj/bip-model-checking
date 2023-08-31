@@ -85,6 +85,7 @@ import ujf.verimag.bip.parser.error.IncorrectNumberFormatException;
 import ujf.verimag.bip.parser.error.OperationInvalidOrNotSupportedException;
 import ujf.verimag.bip.parser.error.RedefinedTypeException;
 import ujf.verimag.bip.parser.error.GenericWalkerErrorException;
+import ujf.verimag.bip.parser.error.DuplicatedPropertyException;
 import ujf.verimag.bip.parser.error.RedefinedSymbolException;
 import ujf.verimag.bip.parser.error.RedefinedVariableException;
 import ujf.verimag.bip.parser.error.RedefinedAnnotationException;
@@ -201,6 +202,10 @@ import bip2.ujf.verimag.bip.time.ClockDeclaration;
 import bip2.ujf.verimag.bip.time.Urgency;
 import bip2.ujf.verimag.bip.time.Time;
 import bip2.ujf.verimag.bip.time.Resume;
+
+import bip2.ujf.verimag.bip.property.PropertyFactory;
+import bip2.ujf.verimag.bip.property.Property;
+import bip2.ujf.verimag.bip.property.Properties;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -847,6 +852,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
     public void typeCheck(String symbol, NameSpace namespace,
         AnnotatedEObject object, Class expectedType,
         TreeNodeStream input, CommonTree start) throws IncorrectBipTypeException {
+        System.out.println("expectedType = " + expectedType.getName());
+        System.out.println("objectType = " + object.getClass().getName());
       if (!expectedType.isInstance(object)) {
         throw createIncorrectBipTypeException(symbol, namespace, expectedType, input, start);
       }
@@ -2568,3 +2575,37 @@ annotated_extern_prototype_declaration
           $bip_package::parsed_package.getPrototypes().add($annotated_extern_unary_operator_prototype_definition.prototype);
       }
     ;
+
+reachability returns [boolean isReachability]
+  : AG  { $isReachability = false; }
+  | EF  { $isReachability = true; }
+  ;
+
+property returns [String name, Property property]
+@init{
+  $property = PropertyFactory.eINSTANCE.createProperty();
+  setSourceInfo($property, $start);
+}
+  : ^(PROPERTY
+        simple_name { $name = $simple_name.name; }
+        reachability { $property.setReachability($reachability.isReachability); }
+        partial_statement { $property.setExpression($partial_statement.expression); }
+     )
+  ;
+
+properties returns [Properties properties]
+@init{
+  $properties = PropertyFactory.eINSTANCE.createProperties();
+  setSourceInfo($properties, $start);
+}
+  : ^(PROPERTIES (property {
+       String name = $property.name;
+       Property property = $property.property;
+       if ($properties.getProperties().containsKey(name)) {
+         throw new DuplicatedPropertyException(input, $property.start, $properties.getProperties().get(name), name);
+       } else {
+         $properties.getProperties().put(name, property);
+       }
+     })+)
+  ;
+

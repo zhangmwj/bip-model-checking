@@ -50,6 +50,7 @@ import org.eclipse.emf.common.util.BasicMonitor;
 
 import bip2.ujf.verimag.bip.instance.ComponentInstance;
 import bip2.ujf.verimag.bip.packaging.BipPackage;
+import bip2.ujf.verimag.bip.property.Properties;
 import ujf.verimag.bip.backend.BackendStatus;
 import ujf.verimag.bip.backend.Backendable;
 import ujf.verimag.bip.backend.BackendStatusEnum;
@@ -130,6 +131,12 @@ public class AsebaBackend implements Backendable {
     public boolean canGenerateFromInstance() {
         return true;
     }
+    
+    @Override
+    public boolean canGenerateFromProperties() {
+    	return false;
+    }
+
 
     @Override
     public BackendStatus generateFromPackage(BipPackage pack) {
@@ -154,6 +161,11 @@ public class AsebaBackend implements Backendable {
         }
         
         return new BackendStatus(BackendStatusEnum.SUCCESS);
+    }
+    
+    @Override
+    public BackendStatus generateFromProperties(Properties properties) {
+        return new BackendStatus(BackendStatusEnum.FAIL);
     }
 
     @Override

@@ -155,6 +155,10 @@ tokens {
     ARGUMENT_EXPR_LIST;
 
     UNARY_MINUS;
+
+
+    PROPERTY;
+    PROPERTIES;
 }
 
 @parser::header {
@@ -314,6 +318,9 @@ EAGER	:	'eager';
 RESUME : 'resume';
 SYNC : 'sync';
 ASYNC : 'async';
+
+AG : 'AG';
+EF : 'EF';
 
 ID  :   ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
     ;
@@ -1068,3 +1075,18 @@ argument_expression_list
     : logical_or_expression (COMMA logical_or_expression)*
         -> ^(ARGUMENT_EXPR_LIST logical_or_expression+)
     ;
+
+property_type
+    : AG
+    | EF
+    ;
+	
+property
+    : simple_name property_type logical_or_expression
+    -> ^(PROPERTY simple_name property_type logical_or_expression)
+	;
+
+properties
+    : property*
+    -> ^(PROPERTIES property+)
+	;

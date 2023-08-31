@@ -89,6 +89,9 @@ public enum ErrorCodeEnum {
     PackageNameDoesNotMatchFileName,
     PackageNotLoaded,
     
+    PropertyFileNotFound,
+    DuplicatedProperty,
+    
     /*
      * Error code for error from EMF diagnostics.
      * 1 code corresponds to 1 constraints (in general. It is possible to share

@@ -945,6 +945,26 @@
           </eClassifiers>
           <eClassifiers xsi:type="ecore:EClass" name="Resume" eSuperTypes="#//ujf/verimag/bip/time/Guarded"/>
         </eSubpackages>
+        <eSubpackages name="property" nsURI="http://bip2/ujf/verimag/bip/property/1.0"
+            nsPrefix="bip2.ujf.verimag.bip.property">
+          <eClassifiers xsi:type="ecore:EClass" name="Property">
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="reachability" lowerBound="1"
+                eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+                defaultValueLiteral="true"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="expression" lowerBound="1"
+                eType="#//ujf/verimag/bip/actionlang/ValuedExpression" containment="true"/>
+          </eClassifiers>
+          <eClassifiers xsi:type="ecore:EClass" name="Properties">
+            <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+                eType="#//ujf/verimag/bip/property/StringToPropertyMapEntry" containment="true"/>
+          </eClassifiers>
+          <eClassifiers xsi:type="ecore:EClass" name="StringToPropertyMapEntry" instanceClassName="java.util.Map$Entry">
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1"
+                eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1"
+                eType="#//ujf/verimag/bip/property/Property" containment="true"/>
+          </eClassifiers>
+        </eSubpackages>
       </eSubpackages>
     </eSubpackages>
   </eSubpackages>

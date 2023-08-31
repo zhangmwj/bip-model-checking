@@ -41,10 +41,9 @@ import java.util.Map;
 
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
-
 import bip2.ujf.verimag.bip.instance.ComponentInstance;
 import bip2.ujf.verimag.bip.packaging.BipPackage;
-
+import bip2.ujf.verimag.bip.property.Properties;
 import ujf.verimag.bip.backend.BackendStatus;
 import ujf.verimag.bip.backend.Backendable;
 import ujf.verimag.bip.backend.BackendStatusEnum;
@@ -99,4 +98,14 @@ public class ExampleBackend implements Backendable {
         
         return new GenericError[0];
     }
+
+	@Override
+	public boolean canGenerateFromProperties() {
+		return false;
+	}
+
+	@Override
+	public BackendStatus generateFromProperties(Properties properties) {
+		return new BackendStatus(BackendStatusEnum.FAIL);
+	}
 }

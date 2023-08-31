@@ -56,6 +56,7 @@ import org.eclipse.emf.ecore.EPackage;
 import bip2.Bip2Package;
 import bip2.ujf.verimag.bip.instance.ComponentInstance;
 import bip2.ujf.verimag.bip.packaging.BipPackage;
+import bip2.ujf.verimag.bip.property.Properties;
 import ujf.verimag.bip.backend.BackendStatus;
 import ujf.verimag.bip.backend.Backendable;
 import ujf.verimag.bip.backend.BackendStatusEnum;
@@ -112,6 +113,12 @@ public class BipBackend implements Backendable {
         // BIP language only describes types, nothing to do with instances.
         return false;
     }
+    
+    @Override
+    public boolean canGenerateFromProperties() {
+    	return false;
+    }
+
 
     @Override
     public BackendStatus generateFromPackage(BipPackage pack) {
@@ -180,6 +187,11 @@ public class BipBackend implements Backendable {
 
     @Override
     public BackendStatus generateFromInstance(ComponentInstance instance) {
+        return new BackendStatus(BackendStatusEnum.FAIL);
+    }
+    
+    @Override
+    public BackendStatus generateFromProperties(Properties properties) {
         return new BackendStatus(BackendStatusEnum.FAIL);
     }
 

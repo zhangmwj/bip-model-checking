@@ -40,6 +40,7 @@ package ujf.verimag.bip.userinterface.cli;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -47,6 +48,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,6 +64,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.antlr.runtime.ANTLRFileStream;
+import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -79,6 +83,7 @@ import bip2.ujf.verimag.bip.component.ComponentDeclaration;
 import bip2.ujf.verimag.bip.component.ComponentFactory;
 import bip2.ujf.verimag.bip.instance.ComponentInstance;
 import bip2.ujf.verimag.bip.packaging.BipPackage;
+import bip2.ujf.verimag.bip.property.Properties;
 import bip2.ujf.verimag.bip.types.ComponentType;
 
 import ujf.verimag.bip.backend.BackendStatus;
@@ -87,6 +92,7 @@ import ujf.verimag.bip.backend.BackendStatusEnum;
 import ujf.verimag.bip.backend.error.BackendGenericError;
 import ujf.verimag.bip.error.GenericError;
 import ujf.verimag.bip.error.message.ErrorCodeEnum;
+import ujf.verimag.bip.error.message.ErrorSeverity;
 import ujf.verimag.bip.instantiator.Instantiator;
 import ujf.verimag.bip.instantiator.InstantiatorException;
 import ujf.verimag.bip.instantiator.error.InstantiatorErrorStringifier;
@@ -101,9 +107,12 @@ import ujf.verimag.bip.parser.Bip2Walker;
 import ujf.verimag.bip.parser.error.DiagnosticError;
 import ujf.verimag.bip.parser.error.LoaderErrorStringifier;
 import ujf.verimag.bip.parser.error.ParserOrLexerError;
+import ujf.verimag.bip.parser.error.PropertyException;
 import ujf.verimag.bip.parser.loader.LoadPackageException;
 import ujf.verimag.bip.parser.loader.PackageLoader;
-
+import ujf.verimag.bip.parser.loader.error.CycleFoundInPackageDep;
+import ujf.verimag.bip.parser.error.PropertyFileNotFoundError;
+import ujf.verimag.bip.parser.registry.PackageAlreadyRegisteredException;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
@@ -168,6 +177,7 @@ public class Runner {
             { "filter-file", "read filter chain specification from file (ignored if -f is given)"},
             { "s", "serialization format: ecore, xml, xmi." },
             { "so", "serialization output directory"}, 
+            { "q", "properties for model checking" },
             };
     
     private OptionSet options = null;
@@ -200,6 +210,7 @@ public class Runner {
     
     private String rootDefinition;
     private String rootPackageName;
+    private String propertiesFile;
 
     /*
      * Holds filter chain specs (from command line)
@@ -243,6 +254,15 @@ public class Runner {
 
     public BipPackage getRootPackage() {
         return rootPackage;
+    }
+    
+    /**
+     * this field contains the result of TODO, if applicable
+     */
+    protected Properties properties;
+    
+    public Properties getProperties() {
+    	return properties;
     }
     
     /**
@@ -634,7 +654,8 @@ public class Runner {
      *            the <it>root</it> instance, if it exists. If null, no backend
      *            will be executed to generate something from instance.
      */
-    void executeBackends(BipPackage pack, ComponentInstance instance) {
+    //TODO
+    void executeBackends(BipPackage pack, ComponentInstance instance, Properties properties) {
         logger.log(Level.FINEST, "executeBackends");
         for (Map.Entry<String, Backendable> abe_kv : abstract_backends
                 .entrySet()) {
@@ -903,6 +924,14 @@ public class Runner {
             }
             rootDefinition = options.valueOf(ospecs.get("d"));
         }
+        
+        propertiesFile = null;
+        if (options.has(ospecs.get("q"))){
+            if (options.valuesOf(ospecs.get("d")).size() > 1){
+                bailOutParser("Duplicated properties file (-q)", parser, -1);
+            }
+            propertiesFile = options.valueOf(ospecs.get("q"));
+        }
 
         try {
             if (options.has(ospecs.get("e"))){
@@ -1063,6 +1092,7 @@ public class Runner {
     public int run(){
         rootInstance = null;
         rootPackage = null;
+        properties = null;
 
         boolean fatal_error_found_loading_type = false;
         int severe_error = 0;
@@ -1159,7 +1189,7 @@ public class Runner {
 
             if (!skip_validation)
                 derrors = pl.validateType(cd);
-
+            
             if (derrors.length > 0) {
                 logger.log(Level.INFO, "Trying to take instance from badly specified declaration.\n");
                 if (reportErrorsAndSummary(derrors)) return -1;
@@ -1177,10 +1207,90 @@ public class Runner {
             }
             stopProfile("INSTANTIATION");
         }
+        if (rootInstance != null && propertiesFile != null) {
+        	startProfile("PROPERTIES");
+        	logger.log(Level.INFO, "Parsing " + propertiesFile);
+        	
+        	File file = new File(propertiesFile);
+        	URL fileUrl = null;
+        	CharStream input = null;
+        	
+        	try {
+        	    fileUrl = file.toURI().toURL();
+        	    InputStream filestream = new FileInputStream(file);
+        	    input = new ANTLRInputStream(filestream);
+                assert(input != null);
+        	} catch (FileNotFoundException  e) {
+                GenericError[] error = {new PropertyFileNotFoundError(propertiesFile)};
+                if (reportErrorsAndSummary(error)) return -1;
+            } catch (IOException e) {
+                GenericError[] error = {new PropertyFileNotFoundError(propertiesFile)};
+                if (reportErrorsAndSummary(error)) return -1;
+            }
+    		
+			Bip2Lexer lexer = new Bip2Lexer(input);
+	        CommonTokenStream tokens = new CommonTokenStream(lexer);
+	        Bip2Parser parser = new Bip2Parser(tokens);
+
+	        Bip2Parser.properties_return pp = null;
+    	       
+	        try {
+	        	pp = parser.properties();
+	        } catch (RecognitionException e) {
+	            // means we have an error in the lexer, get errors directly from it as parser does NOT catch exception from lexer.
+	            // This is done below, after the catch() block.
+	        }
+	        List<GenericError> perrors = new ArrayList<GenericError>();
+	        perrors.addAll(lexer.errors);
+	        perrors.addAll(parser.errors);
+	        for (GenericError error : perrors) {
+                error.setSourceFile(fileUrl);
+            }
+	        
+	        if (reportErrorsAndSummary(perrors)) return -1;
+    	        
+	        CommonTree t = (CommonTree) pp.getTree();
+	        CommonTreeNodeStream nodes = new CommonTreeNodeStream(t);
+	        nodes.setTokenStream(tokens);
+
+	        Bip2Walker walker = new Bip2Walker(nodes);
+	        walker.setLoader(null);
+	        walker.setParsedFileURL(fileUrl);
+	        walker.setGlobalSymbolMap(pl.getGlobalSymbolMap()); // T, réussir à bien set la table des symboles ..... exemple A.var , A.clock même pas sur que A.clock soit possible !
+    	    // ajouter les places
+	        
+	        System.out.println("PROPERTIES");
+	        Bip2Walker.properties_return wp = null;
+	        try {
+	            wp = walker.properties();
+	        } catch (RecognitionException e) {
+	            // do nothing, it should be handled by some try/catch higher in the walker.
+	            // error should be registered..
+	            // throw new LoadPackageException(e);
+	        }
+	        
+	        for (GenericError error : walker.errors) {
+	            error.setSourceFile(fileUrl);
+            }
+            
+            if (reportErrorsAndSummary(new ArrayList<GenericError>(walker.errors))) return -1;
+            
+
+    	    properties = wp.properties;
+
+	        DiagnosticError[] derrors = new DiagnosticError[0];
+	        if (!skip_validation)
+	            derrors = pl.validateType(properties);
+	        
+            if (reportErrorsAndSummary(derrors)) return -1;
+
+        	stopProfile("PROPERTIES");
+
+        }
         
         // run the backends
         startProfile("BACKENDS");
-        executeBackends(rootPackage, rootInstance);
+        executeBackends(rootPackage, rootInstance, properties);
         stopProfile("BACKENDS");
 
         return 0;

@@ -49,10 +49,9 @@ import org.eclipse.emf.common.util.BasicMonitor;
 
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
-
 import bip2.ujf.verimag.bip.instance.ComponentInstance;
 import bip2.ujf.verimag.bip.packaging.BipPackage;
-
+import bip2.ujf.verimag.bip.property.Properties;
 import ujf.verimag.bip.backend.BackendStatus;
 import ujf.verimag.bip.backend.Backendable;
 import ujf.verimag.bip.backend.BackendStatusEnum;
@@ -165,11 +164,22 @@ public class CBackend implements Backendable {
     public boolean canGenerateFromInstance() {
         return true;
     }
+    
+    @Override
+    public boolean canGenerateFromProperties() {
+    	return false;
+    }
+
 
     @Override
     public BackendStatus generateFromInstance(ComponentInstance instance) {
         System.out.println("Generate instance for " + instance.getDeclaration().getName());
         return new BackendStatus(BackendStatusEnum.SUCCESS);
+    }
+
+    @Override
+    public BackendStatus generateFromProperties(Properties properties) {
+        return new BackendStatus(BackendStatusEnum.FAIL);
     }
 
     @Override

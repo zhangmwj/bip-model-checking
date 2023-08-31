@@ -141,6 +141,12 @@ public class LoaderErrorStringifier extends AbstractErrorStringifier {
             return this.stringify((DiagnosticError) error);
         } else if (error instanceof LoaderError){
             return this.stringify((LoaderError)error);
+        } else if (error instanceof PropertyFileNotFoundError) {
+        	String message = getSpecificErrorMessage(error.errorcode);
+            StringBuffer sb = new StringBuffer();
+            message = String.format(message, ((PropertyFileNotFoundError) error).fileName);
+            sb.append(message + "\n");
+            return sb.toString();
         }
         
         assert(false); // this should never happen.

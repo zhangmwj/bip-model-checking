@@ -663,6 +663,20 @@
             </genClasses>
             <genClasses ecoreClass="bip2.ecore#//ujf/verimag/bip/time/Resume"/>
           </nestedGenPackages>
+          <nestedGenPackages prefix="Property" basePackage="bip2.ujf.verimag.bip"
+              disposableProviderFactory="true" ecorePackage="bip2.ecore#//ujf/verimag/bip/property">
+            <genClasses ecoreClass="bip2.ecore#//ujf/verimag/bip/property/Property">
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bip2.ecore#//ujf/verimag/bip/property/Property/reachability"/>
+              <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bip2.ecore#//ujf/verimag/bip/property/Property/expression"/>
+            </genClasses>
+            <genClasses ecoreClass="bip2.ecore#//ujf/verimag/bip/property/Properties">
+              <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bip2.ecore#//ujf/verimag/bip/property/Properties/properties"/>
+            </genClasses>
+            <genClasses ecoreClass="bip2.ecore#//ujf/verimag/bip/property/StringToPropertyMapEntry">
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bip2.ecore#//ujf/verimag/bip/property/StringToPropertyMapEntry/key"/>
+              <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bip2.ecore#//ujf/verimag/bip/property/StringToPropertyMapEntry/value"/>
+            </genClasses>
+          </nestedGenPackages>
         </nestedGenPackages>
       </nestedGenPackages>
     </nestedGenPackages>
