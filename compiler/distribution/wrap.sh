@@ -2,13 +2,13 @@
 
 ## choose backends to include in the distribution
 # assume we are using cpp, bip & aseba backend.
-BACKENDS="cpp bip aseba"
+BACKENDS="cpp" # bip aseba"
 
 # choose filters to include
 FILTERS="flattening"
 
 ## choose which engines to include in the distribution
-ENGINES="reference-engine optimized-engine multithread-engine"
+ENGINES="model-checker-engine" # reference-engine optimized-engine multithread-engine"
 
 ## should not change anything below...
 
